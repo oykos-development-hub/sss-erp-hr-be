@@ -1,0 +1,1 @@
+DROP TABLE revisions_of_organization_units;
