@@ -23,6 +23,8 @@ jobs:
           sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose --version
+          docker-compose down
+          docker-compose up -d
 
      - uses: appleboy/ssh-action@master
        with:
@@ -36,8 +38,6 @@ jobs:
               rm -rf ./${{vars.GIT_REPO}}
               git clone -b development https://oykos-development-hub:${{secrets.GIT_ACCESS_TOKEN}}@github.com/oykos-development-hub/${{vars.GIT_REPO}}.git
               cd ./${{vars.GIT_REPO}}
-              docker-compose down
-              docker-compose up -d
               if ! command -v go &> /dev/null; then
                 echo "Go version is 1.20 or higher!"
               elif [[ "$(go version)" != *"go1.20"* ]]; then
@@ -62,7 +62,13 @@ jobs:
                 npm install pm2@latest -g
               fi
               cd ../../
-              pm2 delete ${{vars.GIT_REPO}}
+              # Check if the process exists before attempting to delete
+              if pm2 show ${{vars.GIT_REPO}} &>/dev/null; then
+                pm2 delete ${{vars.GIT_REPO}}
+                echo "Existing process ${{vars.GIT_REPO}} deleted."
+              else
+                echo "No existing process ${{vars.GIT_REPO}} found. Skipping delete."
+              fi
               echo "module.exports = { apps: [ { name: '${{vars.GIT_REPO}}', script: './hrApp', args: 'development', watch: true, } ] };" > hr-be.config.js
               pm2 start hr-be.config.js
               pm2 save
