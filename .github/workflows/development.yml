@@ -61,6 +61,7 @@ jobs:
                 rm go1.20.linux-amd64.tar.gz
               fi
               export PATH="/usr/bin/go/bin:$PATH"
+              go get -u github.com/oykos-development-hub/celeritas
               go build -o hrApp
               if [ ! -f ./hrApp ]; then
                 echo "Go build "hrApp" file does not exist!"
