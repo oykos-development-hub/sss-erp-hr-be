@@ -70,20 +70,4 @@ jobs:
               rm -rf ../../hrApp
               cp ./hrApp ../../
               cp ./.env-example ../../.env
-              if ! command -v pm2 &> /dev/null; then
-                echo "PM2 is not installed. Installing PM2..."
-                npm install pm2@latest -g
-              fi
-              cd ../../
-              # Check if the process exists before attempting to delete
-              if pm2 show ${{vars.GIT_REPO}} &>/dev/null; then
-                pm2 delete ${{vars.GIT_REPO}}
-                echo "Existing process ${{vars.GIT_REPO}} deleted."
-              else
-                echo "No existing process ${{vars.GIT_REPO}} found. Skipping delete."
-              fi
-              echo "module.exports = { apps: [ { name: '${{vars.GIT_REPO}}', script: './hrApp', args: 'development', watch: true, } ] };" > hr-be.config.js
-              pm2 start hr-be.config.js
-              pm2 save
-              
-              
+              sudo systemctl restart sss-erp-hr-be.service
