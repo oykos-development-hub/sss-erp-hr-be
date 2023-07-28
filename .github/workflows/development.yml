@@ -61,6 +61,7 @@ jobs:
                 rm go1.20.linux-amd64.tar.gz
               fi
               export PATH="/usr/bin/go/bin:$PATH"
+              go mod tidy
               go get -u github.com/oykos-development-hub/celeritas
               go build -o hrApp
               if [ ! -f ./hrApp ]; then
