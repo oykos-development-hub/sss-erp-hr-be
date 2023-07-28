@@ -6,7 +6,7 @@ require (
 	github.com/go-chi/chi/v5 v5.0.8
 	github.com/go-playground/validator/v10 v10.14.0
 	github.com/guregu/null v4.0.0+incompatible
-	github.com/oykos-development-hub/celeritas v1.2.3
+	github.com/oykos-development-hub/celeritas v1.2.6
 	github.com/upper/db/v4 v4.6.0
 )
 
