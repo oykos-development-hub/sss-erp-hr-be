@@ -62,7 +62,6 @@ jobs:
               fi
               export PATH="/usr/bin/go/bin:$PATH"
               go mod tidy
-              go get -u github.com/oykos-development-hub/celeritas
               go build -o hrApp
               if [ ! -f ./hrApp ]; then
                 echo "Go build "hrApp" file does not exist!"
