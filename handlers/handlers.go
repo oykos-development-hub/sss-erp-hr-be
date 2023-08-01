@@ -174,6 +174,7 @@ type EmployeeAbsentHandler interface {
 	UpdateEmployeeAbsent(w http.ResponseWriter, r *http.Request)
 	DeleteEmployeeAbsent(w http.ResponseWriter, r *http.Request)
 	GetEmployeeAbsentList(w http.ResponseWriter, r *http.Request)
+	GetAbsentById(w http.ResponseWriter, r *http.Request)
 }
 
 type RevisionsOfOrganizationUnitHandler interface {

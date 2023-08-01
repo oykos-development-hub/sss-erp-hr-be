@@ -111,8 +111,10 @@ func (h *userprofileHandlerImpl) GetUserProfileList(w http.ResponseWriter, r *ht
 
 func (h *userprofileHandlerImpl) GetContracts(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
+	var input dto.GetEmployeeContracts
+	_ = h.App.ReadJSON(w, r, &input)
 
-	res, err := h.service.GetContracts(id)
+	res, err := h.service.GetContracts(id, input)
 	if err != nil {
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

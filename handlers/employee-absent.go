@@ -98,3 +98,15 @@ func (h *employeeabsentHandlerImpl) GetEmployeeAbsentList(w http.ResponseWriter,
 
 	_ = h.App.WriteDataResponse(w, http.StatusOK, "", res)
 }
+
+func (h *employeeabsentHandlerImpl) GetAbsentById(w http.ResponseWriter, r *http.Request) {
+	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
+
+	res, err := h.service.GetAbsent(id)
+	if err != nil {
+		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
+		return
+	}
+
+	_ = h.App.WriteDataResponse(w, http.StatusOK, "", res)
+}

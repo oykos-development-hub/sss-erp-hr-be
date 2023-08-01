@@ -47,7 +47,7 @@ type UserProfileService interface {
 	DeleteUserProfile(id int) error
 	GetUserProfile(id int) (*dto.UserProfileResponseDTO, error)
 	GetUserProfileList(data dto.GetProfilesInputDTO) ([]dto.UserProfileResponseDTO, *uint64, error)
-	GetContracts(id int) ([]dto.EmployeeContractResponseDTO, error)
+	GetContracts(id int, input dto.GetEmployeeContracts) ([]dto.EmployeeContractResponseDTO, error)
 }
 
 type EmployeeContractService interface {
@@ -137,6 +137,7 @@ type EmployeeAbsentService interface {
 	CreateEmployeeAbsent(input dto.EmployeeAbsentDTO) (*dto.EmployeeAbsentResponseDTO, error)
 	UpdateEmployeeAbsent(id int, input dto.EmployeeAbsentDTO) (*dto.EmployeeAbsentResponseDTO, error)
 	DeleteEmployeeAbsent(id int) error
+	GetAbsent(id int) (*dto.EmployeeAbsentResponseDTO, error)
 	GetEmployeeAbsentList(userProfileID int, input dto.GetEmployeeAbsentsInputDTO) ([]dto.EmployeeAbsentResponseDTO, error)
 }
 

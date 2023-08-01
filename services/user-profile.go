@@ -101,8 +101,12 @@ func (h *UserProfileServiceImpl) GetUserProfileList(data dto.GetProfilesInputDTO
 	return response, total, nil
 }
 
-func (h *UserProfileServiceImpl) GetContracts(id int) ([]dto.EmployeeContractResponseDTO, error) {
-	contracts, err := h.contractRepo.GetByUserProfileId(id, nil)
+func (h *UserProfileServiceImpl) GetContracts(id int, input dto.GetEmployeeContracts) ([]dto.EmployeeContractResponseDTO, error) {
+	cond := up.Cond{}
+	if input.Active != nil {
+		cond["active"] = *input.Active
+	}
+	contracts, err := h.contractRepo.GetByUserProfileId(id, &cond)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}

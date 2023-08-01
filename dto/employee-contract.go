@@ -6,6 +6,10 @@ import (
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 )
 
+type GetEmployeeContracts struct {
+	Active *bool `json:"active"`
+}
+
 type EmployeeContractDTO struct {
 	UserProfileID     int        `json:"user_profile_id"`
 	ContractTypeID    int        `json:"contract_type_id"`

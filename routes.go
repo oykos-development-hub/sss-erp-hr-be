@@ -81,6 +81,7 @@ func routes(app *celeritas.Celeritas, middleware *middleware.Middleware, handler
 		rt.Post("/evaluations", handlers.EvaluationHandler.CreateEvaluation)
 		rt.Get("/user-profiles/{id}/evaluations", handlers.EvaluationHandler.GetEvaluationList)
 		rt.Put("/evaluations/{id}", handlers.EvaluationHandler.UpdateEvaluation)
+		rt.Get("/evaluations/{id}", handlers.EvaluationHandler.GetEvaluationById)
 		rt.Delete("/evaluations/{id}", handlers.EvaluationHandler.DeleteEvaluation)
 
 		rt.Post("/foreigners", handlers.ForeignerHandler.CreateForeigner)
@@ -110,6 +111,7 @@ func routes(app *celeritas.Celeritas, middleware *middleware.Middleware, handler
 		rt.Post("/employee-absents", handlers.EmployeeAbsentHandler.CreateEmployeeAbsent)
 		rt.Put("/employee-absents/{id}", handlers.EmployeeAbsentHandler.UpdateEmployeeAbsent)
 		rt.Get("/user-profiles/{id}/absents", handlers.EmployeeAbsentHandler.GetEmployeeAbsentList)
+		rt.Get("/employee-absents/{id}", handlers.EmployeeAbsentHandler.GetAbsentById)
 		rt.Delete("/employee-absents/{id}", handlers.EmployeeAbsentHandler.DeleteEmployeeAbsent)
 
 		rt.Post("/revisions-of-organization-units", handlers.RevisionsOfOrganizationUnitHandler.CreateRevisionsOfOrganizationUnit)

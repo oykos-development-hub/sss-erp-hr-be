@@ -44,7 +44,6 @@ func (t *EmployeeContract) Delete(id int) error {
 	return nil
 }
 
-// Delete deletes a record from the database by id, using upper
 func (t *EmployeeContract) GetByUserProfileId(userProfileId int, condition *up.Cond) ([]*EmployeeContract, error) {
 	var employeeContracts []*EmployeeContract
 

@@ -85,3 +85,14 @@ func (h *EmployeeAbsentServiceImpl) GetEmployeeAbsentList(userProfileID int, inp
 
 	return response, nil
 }
+
+func (h *EmployeeAbsentServiceImpl) GetAbsent(id int) (*dto.EmployeeAbsentResponseDTO, error) {
+	data, err := h.repo.Get(id)
+	if err != nil {
+		h.App.ErrorLog.Println(err)
+		return nil, errors.ErrNotFound
+	}
+	response := dto.ToEmployeeAbsentResponseDTO(*data)
+
+	return &response, nil
+}
