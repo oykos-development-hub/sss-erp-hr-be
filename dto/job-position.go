@@ -7,8 +7,8 @@ import (
 )
 
 type CreateJobPositionDTO struct {
-	Title            string  `json:"title" validate:"required,min=2"`
-	Abbreviation     string  `json:"abbreviation" validate:"required,min=2,max=8"`
+	Title            string  `json:"title" validate:"required"`
+	Abbreviation     string  `json:"abbreviation" validate:"required"`
 	SerialNumber     string  `json:"serial_number" validate:"required"`
 	Description      *string `json:"description" validate:"omitempty"`
 	Requirements     string  `json:"requirements" validate:"required"`
@@ -19,8 +19,8 @@ type CreateJobPositionDTO struct {
 }
 
 type UpdateJobPositionDTO struct {
-	Title            *string `json:"title" validate:"min=2"`
-	Abbreviation     *string `json:"abbreviation" validate:"min=2,max=4"`
+	Title            *string `json:"title"`
+	Abbreviation     *string `json:"abbreviation"`
 	SerialNumber     *string `json:"serial_number"`
 	Description      *string `json:"description" validate:"omitempty"`
 	Requirements     *string `json:"requirements"`

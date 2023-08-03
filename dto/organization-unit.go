@@ -8,8 +8,8 @@ import (
 
 type CreateOrganizationUnitDTO struct {
 	ParentID       *int    `json:"parent_id,omitempty"`
-	Title          string  `json:"title" validate:"required,min=2"`
-	Abbreviation   string  `json:"abbreviation" validate:"required,min=2,max=4"`
+	Title          string  `json:"title" validate:"required"`
+	Abbreviation   string  `json:"abbreviation" validate:"required"`
 	NumberOfJudges *int    `json:"number_of_judges"`
 	Color          *string `json:"color" validate:"omitempty"`
 	Icon           *string `json:"icon" validate:"omitempty"`
@@ -20,8 +20,8 @@ type CreateOrganizationUnitDTO struct {
 
 type UpdateOrganizationUnitDTO struct {
 	ParentID       *int    `json:"parent_id,omitempty"`
-	Title          *string `json:"title" validate:"min=2"`
-	Abbreviation   *string `json:"abbreviation" validate:"max=4"`
+	Title          *string `json:"title"`
+	Abbreviation   *string `json:"abbreviation"`
 	NumberOfJudges *int    `json:"number_of_judges"`
 	Color          *string `json:"color" validate:"omitempty"`
 	Icon           *string `json:"icon" validate:"omitempty"`

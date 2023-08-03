@@ -8,12 +8,12 @@ import (
 
 type UserProfileDTO struct {
 	UserAccountId             int       `json:"user_account_id" validate:"required"`
-	FirstName                 string    `json:"first_name" validate:"required,min=2"`
+	FirstName                 string    `json:"first_name" validate:"required"`
 	MiddleName                *string   `json:"middle_name"`
-	LastName                  string    `json:"last_name" validate:"required,min=2"`
+	LastName                  string    `json:"last_name" validate:"required"`
 	BirthLastName             *string   `json:"birth_last_name"`
-	FatherName                string    `json:"father_name" validate:"required,min=2"`
-	MotherName                string    `json:"mother_name" validate:"required,min=2"`
+	FatherName                string    `json:"father_name" validate:"required"`
+	MotherName                string    `json:"mother_name" validate:"required"`
 	MotherBirthLastName       *string   `json:"mother_birth_last_name"`
 	DateOfBirth               JSONTime  `json:"date_of_birth" validate:"required"`
 	CountryOfBirth            string    `json:"country_of_birth" validate:"required"`

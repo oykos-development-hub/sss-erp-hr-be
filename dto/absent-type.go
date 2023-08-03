@@ -8,8 +8,8 @@ import (
 
 type AbsentTypeDTO struct {
 	ParentID          *int    `json:"parent_id" validate:"omitempty"`
-	Title             string  `json:"title" validate:"required,min=2"`
-	Abbreviation      string  `json:"abbreviation" validate:"required,min=2,max=6"`
+	Title             string  `json:"title" validate:"required"`
+	Abbreviation      string  `json:"abbreviation" validate:"required"`
 	AccountingDaysOff bool    `json:"accounting_days_off" validate:"required"`
 	Relocation        bool    `json:"relocation" validate:"required"`
 	Description       *string `json:"description" validate:"omitempty"`

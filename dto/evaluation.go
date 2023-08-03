@@ -9,9 +9,9 @@ import (
 type EvaluationDTO struct {
 	UserProfileID    int        `json:"user_profile_id"  validate:"required"`
 	EvaluationTypeID int        `json:"evaluation_type_id"  validate:"required"`
-	Score            string     `json:"score"  validate:"required,min=2"`
+	Score            string     `json:"score"  validate:"required"`
 	DateOfEvaluation *time.Time `json:"date_of_evaluation"  validate:"required"`
-	Evaluator        string     `json:"evaluator" validate:"required,min=2"`
+	Evaluator        string     `json:"evaluator" validate:"required"`
 	IsRelevant       *bool      `json:"is_relevant" validate:"required"`
 	FileID           *int       `json:"file_id"  validate:"omitempty"`
 }

@@ -9,7 +9,7 @@ import (
 type CreateSystematizationDTO struct {
 	UserProfileID      int       `json:"user_profile_id"  validate:"required"`
 	OrganizationUnitID int       `json:"organization_unit_id" validate:"required"`
-	Description        string    `json:"description" validate:"required,min=2"`
+	Description        string    `json:"description" validate:"required"`
 	SerialNumber       string    `json:"serial_number" validate:"required"`
 	Active             bool      `json:"active"`
 	DateOfActivation   time.Time `json:"date_of_activation" validate:"required"`
@@ -19,7 +19,7 @@ type CreateSystematizationDTO struct {
 type UpdateSystematizationDTO struct {
 	UserProfileID      *int       `json:"user_profile_id"  validate:"required"`
 	OrganizationUnitID *int       `json:"organization_unit_id" validate:"required"`
-	Description        *string    `json:"description" validate:"required,min=2"`
+	Description        *string    `json:"description" validate:"required"`
 	SerialNumber       *string    `json:"serial_number" validate:"required"`
 	Active             *bool      `json:"active"`
 	DateOfActivation   *time.Time `json:"date_of_activation" validate:"required"`
