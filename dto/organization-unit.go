@@ -11,22 +11,22 @@ type CreateOrganizationUnitDTO struct {
 	Title          string  `json:"title" validate:"required,min=2"`
 	Abbreviation   string  `json:"abbreviation" validate:"required,min=2,max=4"`
 	NumberOfJudges *int    `json:"number_of_judges"`
-	Color          *string `json:"color" validate:"omitempty,min=2"`
-	Icon           *string `json:"icon" validate:"omitempty,min=2"`
-	Address        *string `json:"address" validate:"omitempty,min=2"`
-	Description    *string `json:"description" validate:"omitempty,min=2"`
+	Color          *string `json:"color" validate:"omitempty"`
+	Icon           *string `json:"icon" validate:"omitempty"`
+	Address        *string `json:"address" validate:"omitempty"`
+	Description    *string `json:"description" validate:"omitempty"`
 	FolderID       *int    `json:"folder_id,omitempty"`
 }
 
 type UpdateOrganizationUnitDTO struct {
 	ParentID       *int    `json:"parent_id,omitempty"`
 	Title          *string `json:"title" validate:"min=2"`
-	Abbreviation   *string `json:"abbreviation" validate:"min=2,max=4"`
+	Abbreviation   *string `json:"abbreviation" validate:"max=4"`
 	NumberOfJudges *int    `json:"number_of_judges"`
-	Color          *string `json:"color" validate:"omitempty,min=2"`
-	Icon           *string `json:"icon" validate:"omitempty,min=2"`
-	Address        *string `json:"address" validate:"omitempty,min=2"`
-	Description    *string `json:"description" validate:"omitempty,min=2"`
+	Color          *string `json:"color" validate:"omitempty"`
+	Icon           *string `json:"icon" validate:"omitempty"`
+	Address        *string `json:"address" validate:"omitempty"`
+	Description    *string `json:"description" validate:"omitempty"`
 	FolderID       *int    `json:"folder_id,omitempty"`
 }
 

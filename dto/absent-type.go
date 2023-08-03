@@ -12,9 +12,9 @@ type AbsentTypeDTO struct {
 	Abbreviation      string  `json:"abbreviation" validate:"required,min=2,max=6"`
 	AccountingDaysOff bool    `json:"accounting_days_off" validate:"required"`
 	Relocation        bool    `json:"relocation" validate:"required"`
-	Description       *string `json:"description" validate:"omitempty,min=2"`
-	Color             *string `json:"color" validate:"omitempty,min=2"`
-	Icon              *string `json:"icon" validate:"omitempty,min=2"`
+	Description       *string `json:"description" validate:"omitempty"`
+	Color             *string `json:"color" validate:"omitempty"`
+	Icon              *string `json:"icon" validate:"omitempty"`
 }
 
 type AbsentTypeResponseDTO struct {

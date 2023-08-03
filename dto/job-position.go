@@ -10,24 +10,24 @@ type CreateJobPositionDTO struct {
 	Title            string  `json:"title" validate:"required,min=2"`
 	Abbreviation     string  `json:"abbreviation" validate:"required,min=2,max=8"`
 	SerialNumber     string  `json:"serial_number" validate:"required"`
-	Description      *string `json:"description" validate:"omitempty,min=2"`
+	Description      *string `json:"description" validate:"omitempty"`
 	Requirements     string  `json:"requirements" validate:"required"`
 	IsJudge          *bool   `json:"is_judge" validate:"required"`
 	IsJudgePresident *bool   `json:"is_judge_president" validate:"required"`
-	Color            *string `json:"color" validate:"omitempty,min=2"`
-	Icon             *string `json:"icon" validate:"omitempty,min=2"`
+	Color            *string `json:"color" validate:"omitempty"`
+	Icon             *string `json:"icon" validate:"omitempty"`
 }
 
 type UpdateJobPositionDTO struct {
 	Title            *string `json:"title" validate:"min=2"`
 	Abbreviation     *string `json:"abbreviation" validate:"min=2,max=4"`
 	SerialNumber     *string `json:"serial_number"`
-	Description      *string `json:"description" validate:"omitempty,min=2"`
+	Description      *string `json:"description" validate:"omitempty"`
 	Requirements     *string `json:"requirements"`
 	IsJudge          *bool   `json:"is_judge"`
 	IsJudgePresident *bool   `json:"is_judge_president"`
-	Color            *string `json:"color" validate:"omitempty,min=2"`
-	Icon             *string `json:"icon" validate:"omitempty,min=2"`
+	Color            *string `json:"color" validate:"omitempty"`
+	Icon             *string `json:"icon" validate:"omitempty"`
 }
 
 type JobPositionResponseDTO struct {
