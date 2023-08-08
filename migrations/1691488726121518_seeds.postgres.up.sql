@@ -32,19 +32,6 @@ VALUES
     (10, 6, 'Ema', NULL, 'Kovačević', 'Marija', 'Tina', 'Simić', '2013-12-05', 'Montenegro', 'Bar', 'Montenegrin', 'Montenegrin', 'Ulica Sunčanih Luka 7', 'ID60010', 'F', 'Kći', 'Zakonsko', false, NOW(), NOW()),
     (11, 6, 'Davor', NULL, 'Kovačević', 'Marija', 'Tina', 'Simić', '2015-05-10', 'Montenegro', 'Bar', 'Montenegrin', 'Montenegrin', 'Ulica Sunčanih Luka 7', 'ID60011', 'M', 'Sin', 'Zakonsko', false, NOW(), NOW());
 
--- education for each employee
-INSERT INTO employee_education (
-    user_profile_id, education_type_id, date_of_certification, price, date_of_start, date_of_end,
-    academic_title, expertise_level, certificate_issuer, title, description, file_id, created_at, updated_at)
-VALUES
-    (1, 1, 1, '2015-05-05', 500, '2010-09-01', '2015-05-05', 'Bachelor of Law', 'Intermediate', 'University of Montenegro', 'LLB', 'Completed law degree with honors', 1001, NOW(), NOW()),
-    (2, 2, 2, '2014-05-05', 300, '2008-09-01', '2012-05-05', 'Master of Science in Economics', 'Advanced', 'Faculty of Economics, Podgorica', 'MSc', 'Specialization in Finance', 1002, NOW(), NOW()),
-    (3, 3, 3, '1999-01-01', NULL, '1990-09-01', '1995-01-01', 'Ph.D. in History', 'Expert', 'University of Arts and Sciences, Budva', 'PhD', 'Thesis on Montenegrin Modern History', 1003, NOW(), NOW()),
-    (4, 4, 4, '2018-06-06', 200, '2015-09-01', '2018-06-06', 'Master of Architecture', 'Advanced', 'Faculty of Architecture, Herceg Novi', 'MArch', 'Focus on urban planning', 1004, NOW(), NOW()),
-    (5, 5, 5, '2013-04-04', 400, '2009-09-01', '2013-04-04', 'Bachelor of Medicine', 'Intermediate', 'Medical Faculty, Tivat', 'MBBS', 'Specialization in Pediatrics', 1005, NOW(), NOW()),
-    (6, 6, 6, '2016-07-07', 350, '2012-09-01', '2016-07-07', 'Master of Fine Arts', 'Advanced', 'Academy of Fine Arts, Bar', 'MFA', 'Concentration in Visual Arts', 1006, NOW(), NOW());
-
-
 -- organization_units - 5 jedinica, 3 suda (prva 3) i 2 pomocne jedinice (racunovodstvo i it sluzba koji pripadaju prvom sudu id:1)
 INSERT INTO organization_units
     (id, parent_id, title, abbreviation, number_of_judges, color, icon, address, description, folder_id,
@@ -91,3 +78,91 @@ VALUES
     (7, 3, 1, 1, 2, NULL, 'Stari sudija Niksic', 'NABC789', 3, NULL, 'icon.png', NOW(), NOW()),
     (1, 1, 1, 1, 2, NULL, 'Sudija Niksic', 'ABC123', 3, NULL, 'icon.png', NOW(), NOW()),
     (4, 2, 2, 1, 5, NULL, 'Sudija Berane', 'ABC124', 3, NULL, 'icon.png', NOW(), NOW())
+
+-- add employees to job positions (job_positions_in_organization_units)
+INSERT INTO employees_in_organization_units 
+    (id, user_account_id, user_profile_id, position_in_organization_unit_id, active, created_at, updated_at)
+VALUES
+    (1, 2, 2, 2, true, NOW(), NOW()),
+    (2, 3, 3, 1, true, NOW(), NOW()),
+    (3, 4, 4, 5, true, NOW(), NOW()),
+    (4, 5, 5, 4, true, NOW(), NOW()),
+    (5, 6, 6, 5, true, NOW(), NOW())
+
+
+-- contracts
+INSERT INTO employee_contracts (user_profile_id, contract_type_id, abbreviation, description, active, serial_number, net_salary, gross_salary, bank_account, bank_name, date_of_signature, date_of_eligibility, date_of_start, date_of_end, file_id, created_at, updated_at)
+VALUES
+    (2, 6, 'CT1', 'Predsjednik Niksic', true, '123456', '2000', '2500', '123456789', 'Banka A', '2023-08-01', '2023-09-01', '2023-09-15', null, 101, NOW(), NOW()),
+    (3, 7, 'CT2', 'Sudija Niksic', true, '654321', '1800', '1200', '987654321', 'Banka B', '2023-08-02', '2023-09-02', '2023-09-20', '2024-09-19', 102, NOW(), NOW()),
+    (4, 7, 'CT3', 'Predsjednik Berane', true, '987654', '2200', '2800', '456789123', 'Banka C', '2023-08-03', '2023-09-03', '2023-10-01', '2024-10-01', 103, NOW(), NOW()),
+	(5, 6, 'CT5', 'Sudija Berane', true, '123456', '2000', '1200', '123456789', 'Banka A', '2023-08-01', '2023-09-01', '2023-09-15', null, 101, NOW(), NOW()),
+    (6, 7, 'CT6', 'IT strucnjak', true, '654321', '1800', '600', '987654321', 'Banka B', '2023-08-02', '2023-09-02', '2023-09-20', '2024-09-19', 102, NOW(), NOW()),
+	(7, 6, 'CT6', 'Sudija Berane neaktivan', false, '654321', '1800', '1000', '987654321', 'Banka B', '2022-08-02', '2022-09-02', '2022-09-20', '2022-10-19', 102, NOW(), NOW())
+
+-- experiences for each employee
+INSERT INTO employee_experiences (
+    id, user_profile_id, relevant, organization_unit, organization_unit_id, amount_of_experience,
+    amount_of_insured_experience, date_of_signature, date_of_start, date_of_end, file_id, created_at, updated_at)
+VALUES
+    (1, 1, true, 'Advokatska firma Beograd', NULL, 2, 2, '2015-01-01', '2013-01-01', '2015-01-01', 2001, NOW(), NOW()),
+    (2, 1, true, NULL, 3, 3, 2, '2018-01-01', '2015-01-01', '2018-01-01', 2007, NOW(), NOW()),
+    (3, 2, true, 'Notarski ured Tuzla', NULL, 4, 3, '2016-01-01', '2012-01-01', '2016-01-01', 2002, NOW(), NOW()),
+    (4, 2, true, NULL, 2, 5, 4, '2017-01-01', '2012-01-01', '2017-01-01', 2008, NOW(), NOW()),
+    (5, 3, true, NULL, 4, 6, 5, '2018-01-01', '2012-01-01', '2018-01-01', 2003, NOW(), NOW()),
+    (6, 3, true, NULL, 2, 3, 2, '2014-01-01', '2011-01-01', '2014-01-01', 2009, NOW(), NOW()),
+    (7, 4, true, 'Osnovni sud Herceg Novi', NULL, 4, 3, '2018-06-06', '2014-06-06', '2018-06-06', 2010, NOW(), NOW()),
+    (8, 4, true, NULL, 3, 3, 3, '2018-04-04', '2015-04-04', '2018-04-04', 2005, NOW(), NOW()),
+    (9, 5, true, 'Tužilaštvo Tivat', NULL, 2, 1, '2017-07-07', '2015-07-07', '2017-07-07', 2006, NOW(), NOW()),
+    (10, 5, true, NULL, 4, 4, 4, '2017-04-04', '2013-04-04', '2017-04-04', 2011, NOW(), NOW()),
+    (11, 6, true, 'IT Kompanija Bar', NULL, 3, 2, '2016-07-07', '2013-07-07', '2016-07-07', 2012, NOW(), NOW()),
+    (12, 6, true, 'Zavod za informatičke tehnologije Bar', NULL, 4, 3, '2015-12-12', '2011-12-12', '2015-12-12', 2013, NOW(), NOW()),
+    (13, 6, true, NULL, 5, 5, 4, '2016-12-12', '2011-12-12', '2016-12-12', 2014, NOW(), NOW());
+
+-- educations
+INSERT INTO employee_educations (
+    id, user_profile_id, education_type_id, date_of_certification, date_of_start, date_of_end, academic_title, expertise_level, certificate_issuer, title, description, created_at, updated_at)
+VALUES
+    (1, 2, 16, '2020-01-01', '2016-01-01', '2019-01-01', 'Bachelor prava', '6', 'Univerzitet Crne Gore', 'Pravne studije', 'Specijalističke studije prava', NOW(), NOW()),
+    (2, 3, 16, '2021-06-01', '2017-06-01', '2020-06-01', 'Bachelor kriminalistike', '6', 'Pravni fakultet', 'Kriminalistika', 'Studije kriminalistike', NOW(), NOW()),
+    (3, 4, 17, '2019-05-01', '2015-05-01', '2018-05-01', 'Magistar prava', '7', 'Univerzitet Crne Gore', 'Pravo', 'Magistarske studije prava', NOW(), NOW()),
+    (4, 5, 16, '2018-09-01', '2014-09-01', '2017-09-01', 'Bachelor', '6', 'Univerzitet Crne Gore', 'Pravne studije', 'Bachelor studije prava', NOW(), NOW()),
+    (5, 6, 17, '2023-06-01', '2019-06-01', '2022-06-01', 'Master inženjer informacionih tehnologija', '7', 'Tehnički fakultet', 'IT u pravnom sistemu', 'Postdiplomske studije u IT i pravu', NOW(), NOW());
+
+
+INSERT INTO employee_resolutions
+    (id, resolution_type_id, user_profile_id, resolution_purpose, date_of_start, date_of_end, 
+    file_id, created_at, updated_at)
+VALUES
+    (1, 8, 3, 'Svadja sa nadleznim', '2022-09-01', '2022-12-01', NULL, NOW(), NOW()),
+    (2, 9, 4, 'Povecanje plate', '2022-09-01', '2022-12-01', NULL, NOW(), NOW()),
+    (3, 10, 3, 'Nedozvoljene materije na radnom mjestu', '2022-09-01', '2022-12-01' ,NULL, NOW(), NOW())
+
+-- absent types and absents
+INSERT INTO absent_types (
+    id, parent_id, title, abbreviation, accounting_days_off, relocation, description, color, icon, created_at, updated_at)
+VALUES
+    (1, NULL, 'Odsustvo zbog bolesti', 'OBB', false, false, 'Odsustvo zbog bolesti ili medicinskog tretmana', '#FF0000', 'icon-sick', NOW(), NOW()),
+    (2, NULL, 'Godišnji odmor', 'GO', true, false, 'Zakonski godišnji odmor', '#00FF00', 'icon-vacation', NOW(), NOW()),
+    (3, NULL, 'Sudsko odsustvo', 'SO', true, false, 'Odsustvo zbog sudskog postupka ili saslušanja', '#0000FF', 'icon-court', NOW(), NOW()),
+    (4, NULL, 'Službeni put', 'SP', false, true, 'Odsustvo zbog službenog putovanja ili delegacije', '#FFFF00', 'icon-business-trip', NOW(), NOW()),
+    (5, NULL, 'Odsustvo zbog obuke', 'OBO', false, false, 'Odsustvo zbog stručne obuke ili edukacije', '#00FFFF', 'icon-training', NOW(), NOW());
+
+INSERT INTO employee_absents (
+    id, absent_type_id, user_profile_id, target_organization_unit_id, description, date_of_start, date_of_end, location, file_id, created_at, updated_at)
+VALUES
+    (1, 1, 1, NULL, 'Odsustvo zbog gripa', '2023-08-01', '2023-08-07', 'Podgorica', NULL, NOW(), NOW()),
+    (2, 2, 1, NULL, 'Godišnji odmor', '2023-07-01', '2023-07-15', 'Budva', NULL, NOW(), NOW()),
+    
+    (3, 3, 2, NULL, 'Sudsko saslušanje', '2023-08-05', '2023-08-05', 'Nikšić', NULL, NOW(), NOW()),
+    (4, 1, 2, NULL, 'Odsustvo zbog gripa', '2022-01-01', '2022-04-01', 'Podgorica', NULL, NOW(), NOW()),
+    
+    (5, 4, 3, 3, 'Službeni put u inostranstvo', '2023-06-01', '2023-06-10', 'Budva', NULL, NOW(), NOW()),
+    
+    (6, 1, 4, NULL, 'Odsustvo zbog bolesti', '2023-05-10', '2023-05-20', 'Herceg Novi', NULL, NOW(), NOW()),
+    (7, 2, 4, NULL, 'Godišnji odmor', '2023-09-01', '2023-09-15', 'Herceg Novi', NULL, NOW(), NOW()),
+    
+    (8, 4, 5, 3, 'Službeni put', '2023-04-01', '2023-04-05', 'Tivat', NULL, NOW(), NOW()),
+    
+    (9, 2, 6, NULL, 'Godišnji odmor', '2023-07-01', '2023-07-15', 'Bar', NULL, NOW(), NOW()),
+    (10, 5, 6, NULL, 'Obuka za IT stručnjaka', '2023-05-15', '2023-05-20', 'Bar', NULL, NOW(), NOW());
