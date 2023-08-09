@@ -23,7 +23,6 @@ func NewEmployeeEducationServiceImpl(app *celeritas.Celeritas, repo data.Employe
 
 func (h *EmployeeEducationServiceImpl) CreateEmployeeEducation(input dto.EmployeeEducationDTO) (*dto.EmployeeEducationResponseDTO, error) {
 	data := input.ToEmployeeEducation()
-	h.App.InfoLog.Println(data, input)
 
 	id, err := h.repo.Insert(*data)
 	if err != nil {

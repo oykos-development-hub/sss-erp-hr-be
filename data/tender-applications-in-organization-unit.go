@@ -12,7 +12,7 @@ type TenderApplicationsInOrganizationUnit struct {
 	JobTenderID   int       `db:"job_tender_id"`
 	UserProfileID int       `db:"user_profile_id"`
 	Active        bool      `db:"active"`
-	FileID        int       `db:"file_id"`
+	FileID        *int      `db:"file_id"`
 	CreatedAt     time.Time `db:"created_at"`
 	UpdatedAt     time.Time `db:"updated_at"`
 }

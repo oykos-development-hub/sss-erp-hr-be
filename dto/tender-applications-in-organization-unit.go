@@ -10,7 +10,7 @@ type TenderApplicationsInOrganizationUnitDTO struct {
 	JobTenderID   int  `json:"job_tender_id" validate:"required"`
 	UserProfileID int  `json:"user_profile_id" validate:"required"`
 	Active        bool `json:"active" validate:"required"`
-	FileID        int  `json:"file_id"`
+	FileID        *int `json:"file_id"`
 }
 
 type TenderApplicationsInOrganizationUnitResponseDTO struct {
@@ -18,7 +18,7 @@ type TenderApplicationsInOrganizationUnitResponseDTO struct {
 	JobTenderID   int       `json:"job_tender_id"`
 	UserProfileID int       `json:"user_profile_id"`
 	Active        bool      `json:"active"`
-	FileID        int       `json:"file_id"`
+	FileID        *int      `json:"file_id"`
 	CreatedAt     time.Time `json:"created_at"`
 	UpdatedAt     time.Time `json:"updated_at"`
 }
@@ -53,6 +53,7 @@ func ToTenderApplicationsInOrganizationUnitListResponseDTO(tenderapplicationsino
 }
 
 type GetTenderApplicationsInputDTO struct {
-	Page *int `json:"page" validate:"omitempty"`
-	Size *int `json:"size" validate:"omitempty"`
+	Page        *int `json:"page" validate:"omitempty"`
+	Size        *int `json:"size" validate:"omitempty"`
+	JobTenderID *int `json:"job_tender_id" validate:"omitempty"`
 }

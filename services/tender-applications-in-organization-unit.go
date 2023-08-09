@@ -6,6 +6,7 @@ import (
 	"gitlab.sudovi.me/erp/hr-ms-api/errors"
 
 	"github.com/oykos-development-hub/celeritas"
+	up "github.com/upper/db/v4"
 )
 
 type TenderApplicationsInOrganizationUnitServiceImpl struct {
@@ -79,7 +80,11 @@ func (h *TenderApplicationsInOrganizationUnitServiceImpl) GetTenderApplicationsI
 }
 
 func (h *TenderApplicationsInOrganizationUnitServiceImpl) GetTenderApplicationsInOrganizationUnitList(input dto.GetTenderApplicationsInputDTO) ([]dto.TenderApplicationsInOrganizationUnitResponseDTO, *uint64, error) {
-	data, total, err := h.repo.GetAll(input.Page, input.Size, nil)
+	cond := up.Cond{}
+	if input.JobTenderID != nil {
+		cond["job_tender_id"] = *input.JobTenderID
+	}
+	data, total, err := h.repo.GetAll(input.Page, input.Size, &cond)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
 		return nil, nil, errors.ErrInternalServer

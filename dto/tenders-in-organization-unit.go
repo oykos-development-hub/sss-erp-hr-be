@@ -21,7 +21,7 @@ type TendersInOrganizationUnitDTO struct {
 	Description                  string    `json:"description"`
 	SerialNumber                 string    `json:"serial_number" validate:"required"`
 	AvailableSlots               int       `json:"available_slots" validate:"required"`
-	FileID                       int       `json:"file_id"`
+	FileID                       *int      `json:"file_id"`
 }
 
 type TendersInOrganizationUnitResponseDTO struct {
@@ -34,7 +34,7 @@ type TendersInOrganizationUnitResponseDTO struct {
 	Description                  string    `json:"description"`
 	SerialNumber                 string    `json:"serial_number"`
 	AvailableSlots               int       `json:"available_slots"`
-	FileID                       int       `json:"file_id"`
+	FileID                       *int      `json:"file_id"`
 	CreatedAt                    time.Time `json:"created_at"`
 	UpdatedAt                    time.Time `json:"updated_at"`
 }

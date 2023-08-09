@@ -14,6 +14,6 @@ CREATE TABLE IF NOT EXISTS user_norm_fulfilments (
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
     FOREIGN KEY (user_profile_id) REFERENCES user_profiles(id),
-    FOREIGN KEY (evaluation_id) REFERENCES evaluations(id)
-    -- FOREIGN KEY (relocation_id) REFERENCES absents(id)
+    FOREIGN KEY (evaluation_id) REFERENCES evaluations(id),
+    FOREIGN KEY (relocation_id) REFERENCES employee_absents(id)
 );

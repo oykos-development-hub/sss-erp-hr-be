@@ -17,7 +17,7 @@ type TendersInOrganizationUnit struct {
 	Description                  string    `db:"description"`
 	SerialNumber                 string    `db:"serial_number"`
 	AvailableSlots               int       `db:"available_slots"`
-	FileID                       int       `db:"file_id"`
+	FileID                       *int      `db:"file_id"`
 	CreatedAt                    time.Time `db:"created_at"`
 	UpdatedAt                    time.Time `db:"updated_at"`
 }
