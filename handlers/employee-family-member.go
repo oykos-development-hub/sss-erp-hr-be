@@ -28,8 +28,7 @@ func NewEmployeeFamilyMemberHandler(app *celeritas.Celeritas, employeefamilymemb
 
 func (h *employeefamilymemberHandlerImpl) CreateEmployeeFamilyMember(w http.ResponseWriter, r *http.Request) {
 	var input dto.EmployeeFamilyMemberDTO
-	err := h.App.ReadJSON(w, r, &input)
-	h.App.ErrorLog.Println(err)
+	_ = h.App.ReadJSON(w, r, &input)
 
 	validator := h.App.Validator().ValidateStruct(&input)
 	if !validator.Valid() {

@@ -81,7 +81,7 @@ func (h *EmployeeFamilyMemberServiceImpl) GetEmployeeFamilyMember(id int) (*dto.
 
 func (h *EmployeeFamilyMemberServiceImpl) GetEmployeeFamilyMemberList(id int) ([]dto.EmployeeFamilyMemberResponseDTO, error) {
 	cond := up.Cond{
-		"id": id,
+		"user_profile_id": id,
 	}
 	data, err := h.repo.GetAll(&cond)
 	if err != nil {
