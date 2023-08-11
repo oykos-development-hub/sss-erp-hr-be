@@ -6,7 +6,6 @@ CREATE TABLE IF NOT EXISTS foreigners (
     work_permit_date_of_start DATE NOT NULL,
     work_permit_date_of_end DATE,
     work_permit_indefinite_length BOOLEAN NOT NULL,
-    residence_permit_date_of_start DATE NOT NULL,
     residence_permit_date_of_end DATE,
     residence_permit_indefinite_length BOOLEAN NOT NULL,
     country_of_origin TEXT NOT NULL,

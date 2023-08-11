@@ -13,7 +13,6 @@ type ForeignerDTO struct {
 	WorkPermitDateOfStart           time.Time  `json:"work_permit_date_of_start" validate:"required"`
 	WorkPermitDateOfEnd             *time.Time `json:"work_permit_date_of_end" validate:"omitempty"`
 	WorkPermitIndefiniteLength      *bool      `json:"work_permit_indefinite_length" validate:"required"`
-	ResidencePermitDateOfStart      time.Time  `json:"residence_permit_date_of_start" validate:"required"`
 	ResidencePermitDateOfEnd        *time.Time `json:"residence_permit_date_of_end" validate:"omitempty"`
 	ResidencePermitIndefiniteLength *bool      `json:"residence_permit_indefinite_length" validate:"required"`
 	CountryOfOrigin                 string     `json:"country_of_origin" validate:"required"`
@@ -47,7 +46,6 @@ func (dto ForeignerDTO) ToForeigner() *data.Foreigner {
 		WorkPermitDateOfStart:           dto.WorkPermitDateOfStart,
 		WorkPermitDateOfEnd:             dto.WorkPermitDateOfEnd,
 		WorkPermitIndefiniteLength:      dto.WorkPermitIndefiniteLength,
-		ResidencePermitDateOfStart:      dto.ResidencePermitDateOfStart,
 		ResidencePermitDateOfEnd:        dto.ResidencePermitDateOfEnd,
 		ResidencePermitIndefiniteLength: dto.ResidencePermitIndefiniteLength,
 		CountryOfOrigin:                 dto.CountryOfOrigin,
@@ -65,7 +63,6 @@ func ToForeignerResponseDTO(data data.Foreigner) ForeignerResponseDTO {
 		WorkPermitDateOfStart:           data.WorkPermitDateOfStart,
 		WorkPermitDateOfEnd:             data.WorkPermitDateOfEnd,
 		WorkPermitIndefiniteLength:      data.WorkPermitIndefiniteLength,
-		ResidencePermitDateOfStart:      data.ResidencePermitDateOfStart,
 		ResidencePermitDateOfEnd:        data.ResidencePermitDateOfEnd,
 		ResidencePermitIndefiniteLength: data.ResidencePermitIndefiniteLength,
 		CountryOfOrigin:                 data.CountryOfOrigin,

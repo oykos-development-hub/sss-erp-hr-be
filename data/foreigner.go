@@ -15,7 +15,6 @@ type Foreigner struct {
 	WorkPermitDateOfStart           time.Time  `db:"work_permit_date_of_start"`
 	WorkPermitDateOfEnd             *time.Time `db:"work_permit_date_of_end"`
 	WorkPermitIndefiniteLength      *bool      `db:"work_permit_indefinite_length"`
-	ResidencePermitDateOfStart      time.Time  `db:"residence_permit_date_of_start"`
 	ResidencePermitDateOfEnd        *time.Time `db:"residence_permit_date_of_end"`
 	ResidencePermitIndefiniteLength *bool      `db:"residence_permit_indefinite_length"`
 	CountryOfOrigin                 string     `db:"country_of_origin"`
