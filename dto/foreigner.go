@@ -15,6 +15,7 @@ type ForeignerDTO struct {
 	WorkPermitIndefiniteLength      *bool      `json:"work_permit_indefinite_length" validate:"required"`
 	ResidencePermitDateOfEnd        *time.Time `json:"residence_permit_date_of_end" validate:"omitempty"`
 	ResidencePermitIndefiniteLength *bool      `json:"residence_permit_indefinite_length" validate:"required"`
+	ResidencePermitNumber           int        `json:"residence_permit_number" validate:"required"`
 	CountryOfOrigin                 string     `json:"country_of_origin" validate:"required"`
 	WorkPermitFileId                *int       `json:"work_permit_file_id" validate:"omitempty"`
 	ResidencePermitFileId           *int       `json:"residence_permit_file_id" validate:"omitempty"`
@@ -28,9 +29,9 @@ type ForeignerResponseDTO struct {
 	WorkPermitDateOfStart           time.Time  `json:"work_permit_date_of_start"`
 	WorkPermitDateOfEnd             *time.Time `json:"work_permit_date_of_end"`
 	WorkPermitIndefiniteLength      *bool      `json:"work_permit_indefinite_length"`
-	ResidencePermitDateOfStart      time.Time  `json:"residence_permit_date_of_start"`
 	ResidencePermitDateOfEnd        *time.Time `json:"residence_permit_date_of_end"`
 	ResidencePermitIndefiniteLength *bool      `json:"residence_permit_indefinite_length"`
+	ResidencePermitNumber           int        `json:"residence_permit_number"`
 	CountryOfOrigin                 string     `json:"country_of_origin"`
 	WorkPermitFileId                *int       `json:"work_permit_file_id"`
 	ResidencePermitFileId           *int       `json:"residence_permit_file_id"`
@@ -48,6 +49,7 @@ func (dto ForeignerDTO) ToForeigner() *data.Foreigner {
 		WorkPermitIndefiniteLength:      dto.WorkPermitIndefiniteLength,
 		ResidencePermitDateOfEnd:        dto.ResidencePermitDateOfEnd,
 		ResidencePermitIndefiniteLength: dto.ResidencePermitIndefiniteLength,
+		ResidencePermitNumber:           dto.ResidencePermitNumber,
 		CountryOfOrigin:                 dto.CountryOfOrigin,
 		WorkPermitFileId:                dto.WorkPermitFileId,
 		ResidencePermitFileId:           dto.ResidencePermitFileId,
@@ -65,6 +67,7 @@ func ToForeignerResponseDTO(data data.Foreigner) ForeignerResponseDTO {
 		WorkPermitIndefiniteLength:      data.WorkPermitIndefiniteLength,
 		ResidencePermitDateOfEnd:        data.ResidencePermitDateOfEnd,
 		ResidencePermitIndefiniteLength: data.ResidencePermitIndefiniteLength,
+		ResidencePermitNumber:           data.ResidencePermitNumber,
 		CountryOfOrigin:                 data.CountryOfOrigin,
 		WorkPermitFileId:                data.WorkPermitFileId,
 		ResidencePermitFileId:           data.ResidencePermitFileId,
