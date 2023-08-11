@@ -15,7 +15,7 @@ type ForeignerDTO struct {
 	WorkPermitIndefiniteLength      *bool      `json:"work_permit_indefinite_length" validate:"required"`
 	ResidencePermitDateOfEnd        *time.Time `json:"residence_permit_date_of_end" validate:"omitempty"`
 	ResidencePermitIndefiniteLength *bool      `json:"residence_permit_indefinite_length" validate:"required"`
-	ResidencePermitNumber           int        `json:"residence_permit_number" validate:"required"`
+	ResidencePermitNumber           string     `json:"residence_permit_number" validate:"required"`
 	CountryOfOrigin                 string     `json:"country_of_origin" validate:"required"`
 	WorkPermitFileId                *int       `json:"work_permit_file_id" validate:"omitempty"`
 	ResidencePermitFileId           *int       `json:"residence_permit_file_id" validate:"omitempty"`
@@ -31,7 +31,7 @@ type ForeignerResponseDTO struct {
 	WorkPermitIndefiniteLength      *bool      `json:"work_permit_indefinite_length"`
 	ResidencePermitDateOfEnd        *time.Time `json:"residence_permit_date_of_end"`
 	ResidencePermitIndefiniteLength *bool      `json:"residence_permit_indefinite_length"`
-	ResidencePermitNumber           int        `json:"residence_permit_number"`
+	ResidencePermitNumber           string     `json:"residence_permit_number"`
 	CountryOfOrigin                 string     `json:"country_of_origin"`
 	WorkPermitFileId                *int       `json:"work_permit_file_id"`
 	ResidencePermitFileId           *int       `json:"residence_permit_file_id"`

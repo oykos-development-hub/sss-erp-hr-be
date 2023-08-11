@@ -12,7 +12,7 @@ type CreateSystematizationDTO struct {
 	Description        string    `json:"description" validate:"required"`
 	SerialNumber       string    `json:"serial_number" validate:"required"`
 	Active             bool      `json:"active"`
-	DateOfActivation   time.Time `json:"date_of_activation" validate:"required"`
+	DateOfActivation   time.Time `json:"date_of_activation"`
 	FileId             *int      `json:"file_id,omitempty"`
 }
 
@@ -22,7 +22,7 @@ type UpdateSystematizationDTO struct {
 	Description        *string    `json:"description" validate:"required"`
 	SerialNumber       *string    `json:"serial_number" validate:"required"`
 	Active             *bool      `json:"active"`
-	DateOfActivation   *time.Time `json:"date_of_activation" validate:"required"`
+	DateOfActivation   *time.Time `json:"date_of_activation"`
 	FileId             *int       `json:"file_id"`
 }
 
