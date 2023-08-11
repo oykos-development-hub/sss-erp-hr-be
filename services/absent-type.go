@@ -6,6 +6,7 @@ import (
 	"gitlab.sudovi.me/erp/hr-ms-api/errors"
 
 	"github.com/oykos-development-hub/celeritas"
+	up "github.com/upper/db/v4"
 )
 
 type AbsentTypeServiceImpl struct {
@@ -79,7 +80,12 @@ func (h *AbsentTypeServiceImpl) GetAbsentType(id int) (*dto.AbsentTypeResponseDT
 }
 
 func (h *AbsentTypeServiceImpl) GetAbsentTypeList(data dto.GetAbesntTypeDTO) ([]dto.AbsentTypeResponseDTO, *uint64, error) {
-	res, total, err := h.repo.GetAll(data.Page, data.Size, nil)
+	cond := up.Cond{}
+	if data.ParentID != nil {
+		cond["parent_id"] = *data.ParentID
+	}
+
+	res, total, err := h.repo.GetAll(data.Page, data.Size, &cond)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
 		return nil, nil, errors.ErrInternalServer

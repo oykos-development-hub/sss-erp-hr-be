@@ -69,6 +69,7 @@ func ToAbsentTypeListResponseDTO(absenttypes []*data.AbsentType) []AbsentTypeRes
 }
 
 type GetAbesntTypeDTO struct {
-	Page *int `json:"page" validate:"omitempty"`
-	Size *int `json:"size" validate:"omitempty"`
+	Page     *int `json:"page" validate:"omitempty"`
+	Size     *int `json:"size" validate:"omitempty"`
+	ParentID *int `json:"parent_id" validate:"omitempty"`
 }
