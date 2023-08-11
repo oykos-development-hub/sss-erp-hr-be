@@ -180,7 +180,7 @@ INSERT INTO foreigners (
     work_permit_date_of_start,
     work_permit_date_of_end,
     work_permit_indefinite_length,
-    residence_permit_date_of_start,
+    residence_permit_number,
     residence_permit_date_of_end,
     residence_permit_indefinite_length,
     country_of_origin,
@@ -190,8 +190,8 @@ INSERT INTO foreigners (
     residence_permit_file_id
 )
 VALUES
-    (3, 'WP123', 'Ministry of Labor', '2023-08-01', '2025-08-01', false, '2023-08-01', '2025-08-01', false, 'Madjarska', NOW(), NOW(), null, null),
-    (4, 'WP456', 'Immigration Office', '2023-08-15', '2024-08-15', false, '2023-08-15', '2024-08-15', false, 'Madjarska', NOW(), NOW(), null, null);
+    (3, 'WP123', 'Ministry of Labor', '2023-08-01', '2025-08-01', false, 'A123', '2025-08-01', false, 'Madjarska', NOW(), NOW(), null, null),
+    (4, 'WP456', 'Immigration Office', '2023-08-15', '2024-08-15', false, 'A123', '2024-08-15', false, 'Madjarska', NOW(), NOW(), null, null);
 
 INSERT INTO judge_number_resolutions (active, serial_number, year, created_at, updated_at)
 VALUES
