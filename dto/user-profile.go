@@ -17,7 +17,7 @@ type UserProfileDTO struct {
 	MotherBirthLastName       *string   `json:"mother_birth_last_name"`
 	DateOfBirth               JSONTime  `json:"date_of_birth" validate:"required"`
 	CountryOfBirth            string    `json:"country_of_birth" validate:"required"`
-	CityOfBirth               string    `json:"city_of_birth" validate:"required"`
+	CityOfBirth               string    `json:"city_of_birth"`
 	Nationality               string    `json:"nationality" validate:"required"`
 	NationalMinority          *string   `json:"national_minority"`
 	Citizenship               string    `json:"citizenship" validate:"required"`
