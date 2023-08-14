@@ -119,6 +119,7 @@ type EmployeeResolutionHandler interface {
 	UpdateEmployeeResolution(w http.ResponseWriter, r *http.Request)
 	DeleteEmployeeResolution(w http.ResponseWriter, r *http.Request)
 	GetEmployeeResolutionList(w http.ResponseWriter, r *http.Request)
+	GetEmployeeResolution(w http.ResponseWriter, r *http.Request)
 }
 
 type AbsentTypeHandler interface {

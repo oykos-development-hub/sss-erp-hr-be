@@ -83,6 +83,7 @@ type EmployeeResolutionService interface {
 	UpdateEmployeeResolution(id int, input dto.EmployeeResolutionDTO) (*dto.EmployeeResolutionResponseDTO, error)
 	DeleteEmployeeResolution(id int) error
 	GetEmployeeResolutionList(userProfileID int) ([]dto.EmployeeResolutionResponseDTO, error)
+	GetEmployeeResolution(id int) (*dto.EmployeeResolutionResponseDTO, error)
 }
 
 type AbsentTypeService interface {

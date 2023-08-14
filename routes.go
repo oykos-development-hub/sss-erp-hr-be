@@ -69,6 +69,7 @@ func routes(app *celeritas.Celeritas, middleware *middleware.Middleware, handler
 
 		rt.Post("/employee-resolutions", handlers.EmployeeResolutionHandler.CreateEmployeeResolution)
 		rt.Get("/user-profiles/{id}/resolutions", handlers.EmployeeResolutionHandler.GetEmployeeResolutionList)
+		rt.Get("/employee-resolutions/{id}", handlers.EmployeeResolutionHandler.GetEmployeeResolution)
 		rt.Put("/employee-resolutions/{id}", handlers.EmployeeResolutionHandler.UpdateEmployeeResolution)
 		rt.Delete("/employee-resolutions/{id}", handlers.EmployeeResolutionHandler.DeleteEmployeeResolution)
 
