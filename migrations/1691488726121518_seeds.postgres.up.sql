@@ -207,6 +207,7 @@ VALUES
 
 INSERT INTO salaries (
     user_profile_id,
+    organization_unit_id,
     benefited_track,
     without_raise,
     insurance_basis,
@@ -220,8 +221,8 @@ INSERT INTO salaries (
     user_resolution_id
 )
 VALUES
-    (3, false, true, 'Basis B', 'Rank 2', '8', '40', 'Degree 5', 'UCG', NOW(), NOW(), 3),
-    (4, true, false, 'Basis C', 'Rank 4', '7', '35', 'Degree 4', 'UDG', NOW(), NOW(), 2);
+    (3, 1, false, true, 'Basis B', 'Rank 2', '8', '40', 'Degree 5', 'UCG', NOW(), NOW(), 3),
+    (4, 1, true, false, 'Basis C', 'Rank 4', '7', '35', 'Degree 4', 'UDG', NOW(), NOW(), 2);
 
 INSERT INTO user_norm_fulfilments (
     user_profile_id,
