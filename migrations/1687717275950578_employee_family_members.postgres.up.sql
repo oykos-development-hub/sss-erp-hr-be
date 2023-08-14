@@ -12,6 +12,7 @@ CREATE TABLE IF NOT EXISTS employee_family_members (
     country_of_birth text NOT NULL,
     city_of_birth text NOT NULL,
     nationality text NOT NULL,
+    national_minority text,
     citizenship text NOT NULL,
     address text NOT NULL,
     official_personal_id text NOT NULL,

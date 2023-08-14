@@ -1,6 +1,7 @@
 package dto
 
 import (
+	"fmt"
 	"time"
 
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
@@ -29,6 +30,7 @@ type EmployeeContractDTO struct {
 }
 
 func (dto EmployeeContractDTO) ToEmployeeContract() *data.EmployeeContract {
+	fmt.Println(dto.UserProfileID)
 	return &data.EmployeeContract{
 		UserProfileID:     dto.UserProfileID,
 		ContractTypeID:    dto.ContractTypeID,

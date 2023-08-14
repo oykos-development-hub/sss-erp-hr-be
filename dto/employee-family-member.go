@@ -19,6 +19,7 @@ type EmployeeFamilyMemberDTO struct {
 	CountryOfBirth       string    `json:"country_of_birth" validate:"required"`
 	CityOfBirth          string    `json:"city_of_birth" validate:"required"`
 	Nationality          string    `json:"nationality" validate:"required"`
+	NationalMinority     *string   `json:"national_minority"`
 	Citizenship          string    `json:"citizenship" validate:"required"`
 	Address              string    `json:"address" validate:"required"`
 	OfficialPersonalID   string    `json:"official_personal_id" validate:"required"`
@@ -42,6 +43,7 @@ type EmployeeFamilyMemberResponseDTO struct {
 	CountryOfBirth       string    `json:"country_of_birth"`
 	CityOfBirth          string    `json:"city_of_birth"`
 	Nationality          string    `json:"nationality"`
+	NationalMinority     *string   `json:"national_minority"`
 	Citizenship          string    `json:"citizenship"`
 	Address              string    `json:"address"`
 	OfficialPersonalID   string    `json:"official_personal_id"`
@@ -67,6 +69,7 @@ func (dto EmployeeFamilyMemberDTO) ToEmployeeFamilyMember() *data.EmployeeFamily
 		CountryOfBirth:       dto.CountryOfBirth,
 		CityOfBirth:          dto.CityOfBirth,
 		Nationality:          dto.Nationality,
+		NationalMinority:     dto.NationalMinority,
 		Citizenship:          dto.Citizenship,
 		Address:              dto.Address,
 		OfficialPersonalID:   dto.OfficialPersonalID,
@@ -92,6 +95,7 @@ func ToEmployeeFamilyMemberResponseDTO(data data.EmployeeFamilyMember) EmployeeF
 		CountryOfBirth:       data.CountryOfBirth,
 		CityOfBirth:          data.CityOfBirth,
 		Nationality:          data.Nationality,
+		NationalMinority:     data.NationalMinority,
 		Citizenship:          data.Citizenship,
 		Address:              data.Address,
 		OfficialPersonalID:   data.OfficialPersonalID,

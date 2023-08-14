@@ -21,6 +21,7 @@ type EmployeeFamilyMember struct {
 	CountryOfBirth       string    `db:"country_of_birth"`
 	CityOfBirth          string    `db:"city_of_birth"`
 	Nationality          string    `db:"nationality"`
+	NationalMinority     *string   `db:"national_minority"`
 	Citizenship          string    `db:"citizenship"`
 	Address              string    `db:"address"`
 	OfficialPersonalID   string    `db:"official_personal_id"`
