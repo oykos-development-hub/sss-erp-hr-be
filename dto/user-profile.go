@@ -19,6 +19,7 @@ type UserProfileDTO struct {
 	CountryOfBirth            string    `json:"country_of_birth" validate:"required"`
 	CityOfBirth               string    `json:"city_of_birth" validate:"required"`
 	Nationality               string    `json:"nationality" validate:"required"`
+	NationalMinority          *string   `json:"national_minority"`
 	Citizenship               string    `json:"citizenship" validate:"required"`
 	Address                   string    `json:"address" validate:"required"`
 	BankAccount               *string   `json:"bank_account"`
@@ -51,6 +52,7 @@ type UserProfileResponseDTO struct {
 	CountryOfBirth            string     `json:"country_of_birth"`
 	CityOfBirth               string     `json:"city_of_birth"`
 	Nationality               string     `json:"nationality"`
+	NationalMinority          *string    `json:"national_minority"`
 	Citizenship               string     `json:"citizenship"`
 	Address                   string     `json:"address"`
 	BankAccount               *string    `json:"bank_account"`
@@ -85,6 +87,7 @@ func (dto *UserProfileDTO) ToUserProfile() *data.UserProfile {
 		CountryOfBirth:            dto.CountryOfBirth,
 		CityOfBirth:               dto.CityOfBirth,
 		Nationality:               dto.Nationality,
+		NationalMinority:          dto.NationalMinority,
 		Citizenship:               dto.Citizenship,
 		Address:                   dto.Address,
 		BankAccount:               dto.BankAccount,
@@ -129,6 +132,7 @@ func ToUserProfileResponseDTO(data data.UserProfile) UserProfileResponseDTO {
 		CountryOfBirth:            data.CountryOfBirth,
 		CityOfBirth:               data.CityOfBirth,
 		Nationality:               data.Nationality,
+		NationalMinority:          data.NationalMinority,
 		Citizenship:               data.Citizenship,
 		Address:                   data.Address,
 		BankAccount:               data.BankAccount,
