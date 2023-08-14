@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS revisions_of_organization_units (
     second_implementation_month_span TEXT,
     second_date_of_revision DATE,
     file_id INT,
+    ref_document TEXT,
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
     FOREIGN KEY (implementation_user_profile_id) REFERENCES user_profiles (id) ON UPDATE CASCADE ON DELETE SET NULL,

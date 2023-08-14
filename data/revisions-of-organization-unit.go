@@ -33,6 +33,7 @@ type RevisionsOfOrganizationUnit struct {
 	SecondImplementationMonthSpan   *string    `db:"second_implementation_month_span"`
 	SecondDateOfRevision            *time.Time `db:"second_date_of_revision"`
 	FileID                          *int       `db:"file_id"`
+	RefDocument                     *string    `db:"ref_document"`
 	CreatedAt                       time.Time  `db:"created_at,omitempty"`
 	UpdatedAt                       time.Time  `db:"updated_at"`
 }

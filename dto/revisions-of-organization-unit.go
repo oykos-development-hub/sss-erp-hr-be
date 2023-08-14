@@ -31,6 +31,7 @@ type RevisionsOfOrganizationUnitDTO struct {
 	ImplementationFailedDescription *string    `json:"implementation_failed_description"`
 	SecondImplementationMonthSpan   *string    `json:"second_implementation_month_span"`
 	SecondDateOfRevision            *time.Time `json:"second_date_of_revision"`
+	RefDocument                     *string    `json:"ref_document"`
 	FileID                          *int       `json:"file_id"`
 }
 
@@ -61,6 +62,7 @@ type RevisionsOfOrganizationUnitResponseDTO struct {
 	SecondImplementationMonthSpan   *string    `json:"second_implementation_month_span"`
 	SecondDateOfRevision            *time.Time `json:"second_date_of_revision"`
 	FileID                          *int       `json:"file_id"`
+	RefDocument                     *string    `json:"ref_document"`
 	CreatedAt                       time.Time  `json:"created_at"`
 	UpdatedAt                       time.Time  `json:"updated_at"`
 }
@@ -91,6 +93,7 @@ func (dto RevisionsOfOrganizationUnitDTO) ToRevisionsOfOrganizationUnit() *data.
 		ImplementationFailedDescription: dto.ImplementationFailedDescription,
 		SecondImplementationMonthSpan:   dto.SecondImplementationMonthSpan,
 		SecondDateOfRevision:            dto.SecondDateOfRevision,
+		RefDocument:                     dto.RefDocument,
 		FileID:                          dto.FileID,
 	}
 }
@@ -123,6 +126,7 @@ func ToRevisionsOfOrganizationUnitResponseDTO(data data.RevisionsOfOrganizationU
 		SecondImplementationMonthSpan:   data.SecondImplementationMonthSpan,
 		SecondDateOfRevision:            data.SecondDateOfRevision,
 		FileID:                          data.FileID,
+		RefDocument:                     data.RefDocument,
 		CreatedAt:                       data.CreatedAt,
 		UpdatedAt:                       data.UpdatedAt,
 	}
