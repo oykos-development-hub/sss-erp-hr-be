@@ -10,7 +10,7 @@ type RevisionsOfOrganizationUnitDTO struct {
 	RevisionTypeID                  int        `json:"revision_type_id" validate:"required"`
 	RevisorUserProfileID            *int       `json:"revisor_user_profile_id" validate:"required_without=RevisorUserProfile"`
 	RevisorUserProfile              *string    `json:"revisor_user_profile" validate:"required_without=RevisorUserProfileID"`
-	InternalOrganizationUnitID      *int       `json:"internal_organization_unit_id" validate:"required_without=ResponsibleUserProfileID"`
+	InternalOrganizationUnitID      *int       `json:"internal_organization_unit_id" validate:"required_without=ExternalOrganizationUnitID"`
 	ExternalOrganizationUnitID      *int       `json:"external_organization_unit_id" validate:"required_without=InternalOrganizationUnitID"`
 	ResponsibleUserProfileID        *int       `json:"responsible_user_profile_id"`
 	ResponsibleUserProfile          *string    `json:"responsible_user_profile"`
