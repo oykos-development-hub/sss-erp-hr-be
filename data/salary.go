@@ -8,19 +8,20 @@ import (
 
 // Salary struct
 type Salary struct {
-	ID               int       `db:"id,omitempty"`
-	UserProfileID    int       `db:"user_profile_id"`
-	BenefitedTrack   *bool     `db:"benefited_track"`
-	WithoutRaise     *bool     `db:"without_raise"`
-	InsuranceBasis   string    `db:"insurance_basis"`
-	SalaryRank       string    `db:"salary_rank"`
-	DailyWorkHours   string    `db:"daily_work_hours"`
-	WeeklyWorkHours  string    `db:"weekly_work_hours"`
-	EducationRank    string    `db:"education_rank"`
-	EducationNaming  string    `db:"education_naming"`
-	UserResoultionID *int      `db:"user_resolution_id,omitempty"`
-	CreatedAt        time.Time `db:"created_at"`
-	UpdatedAt        time.Time `db:"updated_at"`
+	ID                 int       `db:"id,omitempty"`
+	UserProfileID      int       `db:"user_profile_id"`
+	BenefitedTrack     *bool     `db:"benefited_track"`
+	WithoutRaise       *bool     `db:"without_raise"`
+	InsuranceBasis     string    `db:"insurance_basis"`
+	SalaryRank         string    `db:"salary_rank"`
+	DailyWorkHours     string    `db:"daily_work_hours"`
+	WeeklyWorkHours    string    `db:"weekly_work_hours"`
+	EducationRank      string    `db:"education_rank"`
+	EducationNaming    string    `db:"education_naming"`
+	UserResoultionID   *int      `db:"user_resolution_id,omitempty"`
+	OrganizationUnitID int       `db:"organization_unit_id"`
+	CreatedAt          time.Time `db:"created_at"`
+	UpdatedAt          time.Time `db:"updated_at"`
 }
 
 // Table returns the table name
