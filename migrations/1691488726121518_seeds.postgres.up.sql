@@ -91,14 +91,14 @@ VALUES
 
 
 -- contracts
-INSERT INTO employee_contracts (user_profile_id, contract_type_id, abbreviation, description, active, serial_number, net_salary, gross_salary, bank_account, bank_name, date_of_signature, date_of_eligibility, date_of_start, date_of_end, file_id, created_at, updated_at)
+INSERT INTO employee_contracts (user_profile_id, contract_type_id, organization_unit_id, organization_unit_department_id, job_position_in_organization_unit, abbreviation, description, active, serial_number, net_salary, gross_salary, bank_account, bank_name, date_of_signature, date_of_eligibility, date_of_start, date_of_end, file_id, created_at, updated_at)
 VALUES
-    (2, 6, 'CT1', 'Predsjednik Niksic', true, '123456', '2000', '2500', '123456789', 'Banka A', '2023-08-01', '2023-09-01', '2023-09-15', null, 101, NOW(), NOW()),
-    (3, 7, 'CT2', 'Sudija Niksic', true, '654321', '1800', '1200', '987654321', 'Banka B', '2023-08-02', '2023-09-02', '2023-09-20', '2024-09-19', 102, NOW(), NOW()),
-    (4, 7, 'CT3', 'Predsjednik Berane', true, '987654', '2200', '2800', '456789123', 'Banka C', '2023-08-03', '2023-09-03', '2023-10-01', '2024-10-01', 103, NOW(), NOW()),
-	(5, 6, 'CT5', 'Sudija Berane', true, '123456', '2000', '1200', '123456789', 'Banka A', '2023-08-01', '2023-09-01', '2023-09-15', null, 101, NOW(), NOW()),
-    (6, 7, 'CT6', 'IT strucnjak', true, '654321', '1800', '600', '987654321', 'Banka B', '2023-08-02', '2023-09-02', '2023-09-20', '2024-09-19', 102, NOW(), NOW()),
-	(5, 6, 'CT6', 'Sudija Berane neaktivan', false, '654321', '1800', '1000', '987654321', 'Banka B', '2022-08-02', '2022-09-02', '2022-09-20', '2022-10-19', 102, NOW(), NOW());
+    (2, 6, 1, null, 1, 'CT1', 'Predsjednik Niksic', true, '123456', '2000', '2500', '123456789', 'Banka A', '2023-08-01', '2023-09-01', '2023-09-15', null, 101, NOW(), NOW()),
+    (3, 7, 2, null, 5, 'CT2', 'Sudija Niksic', true, '654321', '1800', '1200', '987654321', 'Banka B', '2023-08-02', '2023-09-02', '2023-09-20', '2024-09-19', 102, NOW(), NOW()),
+    (4, 7, 3, null, 6, 'CT3', 'Predsjednik Berane', true, '987654', '2200', '2800', '456789123', 'Banka C', '2023-08-03', '2023-09-03', '2023-10-01', '2024-10-01', 103, NOW(), NOW()),
+	(5, 6, 1, null, 7, 'CT5', 'Sudija Berane', true, '123456', '2000', '1200', '123456789', 'Banka A', '2023-08-01', '2023-09-01', '2023-09-15', null, 101, NOW(), NOW()),
+    (6, 7, 2, null, 5, 'CT6', 'IT strucnjak', true, '654321', '1800', '600', '987654321', 'Banka B', '2023-08-02', '2023-09-02', '2023-09-20', '2024-09-19', 102, NOW(), NOW()),
+	(5, 6, 3, null, 5, 'CT6', 'Sudija Berane neaktivan', false, '654321', '1800', '1000', '987654321', 'Banka B', '2022-08-02', '2022-09-02', '2022-09-20', '2022-10-19', 102, NOW(), NOW());
 
 -- experiences for each employee
 INSERT INTO employee_experiences (
@@ -123,11 +123,11 @@ VALUES
 INSERT INTO employee_educations (
     user_profile_id, education_type_id, date_of_certification, date_of_start, date_of_end, academic_title, expertise_level, certificate_issuer, title, description, created_at, updated_at)
 VALUES
-    (2, 16, '2020-01-01', '2016-01-01', '2019-01-01', 'Bachelor prava', '6', 'Univerzitet Crne Gore', 'Pravne studije', 'Specijalističke studije prava', NOW(), NOW()),
-    (3, 16, '2021-06-01', '2017-06-01', '2020-06-01', 'Bachelor kriminalistike', '6', 'Pravni fakultet', 'Kriminalistika', 'Studije kriminalistike', NOW(), NOW()),
-    (4, 17, '2019-05-01', '2015-05-01', '2018-05-01', 'Magistar prava', '7', 'Univerzitet Crne Gore', 'Pravo', 'Magistarske studije prava', NOW(), NOW()),
-    (5, 16, '2018-09-01', '2014-09-01', '2017-09-01', 'Bachelor', '6', 'Univerzitet Crne Gore', 'Pravne studije', 'Bachelor studije prava', NOW(), NOW()),
-    (6, 17, '2023-06-01', '2019-06-01', '2022-06-01', 'Master inženjer informacionih tehnologija', '7', 'Tehnički fakultet', 'IT u pravnom sistemu', 'Postdiplomske studije u IT i pravu', NOW(), NOW());
+    (2, 17, '2020-01-01', '2016-01-01', '2019-01-01', 'Bachelor prava', '6', 'Univerzitet Crne Gore', 'Pravne studije', 'Specijalističke studije prava', NOW(), NOW()),
+    (3, 17, '2021-06-01', '2017-06-01', '2020-06-01', 'Bachelor kriminalistike', '6', 'Pravni fakultet', 'Kriminalistika', 'Studije kriminalistike', NOW(), NOW()),
+    (4, 18, '2019-05-01', '2015-05-01', '2018-05-01', 'Magistar prava', '7', 'Univerzitet Crne Gore', 'Pravo', 'Magistarske studije prava', NOW(), NOW()),
+    (5, 17, '2018-09-01', '2014-09-01', '2017-09-01', 'Bachelor', '6', 'Univerzitet Crne Gore', 'Pravne studije', 'Bachelor studije prava', NOW(), NOW()),
+    (6, 18, '2023-06-01', '2019-06-01', '2022-06-01', 'Master inženjer informacionih tehnologija', '7', 'Tehnički fakultet', 'IT u pravnom sistemu', 'Postdiplomske studije u IT i pravu', NOW(), NOW());
 
 
 INSERT INTO employee_resolutions
@@ -169,9 +169,9 @@ VALUES
 
 INSERT INTO evaluations (user_profile_id, evaluation_type_id, score, date_of_evaluation, evaluator, is_relevant, created_at, updated_at, file_id)
 VALUES
-    (3, 18, 'Dobar', '2023-08-01', 'Bozo Markovic', true, NOW(), NOW(), null),
-    (4, 19, 'Zadovoljio', '2023-08-02', 'Bozo Markovic', true, NOW(), NOW(), null),
-    (5, 20, 'Nije zadovoljio', '2023-08-03', 'Vladan Giljen', false, NOW(), NOW(), null);
+    (3, 19, 'Dobar', '2023-08-01', 'Bozo Markovic', true, NOW(), NOW(), null),
+    (4, 20, 'Zadovoljio', '2023-08-02', 'Bozo Markovic', true, NOW(), NOW(), null),
+    (5, 21, 'Nije zadovoljio', '2023-08-03', 'Vladan Giljen', false, NOW(), NOW(), null);
 
 INSERT INTO foreigners (
     user_profile_id,
