@@ -1,8 +1,10 @@
 package services
 
 import (
+	"fmt"
+	"strconv"
+
 	"github.com/oykos-development-hub/celeritas"
-	"github.com/upper/db/v4"
 	up "github.com/upper/db/v4"
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
@@ -87,14 +89,33 @@ func (h *SystematizationServiceImpl) GetSystematization(id int) (*dto.Systematiz
 }
 
 func (h *SystematizationServiceImpl) GetSystematizationList(input dto.GetSystematizationsDTO) ([]dto.SystematizationResponseDTO, *uint64, error) {
-	cond := up.Cond{}
-	if input.OrganizationUnitID != nil {
-		cond["organization_unit_id"] = input.OrganizationUnitID
-	}
+	conditionAndExp := &up.AndExpr{}
+
 	if input.Active != nil {
-		cond["active"] = input.Active
+		conditionAndExp = up.And(conditionAndExp, &up.Cond{"active": *input.Active})
 	}
-	res, total, err := h.repo.GetAll(input.Page, input.PageSize, &cond)
+
+	if input.OrganizationUnitID != nil {
+		conditionAndExp = up.And(conditionAndExp, &up.Cond{"organization_unit_id =": *input.OrganizationUnitID})
+	}
+
+	if input.Search != nil {
+		likeCondition := fmt.Sprintf("%%%s%%", *input.Search)
+		conditionAndExp = up.And(conditionAndExp, &up.Cond{"serial_number ILIKE": likeCondition})
+	}
+
+	if input.Year != nil {
+		year, err := strconv.Atoi(*input.Year)
+		if err == nil {
+			startDate := fmt.Sprintf("%d-01-01", year)
+			endDate := fmt.Sprintf("%d-12-31", year)
+			// Pretpostavljajući da koristite SQL biblioteku koja podržava placeholder-e u ovom obliku
+			conditionAndExp = up.And(conditionAndExp, &up.Cond{"date_of_activation >=": startDate})
+			conditionAndExp = up.And(conditionAndExp, &up.Cond{"date_of_activation <=": endDate})
+		}
+	}
+
+	res, total, err := h.repo.GetAll(input.Page, input.PageSize, conditionAndExp)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
 		return nil, nil, errors.ErrInternalServer
@@ -105,8 +126,14 @@ func (h *SystematizationServiceImpl) GetSystematizationList(input dto.GetSystema
 }
 
 func (h *SystematizationServiceImpl) checkSystematizationActiveStatuses(id int, organizationUnitID int) error {
-	condition := db.Cond{"id <>": id, "active =": true, "organization_unit_id =": organizationUnitID}
-	res, total, err := h.repo.GetAll(nil, nil, &condition)
+	//condition := db.Cond{"id <>": id, "active =": true, "organization_unit_id =": organizationUnitID}
+
+	conditionAndExp := &up.AndExpr{}
+	conditionAndExp = up.And(conditionAndExp, &up.Cond{"active": true})
+	conditionAndExp = up.And(conditionAndExp, &up.Cond{"id <>": id})
+	conditionAndExp = up.And(conditionAndExp, &up.Cond{"organization_unit_id": organizationUnitID})
+
+	res, total, err := h.repo.GetAll(nil, nil, conditionAndExp)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
 		return errors.ErrInternalServer

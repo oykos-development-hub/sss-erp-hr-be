@@ -26,13 +26,13 @@ func (t *Systematization) Table() string {
 }
 
 // GetAll gets all records from the database, using upper
-func (t *Systematization) GetAll(page *int, pageSize *int, condition *up.Cond) ([]*Systematization, *uint64, error) {
+func (t *Systematization) GetAll(page *int, pageSize *int, condition *up.AndExpr) ([]*Systematization, *uint64, error) {
 	collection := upper.Collection(t.Table())
 	var all []*Systematization
 	var res up.Result
 
 	if condition != nil {
-		res = collection.Find(*condition)
+		res = collection.Find(condition)
 	} else {
 		res = collection.Find()
 	}

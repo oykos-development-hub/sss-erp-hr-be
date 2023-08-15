@@ -40,10 +40,12 @@ type SystematizationResponseDTO struct {
 }
 
 type GetSystematizationsDTO struct {
-	Page               *int  `json:"page" validate:"omitempty"`
-	PageSize           *int  `json:"page_size" validate:"omitempty"`
-	OrganizationUnitID *int  `json:"organization_unit_id" validate:"omitempty"`
-	Active             *bool `json:"active" validate:"omitempty"`
+	Page               *int    `json:"page" validate:"omitempty"`
+	PageSize           *int    `json:"page_size" validate:"omitempty"`
+	OrganizationUnitID *int    `json:"organization_unit_id" validate:"omitempty"`
+	Active             *bool   `json:"active" validate:"omitempty"`
+	Year               *string `json:"year" validate:"omitempty"`
+	Search             *string `json:"search" validate:"omitempty"`
 }
 
 func (dto CreateSystematizationDTO) ToSystematization() *data.Systematization {
