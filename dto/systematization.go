@@ -7,13 +7,13 @@ import (
 )
 
 type CreateSystematizationDTO struct {
-	UserProfileID      int       `json:"user_profile_id"  validate:"required"`
-	OrganizationUnitID int       `json:"organization_unit_id" validate:"required"`
-	Description        string    `json:"description" validate:"required"`
-	SerialNumber       string    `json:"serial_number" validate:"required"`
-	Active             bool      `json:"active"`
-	DateOfActivation   time.Time `json:"date_of_activation"`
-	FileId             *int      `json:"file_id,omitempty"`
+	UserProfileID      int        `json:"user_profile_id"  validate:"required"`
+	OrganizationUnitID int        `json:"organization_unit_id" validate:"required"`
+	Description        string     `json:"description" validate:"required"`
+	SerialNumber       string     `json:"serial_number" validate:"required"`
+	Active             bool       `json:"active"`
+	DateOfActivation   *time.Time `json:"date_of_activation"`
+	FileId             *int       `json:"file_id,omitempty"`
 }
 
 type UpdateSystematizationDTO struct {
@@ -27,16 +27,16 @@ type UpdateSystematizationDTO struct {
 }
 
 type SystematizationResponseDTO struct {
-	ID                 int       `json:"id"`
-	UserProfileID      int       `json:"user_profile_id"`
-	OrganizationUnitID int       `json:"organization_unit_id"`
-	Description        string    `json:"description"`
-	SerialNumber       string    `json:"serial_number"`
-	Active             bool      `json:"active"`
-	DateOfActivation   time.Time `json:"date_of_activation"`
-	FileId             *int      `json:"file_id"`
-	CreatedAt          time.Time `json:"created_at"`
-	UpdatedAt          time.Time `json:"updated_at"`
+	ID                 int        `json:"id"`
+	UserProfileID      int        `json:"user_profile_id"`
+	OrganizationUnitID int        `json:"organization_unit_id"`
+	Description        string     `json:"description"`
+	SerialNumber       string     `json:"serial_number"`
+	Active             bool       `json:"active"`
+	DateOfActivation   *time.Time `json:"date_of_activation"`
+	FileId             *int       `json:"file_id"`
+	CreatedAt          time.Time  `json:"created_at"`
+	UpdatedAt          time.Time  `json:"updated_at"`
 }
 
 type GetSystematizationsDTO struct {
@@ -77,7 +77,7 @@ func (dto UpdateSystematizationDTO) ToSystematization(data *data.Systematization
 		data.Active = *dto.Active
 	}
 	if dto.DateOfActivation != nil {
-		data.DateOfActivation = *dto.DateOfActivation
+		data.DateOfActivation = dto.DateOfActivation
 	}
 	if dto.FileId != nil {
 		data.FileId = dto.FileId

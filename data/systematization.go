@@ -8,16 +8,16 @@ import (
 
 // Systematization struct
 type Systematization struct {
-	ID                 int       `db:"id,omitempty"`
-	UserProfileID      int       `db:"user_profile_id"`
-	OrganizationUnitID int       `db:"organization_unit_id"`
-	Description        string    `db:"description"`
-	SerialNumber       string    `db:"serial_number"`
-	Active             bool      `db:"active"`
-	DateOfActivation   time.Time `db:"date_of_activation"`
-	FileId             *int      `db:"file_id"`
-	CreatedAt          time.Time `db:"created_at"`
-	UpdatedAt          time.Time `db:"updated_at"`
+	ID                 int        `db:"id,omitempty"`
+	UserProfileID      int        `db:"user_profile_id"`
+	OrganizationUnitID int        `db:"organization_unit_id"`
+	Description        string     `db:"description"`
+	SerialNumber       string     `db:"serial_number"`
+	Active             bool       `db:"active"`
+	DateOfActivation   *time.Time `db:"date_of_activation"`
+	FileId             *int       `db:"file_id"`
+	CreatedAt          time.Time  `db:"created_at"`
+	UpdatedAt          time.Time  `db:"updated_at"`
 }
 
 // Table returns the table name
