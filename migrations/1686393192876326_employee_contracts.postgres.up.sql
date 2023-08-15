@@ -2,8 +2,11 @@ DROP TABLE if exists employee_contracts;
 
 CREATE TABLE employee_contracts (
     id serial PRIMARY KEY,
-    user_profile_id INT,
-    contract_type_id INT,
+    user_profile_id INT NOT NULL,
+    contract_type_id INT NOT NULL,
+    organization_unit_id INTEGER NOT NULL,
+    organization_unit_department_id INTEGER,
+    job_position_in_organization_unit INTEGER NOT NULL,
     abbreviation text,
     description TEXT,
     active BOOLEAN NOT NULL,
@@ -19,5 +22,8 @@ CREATE TABLE employee_contracts (
     file_id INT,
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
-    FOREIGN KEY (user_profile_id) REFERENCES user_profiles (id) ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY (user_profile_id) REFERENCES user_profiles (id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (organization_unit_id) REFERENCES organization_units (id) ON UPDATE CASCADE ON DELETE RESTRICT,
+    FOREIGN KEY (organization_unit_department_id) REFERENCES organization_units  (id) ON UPDATE CASCADE ON DELETE SET NULL,
+    FOREIGN KEY (job_position_in_organization_unit) REFERENCES job_positions_in_organization_units (id) ON UPDATE CASCADE ON DELETE RESTRICT
 );
