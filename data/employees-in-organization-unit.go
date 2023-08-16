@@ -72,7 +72,13 @@ func (t *EmployeesInOrganizationUnit) Update(m EmployeesInOrganizationUnit) erro
 // Delete deletes a record from the database by id, using upper
 func (t *EmployeesInOrganizationUnit) Delete(id int) error {
 	collection := upper.Collection(t.Table())
-	res := collection.Find(id)
+	var res up.Result
+	condition := up.Cond{
+		"position_in_organization_unit_id": id,
+	}
+
+	res = collection.Find(condition)
+
 	err := res.Delete()
 	if err != nil {
 		return err
