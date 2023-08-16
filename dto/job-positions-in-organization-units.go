@@ -7,16 +7,10 @@ import (
 )
 
 type CreateJobPositionsInOrganizationUnitsDTO struct {
-	SystematizationID        int     `json:"systematization_id" validate:"required"`
-	ParentOrganizationUnitID int     `json:"parent_organization_unit_id" validate:"required"`
-	JobPositionID            int     `json:"job_position_id" validate:"required"`
-	ParentJobPositionID      *int    `json:"parent_job_position_id,omitempty"`
-	SystemPermissionID       *int    `json:"system_permission_id,omitempty"`
-	Description              string  `json:"description" validate:"required"`
-	SerialNumber             string  `json:"serial_number" validate:"required"`
-	AvailableSlots           int     `json:"available_slots" validate:"required"`
-	Requirements             *string `json:"requirements" validate:"omitempty"`
-	Icon                     *string `json:"icon" validate:"omitempty"`
+	SystematizationID        int `json:"systematization_id" validate:"required"`
+	ParentOrganizationUnitID int `json:"parent_organization_unit_id" validate:"required"`
+	JobPositionID            int `json:"job_position_id" validate:"required"`
+	AvailableSlots           int `json:"available_slots" validate:"required"`
 }
 
 type GetJobPositionsInOrganizationUnitsDTO struct {
@@ -31,13 +25,7 @@ type JobPositionsInOrganizationUnitsResponseDTO struct {
 	SystematizationID        int       `json:"systematization_id"`
 	ParentOrganizationUnitID int       `json:"parent_organization_unit_id"`
 	JobPositionID            int       `json:"job_position_id"`
-	ParentJobPositionID      *int      `json:"parent_job_position_id"`
-	SystemPermissionID       *int      `json:"system_permission_id"`
-	Description              string    `json:"description"`
-	SerialNumber             string    `json:"serial_number"`
 	AvailableSlots           int       `json:"available_slots"`
-	Requirements             *string   `json:"requirements"`
-	Icon                     *string   `json:"icon" validate:"omitempty"`
 	CreatedAt                time.Time `json:"created_at"`
 	UpdatedAt                time.Time `json:"updated_at"`
 }
@@ -47,13 +35,7 @@ func (dto CreateJobPositionsInOrganizationUnitsDTO) ToJobPositionsInOrganization
 		SystematizationID:        dto.SystematizationID,
 		ParentOrganizationUnitID: dto.ParentOrganizationUnitID,
 		JobPositionID:            dto.JobPositionID,
-		ParentJobPositionID:      dto.ParentJobPositionID,
-		SystemPermissionID:       dto.SystemPermissionID,
-		Description:              dto.Description,
-		SerialNumber:             dto.SerialNumber,
 		AvailableSlots:           dto.AvailableSlots,
-		Requirements:             dto.Requirements,
-		Icon:                     dto.Icon,
 		CreatedAt:                time.Now(),
 		UpdatedAt:                time.Now(),
 	}
@@ -65,13 +47,7 @@ func ToJobPositionsInOrganizationUnitsResponseDTO(data data.JobPositionsInOrgani
 		SystematizationID:        data.SystematizationID,
 		ParentOrganizationUnitID: data.ParentOrganizationUnitID,
 		JobPositionID:            data.JobPositionID,
-		ParentJobPositionID:      data.ParentJobPositionID,
-		SystemPermissionID:       data.SystemPermissionID,
-		Description:              data.Description,
-		SerialNumber:             data.SerialNumber,
 		AvailableSlots:           data.AvailableSlots,
-		Requirements:             data.Requirements,
-		Icon:                     data.Icon,
 		CreatedAt:                time.Now(),
 		UpdatedAt:                time.Now(),
 	}

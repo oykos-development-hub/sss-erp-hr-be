@@ -67,17 +67,16 @@ VALUES
 
 -- job position in organization unit
 INSERT INTO job_positions_in_organization_units
-    (systematization_id, parent_organization_unit_id, job_position_id, parent_job_position_id, 
-    system_permission_id, description, serial_number, available_slots, requirements, icon, 
-    created_at, updated_at)
+    (systematization_id, parent_organization_unit_id, job_position_id, available_slots)
 VALUES
-    (1, 1, 2, NULL, NULL, 'Predsjednik Niksic', 'ABC456', 3, NULL, 'icon.png', NOW(), NOW()),
-    (4, 4, 3, NULL, NULL, 'Ekonomista Niksic', 'ABC789', 3, NULL, 'icon.png', NOW(), NOW()),
-    (2, 2, 2, NULL, NULL, 'Predsjednik Berane', 'BABC123', 3, NULL, 'icon.png', NOW(), NOW()),
-    (5, 5, 4, NULL, NULL, 'IT Niksic', 'NABC789', 3, NULL, 'icon.png', NOW(), NOW()),
-    (3, 1, 1, 2, NULL, 'Stari sudija Niksic', 'NABC789', 3, NULL, 'icon.png', NOW(), NOW()),
-    (1, 1, 1, 2, NULL, 'Sudija Niksic', 'ABC123', 3, NULL, 'icon.png', NOW(), NOW()),
-    (2, 2, 1, 5, NULL, 'Sudija Berane', 'ABC124', 3, NULL, 'icon.png', NOW(), NOW());
+    (1, 1, 2, 3),
+    (4, 4, 3, 3),
+    (2, 2, 2, 3),
+    (5, 5, 4, 3),
+    (3, 1, 1, 3),
+    (1, 1, 1, 3),
+    (2, 2, 1, 3);
+
 
 -- add employees to job positions (job_positions_in_organization_units)
 INSERT INTO employees_in_organization_units 

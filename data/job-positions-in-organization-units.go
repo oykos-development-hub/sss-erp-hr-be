@@ -12,13 +12,7 @@ type JobPositionsInOrganizationUnits struct {
 	SystematizationID        int       `db:"systematization_id"`
 	ParentOrganizationUnitID int       `db:"parent_organization_unit_id"`
 	JobPositionID            int       `db:"job_position_id"`
-	ParentJobPositionID      *int      `db:"parent_job_position_id"`
-	SystemPermissionID       *int      `db:"system_permission_id"`
-	Description              string    `db:"description"`
-	SerialNumber             string    `db:"serial_number"`
 	AvailableSlots           int       `db:"available_slots"`
-	Requirements             *string   `db:"requirements"`
-	Icon                     *string   `db:"icon"`
 	CreatedAt                time.Time `db:"created_at"`
 	UpdatedAt                time.Time `db:"updated_at"`
 }
