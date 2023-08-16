@@ -12,7 +12,7 @@ type GetEmployeesInOrganizationUnitInput struct {
 }
 
 type EmployeesInOrganizationUnitDTO struct {
-	UserAccountId                int  `json:"user_account_id" validate:"required"`
+	UserAccountId                int  `json:"user_account_id"`
 	UserProfileId                int  `json:"user_profile_id" validate:"required"`
 	PositionInOrganizationUnitId int  `json:"position_in_organization_unit_id" validate:"required"`
 	Active                       bool `json:"active"`
