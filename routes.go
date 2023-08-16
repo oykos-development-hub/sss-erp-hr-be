@@ -63,7 +63,7 @@ func routes(app *celeritas.Celeritas, middleware *middleware.Middleware, handler
 		rt.Delete("/employee-experiences/{id}", handlers.EmployeeExperienceHandler.DeleteEmployeeExperience)
 
 		rt.Post("/employee-educations", handlers.EmployeeEducationHandler.CreateEmployeeEducation)
-		rt.Get("/user-profiles/{id}/educations", handlers.EmployeeEducationHandler.GetEmployeeEducationList)
+		rt.Get("/employee-educations", handlers.EmployeeEducationHandler.GetEmployeeEducationList)
 		rt.Put("/employee-educations/{id}", handlers.EmployeeEducationHandler.UpdateEmployeeEducation)
 		rt.Delete("/employee-educations/{id}", handlers.EmployeeEducationHandler.DeleteEmployeeEducation)
 

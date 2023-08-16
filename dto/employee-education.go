@@ -6,9 +6,16 @@ import (
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 )
 
+type EducationInput struct {
+	UserProfileID int  `json:"user_profile_id" validate:"required"`
+	TypeID        *int `json:"type_id"`
+	SubTypeID     *int `json:"sub_type_id"`
+}
+
 type EmployeeEducationDTO struct {
 	UserProfileID       int        `json:"user_profile_id" validate:"required"`
-	EducationTypeID     int        `json:"education_type_id" validate:"required"`
+	TypeID              int        `json:"type_id" validate:"required"`
+	SubTypeID           int        `json:"sub_type_id" validate:"required"`
 	DateOfCertification *time.Time `json:"date_of_certification" validate:"omitempty,datetime"`
 	Price               *int       `json:"price" validate:"omitempty,numeric"`
 	DateOfStart         *time.Time `json:"date_of_start" validate:"omitempty,datetime"`
@@ -24,7 +31,8 @@ type EmployeeEducationDTO struct {
 type EmployeeEducationResponseDTO struct {
 	ID                  int        `json:"id"`
 	UserProfileID       int        `json:"user_profile_id"`
-	EducationTypeID     int        `json:"education_type_id"`
+	TypeID              int        `json:"type_id"`
+	SubTypeID           int        `json:"sub_type_id"`
 	DateOfCertification *time.Time `json:"date_of_certification"`
 	Price               *int       `json:"price"`
 	DateOfStart         *time.Time `json:"date_of_start"`
@@ -42,7 +50,8 @@ type EmployeeEducationResponseDTO struct {
 func (dto EmployeeEducationDTO) ToEmployeeEducation() *data.EmployeeEducation {
 	return &data.EmployeeEducation{
 		UserProfileID:       dto.UserProfileID,
-		EducationTypeID:     dto.EducationTypeID,
+		TypeID:              dto.TypeID,
+		SubTypeID:           dto.SubTypeID,
 		DateOfCertification: dto.DateOfCertification,
 		Price:               dto.Price,
 		DateOfStart:         dto.DateOfStart,
@@ -60,7 +69,8 @@ func ToEmployeeEducationResponseDTO(data data.EmployeeEducation) EmployeeEducati
 	return EmployeeEducationResponseDTO{
 		ID:                  data.ID,
 		UserProfileID:       data.UserProfileID,
-		EducationTypeID:     data.EducationTypeID,
+		TypeID:              data.TypeID,
+		SubTypeID:           data.SubTypeID,
 		DateOfCertification: data.DateOfCertification,
 		Price:               data.Price,
 		DateOfStart:         data.DateOfStart,

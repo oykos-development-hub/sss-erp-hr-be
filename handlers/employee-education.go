@@ -79,9 +79,16 @@ func (h *employeeeducationHandlerImpl) DeleteEmployeeEducation(w http.ResponseWr
 }
 
 func (h *employeeeducationHandlerImpl) GetEmployeeEducationList(w http.ResponseWriter, r *http.Request) {
-	userProfileId, _ := strconv.Atoi(chi.URLParam(r, "id"))
+	var input dto.EducationInput
+	_ = h.App.ReadJSON(w, r, &input)
 
-	res, err := h.service.GetEmployeeEducationList(userProfileId)
+	validator := h.App.Validator().ValidateStruct(&input)
+	if !validator.Valid() {
+		_ = h.App.WriteErrorResponseWithData(w, errors.MapErrorToStatusCode(errors.ErrBadRequest), errors.ErrBadRequest, validator.Errors)
+		return
+	}
+
+	res, err := h.service.GetEmployeeEducationList(input)
 	if err != nil {
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

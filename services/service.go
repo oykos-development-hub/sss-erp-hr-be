@@ -75,7 +75,7 @@ type EmployeeEducationService interface {
 	CreateEmployeeEducation(input dto.EmployeeEducationDTO) (*dto.EmployeeEducationResponseDTO, error)
 	UpdateEmployeeEducation(id int, input dto.EmployeeEducationDTO) (*dto.EmployeeEducationResponseDTO, error)
 	DeleteEmployeeEducation(id int) error
-	GetEmployeeEducationList(userProfileId int) ([]dto.EmployeeEducationResponseDTO, error)
+	GetEmployeeEducationList(input dto.EducationInput) ([]dto.EmployeeEducationResponseDTO, error)
 }
 
 type EmployeeResolutionService interface {

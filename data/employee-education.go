@@ -10,7 +10,8 @@ import (
 type EmployeeEducation struct {
 	ID                  int        `db:"id,omitempty"`
 	UserProfileID       int        `db:"user_profile_id"`
-	EducationTypeID     int        `db:"education_type_id"`
+	TypeID              int        `db:"type_id"`
+	SubTypeID           int        `db:"sub_type_id"`
 	DateOfCertification *time.Time `db:"date_of_certification"`
 	Price               *int       `db:"price"`
 	DateOfStart         *time.Time `db:"date_of_start"`

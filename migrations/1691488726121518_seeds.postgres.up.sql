@@ -120,13 +120,13 @@ VALUES
 
 -- educations
 INSERT INTO employee_educations (
-    user_profile_id, education_type_id, date_of_certification, date_of_start, date_of_end, academic_title, expertise_level, certificate_issuer, title, description, created_at, updated_at)
+    user_profile_id, type_id, sub_type_id, date_of_certification, date_of_start, date_of_end, academic_title, expertise_level, certificate_issuer, title, description, created_at, updated_at)
 VALUES
-    (2, 17, '2020-01-01', '2016-01-01', '2019-01-01', 'Bachelor prava', '6', 'Univerzitet Crne Gore', 'Pravne studije', 'Specijalističke studije prava', NOW(), NOW()),
-    (3, 17, '2021-06-01', '2017-06-01', '2020-06-01', 'Bachelor kriminalistike', '6', 'Pravni fakultet', 'Kriminalistika', 'Studije kriminalistike', NOW(), NOW()),
-    (4, 18, '2019-05-01', '2015-05-01', '2018-05-01', 'Magistar prava', '7', 'Univerzitet Crne Gore', 'Pravo', 'Magistarske studije prava', NOW(), NOW()),
-    (5, 17, '2018-09-01', '2014-09-01', '2017-09-01', 'Bachelor', '6', 'Univerzitet Crne Gore', 'Pravne studije', 'Bachelor studije prava', NOW(), NOW()),
-    (6, 18, '2023-06-01', '2019-06-01', '2022-06-01', 'Master inženjer informacionih tehnologija', '7', 'Tehnički fakultet', 'IT u pravnom sistemu', 'Postdiplomske studije u IT i pravu', NOW(), NOW());
+    (2, 11, 17, '2020-01-01', '2016-01-01', '2019-01-01', 'Bachelor prava', '6', 'Univerzitet Crne Gore', 'Pravne studije', 'Specijalističke studije prava', NOW(), NOW()),
+    (3, 11, 17, '2021-06-01', '2017-06-01', '2020-06-01', 'Bachelor kriminalistike', '6', 'Pravni fakultet', 'Kriminalistika', 'Studije kriminalistike', NOW(), NOW()),
+    (4, 11, 18, '2019-05-01', '2015-05-01', '2018-05-01', 'Magistar prava', '7', 'Univerzitet Crne Gore', 'Pravo', 'Magistarske studije prava', NOW(), NOW()),
+    (5, 11, 17, '2018-09-01', '2014-09-01', '2017-09-01', 'Bachelor', '6', 'Univerzitet Crne Gore', 'Pravne studije', 'Bachelor studije prava', NOW(), NOW()),
+    (6, 11, 18, '2023-06-01', '2019-06-01', '2022-06-01', 'Master inženjer informacionih tehnologija', '7', 'Tehnički fakultet', 'IT u pravnom sistemu', 'Postdiplomske studije u IT i pravu', NOW(), NOW());
 
 
 INSERT INTO employee_resolutions

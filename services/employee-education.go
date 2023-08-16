@@ -68,10 +68,18 @@ func (h *EmployeeEducationServiceImpl) DeleteEmployeeEducation(id int) error {
 	return nil
 }
 
-func (h *EmployeeEducationServiceImpl) GetEmployeeEducationList(userProfileId int) ([]dto.EmployeeEducationResponseDTO, error) {
+func (h *EmployeeEducationServiceImpl) GetEmployeeEducationList(input dto.EducationInput) ([]dto.EmployeeEducationResponseDTO, error) {
 	cond := up.Cond{
-		"user_profile_id": userProfileId,
+		"user_profile_id": input.UserProfileID,
 	}
+
+	if input.SubTypeID != nil {
+		cond["sub_type_id"] = *input.SubTypeID
+	}
+	if input.TypeID != nil {
+		cond["type_id"] = *input.TypeID
+	}
+
 	data, err := h.repo.GetAll(&cond)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
