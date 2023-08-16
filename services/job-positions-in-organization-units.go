@@ -39,6 +39,24 @@ func (h *JobPositionsInOrganizationUnitsServiceImpl) CreateJobPositionsInOrganiz
 	return &res, nil
 }
 
+func (h *JobPositionsInOrganizationUnitsServiceImpl) UpdateJobPositionsInOrganizationUnits(input dto.CreateJobPositionsInOrganizationUnitsDTO) (*dto.JobPositionsInOrganizationUnitsResponseDTO, error) {
+	data := input.ToJobPositionsInOrganizationUnits()
+
+	err := h.repo.Update(*data)
+	if err != nil {
+		return nil, errors.ErrInternalServer
+	}
+
+	data, err = data.Get(input.Id)
+	if err != nil {
+		return nil, errors.ErrInternalServer
+	}
+
+	res := dto.ToJobPositionsInOrganizationUnitsResponseDTO(*data)
+
+	return &res, nil
+}
+
 func (h *JobPositionsInOrganizationUnitsServiceImpl) DeleteJobPositionsInOrganizationUnits(id int) error {
 	err := h.repo.Delete(id)
 	if err != nil {

@@ -31,6 +31,7 @@ func routes(app *celeritas.Celeritas, middleware *middleware.Middleware, handler
 		rt.Get("/job-positions-in-organization-units", handlers.JobPositionsInOrganizationUnitsHandler.GetJobPositionsInOrganizationUnitsList)
 		rt.Post("/job-positions-in-organization-units", handlers.JobPositionsInOrganizationUnitsHandler.CreateJobPositionsInOrganizationUnits)
 		rt.Delete("/job-positions-in-organization-units/{id}", handlers.JobPositionsInOrganizationUnitsHandler.DeleteJobPositionsInOrganizationUnits)
+		rt.Put("/job-positions-in-organization-units/{id}", handlers.JobPositionsInOrganizationUnitsHandler.UpdateJobPositionsInOrganizationUnits)
 		rt.Get("/job-positions-in-organization-units/{id}", handlers.JobPositionsInOrganizationUnitsHandler.GetJobPositionsInOrganizationUnitsById)
 
 		// Systematizations

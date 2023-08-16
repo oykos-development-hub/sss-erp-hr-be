@@ -45,6 +45,28 @@ func (h *jobPositionsInOrganizationUnitsHandlerImpl) CreateJobPositionsInOrganiz
 	_ = h.App.WriteDataResponse(w, http.StatusOK, "Job Position in organization unit created successfuly", res)
 }
 
+func (h *jobPositionsInOrganizationUnitsHandlerImpl) UpdateJobPositionsInOrganizationUnits(w http.ResponseWriter, r *http.Request) {
+	var input dto.CreateJobPositionsInOrganizationUnitsDTO
+	_ = h.App.ReadJSON(w, r, &input)
+
+	input.Id, _ = strconv.Atoi(chi.URLParam(r, "id"))
+
+	validator := h.App.Validator().ValidateStruct(&input)
+	if !validator.Valid() {
+		_ = h.App.WriteErrorResponseWithData(w, errors.MapErrorToStatusCode(errors.ErrBadRequest), errors.ErrBadRequest, validator.Errors)
+		return
+	}
+
+	res, err := h.service.UpdateJobPositionsInOrganizationUnits(input)
+	if err != nil {
+		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
+		return
+	}
+
+	_ = h.App.WriteDataResponse(w, http.StatusOK, "Job Position in organization unit updated successfuly", res)
+
+}
+
 func (h *jobPositionsInOrganizationUnitsHandlerImpl) DeleteJobPositionsInOrganizationUnits(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
 

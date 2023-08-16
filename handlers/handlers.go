@@ -65,6 +65,7 @@ type JobPositionHandler interface {
 type JobPositionsInOrganizationUnitsHandler interface {
 	CreateJobPositionsInOrganizationUnits(w http.ResponseWriter, r *http.Request)
 	DeleteJobPositionsInOrganizationUnits(w http.ResponseWriter, r *http.Request)
+	UpdateJobPositionsInOrganizationUnits(w http.ResponseWriter, r *http.Request)
 	GetJobPositionsInOrganizationUnitsById(w http.ResponseWriter, r *http.Request)
 	GetJobPositionsInOrganizationUnitsList(w http.ResponseWriter, r *http.Request)
 }

@@ -7,6 +7,7 @@ import (
 )
 
 type CreateJobPositionsInOrganizationUnitsDTO struct {
+	Id                       int `json:"id" validate:"omitempty"`
 	SystematizationID        int `json:"systematization_id" validate:"required"`
 	ParentOrganizationUnitID int `json:"parent_organization_unit_id" validate:"required"`
 	JobPositionID            int `json:"job_position_id" validate:"required"`
@@ -32,12 +33,11 @@ type JobPositionsInOrganizationUnitsResponseDTO struct {
 
 func (dto CreateJobPositionsInOrganizationUnitsDTO) ToJobPositionsInOrganizationUnits() *data.JobPositionsInOrganizationUnits {
 	return &data.JobPositionsInOrganizationUnits{
+		ID:                       dto.Id,
 		SystematizationID:        dto.SystematizationID,
 		ParentOrganizationUnitID: dto.ParentOrganizationUnitID,
 		JobPositionID:            dto.JobPositionID,
 		AvailableSlots:           dto.AvailableSlots,
-		CreatedAt:                time.Now(),
-		UpdatedAt:                time.Now(),
 	}
 }
 
@@ -48,8 +48,8 @@ func ToJobPositionsInOrganizationUnitsResponseDTO(data data.JobPositionsInOrgani
 		ParentOrganizationUnitID: data.ParentOrganizationUnitID,
 		JobPositionID:            data.JobPositionID,
 		AvailableSlots:           data.AvailableSlots,
-		CreatedAt:                time.Now(),
-		UpdatedAt:                time.Now(),
+		CreatedAt:                data.CreatedAt,
+		UpdatedAt:                data.UpdatedAt,
 	}
 }
 

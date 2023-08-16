@@ -13,7 +13,7 @@ type JobPositionsInOrganizationUnits struct {
 	ParentOrganizationUnitID int       `db:"parent_organization_unit_id"`
 	JobPositionID            int       `db:"job_position_id"`
 	AvailableSlots           int       `db:"available_slots"`
-	CreatedAt                time.Time `db:"created_at"`
+	CreatedAt                time.Time `db:"created_at,omitempty"`
 	UpdatedAt                time.Time `db:"updated_at"`
 }
 
@@ -59,6 +59,17 @@ func (t *JobPositionsInOrganizationUnits) Insert(m JobPositionsInOrganizationUni
 	id := getInsertId(res.ID())
 
 	return id, nil
+}
+
+func (t *JobPositionsInOrganizationUnits) Update(m JobPositionsInOrganizationUnits) error {
+	m.UpdatedAt = time.Now()
+	collection := upper.Collection(t.Table())
+	res := collection.Find(m.ID)
+	err := res.Update(&m)
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 // GetAll gets all records from the database, using upper
