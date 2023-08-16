@@ -2,7 +2,6 @@ CREATE TABLE employee_educations (
     id serial PRIMARY KEY,
     user_profile_id INT NOT NULL,
     type_id INT NOT NULL,
-    sub_type_id INT NOT NULL,
     date_of_certification DATE,
     price INT,
     date_of_start DATE,
