@@ -46,7 +46,7 @@ func (h *employeesinorganizationunitHandlerImpl) CreateEmployeesInOrganizationUn
 }
 
 func (h *employeesinorganizationunitHandlerImpl) DeleteEmployeesInOrganizationUnit(w http.ResponseWriter, r *http.Request) {
-	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
+	id, _ := strconv.Atoi(chi.URLParam(r, "position_in_organization_unit_id"))
 
 	err := h.service.DeleteEmployeesInOrganizationUnit(id)
 	if err != nil {

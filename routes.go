@@ -54,7 +54,7 @@ func routes(app *celeritas.Celeritas, middleware *middleware.Middleware, handler
 		rt.Post("/employees-in-organization-units", handlers.EmployeesInOrganizationUnitHandler.CreateEmployeesInOrganizationUnit)
 		rt.Get("/user-profiles/{id}/employee-in-organization-unit", handlers.EmployeesInOrganizationUnitHandler.GetEmployeesInOrganizationUnitByEmployee)
 		rt.Get("/employees-in-organization-units", handlers.EmployeesInOrganizationUnitHandler.GetEmployeesInOrganizationUnitList)
-		rt.Delete("/employees-in-organization-units/{id}", handlers.EmployeesInOrganizationUnitHandler.DeleteEmployeesInOrganizationUnit)
+		rt.Delete("/employees-in-organization-units/{position_in_organization_unit_id}", handlers.EmployeesInOrganizationUnitHandler.DeleteEmployeesInOrganizationUnit)
 		rt.Put("/employees-in-organization-units/{id}", handlers.EmployeesInOrganizationUnitHandler.UpdateJobPositionInOrganizationUnit)
 
 		rt.Post("/employee-experiences", handlers.EmployeeExperienceHandler.CreateEmployeeExperience)
