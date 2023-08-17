@@ -14,7 +14,7 @@ type EmployeeContractDTO struct {
 	UserProfileID                   int        `json:"user_profile_id" validate:"required"`
 	ContractTypeID                  int        `json:"contract_type_id" validate:"required"`
 	OrganizationUnitID              int        `json:"organization_unit_id" validate:"required"`
-	DepartmentID                    *int       `json:"department_id" validate:"required"`
+	DepartmentID                    *int       `json:"department_id"`
 	JobPositionInOrganizationUnitID int        `json:"job_position_in_organization_unit_id" validate:"required"`
 	Abbreviation                    *string    `json:"abbreviation"`
 	Description                     *string    `json:"description"`
