@@ -36,6 +36,7 @@ type UserProfileDTO struct {
 	DateOfBecomingJudge       *string   `json:"date_of_becoming_judge"`
 	RevisorRole               *bool     `json:"revisor_role"`
 	EngagementTypeID          *int      `json:"engagement_type_id" validate:"omitempty"`
+	ActiveContract            *bool     `db:"active_contract"`
 }
 
 type UserProfileResponseDTO struct {
@@ -69,6 +70,7 @@ type UserProfileResponseDTO struct {
 	DateOfBecomingJudge       *string    `json:"date_of_becoming_judge"`
 	RevisorRole               *bool      `json:"revisor_role"`
 	EngagementTypeID          *int       `json:"engagement_type_id"`
+	ActiveContract            *bool      `db:"active_contract"`
 	CreatedAt                 time.Time  `json:"created_at"`
 	UpdatedAt                 time.Time  `json:"updated_at"`
 }
@@ -104,6 +106,7 @@ func (dto *UserProfileDTO) ToUserProfile() *data.UserProfile {
 		DateOfBecomingJudge:       dto.DateOfBecomingJudge,
 		RevisorRole:               dto.RevisorRole,
 		EngagementTypeID:          dto.EngagementTypeID,
+		ActiveContract:            dto.ActiveContract,
 		CreatedAt:                 time.Now(),
 		UpdatedAt:                 time.Now(),
 	}
@@ -149,6 +152,7 @@ func ToUserProfileResponseDTO(data data.UserProfile) UserProfileResponseDTO {
 		DateOfBecomingJudge:       data.DateOfBecomingJudge,
 		RevisorRole:               data.RevisorRole,
 		EngagementTypeID:          data.EngagementTypeID,
+		ActiveContract:            data.ActiveContract,
 		CreatedAt:                 data.CreatedAt,
 		UpdatedAt:                 data.UpdatedAt,
 	}
