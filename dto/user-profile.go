@@ -7,7 +7,7 @@ import (
 )
 
 type UserProfileDTO struct {
-	UserAccountId             int       `json:"user_account_id" validate:"required"`
+	UserAccountId             int       `json:"user_account_id"`
 	FirstName                 string    `json:"first_name" validate:"required"`
 	MiddleName                *string   `json:"middle_name"`
 	LastName                  string    `json:"last_name" validate:"required"`
