@@ -8,7 +8,7 @@ import (
 
 type UserProfile struct {
 	ID                        int        `db:"id,omitempty"`
-	UserAccountId             int        `db:"user_account_id"`
+	UserAccountId             int        `db:"user_account_id,omitempty"`
 	FirstName                 string     `db:"first_name"`
 	MiddleName                *string    `db:"middle_name"`
 	LastName                  string     `db:"last_name"`
