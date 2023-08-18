@@ -6,7 +6,7 @@ import (
 	"gitlab.sudovi.me/erp/hr-ms-api/errors"
 
 	"github.com/oykos-development-hub/celeritas"
-	"github.com/upper/db/v4"
+	up "github.com/upper/db/v4"
 )
 
 type JobPositionsInOrganizationUnitsServiceImpl struct {
@@ -79,15 +79,21 @@ func (h *JobPositionsInOrganizationUnitsServiceImpl) GetJobPositionInOrganziatio
 }
 
 func (h *JobPositionsInOrganizationUnitsServiceImpl) GetJobPositionsInOrganizationUnitsList(data dto.GetJobPositionsInOrganizationUnitsDTO) ([]dto.JobPositionsInOrganizationUnitsResponseDTO, *uint64, error) {
-	condition := db.Cond{}
+	conditionAndExp := &up.AndExpr{}
+
 	if data.OrganizationUnitID != nil && *data.OrganizationUnitID > 0 {
-		condition["parent_organization_unit_id"] = data.OrganizationUnitID
-	}
-	if data.JobPositionID != nil {
-		condition["job_position_id"] = data.JobPositionID
+		conditionAndExp = up.And(conditionAndExp, &up.Cond{"parent_organization_unit_id": *data.OrganizationUnitID})
 	}
 
-	res, total, err := h.repo.GetAll(data.Page, data.PageSize, &condition)
+	if data.JobPositionID != nil && *data.JobPositionID > 0 {
+		conditionAndExp = up.And(conditionAndExp, &up.Cond{"job_position_id =": *data.JobPositionID})
+	}
+
+	if data.SystematizationID != nil && *data.SystematizationID > 0 {
+		conditionAndExp = up.And(conditionAndExp, &up.Cond{"systematization_id =": *data.SystematizationID})
+	}
+
+	res, total, err := h.repo.GetAll(data.Page, data.PageSize, conditionAndExp)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
 		return nil, nil, errors.ErrInternalServer

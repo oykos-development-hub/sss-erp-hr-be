@@ -73,13 +73,13 @@ func (t *JobPositionsInOrganizationUnits) Update(m JobPositionsInOrganizationUni
 }
 
 // GetAll gets all records from the database, using upper
-func (t *JobPositionsInOrganizationUnits) GetAll(page *int, pageSize *int, condition *up.Cond) ([]*JobPositionsInOrganizationUnits, *uint64, error) {
+func (t *JobPositionsInOrganizationUnits) GetAll(page *int, pageSize *int, condition *up.AndExpr) ([]*JobPositionsInOrganizationUnits, *uint64, error) {
 	collection := upper.Collection(t.Table())
 	var all []*JobPositionsInOrganizationUnits
 	var res up.Result
 
 	if condition != nil {
-		res = collection.Find(*condition)
+		res = collection.Find(condition)
 	} else {
 		res = collection.Find()
 	}
