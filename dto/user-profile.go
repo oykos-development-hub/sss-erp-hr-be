@@ -28,8 +28,8 @@ type UserProfileDTO struct {
 	OfficialPersonalDocNumber string    `json:"official_personal_document_number" validate:"required"`
 	OfficialPersonalDocIssuer string    `json:"official_personal_document_issuer" validate:"required"`
 	Gender                    string    `json:"gender" validate:"required"`
-	SingleParent              bool      `json:"single_parent" validate:"required"`
-	HousingDone               bool      `json:"housing_done" validate:"required"`
+	SingleParent              *bool     `json:"single_parent" validate:"required"`
+	HousingDone               *bool     `json:"housing_done" validate:"required"`
 	HousingDescription        string    `json:"housing_description"`
 	MartialStatus             string    `json:"martial_status"`
 	DateOfTakingOath          *JSONTime `json:"date_of_taking_oath"`
@@ -62,8 +62,8 @@ type UserProfileResponseDTO struct {
 	OfficialPersonalDocNumber string     `json:"official_personal_document_number"`
 	OfficialPersonalDocIssuer string     `json:"official_personal_document_issuer"`
 	Gender                    string     `json:"gender"`
-	SingleParent              bool       `json:"single_parent"`
-	HousingDone               bool       `json:"housing_done"`
+	SingleParent              *bool      `json:"single_parent"`
+	HousingDone               *bool      `json:"housing_done"`
 	HousingDescription        string     `json:"housing_description"`
 	MartialStatus             string     `json:"martial_status"`
 	DateOfTakingOath          *time.Time `json:"date_of_taking_oath"`

@@ -29,8 +29,8 @@ type UserProfile struct {
 	OfficialPersonalDocNumber string     `db:"official_personal_document_number"`
 	OfficialPersonalDocIssuer string     `db:"official_personal_document_issuer"`
 	Gender                    string     `db:"gender"`
-	SingleParent              bool       `db:"single_parent"`
-	HousingDone               bool       `db:"housing_done"`
+	SingleParent              *bool      `db:"single_parent"`
+	HousingDone               *bool      `db:"housing_done"`
 	HousingDescription        string     `db:"housing_description"`
 	MartialStatus             string     `db:"martial_status"`
 	DateOfTakingOath          *time.Time `db:"date_of_taking_oath"`
