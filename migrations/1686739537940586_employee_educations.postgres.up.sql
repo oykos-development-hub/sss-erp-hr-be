@@ -3,7 +3,7 @@ CREATE TABLE employee_educations (
     user_profile_id INT NOT NULL,
     type_id INT NOT NULL,
     date_of_certification DATE,
-    price INT,
+    price NUMERIC(10, 2),
     date_of_start DATE,
     date_of_end DATE,
     academic_title text,

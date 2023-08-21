@@ -12,7 +12,7 @@ type EmployeeEducation struct {
 	UserProfileID       int        `db:"user_profile_id"`
 	TypeID              int        `db:"type_id"`
 	DateOfCertification *time.Time `db:"date_of_certification"`
-	Price               *int       `db:"price"`
+	Price               *float32   `db:"price"`
 	DateOfStart         *time.Time `db:"date_of_start"`
 	DateOfEnd           *time.Time `db:"date_of_end"`
 	AcademicTitle       *string    `db:"academic_title"`

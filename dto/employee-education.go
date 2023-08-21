@@ -16,7 +16,7 @@ type EmployeeEducationDTO struct {
 	UserProfileID       int        `json:"user_profile_id" validate:"required"`
 	TypeID              int        `json:"type_id" validate:"required"`
 	DateOfCertification *time.Time `json:"date_of_certification" validate:"omitempty,datetime"`
-	Price               *int       `json:"price" validate:"omitempty,numeric"`
+	Price               *float32   `json:"price"`
 	DateOfStart         *time.Time `json:"date_of_start" validate:"omitempty,datetime"`
 	DateOfEnd           *time.Time `json:"date_of_end" validate:"omitempty,datetime"`
 	AcademicTitle       *string    `json:"academic_title" validate:"omitempty"`
@@ -32,7 +32,7 @@ type EmployeeEducationResponseDTO struct {
 	UserProfileID       int        `json:"user_profile_id"`
 	TypeID              int        `json:"type_id"`
 	DateOfCertification *time.Time `json:"date_of_certification"`
-	Price               *int       `json:"price"`
+	Price               *float32   `json:"price"`
 	DateOfStart         *time.Time `json:"date_of_start"`
 	DateOfEnd           *time.Time `json:"date_of_end"`
 	AcademicTitle       *string    `json:"academic_title"`
