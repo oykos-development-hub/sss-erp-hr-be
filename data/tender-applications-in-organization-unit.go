@@ -8,22 +8,13 @@ import (
 
 // TenderApplicationsInOrganizationUnit struct
 type TenderApplicationsInOrganizationUnit struct {
-	ID                 int       `db:"id,omitempty"`
-	JobTenderID        int       `db:"job_tender_id"`
-	UserProfileID      *int      `db:"user_profile_id"`
-	Active             bool      `db:"active"`
-	IsInternal         bool      `db:"is_internal"`
-	FirstName          *string   `db:"first_name"`
-	LastName           *string   `db:"last_name"`
-	Nationality        *string   `db:"nationality"`
-	DateOfBirth        *string   `db:"date_of_birth"`
-	DateOfApplication  string    `db:"date_of_application"`
-	OfficialPersonalID *string   `db:"official_personal_id"`
-	Evaluation         *string   `db:"evaluation"`
-	Status             string    `db:"status"`
-	FileID             *int      `db:"file_id"`
-	CreatedAt          time.Time `db:"created_at"`
-	UpdatedAt          time.Time `db:"updated_at"`
+	ID            int       `db:"id,omitempty"`
+	JobTenderID   int       `db:"job_tender_id"`
+	UserProfileID int       `db:"user_profile_id"`
+	Active        bool      `db:"active"`
+	FileID        *int      `db:"file_id"`
+	CreatedAt     time.Time `db:"created_at"`
+	UpdatedAt     time.Time `db:"updated_at"`
 }
 
 // Table returns the table name

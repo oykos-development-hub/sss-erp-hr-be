@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS tenders_in_organization_units (
     id serial PRIMARY KEY,
-    position_in_organization_unit_id int NOT NULL,
+    position_in_organization_unit_id int,
+    organization_unit_id int,
     active boolean not null,
     type int not null,
     date_of_start date not null,

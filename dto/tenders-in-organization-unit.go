@@ -13,7 +13,8 @@ type GetTendersInputDTO struct {
 }
 
 type TendersInOrganizationUnitDTO struct {
-	PositionInOrganizationUnitID int       `json:"position_in_organization_unit_id" validate:"required"`
+	PositionInOrganizationUnitID *int      `json:"position_in_organization_unit_id"`
+	OrganizationUnitID           int       `json:"organization_unit_id"`
 	Active                       bool      `json:"active"`
 	Type                         int       `json:"type" validate:"required"`
 	DateOfStart                  time.Time `json:"date_of_start" validate:"required"`
@@ -26,7 +27,8 @@ type TendersInOrganizationUnitDTO struct {
 
 type TendersInOrganizationUnitResponseDTO struct {
 	ID                           int       `json:"id"`
-	PositionInOrganizationUnitID int       `json:"position_in_organization_unit_id"`
+	PositionInOrganizationUnitID *int      `json:"position_in_organization_unit_id"`
+	OrganizationUnitID           int       `json:"organization_unit_id"`
 	Active                       bool      `json:"active"`
 	Type                         int       `json:"type"`
 	DateOfStart                  time.Time `json:"date_of_start"`
@@ -42,6 +44,7 @@ type TendersInOrganizationUnitResponseDTO struct {
 func (dto TendersInOrganizationUnitDTO) ToTendersInOrganizationUnit() *data.TendersInOrganizationUnit {
 	return &data.TendersInOrganizationUnit{
 		PositionInOrganizationUnitID: dto.PositionInOrganizationUnitID,
+		OrganizationUnitID:           dto.OrganizationUnitID,
 		Active:                       dto.Active,
 		Type:                         dto.Type,
 		DateOfStart:                  dto.DateOfStart,
@@ -57,6 +60,7 @@ func ToTendersInOrganizationUnitResponseDTO(data data.TendersInOrganizationUnit)
 	return TendersInOrganizationUnitResponseDTO{
 		ID:                           data.ID,
 		PositionInOrganizationUnitID: data.PositionInOrganizationUnitID,
+		OrganizationUnitID:           data.OrganizationUnitID,
 		Active:                       data.Active,
 		Type:                         data.Type,
 		DateOfStart:                  data.DateOfStart,
