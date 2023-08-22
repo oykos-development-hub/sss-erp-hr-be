@@ -7,15 +7,13 @@ import (
 )
 
 type GetTendersInputDTO struct {
-	IsActive *bool `json:"is_active" validate:"omitempty"`
-	Page     *int  `json:"page" validate:"omitempty"`
-	Size     *int  `json:"size" validate:"omitempty"`
+	Page *int `json:"page" validate:"omitempty"`
+	Size *int `json:"size" validate:"omitempty"`
 }
 
 type TendersInOrganizationUnitDTO struct {
 	PositionInOrganizationUnitID *int      `json:"position_in_organization_unit_id"`
 	OrganizationUnitID           int       `json:"organization_unit_id"`
-	Active                       bool      `json:"active"`
 	Type                         int       `json:"type" validate:"required"`
 	DateOfStart                  time.Time `json:"date_of_start" validate:"required"`
 	DateOfEnd                    time.Time `json:"date_of_end" validate:"required"`
@@ -29,7 +27,6 @@ type TendersInOrganizationUnitResponseDTO struct {
 	ID                           int       `json:"id"`
 	PositionInOrganizationUnitID *int      `json:"position_in_organization_unit_id"`
 	OrganizationUnitID           int       `json:"organization_unit_id"`
-	Active                       bool      `json:"active"`
 	Type                         int       `json:"type"`
 	DateOfStart                  time.Time `json:"date_of_start"`
 	DateOfEnd                    time.Time `json:"date_of_end"`
@@ -45,7 +42,6 @@ func (dto TendersInOrganizationUnitDTO) ToTendersInOrganizationUnit() *data.Tend
 	return &data.TendersInOrganizationUnit{
 		PositionInOrganizationUnitID: dto.PositionInOrganizationUnitID,
 		OrganizationUnitID:           dto.OrganizationUnitID,
-		Active:                       dto.Active,
 		Type:                         dto.Type,
 		DateOfStart:                  dto.DateOfStart,
 		DateOfEnd:                    dto.DateOfEnd,
@@ -61,7 +57,6 @@ func ToTendersInOrganizationUnitResponseDTO(data data.TendersInOrganizationUnit)
 		ID:                           data.ID,
 		PositionInOrganizationUnitID: data.PositionInOrganizationUnitID,
 		OrganizationUnitID:           data.OrganizationUnitID,
-		Active:                       data.Active,
 		Type:                         data.Type,
 		DateOfStart:                  data.DateOfStart,
 		DateOfEnd:                    data.DateOfEnd,

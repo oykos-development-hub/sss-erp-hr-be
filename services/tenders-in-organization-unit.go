@@ -81,9 +81,7 @@ func (h *TendersInOrganizationUnitServiceImpl) GetTendersInOrganizationUnit(id i
 
 func (h *TendersInOrganizationUnitServiceImpl) GetTendersInOrganizationUnitList(input dto.GetTendersInputDTO) ([]dto.TendersInOrganizationUnitResponseDTO, *uint64, error) {
 	cond := up.Cond{}
-	if input.IsActive != nil {
-		cond["active"] = input.IsActive
-	}
+
 	data, total, err := h.repo.GetAll(input.Page, input.Size, &cond)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
