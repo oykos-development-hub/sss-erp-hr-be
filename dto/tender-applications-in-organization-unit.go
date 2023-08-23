@@ -14,18 +14,18 @@ const (
 )
 
 type TenderApplicationsInOrganizationUnitDTO struct {
-	JobTenderID        int                   `json:"job_tender_id" validate:"required"`
-	UserProfileID      *int                  `json:"user_profile_id"`
-	Active             bool                  `json:"active" validate:"required"`
-	Type               TenderApplicationType `json:"type" validate:"required"`
+	JobTenderID        int                   `json:"job_tender_id"`
+	UserProfileID      *int                  `json:"user_profile_id" `
+	Active             bool                  `json:"active" `
+	Type               TenderApplicationType `json:"type"`
 	FirstName          *string               `json:"first_name"`
 	LastName           *string               `json:"last_name"`
 	Nationality        *string               `json:"nationality"`
-	DateOfBirth        *string               `json:"date_of_birth"`
-	DateOfApplication  string                `json:"date_of_application" validate:"required"`
+	DateOfBirth        *time.Time            `json:"date_of_birth"`
+	DateOfApplication  time.Time             `json:"date_of_application"`
 	OfficialPersonalID *string               `json:"official_personal_id"`
 	Evaluation         *string               `json:"evaluation"`
-	Status             string                `json:"status" validate:"required"`
+	Status             string                `json:"status"`
 	FileID             *int                  `json:"file_id"`
 }
 
@@ -38,8 +38,8 @@ type TenderApplicationsInOrganizationUnitResponseDTO struct {
 	FirstName          *string               `json:"first_name"`
 	LastName           *string               `json:"last_name"`
 	Nationality        *string               `json:"nationality"`
-	DateOfBirth        *string               `json:"date_of_birth"`
-	DateOfApplication  string                `json:"date_of_application"`
+	DateOfBirth        *time.Time            `json:"date_of_birth"`
+	DateOfApplication  time.Time             `json:"date_of_application"`
 	OfficialPersonalID *string               `json:"official_personal_id"`
 	Evaluation         *string               `json:"evaluation"`
 	Status             string                `json:"status"`

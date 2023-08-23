@@ -251,7 +251,6 @@ VALUES
 
 INSERT INTO tenders_in_organization_units (
 	position_in_organization_unit_id,
-    active,
     type,
     date_of_start,
     date_of_end,
@@ -263,27 +262,29 @@ INSERT INTO tenders_in_organization_units (
     updated_at
 )
 VALUES
-    (1, true, 1, '2023-08-01', '2023-08-31', 'Konkurs za sudiju u Niksicu', 'TSN001', 5, null, NOW(), NOW()),
-    (2, true, 2, '2023-08-15', '2023-09-15', 'Konkurs za predsjednika u Niksicu', 'TSN002', 1, null, NOW(), NOW()),
-    (3, true, 3, '2023-08-20', '2023-09-30', 'Konkurs za ekonomistu', 'TSN003', 1, null, NOW(), NOW()),
-	(1, false, 1, '2022-08-01', '2022-08-31', 'Stari konkurs za sudiju u Niksicu', 'TSN011', 5, null, NOW(), NOW()),
-    (2, false, 2, '2022-08-15', '2022-09-15', 'Stari konkurs za predsjednika u Niksicu', 'TSN012', 1, null, NOW(), NOW());
+    (1,1, '2023-08-01', '2023-08-31', 'Konkurs za sudiju u Niksicu', 'TSN001', 5, null, NOW(), NOW()),
+    (2,2, '2023-08-15', '2023-09-15', 'Konkurs za predsjednika u Niksicu', 'TSN002', 1, null, NOW(), NOW()),
+    (3,3, '2023-08-20', '2023-09-30', 'Konkurs za ekonomistu', 'TSN003', 1, null, NOW(), NOW()),
+	(1, 1, '2022-08-01', '2022-08-31', 'Stari konkurs za sudiju u Niksicu', 'TSN011', 5, null, NOW(), NOW()),
+    (2, 2, '2022-08-15', '2022-09-15', 'Stari konkurs za predsjednika u Niksicu', 'TSN012', 1, null, NOW(), NOW());
 
 INSERT INTO tender_applications_in_organization_units (
     job_tender_id,
     user_profile_id,
     active,
+    status,
     file_id,
+    is_internal,
     created_at,
     updated_at
 )
 VALUES
-    (1, 2, true, null, NOW(), NOW()),
-    (1, 3, true, null, NOW(), NOW()),
-    (1, 4, false, null, NOW(), NOW()),
-	(2, 2, true, null, NOW(), NOW()),
-    (2, 3, true, null, NOW(), NOW()),
-    (2, 4, false, null, NOW(), NOW()),
-	(5, 2, false, null, NOW(), NOW()),
-    (5, 3, false, null, NOW(), NOW()),
-    (5, 4, false, null, NOW(), NOW());
+    (1, 2, true, 'Na cekanju' , null, true, NOW(), NOW()),
+    (1, 3, true, 'Na cekanju', null, true, NOW(), NOW()),
+    (1, 4, false, 'Na cekanju', null, false, NOW(), NOW()),
+	(2, 2, true, 'Na cekanju', null, false, NOW(), NOW()),
+    (2, 3, true, 'Na cekanju', null, false, NOW(), NOW()),
+    (2, 4, false, 'Na cekanju', null, true, NOW(), NOW()),
+	(5, 2, false,'Na cekanju', null, true,  NOW(), NOW()),
+    (5, 3, false, 'Na cekanju', null, true, NOW(), NOW()),
+    (5, 4, false, 'Na cekanju', null, true, NOW(), NOW());

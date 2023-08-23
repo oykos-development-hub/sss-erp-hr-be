@@ -10,7 +10,7 @@ import (
 type TendersInOrganizationUnit struct {
 	ID                           int       `db:"id,omitempty"`
 	PositionInOrganizationUnitID *int      `db:"position_in_organization_unit_id"`
-	OrganizationUnitID           int       `db:"organization_unit_id"`
+	OrganizationUnitID           *int      `db:"organization_unit_id"`
 	Type                         int       `db:"type"`
 	DateOfStart                  time.Time `db:"date_of_start"`
 	DateOfEnd                    time.Time `db:"date_of_end"`

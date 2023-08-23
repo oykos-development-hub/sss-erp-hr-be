@@ -13,7 +13,7 @@ type GetTendersInputDTO struct {
 
 type TendersInOrganizationUnitDTO struct {
 	PositionInOrganizationUnitID *int      `json:"position_in_organization_unit_id"`
-	OrganizationUnitID           int       `json:"organization_unit_id"`
+	OrganizationUnitID           *int      `json:"organization_unit_id"`
 	Type                         int       `json:"type" validate:"required"`
 	DateOfStart                  time.Time `json:"date_of_start" validate:"required"`
 	DateOfEnd                    time.Time `json:"date_of_end" validate:"required"`
@@ -25,7 +25,7 @@ type TendersInOrganizationUnitDTO struct {
 type TendersInOrganizationUnitResponseDTO struct {
 	ID                           int       `json:"id"`
 	PositionInOrganizationUnitID *int      `json:"position_in_organization_unit_id"`
-	OrganizationUnitID           int       `json:"organization_unit_id"`
+	OrganizationUnitID           *int      `json:"organization_unit_id"`
 	Type                         int       `json:"type"`
 	DateOfStart                  time.Time `json:"date_of_start"`
 	DateOfEnd                    time.Time `json:"date_of_end"`

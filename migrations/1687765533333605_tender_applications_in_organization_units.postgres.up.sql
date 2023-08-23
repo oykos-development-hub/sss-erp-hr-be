@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS tender_applications_in_organization_units (
     evaluation text,
     date_of_birth date,
     date_of_application date,
-    status text,
+    status text not null,
     file_id int,
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
