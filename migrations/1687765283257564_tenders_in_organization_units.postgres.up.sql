@@ -6,7 +6,6 @@ CREATE TABLE IF NOT EXISTS tenders_in_organization_units (
     date_of_end date not null,
     description text,
     serial_number text not null,
-    available_slots int not null,
     file_id int,
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
