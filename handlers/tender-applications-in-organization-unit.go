@@ -1,8 +1,6 @@
 package handlers
 
 import (
-	"encoding/json"
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -58,9 +56,6 @@ func (h *tenderapplicationsinorganizationunitHandlerImpl) UpdateTenderApplicatio
 		_ = h.App.WriteErrorResponseWithData(w, errors.MapErrorToStatusCode(errors.ErrBadRequest), errors.ErrBadRequest, validator.Errors)
 		return
 	}
-
-	res2B, _ := json.Marshal(input)
-	fmt.Println(string(res2B))
 
 	res, err := h.service.UpdateTenderApplicationsInOrganizationUnit(id, input)
 	if err != nil {

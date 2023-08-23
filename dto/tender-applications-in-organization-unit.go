@@ -50,7 +50,11 @@ type TenderApplicationsInOrganizationUnitResponseDTO struct {
 
 func (dto TenderApplicationsInOrganizationUnitDTO) ToTenderApplicationsInOrganizationUnit() *data.TenderApplicationsInOrganizationUnit {
 	date1, _ := time.Parse("2006-01-02", dto.DateOfApplication)
-	date2, _ := time.Parse("2006-01-02", *dto.DateOfBirth)
+	var date2 *time.Time
+	format := "0001-01-01"
+	if dto.DateOfBirth != nil && dto.DateOfBirth == &format {
+		*date2, _ = time.Parse("2006-01-02", *dto.DateOfBirth)
+	}
 	return &data.TenderApplicationsInOrganizationUnit{
 		JobTenderID:        dto.JobTenderID,
 		UserProfileID:      dto.UserProfileID,
@@ -61,7 +65,7 @@ func (dto TenderApplicationsInOrganizationUnitDTO) ToTenderApplicationsInOrganiz
 		Status:             dto.Status,
 		Evaluation:         dto.Evaluation,
 		OfficialPersonalID: dto.OfficialPersonalID,
-		DateOfBirth:        &date2,
+		DateOfBirth:        date2,
 		Nationality:        dto.Nationality,
 		DateOfApplication:  date1,
 		FileID:             dto.FileID,
@@ -75,8 +79,13 @@ func ToTenderApplicationsInOrganizationUnitResponseDTO(data data.TenderApplicati
 	} else {
 		applicationType = External
 	}
-	s1 := data.DateOfBirth.Format("2006-01-02")
-	s2 := data.DateOfApplication.Format("2006-01-02")
+
+	var s1 string
+
+	if data.DateOfBirth != nil {
+		s1 = data.DateOfBirth.Format("2006-01-02T00:00:00Z")
+	}
+	s2 := data.DateOfApplication.Format("2006-01-02T00:00:00Z")
 	return TenderApplicationsInOrganizationUnitResponseDTO{
 		ID:                 data.ID,
 		JobTenderID:        data.JobTenderID,
