@@ -14,15 +14,15 @@ const (
 )
 
 type TenderApplicationsInOrganizationUnitDTO struct {
-	JobTenderID        int                   `json:"job_tender_id"`
+	JobTenderID        int                   `json:"job_tender_id" validate:"required"`
 	UserProfileID      *int                  `json:"user_profile_id" `
-	Active             bool                  `json:"active" `
-	Type               TenderApplicationType `json:"type"`
+	Active             bool                  `json:"active" validate:"required"`
+	Type               TenderApplicationType `json:"type" validate:"required"`
 	FirstName          *string               `json:"first_name"`
 	LastName           *string               `json:"last_name"`
 	Nationality        *string               `json:"nationality"`
-	DateOfBirth        *time.Time            `json:"date_of_birth"`
-	DateOfApplication  time.Time             `json:"date_of_application"`
+	DateOfBirth        *string               `json:"date_of_birth"`
+	DateOfApplication  string                `json:"date_of_application"`
 	OfficialPersonalID *string               `json:"official_personal_id"`
 	Evaluation         *string               `json:"evaluation"`
 	Status             string                `json:"status"`
@@ -38,8 +38,8 @@ type TenderApplicationsInOrganizationUnitResponseDTO struct {
 	FirstName          *string               `json:"first_name"`
 	LastName           *string               `json:"last_name"`
 	Nationality        *string               `json:"nationality"`
-	DateOfBirth        *time.Time            `json:"date_of_birth"`
-	DateOfApplication  time.Time             `json:"date_of_application"`
+	DateOfBirth        *string               `json:"date_of_birth"`
+	DateOfApplication  string                `json:"date_of_application"`
 	OfficialPersonalID *string               `json:"official_personal_id"`
 	Evaluation         *string               `json:"evaluation"`
 	Status             string                `json:"status"`
@@ -49,6 +49,8 @@ type TenderApplicationsInOrganizationUnitResponseDTO struct {
 }
 
 func (dto TenderApplicationsInOrganizationUnitDTO) ToTenderApplicationsInOrganizationUnit() *data.TenderApplicationsInOrganizationUnit {
+	date1, _ := time.Parse("2006-01-02", dto.DateOfApplication)
+	date2, _ := time.Parse("2006-01-02", *dto.DateOfBirth)
 	return &data.TenderApplicationsInOrganizationUnit{
 		JobTenderID:        dto.JobTenderID,
 		UserProfileID:      dto.UserProfileID,
@@ -59,9 +61,9 @@ func (dto TenderApplicationsInOrganizationUnitDTO) ToTenderApplicationsInOrganiz
 		Status:             dto.Status,
 		Evaluation:         dto.Evaluation,
 		OfficialPersonalID: dto.OfficialPersonalID,
-		DateOfBirth:        dto.DateOfBirth,
+		DateOfBirth:        &date2,
 		Nationality:        dto.Nationality,
-		DateOfApplication:  dto.DateOfApplication,
+		DateOfApplication:  date1,
 		FileID:             dto.FileID,
 	}
 }
@@ -73,7 +75,8 @@ func ToTenderApplicationsInOrganizationUnitResponseDTO(data data.TenderApplicati
 	} else {
 		applicationType = External
 	}
-
+	s1 := data.DateOfBirth.Format("2006-01-02")
+	s2 := data.DateOfApplication.Format("2006-01-02")
 	return TenderApplicationsInOrganizationUnitResponseDTO{
 		ID:                 data.ID,
 		JobTenderID:        data.JobTenderID,
@@ -85,8 +88,8 @@ func ToTenderApplicationsInOrganizationUnitResponseDTO(data data.TenderApplicati
 		Status:             data.Status,
 		Evaluation:         data.Evaluation,
 		OfficialPersonalID: data.OfficialPersonalID,
-		DateOfBirth:        data.DateOfBirth,
-		DateOfApplication:  data.DateOfApplication,
+		DateOfBirth:        &s1,
+		DateOfApplication:  s2,
 		FileID:             data.FileID,
 		Nationality:        data.Nationality,
 		CreatedAt:          data.CreatedAt,
