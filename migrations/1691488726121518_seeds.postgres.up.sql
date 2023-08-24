@@ -256,17 +256,16 @@ INSERT INTO tenders_in_organization_units (
     date_of_end,
     description,
     serial_number,
-    available_slots,
     file_id,
     created_at,
     updated_at
 )
 VALUES
-    (1,1, '2023-08-01', '2023-08-31', 'Konkurs za sudiju u Niksicu', 'TSN001', 5, null, NOW(), NOW()),
-    (2,2, '2023-08-15', '2023-09-15', 'Konkurs za predsjednika u Niksicu', 'TSN002', 1, null, NOW(), NOW()),
-    (3,3, '2023-08-20', '2023-09-30', 'Konkurs za ekonomistu', 'TSN003', 1, null, NOW(), NOW()),
-	(1, 1, '2022-08-01', '2022-08-31', 'Stari konkurs za sudiju u Niksicu', 'TSN011', 5, null, NOW(), NOW()),
-    (2, 2, '2022-08-15', '2022-09-15', 'Stari konkurs za predsjednika u Niksicu', 'TSN012', 1, null, NOW(), NOW());
+    (1,1, '2023-08-01', '2023-08-31', 'Konkurs za sudiju u Niksicu', 'TSN001', null, NOW(), NOW()),
+    (2,2, '2023-08-15', '2023-09-15', 'Konkurs za predsjednika u Niksicu', 'TSN002', null, NOW(), NOW()),
+    (3,3, '2023-08-20', '2023-09-30', 'Konkurs za ekonomistu', 'TSN003', null, NOW(), NOW()),
+	(1, 1, '2022-08-01', '2022-08-31', 'Stari konkurs za sudiju u Niksicu', 'TSN011', null, NOW(), NOW()),
+    (2, 2, '2022-08-15', '2022-09-15', 'Stari konkurs za predsjednika u Niksicu', 'TSN012', null, NOW(), NOW());
 
 INSERT INTO tender_applications_in_organization_units (
     job_tender_id,

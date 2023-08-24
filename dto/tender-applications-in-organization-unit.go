@@ -115,7 +115,8 @@ func ToTenderApplicationsInOrganizationUnitListResponseDTO(tenderapplicationsino
 }
 
 type GetTenderApplicationsInputDTO struct {
-	Page        *int `json:"page" validate:"omitempty"`
-	Size        *int `json:"size" validate:"omitempty"`
-	JobTenderID *int `json:"job_tender_id" validate:"omitempty"`
+	Page          *int `json:"page" validate:"omitempty"`
+	Size          *int `json:"size" validate:"omitempty"`
+	JobTenderID   *int `json:"job_tender_id" validate:"omitempty"`
+	UserProfileID *int `json:"user_profile_id" validate:"omitempty"`
 }

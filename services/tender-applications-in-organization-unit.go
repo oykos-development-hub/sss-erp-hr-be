@@ -80,11 +80,17 @@ func (h *TenderApplicationsInOrganizationUnitServiceImpl) GetTenderApplicationsI
 }
 
 func (h *TenderApplicationsInOrganizationUnitServiceImpl) GetTenderApplicationsInOrganizationUnitList(input dto.GetTenderApplicationsInputDTO) ([]dto.TenderApplicationsInOrganizationUnitResponseDTO, *uint64, error) {
-	cond := up.Cond{}
+	conditionAndExp := &up.AndExpr{}
+
 	if input.JobTenderID != nil {
-		cond["job_tender_id"] = *input.JobTenderID
+		conditionAndExp = up.And(conditionAndExp, &up.Cond{"job_tender_id": *input.JobTenderID})
 	}
-	data, total, err := h.repo.GetAll(input.Page, input.Size, &cond)
+
+	if input.UserProfileID != nil {
+		conditionAndExp = up.And(conditionAndExp, &up.Cond{"user_profile_id =": *input.UserProfileID})
+	}
+
+	data, total, err := h.repo.GetAll(input.Page, input.Size, conditionAndExp)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
 		return nil, nil, errors.ErrInternalServer

@@ -32,13 +32,13 @@ func (t *TenderApplicationsInOrganizationUnit) Table() string {
 }
 
 // GetAll gets all records from the database, using upper
-func (t *TenderApplicationsInOrganizationUnit) GetAll(page *int, pageSize *int, condition *up.Cond) ([]*TenderApplicationsInOrganizationUnit, *uint64, error) {
+func (t *TenderApplicationsInOrganizationUnit) GetAll(page *int, pageSize *int, condition *up.AndExpr) ([]*TenderApplicationsInOrganizationUnit, *uint64, error) {
 	collection := upper.Collection(t.Table())
 	var all []*TenderApplicationsInOrganizationUnit
 	var res up.Result
 
 	if condition != nil {
-		res = collection.Find(*condition)
+		res = collection.Find(condition)
 	} else {
 		res = collection.Find()
 	}
