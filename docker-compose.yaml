@@ -12,10 +12,10 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: hr
       PGDATA: /data/postgres
-      POSTGRES_SHARED_BUFFERS: "256MB"
-      POSTGRES_EFFECTIVE_CACHE_SIZE: "1GB"
     volumes:
       - postgres:/data/postgres
+      - ./custom-postgresql.conf:/etc/postgresql/postgresql.conf
+    command: ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf"]
 
   #  start Redis, and ensure that data is stored to a mounted volume
   redis:
