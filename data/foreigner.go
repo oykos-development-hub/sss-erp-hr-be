@@ -43,7 +43,7 @@ func (t *Foreigner) GetAll(condition *up.Cond) ([]*Foreigner, error) {
 	}
 
 	err := res.All(&all)
-	if err != nil {
+	if err != nil && err != up.ErrWarnSlowQuery {
 		return nil, err
 	}
 
