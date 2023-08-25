@@ -31,7 +31,7 @@ type UserProfileDTO struct {
 	SingleParent              *bool     `json:"single_parent" validate:"required"`
 	HousingDone               *bool     `json:"housing_done" validate:"required"`
 	HousingDescription        string    `json:"housing_description"`
-	MartialStatus             string    `json:"martial_status"`
+	MartialStatus             string    `json:"marital_status"`
 	DateOfTakingOath          *JSONTime `json:"date_of_taking_oath"`
 	DateOfBecomingJudge       *string   `json:"date_of_becoming_judge"`
 	RevisorRole               *bool     `json:"revisor_role"`
@@ -65,7 +65,7 @@ type UserProfileResponseDTO struct {
 	SingleParent              *bool      `json:"single_parent"`
 	HousingDone               *bool      `json:"housing_done"`
 	HousingDescription        string     `json:"housing_description"`
-	MartialStatus             string     `json:"martial_status"`
+	MartialStatus             string     `json:"marital_status"`
 	DateOfTakingOath          *time.Time `json:"date_of_taking_oath"`
 	DateOfBecomingJudge       *string    `json:"date_of_becoming_judge"`
 	RevisorRole               *bool      `json:"revisor_role"`
