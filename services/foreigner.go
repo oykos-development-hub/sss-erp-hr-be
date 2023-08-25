@@ -46,11 +46,13 @@ func (h *ForeignerServiceImpl) UpdateForeigner(id int, input dto.ForeignerDTO) (
 
 	err := h.repo.Update(*data)
 	if err != nil {
+		h.App.ErrorLog.Println(err)
 		return nil, errors.ErrInternalServer
 	}
 
 	data, err = h.repo.Get(id)
 	if err != nil {
+		h.App.ErrorLog.Println(err)
 		return nil, errors.ErrInternalServer
 	}
 

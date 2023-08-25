@@ -83,7 +83,6 @@ func (h *EmployeesInOrganizationUnitServiceImpl) GetEmployeesInOrganizationUnitL
 	}
 	res, err := h.repo.GetAll(&condition)
 	if err != nil || len(res) == 0 {
-		h.App.ErrorLog.Println(err)
 		return nil, errors.ErrNotFound
 	}
 	response := dto.ToEmployeesInOrganizationUnitListResponseDTO(res)
