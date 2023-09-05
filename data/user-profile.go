@@ -118,7 +118,7 @@ func (t *UserProfile) Insert(m UserProfile) (int, error) {
 	m.UpdatedAt = time.Now()
 	collection := upper.Collection(t.Table())
 	res, err := collection.Insert(m)
-	if err != nil {
+	if err != nil && err != up.ErrWarnSlowQuery {
 		return 0, err
 	}
 
