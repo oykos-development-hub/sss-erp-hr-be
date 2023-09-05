@@ -9,27 +9,27 @@ import (
 
 // EmployeeContract struct
 type EmployeeContract struct {
-	ID                              int        `db:"id,omitempty"`
-	UserProfileID                   int        `db:"user_profile_id"`
-	ContractTypeID                  int        `db:"contract_type_id"`
-	OrganizationUnitID              int        `db:"organization_unit_id"`
-	DepartmentID                    *int       `db:"organization_unit_department_id"`
-	JobPositionInOrganizationUnitID int        `db:"job_position_in_organization_unit"`
-	Abbreviation                    *string    `db:"abbreviation"`
-	Description                     *string    `db:"description"`
-	Active                          bool       `db:"active"`
-	SerialNumber                    *string    `db:"serial_number"`
-	NetSalary                       *string    `db:"net_salary"`
-	GrossSalary                     *string    `db:"gross_salary"`
-	BankAccount                     *string    `db:"bank_account"`
-	BankName                        *string    `db:"bank_name"`
-	DateOfSignature                 *time.Time `db:"date_of_signature"`
-	DateOfEligibility               *time.Time `db:"date_of_eligibility"`
-	DateOfStart                     time.Time  `db:"date_of_start"`
-	DateOfEnd                       *time.Time `db:"date_of_end"`
-	FileID                          *int       `db:"file_id"`
-	CreatedAt                       time.Time  `db:"created_at"`
-	UpdatedAt                       time.Time  `db:"updated_at"`
+	ID                            int        `db:"id,omitempty"`
+	UserProfileID                 int        `db:"user_profile_id"`
+	ContractTypeID                int        `db:"contract_type_id"`
+	OrganizationUnitID            int        `db:"organization_unit_id"`
+	DepartmentID                  *int       `db:"organization_unit_department_id"`
+	JobPositionInOrganizationUnit int        `db:"job_position_in_organization_unit"`
+	Abbreviation                  *string    `db:"abbreviation"`
+	Description                   *string    `db:"description"`
+	Active                        bool       `db:"active"`
+	SerialNumber                  *string    `db:"serial_number"`
+	NetSalary                     *string    `db:"net_salary"`
+	GrossSalary                   *string    `db:"gross_salary"`
+	BankAccount                   *string    `db:"bank_account"`
+	BankName                      *string    `db:"bank_name"`
+	DateOfSignature               *time.Time `db:"date_of_signature"`
+	DateOfEligibility             *time.Time `db:"date_of_eligibility"`
+	DateOfStart                   time.Time  `db:"date_of_start"`
+	DateOfEnd                     *time.Time `db:"date_of_end"`
+	FileID                        *int       `db:"file_id"`
+	CreatedAt                     time.Time  `db:"created_at"`
+	UpdatedAt                     time.Time  `db:"updated_at"`
 }
 
 // Table returns the table name

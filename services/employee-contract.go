@@ -1,6 +1,8 @@
 package services
 
 import (
+	"fmt"
+
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
 	"gitlab.sudovi.me/erp/hr-ms-api/errors"
@@ -23,6 +25,7 @@ func NewEmployeeContractServiceImpl(app *celeritas.Celeritas, repo data.Employee
 func (h *EmployeeContractServiceImpl) CreateEmployeeContract(input dto.EmployeeContractDTO) (*dto.EmployeeContractResponseDTO, error) {
 	data := input.ToEmployeeContract()
 
+	fmt.Printf("%+v\n", data)
 	id, err := h.repo.Insert(*data)
 	if err != nil {
 		return nil, errors.ErrInternalServer

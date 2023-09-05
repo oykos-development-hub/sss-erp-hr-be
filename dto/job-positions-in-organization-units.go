@@ -20,6 +20,7 @@ type GetJobPositionsInOrganizationUnitsDTO struct {
 	OrganizationUnitID *int `json:"organization_unit_id" validate:"omitempty"`
 	JobPositionID      *int `json:"job_position_id" validate:"omitempty"`
 	SystematizationID  *int `json:"systematization_id" validate:"omitempty"`
+	UserProfileID      *int `json:"user_profile_id" validate:"omitempty"`
 }
 
 type JobPositionsInOrganizationUnitsResponseDTO struct {
