@@ -23,7 +23,7 @@ CREATE TABLE employee_contracts (
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
     FOREIGN KEY (user_profile_id) REFERENCES user_profiles (id) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (organization_unit_id) REFERENCES organization_units (id) ON UPDATE CASCADE ON DELETE RESTRICT,
-    FOREIGN KEY (organization_unit_department_id) REFERENCES organization_units  (id) ON UPDATE CASCADE ON DELETE SET NULL,
-    FOREIGN KEY (job_position_in_organization_unit) REFERENCES job_positions_in_organization_units (id) ON UPDATE CASCADE ON DELETE RESTRICT
+    FOREIGN KEY (organization_unit_id) REFERENCES organization_units (id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (organization_unit_department_id) REFERENCES organization_units  (id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (job_position_in_organization_unit) REFERENCES job_positions_in_organization_units (id) ON UPDATE CASCADE ON DELETE CASCADE
 );

@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS user_norm_fulfilments (
     file_id INTEGER,
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
-    FOREIGN KEY (user_profile_id) REFERENCES user_profiles(id),
-    FOREIGN KEY (evaluation_id) REFERENCES evaluations(id),
-    FOREIGN KEY (relocation_id) REFERENCES employee_absents(id)
+    FOREIGN KEY (user_profile_id) REFERENCES user_profiles(id) ON DELETE CASCADE,
+    FOREIGN KEY (evaluation_id) REFERENCES evaluations(id) ON DELETE CASCADE,
+    FOREIGN KEY (relocation_id) REFERENCES employee_absents(id) ON DELETE CASCADE
 );

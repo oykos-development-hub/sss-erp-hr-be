@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS tenders_in_organization_units (
     type int,
     organization_unit_id int,
     date_of_start date not null,
-    date_of_end date not null,
+    date_of_end date,
     description text,
     serial_number text not null,
     file_id int,

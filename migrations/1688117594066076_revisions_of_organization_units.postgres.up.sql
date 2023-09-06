@@ -28,8 +28,8 @@ CREATE TABLE IF NOT EXISTS revisions_of_organization_units (
     ref_document TEXT,
     created_at TIMESTAMP,
     updated_at TIMESTAMP,
-    FOREIGN KEY (implementation_user_profile_id) REFERENCES user_profiles (id) ON UPDATE CASCADE ON DELETE SET NULL,
-    FOREIGN KEY (revisor_user_profile_id) REFERENCES user_profiles (id) ON UPDATE CASCADE ON DELETE SET NULL,
-    FOREIGN KEY (responsible_user_profile_id) REFERENCES user_profiles (id) ON UPDATE CASCADE ON DELETE SET NULL,
-    FOREIGN KEY (internal_organization_unit_id) REFERENCES organization_units (id) ON UPDATE CASCADE ON DELETE SET NULL
+    FOREIGN KEY (implementation_user_profile_id) REFERENCES user_profiles (id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (revisor_user_profile_id) REFERENCES user_profiles (id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (responsible_user_profile_id) REFERENCES user_profiles (id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (internal_organization_unit_id) REFERENCES organization_units (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
