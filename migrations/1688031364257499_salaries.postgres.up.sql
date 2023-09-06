@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS salaries (
     id serial PRIMARY KEY,
+    organization_unit_id INTEGER,
     user_profile_id INTEGER NOT NULL,
     benefited_track BOOLEAN NOT NULL,
     without_raise BOOLEAN NOT NULL,
@@ -13,7 +14,8 @@ CREATE TABLE IF NOT EXISTS salaries (
     updated_at TIMESTAMP,
     user_resolution_id INTEGER,
     FOREIGN KEY (user_profile_id) REFERENCES user_profiles (id) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (user_resolution_id) REFERENCES employee_resolutions (id) ON UPDATE CASCADE ON DELETE CASCADE
+    FOREIGN KEY (user_resolution_id) REFERENCES employee_resolutions (id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (organization_unit_id) REFERENCES organization_units (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 
