@@ -16,7 +16,7 @@ type TendersInOrganizationUnitDTO struct {
 	OrganizationUnitID           *int      `json:"organization_unit_id"`
 	Type                         int       `json:"type" validate:"required"`
 	DateOfStart                  time.Time `json:"date_of_start" validate:"required"`
-	DateOfEnd                    time.Time `json:"date_of_end" validate:"required"`
+	DateOfEnd                    time.Time `json:"date_of_end"`
 	Description                  string    `json:"description"`
 	SerialNumber                 string    `json:"serial_number" validate:"required"`
 	FileID                       *int      `json:"file_id"`
