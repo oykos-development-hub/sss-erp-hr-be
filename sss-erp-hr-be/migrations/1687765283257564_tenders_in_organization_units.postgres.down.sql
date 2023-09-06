@@ -1,1 +1,0 @@
-DROP TABLE tenders_in_organization_units;

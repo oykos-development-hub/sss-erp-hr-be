@@ -1,1 +1,0 @@
-DROP TABLE tender_applications_in_organization_units;

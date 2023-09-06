@@ -1,1 +1,0 @@
-DROP TABLE judge_number_resolutions;
