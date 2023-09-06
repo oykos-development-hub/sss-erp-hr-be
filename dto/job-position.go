@@ -8,12 +8,12 @@ import (
 
 type CreateJobPositionDTO struct {
 	Title            string  `json:"title" validate:"required"`
-	Abbreviation     string  `json:"abbreviation" validate:"required"`
-	SerialNumber     string  `json:"serial_number" validate:"required"`
+	Abbreviation     string  `json:"abbreviation" validate:"omitempty"`
+	SerialNumber     string  `json:"serial_number" validate:"omitempty"`
 	Description      *string `json:"description" validate:"omitempty"`
-	Requirements     string  `json:"requirements" validate:"required"`
-	IsJudge          *bool   `json:"is_judge" validate:"required"`
-	IsJudgePresident *bool   `json:"is_judge_president" validate:"required"`
+	Requirements     string  `json:"requirements" validate:"omitempty"`
+	IsJudge          *bool   `json:"is_judge" validate:"omitempty"`
+	IsJudgePresident *bool   `json:"is_judge_president" validate:"omitempty"`
 	Color            *string `json:"color" validate:"omitempty"`
 	Icon             *string `json:"icon" validate:"omitempty"`
 }
