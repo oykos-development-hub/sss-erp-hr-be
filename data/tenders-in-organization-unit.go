@@ -8,17 +8,17 @@ import (
 
 // TendersInOrganizationUnit struct
 type TendersInOrganizationUnit struct {
-	ID                           int        `db:"id,omitempty"`
-	PositionInOrganizationUnitID *int       `db:"position_in_organization_unit_id"`
-	OrganizationUnitID           *int       `db:"organization_unit_id"`
-	Type                         int        `db:"type"`
-	DateOfStart                  time.Time  `db:"date_of_start"`
-	DateOfEnd                    *time.Time `db:"date_of_end"`
-	Description                  string     `db:"description"`
-	SerialNumber                 string     `db:"serial_number"`
-	FileID                       *int       `db:"file_id"`
-	CreatedAt                    time.Time  `db:"created_at"`
-	UpdatedAt                    time.Time  `db:"updated_at"`
+	ID                           int       `db:"id,omitempty"`
+	PositionInOrganizationUnitID *int      `db:"position_in_organization_unit_id"`
+	OrganizationUnitID           *int      `db:"organization_unit_id"`
+	Type                         int       `db:"type"`
+	DateOfStart                  time.Time `db:"date_of_start"`
+	DateOfEnd                    time.Time `db:"date_of_end"`
+	Description                  string    `db:"description"`
+	SerialNumber                 string    `db:"serial_number"`
+	FileID                       *int      `db:"file_id"`
+	CreatedAt                    time.Time `db:"created_at"`
+	UpdatedAt                    time.Time `db:"updated_at"`
 }
 
 // Table returns the table name

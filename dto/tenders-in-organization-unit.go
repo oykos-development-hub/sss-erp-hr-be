@@ -12,28 +12,28 @@ type GetTendersInputDTO struct {
 }
 
 type TendersInOrganizationUnitDTO struct {
-	PositionInOrganizationUnitID *int       `json:"position_in_organization_unit_id"`
-	OrganizationUnitID           *int       `json:"organization_unit_id"`
-	Type                         int        `json:"type" validate:"required"`
-	DateOfStart                  time.Time  `json:"date_of_start" validate:"required"`
-	DateOfEnd                    *time.Time `json:"date_of_end"`
-	Description                  string     `json:"description"`
-	SerialNumber                 string     `json:"serial_number" validate:"required"`
-	FileID                       *int       `json:"file_id"`
+	PositionInOrganizationUnitID *int      `json:"position_in_organization_unit_id"`
+	OrganizationUnitID           *int      `json:"organization_unit_id"`
+	Type                         int       `json:"type" validate:"required"`
+	DateOfStart                  time.Time `json:"date_of_start" validate:"required"`
+	DateOfEnd                    time.Time `json:"date_of_end" validate:"required"`
+	Description                  string    `json:"description"`
+	SerialNumber                 string    `json:"serial_number" validate:"required"`
+	FileID                       *int      `json:"file_id"`
 }
 
 type TendersInOrganizationUnitResponseDTO struct {
-	ID                           int        `json:"id"`
-	PositionInOrganizationUnitID *int       `json:"position_in_organization_unit_id"`
-	OrganizationUnitID           *int       `json:"organization_unit_id"`
-	Type                         int        `json:"type"`
-	DateOfStart                  time.Time  `json:"date_of_start"`
-	DateOfEnd                    *time.Time `json:"date_of_end"`
-	Description                  string     `json:"description"`
-	SerialNumber                 string     `json:"serial_number"`
-	FileID                       *int       `json:"file_id"`
-	CreatedAt                    time.Time  `json:"created_at"`
-	UpdatedAt                    time.Time  `json:"updated_at"`
+	ID                           int       `json:"id"`
+	PositionInOrganizationUnitID *int      `json:"position_in_organization_unit_id"`
+	OrganizationUnitID           *int      `json:"organization_unit_id"`
+	Type                         int       `json:"type"`
+	DateOfStart                  time.Time `json:"date_of_start"`
+	DateOfEnd                    time.Time `json:"date_of_end"`
+	Description                  string    `json:"description"`
+	SerialNumber                 string    `json:"serial_number"`
+	FileID                       *int      `json:"file_id"`
+	CreatedAt                    time.Time `json:"created_at"`
+	UpdatedAt                    time.Time `json:"updated_at"`
 }
 
 func (dto TendersInOrganizationUnitDTO) ToTendersInOrganizationUnit() *data.TendersInOrganizationUnit {

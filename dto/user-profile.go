@@ -18,10 +18,10 @@ type UserProfileDTO struct {
 	DateOfBirth               JSONTime  `json:"date_of_birth" validate:"required"`
 	CountryOfBirth            string    `json:"country_of_birth" validate:"required"`
 	CityOfBirth               string    `json:"city_of_birth"`
-	Nationality               string    `json:"nationality"`
+	Nationality               string    `json:"nationality" validate:"required"`
 	NationalMinority          *string   `json:"national_minority"`
 	Citizenship               string    `json:"citizenship" validate:"required"`
-	Address                   string    `json:"address"`
+	Address                   string    `json:"address" validate:"required"`
 	BankAccount               *string   `json:"bank_account"`
 	BankName                  *string   `json:"bank_name,omitempty"`
 	OfficialPersonalID        string    `json:"official_personal_id" validate:"required"`
