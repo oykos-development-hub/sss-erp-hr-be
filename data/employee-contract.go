@@ -14,7 +14,7 @@ type EmployeeContract struct {
 	ContractTypeID                  int        `db:"contract_type_id"`
 	OrganizationUnitID              int        `db:"organization_unit_id"`
 	DepartmentID                    *int       `db:"organization_unit_department_id"`
-	JobPositionInOrganizationUnitID int        `db:"job_position_in_organization_unit"`
+	JobPositionInOrganizationUnitID *int       `db:"job_position_in_organization_unit"`
 	Abbreviation                    *string    `db:"abbreviation"`
 	Description                     *string    `db:"description"`
 	Active                          bool       `db:"active"`

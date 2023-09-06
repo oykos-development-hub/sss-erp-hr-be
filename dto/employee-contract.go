@@ -15,7 +15,7 @@ type EmployeeContractDTO struct {
 	ContractTypeID                  int        `json:"contract_type_id" validate:"required"`
 	OrganizationUnitID              int        `json:"organization_unit_id" validate:"required"`
 	DepartmentID                    *int       `json:"department_id"`
-	JobPositionInOrganizationUnitID int        `json:"job_position_in_organization_unit_id" validate:"required"`
+	JobPositionInOrganizationUnitID *int       `json:"job_position_in_organization_unit_id"`
 	Abbreviation                    *string    `json:"abbreviation"`
 	Description                     *string    `json:"description"`
 	Active                          bool       `json:"active"`
@@ -60,7 +60,7 @@ type EmployeeContractResponseDTO struct {
 	ContractTypeID                  int        `json:"contract_type_id"`
 	OrganizationUnitID              int        `json:"organization_unit_id"`
 	DepartmentID                    *int       `json:"department_id"`
-	JobPositionInOrganizationUnitID int        `json:"job_position_in_organization_unit_id"`
+	JobPositionInOrganizationUnitID *int       `json:"job_position_in_organization_unit_id"`
 	Abbreviation                    *string    `json:"abbreviation"`
 	Description                     *string    `json:"description"`
 	Active                          bool       `json:"active"`

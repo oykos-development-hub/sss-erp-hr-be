@@ -6,7 +6,7 @@ CREATE TABLE employee_contracts (
     contract_type_id INT NOT NULL,
     organization_unit_id INTEGER NOT NULL,
     organization_unit_department_id INTEGER,
-    job_position_in_organization_unit INTEGER NOT NULL,
+    job_position_in_organization_unit INTEGER,
     abbreviation text,
     description TEXT,
     active BOOLEAN NOT NULL,
