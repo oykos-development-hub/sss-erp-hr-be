@@ -16,13 +16,13 @@ const (
 type TenderApplicationsInOrganizationUnitDTO struct {
 	JobTenderID        int                   `json:"job_tender_id" validate:"required"`
 	UserProfileID      *int                  `json:"user_profile_id" `
-	Active             bool                  `json:"active" validate:"required"`
+	Active             bool                  `json:"active"`
 	Type               TenderApplicationType `json:"type" validate:"required"`
 	FirstName          *string               `json:"first_name"`
 	LastName           *string               `json:"last_name"`
 	Nationality        *string               `json:"citizenship"`
 	DateOfBirth        *time.Time            `json:"date_of_birth"`
-	DateOfApplication  time.Time             `json:"date_of_application"`
+	DateOfApplication  *time.Time            `json:"date_of_application"`
 	OfficialPersonalID *string               `json:"official_personal_id"`
 	Evaluation         *string               `json:"evaluation"`
 	Status             string                `json:"status"`
@@ -39,7 +39,7 @@ type TenderApplicationsInOrganizationUnitResponseDTO struct {
 	LastName           *string               `json:"last_name"`
 	Nationality        *string               `json:"citizenship"`
 	DateOfBirth        *time.Time            `json:"date_of_birth"`
-	DateOfApplication  time.Time             `json:"date_of_application"`
+	DateOfApplication  *time.Time            `json:"date_of_application"`
 	OfficialPersonalID *string               `json:"official_personal_id"`
 	Evaluation         *string               `json:"evaluation"`
 	Status             string                `json:"status"`

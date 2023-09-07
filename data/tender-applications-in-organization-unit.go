@@ -17,7 +17,7 @@ type TenderApplicationsInOrganizationUnit struct {
 	LastName           *string    `db:"last_name"`
 	Nationality        *string    `db:"nationality"`
 	DateOfBirth        *time.Time `db:"date_of_birth"`
-	DateOfApplication  time.Time  `db:"date_of_application"`
+	DateOfApplication  *time.Time `db:"date_of_application"`
 	OfficialPersonalID *string    `db:"official_personal_id"`
 	Evaluation         *string    `db:"evaluation"`
 	Status             string     `db:"status"`
