@@ -64,8 +64,11 @@ func (h *EmployeesInOrganizationUnitServiceImpl) GetEmployeesInOrganizationUnitB
 		"user_profile_id": id,
 	}
 	data, err := h.repo.GetAll(&cond)
-	if err != nil || len(data) == 0 {
+	if err != nil {
 		h.App.ErrorLog.Println(err)
+		return nil, errors.ErrNotFound
+	}
+	if len(data) == 0 {
 		return nil, errors.ErrNotFound
 	}
 	response := dto.ToEmployeesInOrganizationUnitResponseDTO(*data[0])
