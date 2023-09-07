@@ -6,7 +6,6 @@ CREATE TABLE employee_contracts (
     contract_type_id INT NOT NULL,
     organization_unit_id INTEGER NOT NULL,
     organization_unit_department_id INTEGER,
-    job_position_in_organization_unit INTEGER,
     abbreviation text,
     description TEXT,
     active BOOLEAN NOT NULL,
@@ -25,5 +24,4 @@ CREATE TABLE employee_contracts (
     FOREIGN KEY (user_profile_id) REFERENCES user_profiles (id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (organization_unit_id) REFERENCES organization_units (id) ON UPDATE CASCADE ON DELETE CASCADE,
     FOREIGN KEY (organization_unit_department_id) REFERENCES organization_units  (id) ON UPDATE CASCADE ON DELETE CASCADE,
-    FOREIGN KEY (job_position_in_organization_unit) REFERENCES job_positions_in_organization_units (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
