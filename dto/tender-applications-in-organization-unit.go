@@ -20,7 +20,7 @@ type TenderApplicationsInOrganizationUnitDTO struct {
 	Type               TenderApplicationType `json:"type" validate:"required"`
 	FirstName          *string               `json:"first_name"`
 	LastName           *string               `json:"last_name"`
-	Nationality        *string               `json:"nationality"`
+	Nationality        *string               `json:"citizenship"`
 	DateOfBirth        *time.Time            `json:"date_of_birth"`
 	DateOfApplication  time.Time             `json:"date_of_application"`
 	OfficialPersonalID *string               `json:"official_personal_id"`
@@ -37,7 +37,7 @@ type TenderApplicationsInOrganizationUnitResponseDTO struct {
 	Type               TenderApplicationType `json:"type"`
 	FirstName          *string               `json:"first_name"`
 	LastName           *string               `json:"last_name"`
-	Nationality        *string               `json:"nationality"`
+	Nationality        *string               `json:"citizenship"`
 	DateOfBirth        *time.Time            `json:"date_of_birth"`
 	DateOfApplication  time.Time             `json:"date_of_application"`
 	OfficialPersonalID *string               `json:"official_personal_id"`
