@@ -41,7 +41,7 @@ func (t *UserNormFulfilment) GetAll(condition *up.Cond) ([]*UserNormFulfilment, 
 		res = collection.Find()
 	}
 
-	err := res.All(&all)
+	err := res.OrderBy("created_at desc").All(&all)
 	if err != nil {
 		return nil, err
 	}

@@ -42,7 +42,7 @@ func (t *Foreigner) GetAll(condition *up.Cond) ([]*Foreigner, error) {
 		res = collection.Find()
 	}
 
-	err := res.All(&all)
+	err := res.OrderBy("created_at desc").All(&all)
 	if err != nil && err != up.ErrWarnSlowQuery {
 		return nil, err
 	}

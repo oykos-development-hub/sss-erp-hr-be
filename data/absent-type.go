@@ -47,7 +47,7 @@ func (t *AbsentType) GetAll(page *int, size *int, condition *up.Cond) ([]*Absent
 		res = paginateResult(res, *page, *size)
 	}
 
-	err = res.All(&all)
+	err = res.OrderBy("created_at desc").All(&all)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -104,22 +104,4 @@ func (t *AbsentType) Insert(m AbsentType) (int, error) {
 	id := getInsertId(res.ID())
 
 	return id, nil
-}
-
-// Builder is an example of using upper's sql builder
-func (t *AbsentType) Builder(id int) ([]*AbsentType, error) {
-	collection := upper.Collection(t.Table())
-
-	var result []*AbsentType
-
-	err := collection.Session().
-		SQL().
-		SelectFrom(t.Table()).
-		Where("id > ?", id).
-		OrderBy("id").
-		All(&result)
-	if err != nil {
-		return nil, err
-	}
-	return result, nil
 }
