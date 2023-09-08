@@ -15,16 +15,16 @@ type EducationInput struct {
 type EmployeeEducationDTO struct {
 	UserProfileID       int        `json:"user_profile_id" validate:"required"`
 	TypeID              int        `json:"type_id" validate:"required"`
-	DateOfCertification *time.Time `json:"date_of_certification" validate:"omitempty,datetime"`
+	DateOfCertification *time.Time `json:"date_of_certification"`
 	Price               *float32   `json:"price"`
-	DateOfStart         *time.Time `json:"date_of_start" validate:"omitempty,datetime"`
-	DateOfEnd           *time.Time `json:"date_of_end" validate:"omitempty,datetime"`
-	AcademicTitle       *string    `json:"academic_title" validate:"omitempty"`
-	ExpertiseLevel      *string    `json:"expertise_level" validate:"omitempty"`
-	CertificateIssuer   *string    `json:"certificate_issuer" validate:"omitempty"`
-	Description         *string    `json:"description" validate:"omitempty"`
-	Title               *string    `json:"title" validate:"omitempty"`
-	FileId              *int       `json:"file_id" validate:"omitempty"`
+	DateOfStart         *time.Time `json:"date_of_start"`
+	DateOfEnd           *time.Time `json:"date_of_end"`
+	AcademicTitle       *string    `json:"academic_title"`
+	ExpertiseLevel      *string    `json:"expertise_level"`
+	CertificateIssuer   *string    `json:"certificate_issuer"`
+	Description         *string    `json:"description"`
+	Title               *string    `json:"title"`
+	FileId              *int       `json:"file_id"`
 }
 
 type EmployeeEducationResponseDTO struct {
