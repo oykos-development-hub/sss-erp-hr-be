@@ -14,14 +14,14 @@ type EmployeeFamilyMemberDTO struct {
 	BirthLastName        *string   `json:"birth_last_name"`
 	FatherName           string    `json:"father_name" validate:"required"`
 	MotherName           string    `json:"mother_name" validate:"required"`
-	MotherBirthLastName  string    `json:"mother_birth_last_name" validate:"required"`
+	MotherBirthLastName  string    `json:"mother_birth_last_name"`
 	DateOfBirth          time.Time `json:"date_of_birth" validate:"required"`
 	CountryOfBirth       string    `json:"country_of_birth" validate:"required"`
 	CityOfBirth          string    `json:"city_of_birth"`
-	Nationality          string    `json:"nationality" validate:"required"`
+	Nationality          string    `json:"nationality"`
 	NationalMinority     *string   `json:"national_minority"`
 	Citizenship          string    `json:"citizenship" validate:"required"`
-	Address              string    `json:"address" validate:"required"`
+	Address              string    `json:"address"`
 	OfficialPersonalID   string    `json:"official_personal_id" validate:"required"`
 	Gender               string    `json:"gender" validate:"required"`
 	EmployeeRelationship string    `json:"employee_relationship" validate:"required"`
