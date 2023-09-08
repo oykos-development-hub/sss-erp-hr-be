@@ -42,10 +42,15 @@ func (h *SystematizationServiceImpl) CreateSystematization(input dto.Systematiza
 }
 
 func (h *SystematizationServiceImpl) UpdateSystematization(id int, input dto.SystematizationDTO) (*dto.SystematizationResponseDTO, error) {
-	data, _ := h.repo.Get(id)
-	input.ToSystematization()
+	data := input.ToSystematization()
+	data.ID = id
 
 	err := h.repo.Update(*data)
+	if err != nil {
+		return nil, errors.ErrInternalServer
+	}
+
+	data, err = h.repo.Get(id)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
