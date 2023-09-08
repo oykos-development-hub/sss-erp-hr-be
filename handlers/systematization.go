@@ -27,7 +27,7 @@ func NewSystematizationHandler(app *celeritas.Celeritas, systematizationService 
 }
 
 func (h *systematizationHandlerImpl) CreateSystematization(w http.ResponseWriter, r *http.Request) {
-	var input dto.CreateSystematizationDTO
+	var input dto.SystematizationDTO
 	_ = h.App.ReadJSON(w, r, &input)
 
 	validator := h.App.Validator().ValidateStruct(&input)
@@ -48,7 +48,7 @@ func (h *systematizationHandlerImpl) CreateSystematization(w http.ResponseWriter
 func (h *systematizationHandlerImpl) UpdateSystematization(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
 
-	var input dto.UpdateSystematizationDTO
+	var input dto.SystematizationDTO
 	_ = h.App.ReadJSON(w, r, &input)
 
 	validator := h.App.Validator().ValidateStruct(&input)

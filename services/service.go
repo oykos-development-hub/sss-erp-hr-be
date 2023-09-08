@@ -19,8 +19,8 @@ type OrganizationUnitService interface {
 }
 
 type SystematizationService interface {
-	CreateSystematization(input dto.CreateSystematizationDTO) (*dto.SystematizationResponseDTO, error)
-	UpdateSystematization(id int, input dto.UpdateSystematizationDTO) (*dto.SystematizationResponseDTO, error)
+	CreateSystematization(input dto.SystematizationDTO) (*dto.SystematizationResponseDTO, error)
+	UpdateSystematization(id int, input dto.SystematizationDTO) (*dto.SystematizationResponseDTO, error)
 	DeleteSystematization(id int) error
 	GetSystematization(id int) (*dto.SystematizationResponseDTO, error)
 	GetSystematizationList(data dto.GetSystematizationsDTO) ([]dto.SystematizationResponseDTO, *uint64, error)

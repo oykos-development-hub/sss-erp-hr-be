@@ -6,7 +6,7 @@ import (
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 )
 
-type CreateSystematizationDTO struct {
+type SystematizationDTO struct {
 	UserProfileID      int        `json:"user_profile_id"  validate:"required"`
 	OrganizationUnitID int        `json:"organization_unit_id" validate:"required"`
 	Description        string     `json:"description" validate:"required"`
@@ -14,16 +14,6 @@ type CreateSystematizationDTO struct {
 	Active             bool       `json:"active"`
 	DateOfActivation   *time.Time `json:"date_of_activation"`
 	FileId             *int       `json:"file_id,omitempty"`
-}
-
-type UpdateSystematizationDTO struct {
-	UserProfileID      *int       `json:"user_profile_id"  validate:"required"`
-	OrganizationUnitID *int       `json:"organization_unit_id" validate:"required"`
-	Description        *string    `json:"description" validate:"required"`
-	SerialNumber       *string    `json:"serial_number" validate:"required"`
-	Active             *bool      `json:"active"`
-	DateOfActivation   *time.Time `json:"date_of_activation"`
-	FileId             *int       `json:"file_id"`
 }
 
 type SystematizationResponseDTO struct {
@@ -48,7 +38,7 @@ type GetSystematizationsDTO struct {
 	Search             *string `json:"search" validate:"omitempty"`
 }
 
-func (dto CreateSystematizationDTO) ToSystematization() *data.Systematization {
+func (dto SystematizationDTO) ToSystematization() *data.Systematization {
 	return &data.Systematization{
 		UserProfileID:      dto.UserProfileID,
 		OrganizationUnitID: dto.OrganizationUnitID,
@@ -57,35 +47,7 @@ func (dto CreateSystematizationDTO) ToSystematization() *data.Systematization {
 		Active:             dto.Active,
 		DateOfActivation:   dto.DateOfActivation,
 		FileId:             dto.FileId,
-		CreatedAt:          time.Now(),
-		UpdatedAt:          time.Now(),
 	}
-}
-
-func (dto UpdateSystematizationDTO) ToSystematization(data *data.Systematization) {
-	if dto.UserProfileID != nil {
-		data.UserProfileID = *dto.UserProfileID
-	}
-	if dto.OrganizationUnitID != nil {
-		data.OrganizationUnitID = *dto.OrganizationUnitID
-	}
-	if dto.Description != nil {
-		data.Description = *dto.Description
-	}
-	if dto.SerialNumber != nil {
-		data.SerialNumber = *dto.SerialNumber
-	}
-	if dto.Active != nil {
-		data.Active = *dto.Active
-	}
-	if dto.DateOfActivation != nil {
-		data.DateOfActivation = dto.DateOfActivation
-	}
-	if dto.FileId != nil {
-		data.FileId = dto.FileId
-	}
-
-	data.UpdatedAt = time.Now()
 }
 
 func ToSystematizationResponseDTO(data data.Systematization) SystematizationResponseDTO {

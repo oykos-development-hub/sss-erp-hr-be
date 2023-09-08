@@ -23,7 +23,7 @@ func NewSystematizationServiceImpl(app *celeritas.Celeritas, repo data.Systemati
 	}
 }
 
-func (h *SystematizationServiceImpl) CreateSystematization(input dto.CreateSystematizationDTO) (*dto.SystematizationResponseDTO, error) {
+func (h *SystematizationServiceImpl) CreateSystematization(input dto.SystematizationDTO) (*dto.SystematizationResponseDTO, error) {
 	data := input.ToSystematization()
 
 	id, err := h.repo.Insert(*data)
@@ -36,28 +36,16 @@ func (h *SystematizationServiceImpl) CreateSystematization(input dto.CreateSyste
 		return nil, errors.ErrInternalServer
 	}
 
-	if data.Active {
-		err = h.checkSystematizationActiveStatuses(data.ID, data.OrganizationUnitID)
-		if err != nil {
-			return nil, errors.ErrInternalServer
-		}
-	}
-
 	res := dto.ToSystematizationResponseDTO(*data)
 
 	return &res, nil
 }
 
-func (h *SystematizationServiceImpl) UpdateSystematization(id int, input dto.UpdateSystematizationDTO) (*dto.SystematizationResponseDTO, error) {
+func (h *SystematizationServiceImpl) UpdateSystematization(id int, input dto.SystematizationDTO) (*dto.SystematizationResponseDTO, error) {
 	data, _ := h.repo.Get(id)
-	input.ToSystematization(data)
+	input.ToSystematization()
 
 	err := h.repo.Update(*data)
-	if err != nil {
-		return nil, errors.ErrInternalServer
-	}
-
-	err = h.checkSystematizationActiveStatuses(data.ID, data.OrganizationUnitID)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -123,29 +111,4 @@ func (h *SystematizationServiceImpl) GetSystematizationList(input dto.GetSystema
 	response := dto.ToSystematizationListResponseDTO(res)
 
 	return response, total, nil
-}
-
-func (h *SystematizationServiceImpl) checkSystematizationActiveStatuses(id int, organizationUnitID int) error {
-	//condition := db.Cond{"id <>": id, "active =": true, "organization_unit_id =": organizationUnitID}
-
-	conditionAndExp := &up.AndExpr{}
-	conditionAndExp = up.And(conditionAndExp, &up.Cond{"active": true})
-	conditionAndExp = up.And(conditionAndExp, &up.Cond{"id <>": id})
-	conditionAndExp = up.And(conditionAndExp, &up.Cond{"organization_unit_id": organizationUnitID})
-
-	res, total, err := h.repo.GetAll(nil, nil, conditionAndExp)
-	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return errors.ErrInternalServer
-	}
-	if *total > 0 {
-		for _, systematization := range res {
-			systematization.Active = false
-			err := h.repo.Update(*systematization)
-			if err != nil {
-				return errors.ErrInternalServer
-			}
-		}
-	}
-	return nil
 }
