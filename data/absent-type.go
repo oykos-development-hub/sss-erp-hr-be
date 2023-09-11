@@ -9,7 +9,6 @@ import (
 // AbsentType struct
 type AbsentType struct {
 	ID                int       `db:"id,omitempty"`
-	ParentID          *int      `db:"parent_id"`
 	Title             string    `db:"title"`
 	Abbreviation      string    `db:"abbreviation"`
 	AccountingDaysOff bool      `db:"accounting_days_off"`

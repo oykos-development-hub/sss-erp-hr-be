@@ -8,6 +8,8 @@ import (
 
 type GetEmployeeAbsentsInputDTO struct {
 	Date *time.Time `json:"date"`
+	From *time.Time `json:"from"`
+	To   *time.Time `json:"to"`
 }
 
 type EmployeeAbsentDTO struct {

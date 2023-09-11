@@ -76,6 +76,12 @@ func (h *EmployeeAbsentServiceImpl) GetEmployeeAbsentList(userProfileID int, inp
 		cond["date_of_start <="] = input.Date
 		cond["date_of_end >="] = input.Date
 	}
+	if input.From != nil {
+		cond["date_of_end >= "] = input.From
+	}
+	if input.To != nil {
+		cond["date_of_start <= "] = input.To
+	}
 	data, err := h.repo.GetAll(&cond)
 	if err != nil {
 		h.App.ErrorLog.Println(err)

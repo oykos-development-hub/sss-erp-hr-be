@@ -7,17 +7,17 @@ import (
 )
 
 type SalaryDTO struct {
-	UserProfileID      int    `json:"user_profile_id" validate:"required"`
-	OrganizationUnitID int    `json:"organization_unit_id" validate:"required"`
-	BenefitedTrack     *bool  `json:"benefited_track" validate:"required"`
-	WithoutRaise       *bool  `json:"without_raise" validate:"required"`
-	InsuranceBasis     string `json:"insurance_basis" validate:"required"`
-	SalaryRank         string `json:"salary_rank" validate:"required"`
-	DailyWorkHours     string `json:"daily_work_hours" validate:"required"`
-	WeeklyWorkHours    string `json:"weekly_work_hours" validate:"required"`
-	EducationRank      string `json:"education_rank" validate:"required"`
-	EducationNaming    string `json:"education_naming" validate:"required"`
-	UserResoultionID   *int   `json:"user_resolution_id,omitempty" validate:"omitempty"`
+	UserProfileID      int    `json:"user_profile_id"`
+	OrganizationUnitID int    `json:"organization_unit_id"`
+	BenefitedTrack     *bool  `json:"benefited_track"`
+	WithoutRaise       *bool  `json:"without_raise"`
+	InsuranceBasis     string `json:"insurance_basis"`
+	SalaryRank         string `json:"salary_rank"`
+	DailyWorkHours     string `json:"daily_work_hours"`
+	WeeklyWorkHours    string `json:"weekly_work_hours"`
+	EducationRank      string `json:"education_rank"`
+	EducationNaming    string `json:"education_naming"`
+	UserResoultionID   *int   `json:"user_resolution_id,omitempty"`
 }
 
 type SalaryResponseDTO struct {

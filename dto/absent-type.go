@@ -7,11 +7,10 @@ import (
 )
 
 type AbsentTypeDTO struct {
-	ParentID          *int    `json:"parent_id" validate:"omitempty"`
 	Title             string  `json:"title" validate:"required"`
 	Abbreviation      string  `json:"abbreviation" validate:"required"`
-	AccountingDaysOff bool    `json:"accounting_days_off" validate:"required"`
-	Relocation        bool    `json:"relocation" validate:"required"`
+	AccountingDaysOff bool    `json:"accounting_days_off"`
+	Relocation        bool    `json:"relocation"`
 	Description       *string `json:"description" validate:"omitempty"`
 	Color             *string `json:"color" validate:"omitempty"`
 	Icon              *string `json:"icon" validate:"omitempty"`
@@ -19,7 +18,6 @@ type AbsentTypeDTO struct {
 
 type AbsentTypeResponseDTO struct {
 	ID                int       `json:"id"`
-	ParentID          *int      `json:"parent_id"`
 	Title             string    `json:"title"`
 	Abbreviation      string    `json:"abbreviation"`
 	AccountingDaysOff bool      `json:"accounting_days_off"`
@@ -33,7 +31,6 @@ type AbsentTypeResponseDTO struct {
 
 func (dto AbsentTypeDTO) ToAbsentType() *data.AbsentType {
 	return &data.AbsentType{
-		ParentID:          dto.ParentID,
 		Title:             dto.Title,
 		Relocation:        dto.Relocation,
 		AccountingDaysOff: dto.AccountingDaysOff,
@@ -47,7 +44,6 @@ func (dto AbsentTypeDTO) ToAbsentType() *data.AbsentType {
 func ToAbsentTypeResponseDTO(data data.AbsentType) AbsentTypeResponseDTO {
 	return AbsentTypeResponseDTO{
 		ID:                data.ID,
-		ParentID:          data.ParentID,
 		Title:             data.Title,
 		Abbreviation:      data.Abbreviation,
 		AccountingDaysOff: data.AccountingDaysOff,

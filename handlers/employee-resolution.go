@@ -81,7 +81,16 @@ func (h *employeeresolutionHandlerImpl) DeleteEmployeeResolution(w http.Response
 func (h *employeeresolutionHandlerImpl) GetEmployeeResolutionList(w http.ResponseWriter, r *http.Request) {
 	userProfileID, _ := strconv.Atoi(chi.URLParam(r, "id"))
 
-	res, err := h.service.GetEmployeeResolutionList(userProfileID)
+	var input dto.GetResolutionListInputDTO
+	_ = h.App.ReadJSON(w, r, &input)
+
+	validator := h.App.Validator().ValidateStruct(&input)
+	if !validator.Valid() {
+		_ = h.App.WriteErrorResponseWithData(w, errors.MapErrorToStatusCode(errors.ErrBadRequest), errors.ErrBadRequest, validator.Errors)
+		return
+	}
+
+	res, err := h.service.GetEmployeeResolutionList(userProfileID, input)
 	if err != nil {
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

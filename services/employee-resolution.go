@@ -79,9 +79,15 @@ func (h *EmployeeResolutionServiceImpl) GetEmployeeResolution(id int) (*dto.Empl
 	return &response, nil
 }
 
-func (h *EmployeeResolutionServiceImpl) GetEmployeeResolutionList(userProfileID int) ([]dto.EmployeeResolutionResponseDTO, error) {
+func (h *EmployeeResolutionServiceImpl) GetEmployeeResolutionList(userProfileID int, input dto.GetResolutionListInputDTO) ([]dto.EmployeeResolutionResponseDTO, error) {
 	cond := up.Cond{
 		"user_profile_id": userProfileID,
+	}
+	if input.From != nil {
+		cond["date_of_end >= "] = input.From
+	}
+	if input.To != nil {
+		cond["date_of_start <= "] = input.To
 	}
 	data, err := h.repo.GetAll(&cond)
 	if err != nil {

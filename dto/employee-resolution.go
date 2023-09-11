@@ -6,12 +6,18 @@ import (
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 )
 
+type GetResolutionListInputDTO struct {
+	From *time.Time `json:"from"`
+	To   *time.Time `json:"to"`
+}
+
 type EmployeeResolutionDTO struct {
 	UserProfileID     int       `json:"user_profile_id" validate:"required"`
 	ResolutionTypeID  int       `json:"resolution_type_id" validate:"required"`
 	ResolutionPurpose *string   `json:"resolution_purpose"`
 	DateOfStart       time.Time `json:"date_of_start" validate:"required,datetime"`
 	DateOfEnd         time.Time `json:"date_of_end" validate:"required,datetime"`
+	Value             string    `json:"value"`
 	FileId            *int      `json:"file_id"`
 }
 
@@ -22,6 +28,7 @@ type EmployeeResolutionResponseDTO struct {
 	ResolutionPurpose *string   `json:"resolution_purpose"`
 	DateOfStart       time.Time `json:"date_of_start"`
 	DateOfEnd         time.Time `json:"date_of_end"`
+	Value             string    `json:"value"`
 	FileID            *int      `json:"file_id"`
 	CreatedAt         time.Time `json:"created_at"`
 	UpdatedAt         time.Time `json:"updated_at"`
@@ -35,6 +42,7 @@ func (dto EmployeeResolutionDTO) ToEmployeeResolution() *data.EmployeeResolution
 		DateOfStart:       dto.DateOfStart,
 		DateOfEnd:         dto.DateOfEnd,
 		FileID:            dto.FileId,
+		Value:             dto.Value,
 	}
 }
 
@@ -47,6 +55,7 @@ func ToEmployeeResolutionResponseDTO(data data.EmployeeResolution) EmployeeResol
 		DateOfStart:       data.DateOfStart,
 		DateOfEnd:         data.DateOfEnd,
 		FileID:            data.FileID,
+		Value:             data.Value,
 		CreatedAt:         data.CreatedAt,
 		UpdatedAt:         data.UpdatedAt,
 	}
