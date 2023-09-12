@@ -100,8 +100,6 @@ func (h *absenttypeHandlerImpl) GetAbsentTypeList(w http.ResponseWriter, r *http
 		return
 	}
 
-	h.App.InfoLog.Println(input)
-
 	res, total, err := h.service.GetAbsentTypeList(input)
 	if err != nil {
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
