@@ -17,7 +17,7 @@ type EmployeeResolutionDTO struct {
 	ResolutionPurpose *string   `json:"resolution_purpose"`
 	DateOfStart       time.Time `json:"date_of_start" validate:"required,datetime"`
 	DateOfEnd         time.Time `json:"date_of_end" validate:"required,datetime"`
-	Value             string    `json:"value"`
+	Value             *string   `json:"value"`
 	FileId            *int      `json:"file_id"`
 }
 
@@ -28,7 +28,7 @@ type EmployeeResolutionResponseDTO struct {
 	ResolutionPurpose *string   `json:"resolution_purpose"`
 	DateOfStart       time.Time `json:"date_of_start"`
 	DateOfEnd         time.Time `json:"date_of_end"`
-	Value             string    `json:"value"`
+	Value             *string   `json:"value"`
 	FileID            *int      `json:"file_id"`
 	CreatedAt         time.Time `json:"created_at"`
 	UpdatedAt         time.Time `json:"updated_at"`
