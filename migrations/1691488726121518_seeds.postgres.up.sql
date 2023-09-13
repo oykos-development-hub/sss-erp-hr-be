@@ -141,11 +141,10 @@ VALUES
 INSERT INTO absent_types (
     parent_id, title, abbreviation, accounting_days_off, relocation, description, color, icon, created_at, updated_at)
 VALUES
-    (NULL, 'Odsustvo zbog bolesti', 'OBB', false, false, 'Odsustvo zbog bolesti ili medicinskog tretmana', '#FF0000', 'icon-sick', NOW(), NOW()),
+    (NULL, 'Bolovanje.', 'OZB', false, false, 'Odsustvo zbog bolovanja.', '#FF0000', 'icon-sick', NOW(), NOW()),
     (NULL, 'Godišnji odmor', 'GO', true, false, 'Zakonski godišnji odmor', '#00FF00', 'icon-vacation', NOW(), NOW()),
-    (NULL, 'Sudsko odsustvo', 'SO', true, false, 'Odsustvo zbog sudskog postupka ili saslušanja', '#0000FF', 'icon-court', NOW(), NOW()),
-    (NULL, 'Službeni put', 'SP', false, true, 'Odsustvo zbog službenog putovanja ili delegacije', '#FFFF00', 'icon-business-trip', NOW(), NOW()),
-    (NULL, 'Odsustvo zbog obuke', 'OBO', false, false, 'Odsustvo zbog stručne obuke ili edukacije', '#00FFFF', 'icon-training', NOW(), NOW());
+    (NULL, 'Upućivanje u drugi državni organ', 'UD', false, true, 'Odsustvo zbog upućivanja u drugi državni organ.', '#FFFF00', 'icon-business-trip', NOW(), NOW()),
+    (NULL, 'Roditeljstvo', 'OBO', false, false, 'Odsustvo zbog roditeljstva.', '#00FFFF', 'icon-training', NOW(), NOW());
 
 INSERT INTO employee_absents (
     absent_type_id, user_profile_id, target_organization_unit_id, description, date_of_start, date_of_end, location, file_id, created_at, updated_at)
