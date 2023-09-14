@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS foreigners (
     id serial PRIMARY KEY,
-    user_profile_id INTEGER NOT NULL REFERENCES user_profiles(id),
+    user_profile_id INTEGER NOT NULL REFERENCES user_profiles(id) ON DELETE CASCADE,
     work_permit_number TEXT NOT NULL,
     work_permit_issuer TEXT NOT NULL,
     work_permit_date_of_start DATE NOT NULL,
