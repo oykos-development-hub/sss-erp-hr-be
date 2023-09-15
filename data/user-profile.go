@@ -1,10 +1,10 @@
 package data
 
 import (
-	"fmt"
 	"time"
 
 	up "github.com/upper/db/v4"
+	"gitlab.sudovi.me/erp/hr-ms-api/errors"
 )
 
 type UserProfile struct {
@@ -90,29 +90,30 @@ func (t *UserProfile) Get(id int) (*UserProfile, error) {
 	return &one, nil
 }
 
+func (t *UserProfile) GetBy(key string, value interface{}) (*UserProfile, error) {
+	var one UserProfile
+	collection := upper.Collection(t.Table())
+
+	res := collection.Find(up.Cond{key: value})
+	err := res.One(&one)
+	if err != nil {
+		return nil, err
+	}
+
+	return &one, nil
+}
+
 // Update updates a record in the database, using upper
 func (t *UserProfile) Update(m UserProfile) error {
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
-	res := collection.Find(m.ID)
 
-	var all []*UserProfile
-	rez := collection.Find(up.Cond{"official_personal_id": m.OfficialPersonalID})
-
-	if rez != nil {
-		err := rez.All(&all)
-
-		if err != nil {
-			return err
-		}
-
-		for _, userProfile := range all {
-			if userProfile.OfficialPersonalID == m.OfficialPersonalID && userProfile.ID != m.ID {
-				return fmt.Errorf(`vec postoji korisnik sa ovim jmbg-om`)
-			}
-		}
+	userByOfficialPersonalID, _ := t.GetBy("official_personal_id", m.OfficialPersonalID)
+	if userByOfficialPersonalID != nil {
+		return errors.ErrResourceExists
 	}
 
+	collection := upper.Collection(t.Table())
+	res := collection.Find(m.ID)
 	err := res.Update(&m)
 	if err != nil {
 		return err
@@ -133,15 +134,15 @@ func (t *UserProfile) Delete(id int) error {
 
 // Insert inserts a model into the database, using upper
 func (t *UserProfile) Insert(m UserProfile) (int, error) {
-	collection := upper.Collection(t.Table())
-	rez := collection.Find(up.Cond{"official_personal_id": m.OfficialPersonalID})
-
-	if rez != nil {
-		return 0, fmt.Errorf(`vec postoji korisnik sa ovim jmbg-om`)
-	}
-
 	m.CreatedAt = time.Now()
 	m.UpdatedAt = time.Now()
+
+	userByOfficialPersonalID, _ := t.GetBy("official_personal_id", m.OfficialPersonalID)
+	if userByOfficialPersonalID != nil {
+		return 0, errors.ErrResourceExists
+	}
+
+	collection := upper.Collection(t.Table())
 	res, err := collection.Insert(m)
 	if err != nil {
 		return 0, err

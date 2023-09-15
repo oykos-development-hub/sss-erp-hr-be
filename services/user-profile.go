@@ -28,7 +28,7 @@ func (h *UserProfileServiceImpl) CreateUserProfile(input dto.UserProfileDTO) (*d
 
 	id, err := h.repo.Insert(*userData)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, err
 	}
 
 	user, err := h.repo.Get(id)
