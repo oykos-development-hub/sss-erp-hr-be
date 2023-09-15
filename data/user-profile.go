@@ -1,6 +1,7 @@
 package data
 
 import (
+	"fmt"
 	"time"
 
 	up "github.com/upper/db/v4"
@@ -94,6 +95,24 @@ func (t *UserProfile) Update(m UserProfile) error {
 	m.UpdatedAt = time.Now()
 	collection := upper.Collection(t.Table())
 	res := collection.Find(m.ID)
+
+	var all []*UserProfile
+	rez := collection.Find(up.Cond{"official_personal_id": m.OfficialPersonalID})
+
+	if rez != nil {
+		err := rez.All(&all)
+
+		if err != nil {
+			return err
+		}
+
+		for _, userProfile := range all {
+			if userProfile.OfficialPersonalID == m.OfficialPersonalID && userProfile.ID != m.ID {
+				return fmt.Errorf(`vec postoji korisnik sa ovim jmbg-om`)
+			}
+		}
+	}
+
 	err := res.Update(&m)
 	if err != nil {
 		return err
@@ -114,9 +133,15 @@ func (t *UserProfile) Delete(id int) error {
 
 // Insert inserts a model into the database, using upper
 func (t *UserProfile) Insert(m UserProfile) (int, error) {
+	collection := upper.Collection(t.Table())
+	rez := collection.Find(up.Cond{"official_personal_id": m.OfficialPersonalID})
+
+	if rez != nil {
+		return 0, fmt.Errorf(`vec postoji korisnik sa ovim jmbg-om`)
+	}
+
 	m.CreatedAt = time.Now()
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
 	res, err := collection.Insert(m)
 	if err != nil {
 		return 0, err
