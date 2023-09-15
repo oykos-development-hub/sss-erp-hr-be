@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS revisions_of_organization_units (
     id serial PRIMARY KEY,
     revision_type_id INT NOT NULL,
+    name TEXT NOT NULL,
     revisor_user_profile_id INT,
     revisor_user_profile TEXT,
     internal_organization_unit_id INT,

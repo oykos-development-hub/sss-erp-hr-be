@@ -7,6 +7,7 @@ import (
 )
 
 type RevisionsOfOrganizationUnitDTO struct {
+	Name                            string     `json:"name" validate:"required"`
 	RevisionTypeID                  int        `json:"revision_type_id" validate:"required"`
 	RevisorUserProfileID            *int       `json:"revisor_user_profile_id" validate:"required_without=RevisorUserProfile"`
 	RevisorUserProfile              *string    `json:"revisor_user_profile" validate:"required_without=RevisorUserProfileID"`
@@ -37,6 +38,7 @@ type RevisionsOfOrganizationUnitDTO struct {
 
 type RevisionsOfOrganizationUnitResponseDTO struct {
 	ID                              int        `json:"id"`
+	Name                            string     `json:"name"`
 	RevisionTypeID                  int        `json:"revision_type_id"`
 	RevisorUserProfileID            *int       `json:"revisor_user_profile_id"`
 	RevisorUserProfile              *string    `json:"revisor_user_profile"`
@@ -69,6 +71,7 @@ type RevisionsOfOrganizationUnitResponseDTO struct {
 
 func (dto RevisionsOfOrganizationUnitDTO) ToRevisionsOfOrganizationUnit() *data.RevisionsOfOrganizationUnit {
 	return &data.RevisionsOfOrganizationUnit{
+		Name:                            dto.Name,
 		RevisionTypeID:                  dto.RevisionTypeID,
 		RevisorUserProfileID:            dto.RevisorUserProfileID,
 		RevisorUserProfile:              dto.RevisorUserProfile,
@@ -101,6 +104,7 @@ func (dto RevisionsOfOrganizationUnitDTO) ToRevisionsOfOrganizationUnit() *data.
 func ToRevisionsOfOrganizationUnitResponseDTO(data data.RevisionsOfOrganizationUnit) RevisionsOfOrganizationUnitResponseDTO {
 	return RevisionsOfOrganizationUnitResponseDTO{
 		ID:                              data.ID,
+		Name:                            data.Name,
 		RevisionTypeID:                  data.RevisionTypeID,
 		RevisorUserProfileID:            data.RevisorUserProfileID,
 		RevisorUserProfile:              data.RevisorUserProfile,

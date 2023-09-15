@@ -8,6 +8,7 @@ import (
 
 type RevisionsOfOrganizationUnit struct {
 	ID                              int        `db:"id,omitempty"`
+	Name                            string     `db:"name"`
 	RevisionTypeID                  int        `db:"revision_type_id"`
 	RevisorUserProfileID            *int       `db:"revisor_user_profile_id"`
 	RevisorUserProfile              *string    `db:"revisor_user_profile"`
