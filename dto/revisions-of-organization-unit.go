@@ -7,8 +7,8 @@ import (
 )
 
 type RevisionsOfOrganizationUnitDTO struct {
-	Name                            string     `json:"name"`
-	RevisionTypeID                  int        `json:"revision_type_id"`
+	Name                            *string    `json:"name"`
+	RevisionTypeID                  *int       `json:"revision_type_id"`
 	RevisorUserProfileID            *int       `json:"revisor_user_profile_id"`
 	RevisorUserProfile              *string    `json:"revisor_user_profile"`
 	InternalOrganizationUnitID      *int       `json:"internal_organization_unit_id"`
@@ -17,9 +17,9 @@ type RevisionsOfOrganizationUnitDTO struct {
 	ResponsibleUserProfile          *string    `json:"responsible_user_profile"`
 	ImplementationUserProfileID     *int       `json:"implementation_user_profile_id"`
 	ImplementationUserProfile       *string    `json:"implementation_user_profile"`
-	Title                           string     `json:"title"`
-	PlanedYear                      string     `json:"planned_year"`
-	PlannedQuarter                  string     `json:"planned_quarter"`
+	Title                           *string    `json:"title"`
+	PlanedYear                      *string    `json:"planned_year"`
+	PlannedQuarter                  *string    `json:"planned_quarter"`
 	SerialNumber                    *string    `json:"serial_number"`
 	Priority                        *string    `json:"priority"`
 	DateOfRevision                  *time.Time `json:"date_of_revision"`
@@ -38,8 +38,8 @@ type RevisionsOfOrganizationUnitDTO struct {
 
 type RevisionsOfOrganizationUnitResponseDTO struct {
 	ID                              int        `json:"id"`
-	Name                            string     `json:"name"`
-	RevisionTypeID                  int        `json:"revision_type_id"`
+	Name                            *string    `json:"name"`
+	RevisionTypeID                  *int       `json:"revision_type_id"`
 	RevisorUserProfileID            *int       `json:"revisor_user_profile_id"`
 	RevisorUserProfile              *string    `json:"revisor_user_profile"`
 	InternalOrganizationUnitID      *int       `json:"internal_organization_unit_id"`
@@ -48,9 +48,9 @@ type RevisionsOfOrganizationUnitResponseDTO struct {
 	ResponsibleUserProfile          *string    `json:"responsible_user_profile"`
 	ImplementationUserProfileID     *int       `json:"implementation_user_profile_id"`
 	ImplementationUserProfile       *string    `json:"implementation_user_profile"`
-	Title                           string     `json:"title"`
-	PlanedYear                      string     `json:"planned_year"`
-	PlannedQuarter                  string     `json:"planned_quarter"`
+	Title                           *string    `json:"title"`
+	PlanedYear                      *string    `json:"planned_year"`
+	PlannedQuarter                  *string    `json:"planned_quarter"`
 	SerialNumber                    *string    `json:"serial_number"`
 	Priority                        *string    `json:"priority"`
 	DateOfRevision                  *time.Time `json:"date_of_revision"`

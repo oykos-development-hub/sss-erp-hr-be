@@ -8,8 +8,8 @@ import (
 
 type RevisionsOfOrganizationUnit struct {
 	ID                              int        `db:"id,omitempty"`
-	Name                            string     `db:"name"`
-	RevisionTypeID                  int        `db:"revision_type_id"`
+	Name                            *string    `db:"name"`
+	RevisionTypeID                  *int       `db:"revision_type_id"`
 	RevisorUserProfileID            *int       `db:"revisor_user_profile_id"`
 	RevisorUserProfile              *string    `db:"revisor_user_profile"`
 	InternalOrganizationUnitID      *int       `db:"internal_organization_unit_id"`
@@ -18,9 +18,9 @@ type RevisionsOfOrganizationUnit struct {
 	ResponsibleUserProfile          *string    `db:"responsible_user_profile"`
 	ImplementationUserProfileID     *int       `db:"implementation_user_profile_id"`
 	ImplementationUserProfile       *string    `db:"implementation_user_profile"`
-	Title                           string     `db:"title"`
-	PlanedYear                      string     `db:"planned_year"`
-	PlannedQuarter                  string     `db:"planned_quarter"`
+	Title                           *string    `db:"title"`
+	PlanedYear                      *string    `db:"planned_year"`
+	PlannedQuarter                  *string    `db:"planned_quarter"`
 	SerialNumber                    *string    `db:"serial_number"`
 	Priority                        *string    `db:"priority"`
 	DateOfRevision                  *time.Time `db:"date_of_revision"`
