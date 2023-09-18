@@ -7,19 +7,19 @@ import (
 )
 
 type RevisionsOfOrganizationUnitDTO struct {
-	Name                            string     `json:"name" validate:"required"`
-	RevisionTypeID                  int        `json:"revision_type_id" validate:"required"`
-	RevisorUserProfileID            *int       `json:"revisor_user_profile_id" validate:"required_without=RevisorUserProfile"`
-	RevisorUserProfile              *string    `json:"revisor_user_profile" validate:"required_without=RevisorUserProfileID"`
-	InternalOrganizationUnitID      *int       `json:"internal_organization_unit_id" validate:"required_without=ExternalOrganizationUnitID"`
-	ExternalOrganizationUnitID      *int       `json:"external_organization_unit_id" validate:"required_without=InternalOrganizationUnitID"`
+	Name                            string     `json:"name"`
+	RevisionTypeID                  int        `json:"revision_type_id"`
+	RevisorUserProfileID            *int       `json:"revisor_user_profile_id"`
+	RevisorUserProfile              *string    `json:"revisor_user_profile"`
+	InternalOrganizationUnitID      *int       `json:"internal_organization_unit_id"`
+	ExternalOrganizationUnitID      *int       `json:"external_organization_unit_id"`
 	ResponsibleUserProfileID        *int       `json:"responsible_user_profile_id"`
 	ResponsibleUserProfile          *string    `json:"responsible_user_profile"`
 	ImplementationUserProfileID     *int       `json:"implementation_user_profile_id"`
 	ImplementationUserProfile       *string    `json:"implementation_user_profile"`
-	Title                           string     `json:"title" validate:"required"`
-	PlanedYear                      string     `json:"planned_year" validate:"required"`
-	PlannedQuarter                  string     `json:"planned_quarter" validate:"required"`
+	Title                           string     `json:"title"`
+	PlanedYear                      string     `json:"planned_year"`
+	PlannedQuarter                  string     `json:"planned_quarter"`
 	SerialNumber                    *string    `json:"serial_number"`
 	Priority                        *string    `json:"priority"`
 	DateOfRevision                  *time.Time `json:"date_of_revision"`
