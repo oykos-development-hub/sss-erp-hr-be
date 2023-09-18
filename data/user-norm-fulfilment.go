@@ -15,7 +15,7 @@ type UserNormFulfilment struct {
 	NumberOfNormDecrease     int       `db:"number_of_norm_decrease"`
 	NumberOfItems            int       `db:"number_of_items"`
 	NumberOfItemsSolved      int       `db:"number_of_items_solved"`
-	EvaluationID             int       `db:"evaluation_id"`
+	EvaluationID             *int      `db:"evaluation_id"`
 	DateOfEvaluation         time.Time `db:"date_of_evaluation"`
 	DateOfEvaluationValidity time.Time `db:"date_of_evaluation_validity"`
 	RelocationID             *int      `db:"relocation_id"`
