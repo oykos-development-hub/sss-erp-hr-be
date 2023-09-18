@@ -13,7 +13,7 @@ type UserNormFulfilmentDTO struct {
 	NumberOfNormDecrease     int       `json:"number_of_norm_decrease" validate:"required"`
 	NumberOfItems            int       `json:"number_of_items" validate:"required"`
 	NumberOfItemsSolved      int       `json:"number_of_items_solved" validate:"required"`
-	EvaluationID             *int      `json:"evaluation_id" validate:"required"`
+	EvaluationID             *int      `json:"evaluation_id"`
 	DateOfEvaluation         time.Time `json:"date_of_evaluation"`
 	DateOfEvaluationValidity time.Time `json:"date_of_evaluation_validity"`
 	RelocationID             *int      `json:"relocation_id"`
