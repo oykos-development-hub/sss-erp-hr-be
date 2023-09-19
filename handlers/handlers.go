@@ -28,7 +28,8 @@ type Handlers struct {
 	TenderTypeHandler                            TenderTypeHandler
 	JudgeNumberResolutionHandler                 JudgeNumberResolutionHandler
 	JudgeNumberResolutionOrganizationUnitHandler JudgeNumberResolutionOrganizationUnitHandler
-}
+	PlanHandler PlanHandler
+	}
 
 type EngagementTypeHandler interface {
 	CreateEngagementType(w http.ResponseWriter, r *http.Request)
@@ -225,4 +226,12 @@ type JudgeNumberResolutionOrganizationUnitHandler interface {
 	DeleteJudgeNumberResolutionOrganizationUnit(w http.ResponseWriter, r *http.Request)
 	GetJudgeNumberResolutionOrganizationUnitById(w http.ResponseWriter, r *http.Request)
 	GetJudgeNumberResolutionOrganizationUnitList(w http.ResponseWriter, r *http.Request)
+}
+
+type PlanHandler interface {
+	CreatePlan(w http.ResponseWriter, r *http.Request)
+	UpdatePlan(w http.ResponseWriter, r *http.Request)
+	DeletePlan(w http.ResponseWriter, r *http.Request)
+	GetPlanById(w http.ResponseWriter, r *http.Request)
+	GetPlanList(w http.ResponseWriter, r *http.Request)
 }

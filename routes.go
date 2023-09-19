@@ -151,6 +151,12 @@ func routes(app *celeritas.Celeritas, middleware *middleware.Middleware, handler
 		rt.Get("/judge-number-resolution-organization-units", handlers.JudgeNumberResolutionOrganizationUnitHandler.GetJudgeNumberResolutionOrganizationUnitList)
 		rt.Put("/judge-number-resolution-organization-units/{id}", handlers.JudgeNumberResolutionOrganizationUnitHandler.UpdateJudgeNumberResolutionOrganizationUnit)
 		rt.Delete("/judge-number-resolution-organization-units/{id}", handlers.JudgeNumberResolutionOrganizationUnitHandler.DeleteJudgeNumberResolutionOrganizationUnit)
+	
+		rt.Post("/plans", handlers.PlanHandler.CreatePlan)
+rt.Get("/plans/{id}", handlers.PlanHandler.GetPlanById)
+rt.Get("/plans", handlers.PlanHandler.GetPlanList)
+rt.Put("/plans/{id}", handlers.PlanHandler.UpdatePlan)
+rt.Delete("/plans/{id}", handlers.PlanHandler.DeletePlan)
 	})
 
 	return app.Routes

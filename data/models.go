@@ -44,7 +44,8 @@ type Models struct {
 	TenderType                            TenderType
 	JudgeNumberResolution                 JudgeNumberResolution
 	JudgeNumberResolutionOrganizationUnit JudgeNumberResolutionOrganizationUnit
-}
+	Plan Plan
+	}
 
 func New(databasePool *sql.DB) Models {
 	db = databasePool
@@ -77,6 +78,7 @@ func New(databasePool *sql.DB) Models {
 		RevisionsOfOrganizationUnit:           RevisionsOfOrganizationUnit{},
 		JudgeNumberResolution:                 JudgeNumberResolution{},
 		JudgeNumberResolutionOrganizationUnit: JudgeNumberResolutionOrganizationUnit{},
+		Plan: Plan{},
 	}
 }
 

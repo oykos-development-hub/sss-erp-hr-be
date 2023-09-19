@@ -98,6 +98,10 @@ func initApplication() *celeritas.Celeritas {
 	JudgeNumberResolutionOrganizationUnitService := services.NewJudgeNumberResolutionOrganizationUnitServiceImpl(cel, models.JudgeNumberResolutionOrganizationUnit)
 	JudgeNumberResolutionOrganizationUnitHandler := handlers.NewJudgeNumberResolutionOrganizationUnitHandler(cel, JudgeNumberResolutionOrganizationUnitService)
 
+		
+	PlanService := services.NewPlanServiceImpl(cel, models.Plan)
+	PlanHandler := handlers.NewPlanHandler(cel, PlanService)
+
 	myHandlers := &handlers.Handlers{
 		OrganizationUnitHandler:                      OrganizationUnitHandler,
 		JobPositionHandler:                           JobPositionHandler,
@@ -122,6 +126,7 @@ func initApplication() *celeritas.Celeritas {
 		TenderTypeHandler:                            TenderTypeHandler,
 		JudgeNumberResolutionHandler:                 JudgeNumberResolutionHandler,
 		JudgeNumberResolutionOrganizationUnitHandler: JudgeNumberResolutionOrganizationUnitHandler,
+		PlanHandler: PlanHandler,
 	}
 
 	myMiddleware := &middleware.Middleware{

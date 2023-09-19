@@ -190,3 +190,11 @@ type JudgeNumberResolutionOrganizationUnitService interface {
 	GetJudgeNumberResolutionOrganizationUnit(id int) (*dto.JudgeNumberResolutionOrganizationUnitResponseDTO, error)
 	GetJudgeNumberResolutionOrganizationUnitList(input dto.GetJudgeNumberResolutionOrganizationUnitInputDTO) ([]dto.JudgeNumberResolutionOrganizationUnitResponseDTO, *uint64, error)
 }
+
+type PlanService interface {
+	CreatePlan(input dto.PlanDTO) (*dto.PlanResponseDTO, error)
+	UpdatePlan(id int, input dto.PlanDTO) (*dto.PlanResponseDTO, error)
+	DeletePlan(id int) error
+	GetPlan(id int) (*dto.PlanResponseDTO, error)
+	GetPlanList(input dto.PlanFilter) ([]dto.PlanResponseDTO, *uint64, error)
+}
