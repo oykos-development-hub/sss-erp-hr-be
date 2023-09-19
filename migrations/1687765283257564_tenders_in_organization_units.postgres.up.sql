@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS tenders_in_organization_units (
     date_of_end date,
     description text,
     serial_number text not null,
+    number_of_vacant_seats int,
     file_id int,
     created_at TIMESTAMP,
     updated_at TIMESTAMP,

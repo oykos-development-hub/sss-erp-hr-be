@@ -19,6 +19,7 @@ type TendersInOrganizationUnitDTO struct {
 	DateOfEnd                    *time.Time `json:"date_of_end"`
 	Description                  string     `json:"description"`
 	SerialNumber                 string     `json:"serial_number" validate:"required"`
+	NumberOfVacantSeats          int        `json:"number_of_vacant_seats"`
 	FileID                       *int       `json:"file_id"`
 }
 
@@ -32,6 +33,7 @@ type TendersInOrganizationUnitResponseDTO struct {
 	Description                  string     `json:"description"`
 	SerialNumber                 string     `json:"serial_number"`
 	FileID                       *int       `json:"file_id"`
+	NumberOfVacantSeats          int        `json:"number_of_vacant_seats"`
 	CreatedAt                    time.Time  `json:"created_at"`
 	UpdatedAt                    time.Time  `json:"updated_at"`
 }
@@ -45,6 +47,7 @@ func (dto TendersInOrganizationUnitDTO) ToTendersInOrganizationUnit() *data.Tend
 		DateOfEnd:                    dto.DateOfEnd,
 		Description:                  dto.Description,
 		SerialNumber:                 dto.SerialNumber,
+		NumberOfVacantSeats:          dto.NumberOfVacantSeats,
 		FileID:                       dto.FileID,
 	}
 }
@@ -59,6 +62,7 @@ func ToTendersInOrganizationUnitResponseDTO(data data.TendersInOrganizationUnit)
 		DateOfEnd:                    data.DateOfEnd,
 		Description:                  data.Description,
 		SerialNumber:                 data.SerialNumber,
+		NumberOfVacantSeats:          data.NumberOfVacantSeats,
 		FileID:                       data.FileID,
 		CreatedAt:                    data.CreatedAt,
 		UpdatedAt:                    data.UpdatedAt,
