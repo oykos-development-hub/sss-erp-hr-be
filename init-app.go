@@ -102,6 +102,10 @@ func initApplication() *celeritas.Celeritas {
 	PlanService := services.NewPlanServiceImpl(cel, models.Plan)
 	PlanHandler := handlers.NewPlanHandler(cel, PlanService)
 
+		
+	RevisionService := services.NewRevisionServiceImpl(cel, models.Revision)
+	RevisionHandler := handlers.NewRevisionHandler(cel, RevisionService)
+
 	myHandlers := &handlers.Handlers{
 		OrganizationUnitHandler:                      OrganizationUnitHandler,
 		JobPositionHandler:                           JobPositionHandler,
@@ -127,6 +131,7 @@ func initApplication() *celeritas.Celeritas {
 		JudgeNumberResolutionHandler:                 JudgeNumberResolutionHandler,
 		JudgeNumberResolutionOrganizationUnitHandler: JudgeNumberResolutionOrganizationUnitHandler,
 		PlanHandler: PlanHandler,
+		RevisionHandler: RevisionHandler,
 	}
 
 	myMiddleware := &middleware.Middleware{

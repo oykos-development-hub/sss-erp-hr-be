@@ -198,3 +198,11 @@ type PlanService interface {
 	GetPlan(id int) (*dto.PlanResponseDTO, error)
 	GetPlanList(input dto.PlanFilter) ([]dto.PlanResponseDTO, *uint64, error)
 }
+
+type RevisionService interface {
+	CreateRevision(input dto.RevisionDTO) (*dto.RevisionResponseDTO, error)
+	UpdateRevision(id int, input dto.RevisionDTO) (*dto.RevisionResponseDTO, error)
+	DeleteRevision(id int) error
+	GetRevision(id int) (*dto.RevisionResponseDTO, error)
+	GetRevisionList(filter dto.RevisonFilter) ([]dto.RevisionResponseDTO, *uint64, error)
+}

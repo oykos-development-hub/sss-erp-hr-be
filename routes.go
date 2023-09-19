@@ -157,6 +157,12 @@ rt.Get("/plans/{id}", handlers.PlanHandler.GetPlanById)
 rt.Get("/plans", handlers.PlanHandler.GetPlanList)
 rt.Put("/plans/{id}", handlers.PlanHandler.UpdatePlan)
 rt.Delete("/plans/{id}", handlers.PlanHandler.DeletePlan)
+	
+		rt.Post("/revisions", handlers.RevisionHandler.CreateRevision)
+rt.Get("/revisions/{id}", handlers.RevisionHandler.GetRevisionById)
+rt.Get("/revisions", handlers.RevisionHandler.GetRevisionList)
+rt.Put("/revisions/{id}", handlers.RevisionHandler.UpdateRevision)
+rt.Delete("/revisions/{id}", handlers.RevisionHandler.DeleteRevision)
 	})
 
 	return app.Routes

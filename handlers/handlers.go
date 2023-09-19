@@ -29,6 +29,7 @@ type Handlers struct {
 	JudgeNumberResolutionHandler                 JudgeNumberResolutionHandler
 	JudgeNumberResolutionOrganizationUnitHandler JudgeNumberResolutionOrganizationUnitHandler
 	PlanHandler PlanHandler
+		RevisionHandler RevisionHandler
 	}
 
 type EngagementTypeHandler interface {
@@ -234,4 +235,12 @@ type PlanHandler interface {
 	DeletePlan(w http.ResponseWriter, r *http.Request)
 	GetPlanById(w http.ResponseWriter, r *http.Request)
 	GetPlanList(w http.ResponseWriter, r *http.Request)
+}
+
+type RevisionHandler interface {
+	CreateRevision(w http.ResponseWriter, r *http.Request)
+	UpdateRevision(w http.ResponseWriter, r *http.Request)
+	DeleteRevision(w http.ResponseWriter, r *http.Request)
+	GetRevisionById(w http.ResponseWriter, r *http.Request)
+	GetRevisionList(w http.ResponseWriter, r *http.Request)
 }
