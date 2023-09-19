@@ -206,3 +206,11 @@ type RevisionService interface {
 	GetRevision(id int) (*dto.RevisionResponseDTO, error)
 	GetRevisionList(filter dto.RevisonFilter) ([]dto.RevisionResponseDTO, *uint64, error)
 }
+
+type RevisionTipService interface {
+	CreateRevisionTip(input dto.RevisionTipDTO) (*dto.RevisionTipResponseDTO, error)
+	UpdateRevisionTip(id int, input dto.RevisionTipDTO) (*dto.RevisionTipResponseDTO, error)
+	DeleteRevisionTip(id int) error
+	GetRevisionTip(id int) (*dto.RevisionTipResponseDTO, error)
+	GetRevisionTipList(input dto.RevisionTipFilter) ([]dto.RevisionTipResponseDTO, *uint64, error)
+}

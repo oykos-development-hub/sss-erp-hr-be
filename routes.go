@@ -163,6 +163,12 @@ rt.Get("/revisions/{id}", handlers.RevisionHandler.GetRevisionById)
 rt.Get("/revisions", handlers.RevisionHandler.GetRevisionList)
 rt.Put("/revisions/{id}", handlers.RevisionHandler.UpdateRevision)
 rt.Delete("/revisions/{id}", handlers.RevisionHandler.DeleteRevision)
+	
+		rt.Post("/revision-tips", handlers.RevisionTipHandler.CreateRevisionTip)
+rt.Get("/revision-tips/{id}", handlers.RevisionTipHandler.GetRevisionTipById)
+rt.Get("/revision-tips", handlers.RevisionTipHandler.GetRevisionTipList)
+rt.Put("/revision-tips/{id}", handlers.RevisionTipHandler.UpdateRevisionTip)
+rt.Delete("/revision-tips/{id}", handlers.RevisionTipHandler.DeleteRevisionTip)
 	})
 
 	return app.Routes
