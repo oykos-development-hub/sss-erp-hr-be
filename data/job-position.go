@@ -18,7 +18,7 @@ type JobPosition struct {
 	IsJudgePresident *bool     `db:"is_judge_president"`
 	Color            *string   `db:"color"`
 	Icon             *string   `db:"icon"`
-	CreatedAt        time.Time `db:"created_at"`
+	CreatedAt        time.Time `db:"created_at,omitempty"`
 	UpdatedAt        time.Time `db:"updated_at"`
 }
 

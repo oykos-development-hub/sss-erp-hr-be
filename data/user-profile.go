@@ -39,7 +39,7 @@ type UserProfile struct {
 	ActiveContract            *bool      `db:"active_contract"`
 	RevisorRole               *bool      `db:"revisor_role"`
 	EngagementTypeID          *int       `db:"engagement_type_id,omitempty"`
-	CreatedAt                 time.Time  `db:"created_at"`
+	CreatedAt                 time.Time  `db:"created_at,omitempty"`
 	UpdatedAt                 time.Time  `db:"updated_at"`
 }
 

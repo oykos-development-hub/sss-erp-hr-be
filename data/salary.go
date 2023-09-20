@@ -20,7 +20,7 @@ type Salary struct {
 	EducationNaming    string    `db:"education_naming"`
 	UserResoultionID   *int      `db:"user_resolution_id,omitempty"`
 	OrganizationUnitID int       `db:"organization_unit_id"`
-	CreatedAt          time.Time `db:"created_at"`
+	CreatedAt          time.Time `db:"created_at,omitempty"`
 	UpdatedAt          time.Time `db:"updated_at"`
 }
 

@@ -16,7 +16,7 @@ type Systematization struct {
 	Active             bool       `db:"active"`
 	DateOfActivation   *time.Time `db:"date_of_activation"`
 	FileId             *int       `db:"file_id"`
-	CreatedAt          time.Time  `db:"created_at"`
+	CreatedAt          time.Time  `db:"created_at,omitempty"`
 	UpdatedAt          time.Time  `db:"updated_at"`
 }
 

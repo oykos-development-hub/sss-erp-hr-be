@@ -13,7 +13,7 @@ type EmployeesInOrganizationUnit struct {
 	UserProfileId                int       `db:"user_profile_id"`
 	PositionInOrganizationUnitId int       `db:"position_in_organization_unit_id"`
 	Active                       bool      `db:"active"`
-	CreatedAt                    time.Time `db:"created_at"`
+	CreatedAt                    time.Time `db:"created_at,omitempty"`
 	UpdatedAt                    time.Time `db:"updated_at"`
 }
 

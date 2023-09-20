@@ -15,7 +15,7 @@ type Evaluation struct {
 	DateOfEvaluation *time.Time `db:"date_of_evaluation"`
 	Evaluator        string     `db:"evaluator"`
 	IsRelevant       *bool      `db:"is_relevant"`
-	CreatedAt        time.Time  `db:"created_at"`
+	CreatedAt        time.Time  `db:"created_at,omitempty"`
 	UpdatedAt        time.Time  `db:"updated_at"`
 	FileID           *int       `db:"file_id"`
 }
