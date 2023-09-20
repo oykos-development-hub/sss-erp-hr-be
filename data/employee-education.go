@@ -18,6 +18,7 @@ type EmployeeEducation struct {
 	AcademicTitle       *string    `db:"academic_title"`
 	ExpertiseLevel      *string    `db:"expertise_level"`
 	CertificateIssuer   *string    `db:"certificate_issuer"`
+	Score               *string    `db:"score"`
 	Title               *string    `db:"title"`
 	Description         *string    `db:"description"`
 	FileId              *int       `db:"file_id"`

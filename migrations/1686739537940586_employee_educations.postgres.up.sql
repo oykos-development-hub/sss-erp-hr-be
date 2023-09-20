@@ -8,6 +8,7 @@ CREATE TABLE employee_educations (
     date_of_end DATE,
     academic_title text,
     expertise_level text,
+    score text,
     certificate_issuer text,
     description text,
     title text,

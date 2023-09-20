@@ -21,6 +21,7 @@ type EmployeeEducationDTO struct {
 	DateOfEnd           *time.Time `json:"date_of_end"`
 	AcademicTitle       *string    `json:"academic_title"`
 	ExpertiseLevel      *string    `json:"expertise_level"`
+	Score               *string    `json:"score"`
 	CertificateIssuer   *string    `json:"certificate_issuer"`
 	Description         *string    `json:"description"`
 	Title               *string    `json:"title"`
@@ -37,6 +38,7 @@ type EmployeeEducationResponseDTO struct {
 	DateOfEnd           *time.Time `json:"date_of_end"`
 	AcademicTitle       *string    `json:"academic_title"`
 	ExpertiseLevel      *string    `json:"expertise_level"`
+	Score               *string    `json:"score"`
 	CertificateIssuer   *string    `json:"certificate_issuer"`
 	Title               *string    `json:"title"`
 	Description         *string    `json:"description"`
@@ -55,6 +57,7 @@ func (dto EmployeeEducationDTO) ToEmployeeEducation() *data.EmployeeEducation {
 		DateOfEnd:           dto.DateOfEnd,
 		AcademicTitle:       dto.AcademicTitle,
 		ExpertiseLevel:      dto.ExpertiseLevel,
+		Score:               dto.Score,
 		CertificateIssuer:   dto.CertificateIssuer,
 		Title:               dto.Title,
 		Description:         dto.Description,
@@ -74,6 +77,7 @@ func ToEmployeeEducationResponseDTO(data data.EmployeeEducation) EmployeeEducati
 		AcademicTitle:       data.AcademicTitle,
 		ExpertiseLevel:      data.ExpertiseLevel,
 		CertificateIssuer:   data.CertificateIssuer,
+		Score:               data.Score,
 		Description:         data.Description,
 		FileID:              data.FileId,
 		CreatedAt:           data.CreatedAt,
