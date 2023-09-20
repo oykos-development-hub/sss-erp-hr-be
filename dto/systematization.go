@@ -9,7 +9,7 @@ import (
 type SystematizationDTO struct {
 	UserProfileID      int        `json:"user_profile_id"  validate:"required"`
 	OrganizationUnitID int        `json:"organization_unit_id" validate:"required"`
-	Description        string     `json:"description" validate:"required"`
+	Description        string     `json:"description"`
 	SerialNumber       string     `json:"serial_number" validate:"required"`
 	Active             bool       `json:"active"`
 	DateOfActivation   *time.Time `json:"date_of_activation"`
