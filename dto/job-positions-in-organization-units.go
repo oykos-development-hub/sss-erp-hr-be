@@ -7,11 +7,13 @@ import (
 )
 
 type CreateJobPositionsInOrganizationUnitsDTO struct {
-	Id                       int `json:"id" validate:"omitempty"`
-	SystematizationID        int `json:"systematization_id" validate:"required"`
-	ParentOrganizationUnitID int `json:"parent_organization_unit_id" validate:"required"`
-	JobPositionID            int `json:"job_position_id" validate:"required"`
-	AvailableSlots           int `json:"available_slots" validate:"required"`
+	Id                       int     `json:"id" validate:"omitempty"`
+	SystematizationID        int     `json:"systematization_id" validate:"required"`
+	ParentOrganizationUnitID int     `json:"parent_organization_unit_id" validate:"required"`
+	JobPositionID            int     `json:"job_position_id" validate:"required"`
+	AvailableSlots           int     `json:"available_slots" validate:"required"`
+	Requirments              *string `json:"requirments"`
+	Description              *string `json:"description"`
 }
 
 type GetJobPositionsInOrganizationUnitsDTO struct {
@@ -28,6 +30,8 @@ type JobPositionsInOrganizationUnitsResponseDTO struct {
 	ParentOrganizationUnitID int       `json:"parent_organization_unit_id"`
 	JobPositionID            int       `json:"job_position_id"`
 	AvailableSlots           int       `json:"available_slots"`
+	Requirments              *string   `json:"requirments"`
+	Description              *string   `json:"description"`
 	CreatedAt                time.Time `json:"created_at"`
 	UpdatedAt                time.Time `json:"updated_at"`
 }
@@ -39,6 +43,8 @@ func (dto CreateJobPositionsInOrganizationUnitsDTO) ToJobPositionsInOrganization
 		ParentOrganizationUnitID: dto.ParentOrganizationUnitID,
 		JobPositionID:            dto.JobPositionID,
 		AvailableSlots:           dto.AvailableSlots,
+		Requirments:              dto.Requirments,
+		Description:              dto.Description,
 	}
 }
 
@@ -49,6 +55,8 @@ func ToJobPositionsInOrganizationUnitsResponseDTO(data data.JobPositionsInOrgani
 		ParentOrganizationUnitID: data.ParentOrganizationUnitID,
 		JobPositionID:            data.JobPositionID,
 		AvailableSlots:           data.AvailableSlots,
+		Requirments:              data.Requirments,
+		Description:              data.Description,
 		CreatedAt:                data.CreatedAt,
 		UpdatedAt:                data.UpdatedAt,
 	}

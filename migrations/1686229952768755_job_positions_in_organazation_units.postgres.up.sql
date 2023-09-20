@@ -4,6 +4,8 @@ CREATE TABLE IF NOT EXISTS job_positions_in_organization_units (
   parent_organization_unit_id INT REFERENCES organization_units(id) ON DELETE CASCADE,
   job_position_id INT REFERENCES job_positions(id) ON DELETE CASCADE,
   available_slots INT DEFAULT 0,
+  requirments TEXT,
+  description TEXT,
   created_at timestamp without time zone NOT NULL DEFAULT now(),
   updated_at timestamp without time zone NOT NULL DEFAULT now()
 );

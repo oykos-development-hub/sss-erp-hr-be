@@ -151,24 +151,24 @@ func routes(app *celeritas.Celeritas, middleware *middleware.Middleware, handler
 		rt.Get("/judge-number-resolution-organization-units", handlers.JudgeNumberResolutionOrganizationUnitHandler.GetJudgeNumberResolutionOrganizationUnitList)
 		rt.Put("/judge-number-resolution-organization-units/{id}", handlers.JudgeNumberResolutionOrganizationUnitHandler.UpdateJudgeNumberResolutionOrganizationUnit)
 		rt.Delete("/judge-number-resolution-organization-units/{id}", handlers.JudgeNumberResolutionOrganizationUnitHandler.DeleteJudgeNumberResolutionOrganizationUnit)
-	
+
 		rt.Post("/plans", handlers.PlanHandler.CreatePlan)
-rt.Get("/plans/{id}", handlers.PlanHandler.GetPlanById)
-rt.Get("/plans", handlers.PlanHandler.GetPlanList)
-rt.Put("/plans/{id}", handlers.PlanHandler.UpdatePlan)
-rt.Delete("/plans/{id}", handlers.PlanHandler.DeletePlan)
-	
+		rt.Get("/plans/{id}", handlers.PlanHandler.GetPlanById)
+		rt.Get("/plans", handlers.PlanHandler.GetPlanList)
+		rt.Put("/plans/{id}", handlers.PlanHandler.UpdatePlan)
+		rt.Delete("/plans/{id}", handlers.PlanHandler.DeletePlan)
+
 		rt.Post("/revisions", handlers.RevisionHandler.CreateRevision)
-rt.Get("/revisions/{id}", handlers.RevisionHandler.GetRevisionById)
-rt.Get("/revisions", handlers.RevisionHandler.GetRevisionList)
-rt.Put("/revisions/{id}", handlers.RevisionHandler.UpdateRevision)
-rt.Delete("/revisions/{id}", handlers.RevisionHandler.DeleteRevision)
-	
+		rt.Get("/revisions/{id}", handlers.RevisionHandler.GetRevisionById)
+		rt.Get("/revisions", handlers.RevisionHandler.GetRevisionList)
+		rt.Put("/revisions/{id}", handlers.RevisionHandler.UpdateRevision)
+		rt.Delete("/revisions/{id}", handlers.RevisionHandler.DeleteRevision)
+
 		rt.Post("/revision-tips", handlers.RevisionTipHandler.CreateRevisionTip)
-rt.Get("/revision-tips/{id}", handlers.RevisionTipHandler.GetRevisionTipById)
-rt.Get("/revision-tips", handlers.RevisionTipHandler.GetRevisionTipList)
-rt.Put("/revision-tips/{id}", handlers.RevisionTipHandler.UpdateRevisionTip)
-rt.Delete("/revision-tips/{id}", handlers.RevisionTipHandler.DeleteRevisionTip)
+		rt.Get("/revision-tips/{id}", handlers.RevisionTipHandler.GetRevisionTipById)
+		rt.Get("/revision-tips", handlers.RevisionTipHandler.GetRevisionTipList)
+		rt.Put("/revision-tips/{id}", handlers.RevisionTipHandler.UpdateRevisionTip)
+		rt.Delete("/revision-tips/{id}", handlers.RevisionTipHandler.DeleteRevisionTip)
 	})
 
 	return app.Routes
