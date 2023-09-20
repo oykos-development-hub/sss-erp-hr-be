@@ -41,7 +41,7 @@ func (t *Salary) GetAll(condition *up.Cond) ([]*Salary, error) {
 		res = collection.Find()
 	}
 
-	err := res.OrderBy("created_at desc").All(&all)
+	err := res.OrderBy("updated_at desc").All(&all)
 	if err != nil {
 		return nil, err
 	}

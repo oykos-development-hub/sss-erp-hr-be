@@ -95,7 +95,7 @@ func (t *JobPositionsInOrganizationUnits) GetAll(page *int, pageSize *int, condi
 		res = paginateResult(res, *page, *pageSize)
 	}
 
-	err = res.OrderBy("created_at desc").All(&all)
+	err = res.OrderBy("updated_at desc").All(&all)
 	if err != nil {
 		return nil, nil, err
 	}

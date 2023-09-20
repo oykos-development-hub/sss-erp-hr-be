@@ -46,7 +46,7 @@ func (t *AbsentType) GetAll(page *int, size *int, condition *up.Cond) ([]*Absent
 		res = paginateResult(res, *page, *size)
 	}
 
-	err = res.OrderBy("created_at desc").All(&all)
+	err = res.OrderBy("updated_at desc").All(&all)
 	if err != nil {
 		return nil, nil, err
 	}
