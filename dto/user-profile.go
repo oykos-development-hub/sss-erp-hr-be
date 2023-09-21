@@ -24,6 +24,7 @@ type UserProfileDTO struct {
 	Address                   string     `json:"address" validate:"required"`
 	BankAccount               *string    `json:"bank_account"`
 	BankName                  *string    `json:"bank_name,omitempty"`
+	PersonalID                *string    `json:"personal_id"`
 	OfficialPersonalID        string     `json:"official_personal_id" validate:"required"`
 	OfficialPersonalDocNumber string     `json:"official_personal_document_number" validate:"required"`
 	OfficialPersonalDocIssuer string     `json:"official_personal_document_issuer" validate:"required"`
@@ -58,6 +59,7 @@ type UserProfileResponseDTO struct {
 	Address                   string     `json:"address"`
 	BankAccount               *string    `json:"bank_account"`
 	BankName                  *string    `json:"bank_name"`
+	PersonalID                *string    `json:"personal_id"`
 	OfficialPersonalID        string     `json:"official_personal_id"`
 	OfficialPersonalDocNumber string     `json:"official_personal_document_number"`
 	OfficialPersonalDocIssuer string     `json:"official_personal_document_issuer"`
@@ -94,6 +96,7 @@ func (dto *UserProfileDTO) ToUserProfile() *data.UserProfile {
 		Address:                   dto.Address,
 		BankAccount:               dto.BankAccount,
 		BankName:                  dto.BankName,
+		PersonalID:                dto.PersonalID,
 		OfficialPersonalID:        dto.OfficialPersonalID,
 		OfficialPersonalDocNumber: dto.OfficialPersonalDocNumber,
 		OfficialPersonalDocIssuer: dto.OfficialPersonalDocIssuer,
@@ -140,6 +143,7 @@ func ToUserProfileResponseDTO(data data.UserProfile) UserProfileResponseDTO {
 		Address:                   data.Address,
 		BankAccount:               data.BankAccount,
 		BankName:                  data.BankName,
+		PersonalID:                data.PersonalID,
 		OfficialPersonalID:        data.OfficialPersonalID,
 		OfficialPersonalDocNumber: data.OfficialPersonalDocNumber,
 		OfficialPersonalDocIssuer: data.OfficialPersonalDocIssuer,

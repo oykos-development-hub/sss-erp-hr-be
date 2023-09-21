@@ -26,6 +26,7 @@ type UserProfile struct {
 	Address                   string     `db:"address"`
 	BankAccount               *string    `db:"bank_account"`
 	BankName                  *string    `db:"bank_name"`
+	PersonalID                *string    `db:"personal_id"`
 	OfficialPersonalID        string     `db:"official_personal_id"`
 	OfficialPersonalDocNumber string     `db:"official_personal_document_number"`
 	OfficialPersonalDocIssuer string     `db:"official_personal_document_issuer"`
