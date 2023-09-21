@@ -13,7 +13,7 @@ type Systematization struct {
 	OrganizationUnitID int        `db:"organization_unit_id"`
 	Description        string     `db:"description"`
 	SerialNumber       string     `db:"serial_number"`
-	Active             bool       `db:"active"`
+	Active             int        `db:"active"`
 	DateOfActivation   *time.Time `db:"date_of_activation"`
 	FileId             *int       `db:"file_id"`
 	CreatedAt          time.Time  `db:"created_at,omitempty"`

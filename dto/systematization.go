@@ -11,7 +11,7 @@ type SystematizationDTO struct {
 	OrganizationUnitID int        `json:"organization_unit_id" validate:"required"`
 	Description        string     `json:"description"`
 	SerialNumber       string     `json:"serial_number" validate:"required"`
-	Active             bool       `json:"active"`
+	Active             int        `json:"active"`
 	DateOfActivation   *time.Time `json:"date_of_activation"`
 	FileId             *int       `json:"file_id,omitempty"`
 }
@@ -22,7 +22,7 @@ type SystematizationResponseDTO struct {
 	OrganizationUnitID int        `json:"organization_unit_id"`
 	Description        string     `json:"description"`
 	SerialNumber       string     `json:"serial_number"`
-	Active             bool       `json:"active"`
+	Active             int        `json:"active"`
 	DateOfActivation   *time.Time `json:"date_of_activation"`
 	FileId             *int       `json:"file_id"`
 	CreatedAt          time.Time  `json:"created_at"`
@@ -33,7 +33,7 @@ type GetSystematizationsDTO struct {
 	Page               *int    `json:"page" validate:"omitempty"`
 	PageSize           *int    `json:"page_size" validate:"omitempty"`
 	OrganizationUnitID *int    `json:"organization_unit_id" validate:"omitempty"`
-	Active             *bool   `json:"active" validate:"omitempty"`
+	Active             *int    `json:"active" validate:"omitempty"`
 	Year               *string `json:"year" validate:"omitempty"`
 	Search             *string `json:"search" validate:"omitempty"`
 }
