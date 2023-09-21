@@ -57,7 +57,7 @@ func (t *EmployeeContract) GetByUserProfileId(userProfileId int, condition *up.C
 		res = res.And(*condition)
 	}
 
-	err := res.OrderBy("updated_at desc").All(&employeeContracts)
+	err := res.OrderBy("created_at desc").All(&employeeContracts)
 	if err != nil {
 		fmt.Println(err)
 		if err != up.ErrNilRecord && err != up.ErrNoMoreRows {

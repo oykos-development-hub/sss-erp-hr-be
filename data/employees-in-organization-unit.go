@@ -34,7 +34,7 @@ func (t *EmployeesInOrganizationUnit) GetAll(condition *up.Cond) ([]*EmployeesIn
 		res = collection.Find()
 	}
 
-	err := res.OrderBy("updated_at desc").All(&all)
+	err := res.OrderBy("created_at desc").All(&all)
 	if err != nil {
 		if err != up.ErrNilRecord && err != up.ErrNoMoreRows {
 			return nil, err

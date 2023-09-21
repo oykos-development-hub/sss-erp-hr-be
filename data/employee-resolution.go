@@ -37,7 +37,7 @@ func (t *EmployeeResolution) GetAll(condition *up.Cond) ([]*EmployeeResolution, 
 		res = collection.Find()
 	}
 
-	err := res.OrderBy("updated_at desc").All(&all)
+	err := res.OrderBy("created_at desc").All(&all)
 	if err != nil {
 		return nil, err
 	}

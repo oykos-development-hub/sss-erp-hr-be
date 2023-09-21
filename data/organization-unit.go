@@ -48,7 +48,7 @@ func (t *OrganizationUnit) GetAll(page *int, pageSize *int, conditions *up.AndEx
 		res = paginateResult(res, *page, *pageSize)
 	}
 
-	err = res.OrderBy("updated_at desc").All(&all)
+	err = res.OrderBy("created_at desc").All(&all)
 	if err != nil {
 		return nil, nil, err
 	}
