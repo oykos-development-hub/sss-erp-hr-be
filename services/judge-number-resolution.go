@@ -6,7 +6,6 @@ import (
 	"gitlab.sudovi.me/erp/hr-ms-api/errors"
 
 	"github.com/oykos-development-hub/celeritas"
-	up "github.com/upper/db/v4"
 )
 
 type JudgeNumberResolutionServiceImpl struct {
@@ -87,11 +86,7 @@ func (h *JudgeNumberResolutionServiceImpl) GetJudgeNumberResolution(id int) (*dt
 }
 
 func (h *JudgeNumberResolutionServiceImpl) GetJudgeNumberResolutionList(input dto.GetJudgeNumberResolutionInputDTO) ([]dto.JudgeNumberResolutionResponseDTO, *uint64, error) {
-	cond := up.Cond{}
-	if input.Year != nil {
-		cond["year"] = input.Year
-	}
-	data, total, err := h.repo.GetAll(input.Page, input.PageSize, &cond)
+	data, total, err := h.repo.GetAll(input.Page, input.PageSize, nil)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
 		return nil, nil, errors.ErrInternalServer

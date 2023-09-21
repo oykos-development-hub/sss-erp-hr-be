@@ -11,7 +11,6 @@ type JudgeNumberResolution struct {
 	ID           int       `db:"id,omitempty"`
 	Active       bool      `db:"active"`
 	SerialNumber string    `db:"serial_number"`
-	Year         string    `db:"year"`
 	CreatedAt    time.Time `db:"created_at,omitempty"`
 	UpdatedAt    time.Time `db:"updated_at"`
 }
