@@ -13,7 +13,7 @@ type JobPositionsInOrganizationUnits struct {
 	ParentOrganizationUnitID int       `db:"parent_organization_unit_id"`
 	JobPositionID            int       `db:"job_position_id"`
 	AvailableSlots           int       `db:"available_slots"`
-	Requirments              *string   `db:"requirments"`
+	Requirements             *string   `db:"requirements"`
 	Description              *string   `db:"description"`
 	CreatedAt                time.Time `db:"created_at,omitempty"`
 	UpdatedAt                time.Time `db:"updated_at"`

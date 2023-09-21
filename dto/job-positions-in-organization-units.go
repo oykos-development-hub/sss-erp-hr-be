@@ -12,7 +12,7 @@ type CreateJobPositionsInOrganizationUnitsDTO struct {
 	ParentOrganizationUnitID int     `json:"parent_organization_unit_id" validate:"required"`
 	JobPositionID            int     `json:"job_position_id" validate:"required"`
 	AvailableSlots           int     `json:"available_slots" validate:"required"`
-	Requirments              *string `json:"requirments"`
+	Requirements             *string `json:"requirements"`
 	Description              *string `json:"description"`
 }
 
@@ -30,7 +30,7 @@ type JobPositionsInOrganizationUnitsResponseDTO struct {
 	ParentOrganizationUnitID int       `json:"parent_organization_unit_id"`
 	JobPositionID            int       `json:"job_position_id"`
 	AvailableSlots           int       `json:"available_slots"`
-	Requirments              *string   `json:"requirments"`
+	Requirements             *string   `json:"requirements"`
 	Description              *string   `json:"description"`
 	CreatedAt                time.Time `json:"created_at"`
 	UpdatedAt                time.Time `json:"updated_at"`
@@ -43,7 +43,7 @@ func (dto CreateJobPositionsInOrganizationUnitsDTO) ToJobPositionsInOrganization
 		ParentOrganizationUnitID: dto.ParentOrganizationUnitID,
 		JobPositionID:            dto.JobPositionID,
 		AvailableSlots:           dto.AvailableSlots,
-		Requirments:              dto.Requirments,
+		Requirements:             dto.Requirements,
 		Description:              dto.Description,
 	}
 }
@@ -55,7 +55,7 @@ func ToJobPositionsInOrganizationUnitsResponseDTO(data data.JobPositionsInOrgani
 		ParentOrganizationUnitID: data.ParentOrganizationUnitID,
 		JobPositionID:            data.JobPositionID,
 		AvailableSlots:           data.AvailableSlots,
-		Requirments:              data.Requirments,
+		Requirements:             data.Requirements,
 		Description:              data.Description,
 		CreatedAt:                data.CreatedAt,
 		UpdatedAt:                data.UpdatedAt,
