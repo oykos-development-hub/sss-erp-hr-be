@@ -6,7 +6,6 @@ CREATE TABLE IF NOT EXISTS employee_experiences (
     organization_unit_id INT,
     amount_of_experience INT,
     amount_of_insured_experience INT,
-    date_of_signature DATE,
     date_of_start DATE,
     date_of_end DATE,
     file_id INT,

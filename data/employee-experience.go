@@ -15,7 +15,6 @@ type EmployeeExperience struct {
 	OrganizationUnitID        *int      `db:"organization_unit_id"`
 	AmountOfExperience        *int      `db:"amount_of_experience"`
 	AmountOfInsuredExperience *int      `db:"amount_of_insured_experience"`
-	DateOfSignature           time.Time `db:"date_of_signature"`
 	DateOfStart               time.Time `db:"date_of_start"`
 	DateOfEnd                 time.Time `db:"date_of_end"`
 	FileID                    int       `db:"file_id"`

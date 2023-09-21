@@ -14,7 +14,6 @@ type EmployeeExperienceDTO struct {
 	OrganizationUnitID        *int      `json:"organization_unit_id" validate:"omitempty,required_without=organization_unit"`
 	AmountOfExperience        *int      `json:"amount_of_experience"`
 	AmountOfInsuredExperience *int      `json:"amount_of_insured_experience"`
-	DateOfSignature           time.Time `json:"date_of_signature" validate:"required"`
 	DateOfStart               time.Time `json:"date_of_start" validate:"required"`
 	DateOfEnd                 time.Time `json:"date_of_end" validate:"required"`
 	FileID                    int       `json:"reference_file_id"`
@@ -28,7 +27,6 @@ type EmployeeExperienceResponseDTO struct {
 	OrganizationUnitID        *int       `json:"organization_unit_id"`
 	AmountOfExperience        *int       `json:"amount_of_experience"`
 	AmountOfInsuredExperience *int       `json:"amount_of_insured_experience"`
-	DateOfSignature           time.Time  `json:"date_of_signature"`
 	DateOfStart               time.Time  `json:"date_of_start"`
 	DateOfEnd                 time.Time  `json:"date_of_end"`
 	FileID                    int        `json:"reference_file_id"`
@@ -44,7 +42,6 @@ func (dto EmployeeExperienceDTO) ToEmployeeExperience() *data.EmployeeExperience
 		OrganizationUnitID:        dto.OrganizationUnitID,
 		AmountOfExperience:        dto.AmountOfExperience,
 		AmountOfInsuredExperience: dto.AmountOfInsuredExperience,
-		DateOfSignature:           dto.DateOfSignature,
 		DateOfStart:               dto.DateOfStart,
 		DateOfEnd:                 dto.DateOfEnd,
 		FileID:                    dto.FileID,
@@ -60,7 +57,6 @@ func ToEmployeeExperienceResponseDTO(data data.EmployeeExperience) EmployeeExper
 		OrganizationUnitID:        data.OrganizationUnitID,
 		AmountOfExperience:        data.AmountOfExperience,
 		AmountOfInsuredExperience: data.AmountOfInsuredExperience,
-		DateOfSignature:           data.DateOfSignature,
 		DateOfStart:               data.DateOfStart,
 		DateOfEnd:                 data.DateOfEnd,
 		FileID:                    data.FileID,
