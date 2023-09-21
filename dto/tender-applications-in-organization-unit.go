@@ -49,7 +49,6 @@ type TenderApplicationsInOrganizationUnitResponseDTO struct {
 }
 
 func (dto TenderApplicationsInOrganizationUnitDTO) ToTenderApplicationsInOrganizationUnit() *data.TenderApplicationsInOrganizationUnit {
-
 	return &data.TenderApplicationsInOrganizationUnit{
 		JobTenderID:        dto.JobTenderID,
 		UserProfileID:      dto.UserProfileID,
@@ -104,8 +103,7 @@ func ToTenderApplicationsInOrganizationUnitListResponseDTO(tenderapplicationsino
 }
 
 type GetTenderApplicationsInputDTO struct {
-	Page          *int `json:"page" validate:"omitempty"`
-	Size          *int `json:"size" validate:"omitempty"`
-	JobTenderID   *int `json:"job_tender_id" validate:"omitempty"`
-	UserProfileID *int `json:"user_profile_id" validate:"omitempty"`
+	JobTenderID   *int    `json:"job_tender_id"`
+	UserProfileID *int    `json:"user_profile_id"`
+	Search        *string `json:"search"`
 }

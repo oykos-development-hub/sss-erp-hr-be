@@ -1,6 +1,8 @@
 package services
 
 import (
+	"fmt"
+
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
 	"gitlab.sudovi.me/erp/hr-ms-api/errors"
@@ -80,17 +82,25 @@ func (h *TenderApplicationsInOrganizationUnitServiceImpl) GetTenderApplicationsI
 }
 
 func (h *TenderApplicationsInOrganizationUnitServiceImpl) GetTenderApplicationsInOrganizationUnitList(input dto.GetTenderApplicationsInputDTO) ([]dto.TenderApplicationsInOrganizationUnitResponseDTO, *uint64, error) {
-	conditionAndExp := &up.AndExpr{}
+	var (
+		combinedCond *up.AndExpr
+		conditions   []up.LogicalExpr
+	)
 
-	if input.JobTenderID != nil {
-		conditionAndExp = up.And(conditionAndExp, &up.Cond{"job_tender_id": *input.JobTenderID})
+	if input.Search != nil && *input.Search != "" {
+		likeCondition := fmt.Sprintf("%%%s%%", *input.Search)
+		searchCond := up.Or(
+			up.Cond{"first_name ILIKE": likeCondition},
+			up.Cond{"last_name ILIKE": likeCondition},
+		)
+		conditions = append(conditions, searchCond)
 	}
 
-	if input.UserProfileID != nil {
-		conditionAndExp = up.And(conditionAndExp, &up.Cond{"user_profile_id =": *input.UserProfileID})
+	if len(conditions) > 0 {
+		combinedCond = up.And(conditions...)
 	}
 
-	data, total, err := h.repo.GetAll(input.Page, input.Size, conditionAndExp)
+	data, total, err := h.repo.GetAll(nil, nil, combinedCond)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
 		return nil, nil, errors.ErrInternalServer
