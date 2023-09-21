@@ -14,6 +14,7 @@ type JobPosition struct {
 	SerialNumber     string    `db:"serial_number"`
 	Description      *string   `db:"description"`
 	Requirements     string    `db:"requirements"`
+	IsActive         bool      `db:"is_active"`
 	IsJudge          *bool     `db:"is_judge"`
 	IsJudgePresident *bool     `db:"is_judge_president"`
 	Color            *string   `db:"color"`

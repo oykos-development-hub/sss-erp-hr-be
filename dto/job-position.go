@@ -12,6 +12,7 @@ type CreateJobPositionDTO struct {
 	SerialNumber     string  `json:"serial_number" validate:"omitempty"`
 	Description      *string `json:"description" validate:"omitempty"`
 	Requirements     string  `json:"requirements" validate:"omitempty"`
+	IsActive         bool    `json:"is_active"`
 	IsJudge          *bool   `json:"is_judge" validate:"omitempty"`
 	IsJudgePresident *bool   `json:"is_judge_president" validate:"omitempty"`
 	Color            *string `json:"color" validate:"omitempty"`
@@ -25,6 +26,7 @@ type UpdateJobPositionDTO struct {
 	Description      *string `json:"description" validate:"omitempty"`
 	Requirements     *string `json:"requirements"`
 	IsJudge          *bool   `json:"is_judge"`
+	IsActive         bool    `json:"is_active"`
 	IsJudgePresident *bool   `json:"is_judge_president"`
 	Color            *string `json:"color" validate:"omitempty"`
 	Icon             *string `json:"icon" validate:"omitempty"`
@@ -38,6 +40,7 @@ type JobPositionResponseDTO struct {
 	Description      *string   `json:"description"`
 	Requirements     string    `json:"requirements"`
 	IsJudge          *bool     `json:"is_judge"`
+	IsActive         bool      `json:"is_active"`
 	IsJudgePresident *bool     `json:"is_judge_president"`
 	Color            *string   `json:"color"`
 	Icon             *string   `json:"icon"`
@@ -59,6 +62,7 @@ func (dto CreateJobPositionDTO) ToJobPosition() *data.JobPosition {
 		SerialNumber:     dto.SerialNumber,
 		Description:      dto.Description,
 		Requirements:     dto.Requirements,
+		IsActive:         dto.IsActive,
 		IsJudge:          dto.IsJudge,
 		IsJudgePresident: dto.IsJudgePresident,
 		Color:            dto.Color,
@@ -87,6 +91,7 @@ func (dto UpdateJobPositionDTO) ToJobPosition(data *data.JobPosition) {
 	if dto.IsJudgePresident != nil {
 		data.IsJudgePresident = dto.IsJudgePresident
 	}
+	data.IsActive = dto.IsActive
 	data.Description = dto.Description
 	data.Color = dto.Color
 	data.Icon = dto.Icon
@@ -102,6 +107,7 @@ func ToJobPositionResponseDTO(data data.JobPosition) JobPositionResponseDTO {
 		Description:      data.Description,
 		Requirements:     data.Requirements,
 		IsJudge:          data.IsJudge,
+		IsActive:         data.IsActive,
 		IsJudgePresident: data.IsJudgePresident,
 		Color:            data.Color,
 		Icon:             data.Icon,
