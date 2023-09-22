@@ -20,7 +20,7 @@ type UserProfile struct {
 	DateOfBirth               time.Time  `db:"date_of_birth"`
 	CountryOfBirth            string     `db:"country_of_birth"`
 	CityOfBirth               string     `db:"city_of_birth"`
-	Nationality               string     `db:"nationality"`
+	Nationality               *string    `db:"nationality"`
 	NationalMinority          *string    `db:"national_minority"`
 	Citizenship               string     `db:"citizenship"`
 	Address                   string     `db:"address"`

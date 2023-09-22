@@ -13,7 +13,7 @@ CREATE TABLE user_profiles (
     date_of_birth date NOT NULL,
     country_of_birth text NOT NULL,
     city_of_birth text NOT NULL,
-    nationality text NOT NULL,
+    nationality text,
     national_minority text,
     citizenship text NOT NULL,
     address text NOT NULL,
