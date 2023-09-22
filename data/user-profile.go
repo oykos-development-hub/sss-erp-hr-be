@@ -39,6 +39,7 @@ type UserProfile struct {
 	DateOfBecomingJudge       *string    `db:"date_of_becoming_judge"`
 	ActiveContract            *bool      `db:"active_contract"`
 	RevisorRole               *bool      `db:"revisor_role"`
+	IsJudge                   *bool      `db:"is_judge"`
 	EngagementTypeID          *int       `db:"engagement_type_id,omitempty"`
 	CreatedAt                 time.Time  `db:"created_at,omitempty"`
 	UpdatedAt                 time.Time  `db:"updated_at"`

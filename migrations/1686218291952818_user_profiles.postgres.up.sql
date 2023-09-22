@@ -32,6 +32,7 @@ CREATE TABLE user_profiles (
     active_contract boolean,
     revisor_role boolean,
     engagement_type_id integer,
+    is_judge bool,
     created_at timestamp without time zone NOT NULL DEFAULT now(),
     updated_at timestamp without time zone NOT NULL DEFAULT now()
 );
