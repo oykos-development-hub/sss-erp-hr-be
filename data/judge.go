@@ -11,7 +11,8 @@ type Judge struct {
 	ID                 int       `db:"id,omitempty"`
 	UserProfileID      int       `db:"user_profile_id"`
 	OrganizationUnitID int       `db:"organization_unit_id"`
-	NormID             int       `db:"norm_id"`
+	ResolutionID       int       `db:"resolution_id"`
+	IsPresident        bool      `db:"is_president"`
 	CreatedAt          time.Time `db:"created_at,omitempty"`
 	UpdatedAt          time.Time `db:"updated_at"`
 }

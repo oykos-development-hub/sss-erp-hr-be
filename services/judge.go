@@ -84,8 +84,8 @@ func (h *JudgeServiceImpl) GetJudgeList(input dto.JudgeFilter) ([]dto.JudgeRespo
 	if input.UserProfileID != nil {
 		cond["user_profile_id"] = input.UserProfileID
 	}
-	if input.NormID != nil {
-		cond["norm_id"] = input.NormID
+	if input.ResolutionID != nil {
+		cond["resolution_id"] = input.ResolutionID
 	}
 	if input.OrganizationUnitID != nil {
 		cond["organization_unit_id"] = input.OrganizationUnitID
