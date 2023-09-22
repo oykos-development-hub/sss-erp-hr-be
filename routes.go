@@ -169,6 +169,12 @@ func routes(app *celeritas.Celeritas, middleware *middleware.Middleware, handler
 		rt.Get("/revision-tips", handlers.RevisionTipHandler.GetRevisionTipList)
 		rt.Put("/revision-tips/{id}", handlers.RevisionTipHandler.UpdateRevisionTip)
 		rt.Delete("/revision-tips/{id}", handlers.RevisionTipHandler.DeleteRevisionTip)
+	
+		rt.Post("/judges", handlers.JudgeHandler.CreateJudge)
+rt.Get("/judges/{id}", handlers.JudgeHandler.GetJudgeById)
+rt.Get("/judges", handlers.JudgeHandler.GetJudgeList)
+rt.Put("/judges/{id}", handlers.JudgeHandler.UpdateJudge)
+rt.Delete("/judges/{id}", handlers.JudgeHandler.DeleteJudge)
 	})
 
 	return app.Routes

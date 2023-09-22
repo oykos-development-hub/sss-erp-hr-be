@@ -47,6 +47,7 @@ type Models struct {
 	Plan Plan
 		Revision Revision
 		RevisionTip RevisionTip
+		Judge Judge
 	}
 
 func New(databasePool *sql.DB) Models {
@@ -83,6 +84,7 @@ func New(databasePool *sql.DB) Models {
 		Plan: Plan{},
 		Revision: Revision{},
 		RevisionTip: RevisionTip{},
+		Judge: Judge{},
 	}
 }
 

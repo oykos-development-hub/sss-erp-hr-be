@@ -49,11 +49,11 @@ INSERT INTO systematizations
     (user_profile_id, organization_unit_id, description, serial_number, active, date_of_activation,
     file_id, created_at, updated_at)
 VALUES
-    (1, 1, 'Sistematizacija za 2024 godinu', 'SN001', true, '2023-08-08 12:34:56', null, NOW(), NOW()),
-    (2, 2, 'Sistematizacija za 2024 godinu', 'SN002', true, '2023-08-08 09:00:00', 101, NOW(), NOW()),
-    (3, 1, 'Sistematizacija za 2022 godinu', 'SN003', false, null, null, NOW(), NOW()),
-    (1, 4, 'Sistematizacija za 2024 godinu', 'SN004', true, '2023-08-08 12:34:56', null, NOW(), NOW()),
-    (2, 5, 'Sistematizacija za 2024 godinu', 'SN005', true, '2023-08-08 09:00:00', 101, NOW(), NOW());
+    (1, 1, 'Sistematizacija za 2024 godinu', 'SN001', 2, '2023-08-08 12:34:56', null, NOW(), NOW()),
+    (2, 2, 'Sistematizacija za 2024 godinu', 'SN002', 2, '2023-08-08 09:00:00', 101, NOW(), NOW()),
+    (3, 1, 'Sistematizacija za 2022 godinu', 'SN003', 1, null, null, NOW(), NOW()),
+    (1, 4, 'Sistematizacija za 2024 godinu', 'SN004', 2, '2023-08-08 12:34:56', null, NOW(), NOW()),
+    (2, 5, 'Sistematizacija za 2024 godinu', 'SN005', 2, '2023-08-08 09:00:00', 101, NOW(), NOW());
 
 
 INSERT INTO job_positions

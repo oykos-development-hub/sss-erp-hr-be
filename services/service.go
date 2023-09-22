@@ -214,3 +214,11 @@ type RevisionTipService interface {
 	GetRevisionTip(id int) (*dto.RevisionTipResponseDTO, error)
 	GetRevisionTipList(input dto.RevisionTipFilter) ([]dto.RevisionTipResponseDTO, *uint64, error)
 }
+
+type JudgeService interface {
+	CreateJudge(input dto.JudgeDTO) (*dto.JudgeResponseDTO, error)
+	UpdateJudge(id int, input dto.JudgeDTO) (*dto.JudgeResponseDTO, error)
+	DeleteJudge(id int) error
+	GetJudge(id int) (*dto.JudgeResponseDTO, error)
+	GetJudgeList(input dto.JudgeFilter) ([]dto.JudgeResponseDTO, *uint64, error)
+}
