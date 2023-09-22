@@ -20,8 +20,9 @@ type JudgeNumberResolutionResponseDTO struct {
 }
 
 type GetJudgeNumberResolutionInputDTO struct {
-	Page     *int `json:"page" validate:"omitempty"`
-	PageSize *int `json:"page_size" validate:"omitempty"`
+	Page     *int  `json:"page" validate:"omitempty"`
+	PageSize *int  `json:"page_size" validate:"omitempty"`
+	Active   *bool `json:"active"`
 }
 
 func (dto JudgeNumberResolutionDTO) ToJudgeNumberResolution() *data.JudgeNumberResolution {
