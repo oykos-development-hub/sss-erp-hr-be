@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -46,10 +47,13 @@ func (h *userprofileHandlerImpl) CreateUserProfile(w http.ResponseWriter, r *htt
 }
 
 func (h *userprofileHandlerImpl) UpdateUserProfile(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("uso u update hendler")
 	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
 
 	var input dto.UserProfileDTO
 	_ = h.App.ReadJSON(w, r, &input)
+
+	fmt.Println("id je ",id)
 
 	validator := h.App.Validator().ValidateStruct(&input)
 	if !validator.Valid() {
