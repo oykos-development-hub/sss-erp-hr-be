@@ -22,6 +22,7 @@ type RevisionTipDTO struct {
 	Recommendation         string     `json:"recommendation" validate:"required"`
 	Status                 *string    `json:"status"`
 	Documents              *string    `json:"documents"`
+	ResponsiblePerson      *string    `json:"responsible_person"`
 	ReasonsForNonExecuting *string    `json:"reasons_for_non_executing"`
 	FileID                 *int       `json:"file_id"`
 }
@@ -39,6 +40,7 @@ type RevisionTipResponseDTO struct {
 	Documents              *string    `json:"documents"`
 	ReasonsForNonExecuting *string    `json:"reasons_for_non_executing"`
 	FileID                 *int       `json:"file_id"`
+	ResponsiblePerson      *string    `json:"responsible_person"`
 	CreatedAt              time.Time  `json:"created_at"`
 	UpdatedAt              time.Time  `json:"updated_at"`
 }
@@ -54,6 +56,7 @@ func (dto RevisionTipDTO) ToRevisionTip() *data.RevisionTip {
 		Recommendation:         dto.Recommendation,
 		Status:                 dto.Status,
 		Documents:              dto.Documents,
+		ResponsiblePerson:      dto.ResponsiblePerson,
 		ReasonsForNonExecuting: dto.ReasonsForNonExecuting,
 		FileID:                 dto.FileID,
 	}
@@ -72,6 +75,7 @@ func ToRevisionTipResponseDTO(data data.RevisionTip) RevisionTipResponseDTO {
 		Status:                 data.Status,
 		Documents:              data.Documents,
 		ReasonsForNonExecuting: data.ReasonsForNonExecuting,
+		ResponsiblePerson:      data.ResponsiblePerson,
 		FileID:                 data.FileID,
 		CreatedAt:              data.CreatedAt,
 		UpdatedAt:              data.UpdatedAt,

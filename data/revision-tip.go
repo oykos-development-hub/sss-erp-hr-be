@@ -20,6 +20,7 @@ type RevisionTip struct {
 	Documents              *string    `db:"documents"`
 	ReasonsForNonExecuting *string    `db:"reasons_for_non_executing"`
 	FileID                 *int       `db:"file_id"`
+	ResponsiblePerson      *string    `db:"responsible_person"`
 	CreatedAt              time.Time  `db:"created_at,omitempty"`
 	UpdatedAt              time.Time  `db:"updated_at"`
 }
