@@ -14,7 +14,7 @@ type RevisionTipFilter struct {
 
 type RevisionTipDTO struct {
 	RevisionID             int        `json:"revision_id" validate:"required"`
-	UserProfileID          int        `json:"user_profile_id"`
+	UserProfileID          *int       `json:"user_profile_id"`
 	DateOfAccept           *time.Time `json:"date_of_accept"`
 	DueDate                int        `json:"due_date" validate:"required"`
 	DateOfReject           *time.Time `json:"date_of_reject"`
@@ -30,7 +30,7 @@ type RevisionTipDTO struct {
 type RevisionTipResponseDTO struct {
 	ID                     int        `json:"id"`
 	RevisionID             int        `json:"revision_id"`
-	UserProfileID          int        `json:"user_profile_id"`
+	UserProfileID          *int       `json:"user_profile_id"`
 	DateOfAccept           *time.Time `json:"date_of_accept"`
 	DueDate                int        `json:"due_date"`
 	DateOfReject           *time.Time `json:"date_of_reject"`

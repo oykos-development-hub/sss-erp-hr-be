@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS revision_tips (
     id serial PRIMARY KEY,
     revision_id INTEGER NOT NULL REFERENCES revisions(id) ON DELETE CASCADE,
-    user_profile_id INTEGER NOT NULL REFERENCES user_profiles(id) ON DELETE CASCADE,
+    user_profile_id INTEGER REFERENCES user_profiles(id) ON DELETE CASCADE,
     responsible_person TEXT,
     date_of_accept DATE,
     due_date INTEGER NOT NULL,

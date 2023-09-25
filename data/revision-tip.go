@@ -10,7 +10,7 @@ import (
 type RevisionTip struct {
 	ID                     int        `db:"id,omitempty"`
 	RevisionID             int        `db:"revision_id"`
-	UserProfileID          int        `db:"user_profile_id"`
+	UserProfileID          *int       `db:"user_profile_id"`
 	DateOfAccept           *time.Time `db:"date_of_accept"`
 	DueDate                int        `db:"due_date"`
 	DateOfReject           *time.Time `db:"date_of_reject"`
