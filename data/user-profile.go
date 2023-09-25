@@ -1,6 +1,7 @@
 package data
 
 import (
+	"fmt"
 	"time"
 
 	up "github.com/upper/db/v4"
@@ -109,14 +110,20 @@ func (t *UserProfile) GetBy(key string, value interface{}) (*UserProfile, error)
 func (t *UserProfile) Update(m UserProfile) error {
 	m.UpdatedAt = time.Now()
 
+	fmt.Println("uso u update")
+
 	userByOfficialPersonalID, _ := t.GetBy("official_personal_id", m.OfficialPersonalID)
 	if userByOfficialPersonalID != nil {
 		return errors.ErrResourceExists
 	}
 
+	fmt.Println("proso licna karta provjeru")
+
 	collection := upper.Collection(t.Table())
 	res := collection.Find(m.ID)
+	fmt.Println("getovo korisnika", m.ID)
 	err := res.Update(&m)
+	fmt.Println("proso update data")
 	if err != nil {
 		return err
 	}
