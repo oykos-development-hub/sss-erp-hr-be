@@ -1,8 +1,6 @@
 package services
 
 import (
-	"fmt"
-
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
 	"gitlab.sudovi.me/erp/hr-ms-api/errors"
@@ -44,7 +42,6 @@ func (h *UserProfileServiceImpl) CreateUserProfile(input dto.UserProfileDTO) (*d
 }
 
 func (h *UserProfileServiceImpl) UpdateUserProfile(id int, input dto.UserProfileDTO) (*dto.UserProfileResponseDTO, error) {
-	fmt.Println("uso u update servis ", id)
 	userData := input.ToUserProfile()
 	userData.ID = id
 
@@ -52,13 +49,11 @@ func (h *UserProfileServiceImpl) UpdateUserProfile(id int, input dto.UserProfile
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
-	fmt.Println("update proso")
 	user, err := h.repo.Get(id)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
 
-	fmt.Println("get proso")
 	response := dto.ToUserProfileResponseDTO(*user)
 
 	return &response, nil

@@ -1,7 +1,6 @@
 package data
 
 import (
-	"fmt"
 	"time"
 
 	up "github.com/upper/db/v4"
@@ -93,37 +92,35 @@ func (t *UserProfile) Get(id int) (*UserProfile, error) {
 	return &one, nil
 }
 
-func (t *UserProfile) GetBy(key string, value interface{}) (*UserProfile, error) {
-	var one UserProfile
+func (t *UserProfile) GetBy(key string, value interface{}) (*[]UserProfile, error) {
+	var all []UserProfile
 	collection := upper.Collection(t.Table())
 
 	res := collection.Find(up.Cond{key: value})
-	err := res.One(&one)
+	err := res.All(&all)
 	if err != nil {
 		return nil, err
 	}
 
-	return &one, nil
+	return &all, nil
 }
 
 // Update updates a record in the database, using upper
 func (t *UserProfile) Update(m UserProfile) error {
 	m.UpdatedAt = time.Now()
 
-	fmt.Println("uso u update")
-
 	userByOfficialPersonalID, _ := t.GetBy("official_personal_id", m.OfficialPersonalID)
 	if userByOfficialPersonalID != nil {
-		return errors.ErrResourceExists
+		for i := 0; i < len(*userByOfficialPersonalID); i++ {
+			if (*userByOfficialPersonalID)[i].ID != m.ID {
+				return errors.ErrResourceExists
+			}
+		}
 	}
-
-	fmt.Println("proso licna karta provjeru")
 
 	collection := upper.Collection(t.Table())
 	res := collection.Find(m.ID)
-	fmt.Println("getovo korisnika", m.ID)
 	err := res.Update(&m)
-	fmt.Println("proso update data")
 	if err != nil {
 		return err
 	}
