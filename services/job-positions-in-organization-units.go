@@ -81,10 +81,6 @@ func (h *JobPositionsInOrganizationUnitsServiceImpl) GetJobPositionInOrganziatio
 func (h *JobPositionsInOrganizationUnitsServiceImpl) GetJobPositionsInOrganizationUnitsList(data dto.GetJobPositionsInOrganizationUnitsDTO) ([]dto.JobPositionsInOrganizationUnitsResponseDTO, *uint64, error) {
 	conditionAndExp := &up.AndExpr{}
 
-	if data.OrganizationUnitID != nil && *data.OrganizationUnitID > 0 {
-		conditionAndExp = up.And(conditionAndExp, &up.Cond{"parent_organization_unit_id": *data.OrganizationUnitID})
-	}
-
 	if data.JobPositionID != nil && *data.JobPositionID > 0 {
 		conditionAndExp = up.And(conditionAndExp, &up.Cond{"job_position_id =": *data.JobPositionID})
 	}
