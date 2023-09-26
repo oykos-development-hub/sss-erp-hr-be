@@ -13,6 +13,7 @@ type RevisionTip struct {
 	UserProfileID          *int       `db:"user_profile_id"`
 	DateOfAccept           *time.Time `db:"date_of_accept"`
 	DueDate                int        `db:"due_date"`
+	NewDueDate             *int       `db:"new_due_date"`
 	DateOfReject           *time.Time `db:"date_of_reject"`
 	DateOfExecution        *time.Time `db:"date_of_execution"`
 	Recommendation         string     `db:"recommendation"`
