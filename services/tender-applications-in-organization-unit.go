@@ -96,6 +96,11 @@ func (h *TenderApplicationsInOrganizationUnitServiceImpl) GetTenderApplicationsI
 		conditions = append(conditions, searchCond)
 	}
 
+	if input.JobTenderID != nil && *input.JobTenderID != 0 {
+		searchCond := up.And(up.Cond{"job_tender_id": input.JobTenderID})
+		conditions = append(conditions, searchCond)
+	}
+
 	if len(conditions) > 0 {
 		combinedCond = up.And(conditions...)
 	}
