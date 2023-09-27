@@ -92,8 +92,8 @@ func (t *UserProfile) Get(id int) (*UserProfile, error) {
 	return &one, nil
 }
 
-func (t *UserProfile) GetBy(key string, value interface{}) (*[]UserProfile, error) {
-	var all []UserProfile
+func (t *UserProfile) GetBy(key string, value interface{}) ([]*UserProfile, error) {
+	var all []*UserProfile
 	collection := upper.Collection(t.Table())
 
 	res := collection.Find(up.Cond{key: value})
@@ -102,7 +102,7 @@ func (t *UserProfile) GetBy(key string, value interface{}) (*[]UserProfile, erro
 		return nil, err
 	}
 
-	return &all, nil
+	return all, nil
 }
 
 // Update updates a record in the database, using upper
@@ -110,8 +110,8 @@ func (t *UserProfile) Update(m UserProfile) error {
 	m.UpdatedAt = time.Now()
 
 	userByOfficialPersonalID, _ := t.GetBy("official_personal_id", m.OfficialPersonalID)
-	if userByOfficialPersonalID != nil {
-		if (*userByOfficialPersonalID)[0].ID != m.ID {
+	if len(userByOfficialPersonalID) > 0 {
+		if userByOfficialPersonalID[0].ID != m.ID {
 			return errors.ErrUserJMBGExists
 		}
 	}
@@ -142,7 +142,7 @@ func (t *UserProfile) Insert(m UserProfile) (int, error) {
 	m.UpdatedAt = time.Now()
 
 	userByOfficialPersonalID, _ := t.GetBy("official_personal_id", m.OfficialPersonalID)
-	if userByOfficialPersonalID != nil {
+	if len(userByOfficialPersonalID) > 0 {
 		return 0, errors.ErrUserJMBGExists
 	}
 
