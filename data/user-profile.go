@@ -111,10 +111,8 @@ func (t *UserProfile) Update(m UserProfile) error {
 
 	userByOfficialPersonalID, _ := t.GetBy("official_personal_id", m.OfficialPersonalID)
 	if userByOfficialPersonalID != nil {
-		for i := 0; i < len(*userByOfficialPersonalID); i++ {
-			if (*userByOfficialPersonalID)[i].ID != m.ID {
-				return errors.ErrResourceExists
-			}
+		if (*userByOfficialPersonalID)[0].ID != m.ID {
+			return errors.ErrUserJMBGExists
 		}
 	}
 
@@ -145,7 +143,7 @@ func (t *UserProfile) Insert(m UserProfile) (int, error) {
 
 	userByOfficialPersonalID, _ := t.GetBy("official_personal_id", m.OfficialPersonalID)
 	if userByOfficialPersonalID != nil {
-		return 0, errors.ErrResourceExists
+		return 0, errors.ErrUserJMBGExists
 	}
 
 	collection := upper.Collection(t.Table())

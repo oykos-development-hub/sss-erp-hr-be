@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	ErrUserExists     = errors.New("user already exists")
+	ErrUserJMBGExists = errors.New("user_jmbg_exists")
 	ErrResourceExists = errors.New("resource already exists")
 	ErrNotFound       = errors.New("not found")
 	ErrInvalidInput   = errors.New("invalid input")
@@ -21,9 +21,9 @@ var (
 
 func MapErrorToStatusCode(err error) int {
 	switch err {
-	case ErrUserExists:
-		return http.StatusConflict
 	case ErrResourceExists:
+		return http.StatusConflict
+	case ErrUserJMBGExists:
 		return http.StatusConflict
 	case ErrNotFound:
 		return http.StatusNotFound
