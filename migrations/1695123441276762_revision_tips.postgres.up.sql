@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS revision_tips (
     new_due_date INTEGER,
     date_of_reject DATE,
     date_of_execution DATE,
+    new_date_of_execution DATE,
     recommendation TEXT NOT NULL,
     status TEXT,
     documents TEXT,
