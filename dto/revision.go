@@ -10,7 +10,7 @@ type RevisonFilter struct {
 	Page                    *int `json:"page"`
 	Size                    *int `json:"size"`
 	Revisor                 *int `json:"revisor"`
-	RevisionType            *int `json:"revision_type"`
+	RevisionType            *int `json:"revision_type_id"`
 	InternalRevisionSubject *int `json:"internal_revision_subject"`
 	PlanID                  *int `json:"plan_id"`
 }
