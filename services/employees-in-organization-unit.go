@@ -69,7 +69,7 @@ func (h *EmployeesInOrganizationUnitServiceImpl) GetEmployeesInOrganizationUnitB
 		return nil, errors.ErrNotFound
 	}
 	if len(data) == 0 {
-		return nil, errors.ErrNotFound
+		return nil, nil
 	}
 	response := dto.ToEmployeesInOrganizationUnitResponseDTO(*data[0])
 
