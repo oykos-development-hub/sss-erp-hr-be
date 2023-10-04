@@ -85,8 +85,12 @@ func (h *EmployeesInOrganizationUnitServiceImpl) GetEmployeesInOrganizationUnitL
 		condition["active"] = data.Active
 	}
 	res, err := h.repo.GetAll(&condition)
-	if err != nil || len(res) == 0 {
-		return nil, errors.ErrNotFound
+	if err != nil {
+		h.App.ErrorLog.Println(err)
+		return nil, errors.ErrInternalServer
+	}
+	if len(res) == 0 {
+		return nil, nil
 	}
 	response := dto.ToEmployeesInOrganizationUnitListResponseDTO(res)
 
