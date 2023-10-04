@@ -89,6 +89,10 @@ func (h *JobPositionsInOrganizationUnitsServiceImpl) GetJobPositionsInOrganizati
 		conditionAndExp = up.And(conditionAndExp, &up.Cond{"systematization_id =": *data.SystematizationID})
 	}
 
+	if data.OrganizationUnitID != nil && *data.OrganizationUnitID > 0 {
+		conditionAndExp = up.And(conditionAndExp, &up.Cond{"parent_organization_unit_id =": *data.OrganizationUnitID})
+	}
+
 	res, total, err := h.repo.GetAll(data.Page, data.PageSize, conditionAndExp)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
