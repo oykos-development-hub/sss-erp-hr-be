@@ -89,9 +89,6 @@ func (h *EmployeesInOrganizationUnitServiceImpl) GetEmployeesInOrganizationUnitL
 		h.App.ErrorLog.Println(err)
 		return nil, errors.ErrInternalServer
 	}
-	if len(res) == 0 {
-		return nil, nil
-	}
 	response := dto.ToEmployeesInOrganizationUnitListResponseDTO(res)
 
 	return response, nil
