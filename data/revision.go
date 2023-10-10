@@ -51,7 +51,7 @@ func (t *Revision) GetAll(Page *int, Size *int, condition *up.Cond) ([]*Revision
 		res = paginateResult(res, *Page, *Size)
 	}
 
-	err = res.All(&all)
+	err = res.OrderBy("created_at desc").All(&all)
 	if err != nil {
 		return nil, nil, err
 	}
