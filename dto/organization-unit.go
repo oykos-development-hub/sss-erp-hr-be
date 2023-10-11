@@ -9,7 +9,8 @@ import (
 type CreateOrganizationUnitDTO struct {
 	ParentID       *int    `json:"parent_id,omitempty"`
 	Title          string  `json:"title" validate:"required"`
-	Abbreviation   string  `json:"abbreviation" validate:"required"`
+	Pib            *string `json:"pib"`
+	Abbreviation   *string `json:"abbreviation" validate:"required"`
 	NumberOfJudges *int    `json:"number_of_judges"`
 	Color          *string `json:"color" validate:"omitempty"`
 	Icon           *string `json:"icon" validate:"omitempty"`
@@ -22,6 +23,7 @@ type UpdateOrganizationUnitDTO struct {
 	ParentID       *int    `json:"parent_id,omitempty"`
 	Title          *string `json:"title"`
 	Abbreviation   *string `json:"abbreviation"`
+	Pib            *string `json:"pib"`
 	NumberOfJudges *int    `json:"number_of_judges"`
 	Color          *string `json:"color" validate:"omitempty"`
 	Icon           *string `json:"icon" validate:"omitempty"`
@@ -34,7 +36,8 @@ type OrganizationUnitResponseDTO struct {
 	ID             int       `json:"id"`
 	ParentID       *int      `json:"parent_id"`
 	Title          string    `json:"title"`
-	Abbreviation   string    `json:"abbreviation"`
+	Pib            *string   `json:"pib"`
+	Abbreviation   *string   `json:"abbreviation"`
 	NumberOfJudges *int      `json:"number_of_judges"`
 	Color          *string   `json:"color"`
 	Icon           *string   `json:"icon"`
@@ -59,6 +62,7 @@ func (dto CreateOrganizationUnitDTO) ToOrganizationUnit() *data.OrganizationUnit
 	}
 	return &data.OrganizationUnit{
 		ParentID:       pid,
+		Pib:            dto.Pib,
 		Title:          dto.Title,
 		Abbreviation:   dto.Abbreviation,
 		NumberOfJudges: dto.NumberOfJudges,
@@ -78,8 +82,9 @@ func (dto UpdateOrganizationUnitDTO) ToOrganizationUnit(data *data.OrganizationU
 		data.Title = *dto.Title
 	}
 	if dto.Abbreviation != nil {
-		data.Abbreviation = *dto.Abbreviation
+		data.Abbreviation = dto.Abbreviation
 	}
+	data.Pib = dto.Pib
 	data.NumberOfJudges = dto.NumberOfJudges
 	data.Color = dto.Color
 	data.Icon = dto.Icon
@@ -95,6 +100,7 @@ func ToOrganizationUnitResponseDTO(data data.OrganizationUnit) OrganizationUnitR
 		ID:             data.ID,
 		ParentID:       data.ParentID,
 		Title:          data.Title,
+		Pib:            data.Pib,
 		Abbreviation:   data.Abbreviation,
 		NumberOfJudges: data.NumberOfJudges,
 		Color:          data.Color,

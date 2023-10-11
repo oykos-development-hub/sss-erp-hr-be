@@ -11,7 +11,8 @@ type OrganizationUnit struct {
 	ID             int       `db:"id,omitempty"`
 	ParentID       *int      `db:"parent_id"`
 	Title          string    `db:"title"`
-	Abbreviation   string    `db:"abbreviation"`
+	Pib            *string   `db:"pib"`
+	Abbreviation   *string   `db:"abbreviation"`
 	NumberOfJudges *int      `db:"number_of_judges"`
 	Color          *string   `db:"color"`
 	Icon           *string   `db:"icon"`
