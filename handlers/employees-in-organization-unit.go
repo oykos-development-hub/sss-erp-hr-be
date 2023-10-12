@@ -57,6 +57,18 @@ func (h *employeesinorganizationunitHandlerImpl) DeleteEmployeesInOrganizationUn
 	_ = h.App.WriteSuccessResponse(w, http.StatusOK, "EmployeesInOrganizationUnit deleted successfuly")
 }
 
+func (h *employeesinorganizationunitHandlerImpl) DeleteEmployeesInOrganizationUnitByID(w http.ResponseWriter, r *http.Request) {
+	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
+
+	err := h.service.DeleteEmployeesInOrganizationUnitByID(id)
+	if err != nil {
+		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
+		return
+	}
+
+	_ = h.App.WriteSuccessResponse(w, http.StatusOK, "EmployeesInOrganizationUnit deleted successfuly")
+}
+
 func (h *employeesinorganizationunitHandlerImpl) GetEmployeesInOrganizationUnitByEmployee(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
 

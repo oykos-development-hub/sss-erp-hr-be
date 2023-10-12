@@ -59,6 +59,16 @@ func (h *EmployeesInOrganizationUnitServiceImpl) DeleteEmployeesInOrganizationUn
 	return nil
 }
 
+func (h *EmployeesInOrganizationUnitServiceImpl) DeleteEmployeesInOrganizationUnitByID(id int) error {
+	err := h.repo.DeleteByID(id)
+	if err != nil {
+		h.App.ErrorLog.Println(err)
+		return errors.ErrInternalServer
+	}
+
+	return nil
+}
+
 func (h *EmployeesInOrganizationUnitServiceImpl) GetEmployeesInOrganizationUnitByEmployee(id int) (*dto.EmployeesInOrganizationUnitResponseDTO, error) {
 	cond := up.Cond{
 		"user_profile_id": id,

@@ -28,11 +28,11 @@ type Handlers struct {
 	TenderTypeHandler                            TenderTypeHandler
 	JudgeNumberResolutionHandler                 JudgeNumberResolutionHandler
 	JudgeNumberResolutionOrganizationUnitHandler JudgeNumberResolutionOrganizationUnitHandler
-	PlanHandler PlanHandler
-		RevisionHandler RevisionHandler
-		RevisionTipHandler RevisionTipHandler
-		JudgeHandler JudgeHandler
-	}
+	PlanHandler                                  PlanHandler
+	RevisionHandler                              RevisionHandler
+	RevisionTipHandler                           RevisionTipHandler
+	JudgeHandler                                 JudgeHandler
+}
 
 type EngagementTypeHandler interface {
 	CreateEngagementType(w http.ResponseWriter, r *http.Request)
@@ -102,6 +102,7 @@ type EmployeesInOrganizationUnitHandler interface {
 	GetEmployeesInOrganizationUnitList(w http.ResponseWriter, r *http.Request)
 	GetEmployeesInOrganizationUnitByEmployee(w http.ResponseWriter, r *http.Request)
 	DeleteEmployeesInOrganizationUnit(w http.ResponseWriter, r *http.Request)
+	DeleteEmployeesInOrganizationUnitByID(w http.ResponseWriter, r *http.Request)
 	UpdateJobPositionInOrganizationUnit(w http.ResponseWriter, r *http.Request)
 }
 

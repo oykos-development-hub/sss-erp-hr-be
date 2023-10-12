@@ -10,7 +10,7 @@ type CreateOrganizationUnitDTO struct {
 	ParentID       *int    `json:"parent_id,omitempty"`
 	Title          string  `json:"title" validate:"required"`
 	Pib            *string `json:"pib"`
-	Abbreviation   *string `json:"abbreviation" validate:"required"`
+	Abbreviation   *string `json:"abbreviation"`
 	NumberOfJudges *int    `json:"number_of_judges"`
 	Color          *string `json:"color" validate:"omitempty"`
 	Icon           *string `json:"icon" validate:"omitempty"`

@@ -86,6 +86,22 @@ func (t *EmployeesInOrganizationUnit) Delete(id int) error {
 	return nil
 }
 
+func (t *EmployeesInOrganizationUnit) DeleteByID(id int) error {
+	collection := upper.Collection(t.Table())
+	var res up.Result
+	condition := up.Cond{
+		"id": id,
+	}
+
+	res = collection.Find(condition)
+
+	err := res.Delete()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // Insert inserts a model into the database, using upper
 func (t *EmployeesInOrganizationUnit) Insert(m EmployeesInOrganizationUnit) (int, error) {
 	m.CreatedAt = time.Now()

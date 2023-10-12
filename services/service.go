@@ -60,6 +60,7 @@ type EmployeeContractService interface {
 type EmployeesInOrganizationUnitService interface {
 	CreateEmployeesInOrganizationUnit(input dto.EmployeesInOrganizationUnitDTO) (*dto.EmployeesInOrganizationUnitResponseDTO, error)
 	DeleteEmployeesInOrganizationUnit(id int) error
+	DeleteEmployeesInOrganizationUnitByID(id int) error
 	GetEmployeesInOrganizationUnitByEmployee(id int) (*dto.EmployeesInOrganizationUnitResponseDTO, error)
 	GetEmployeesInOrganizationUnitList(dto.GetEmployeesInOrganizationUnitInput) ([]dto.EmployeesInOrganizationUnitResponseDTO, error)
 	UpdateEmployeesInOrganizationUnit(id int, input dto.EmployeesInOrganizationUnitDTO) (*dto.EmployeesInOrganizationUnitResponseDTO, error)
