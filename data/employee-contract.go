@@ -24,7 +24,7 @@ type EmployeeContract struct {
 	BankName           *string    `db:"bank_name"`
 	DateOfSignature    *time.Time `db:"date_of_signature"`
 	DateOfEligibility  *time.Time `db:"date_of_eligibility"`
-	DateOfStart        time.Time  `db:"date_of_start"`
+	DateOfStart        *time.Time `db:"date_of_start"`
 	DateOfEnd          *time.Time `db:"date_of_end"`
 	FileID             *int       `db:"file_id"`
 	CreatedAt          time.Time  `db:"created_at,omitempty"`

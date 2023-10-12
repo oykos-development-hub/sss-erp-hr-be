@@ -16,7 +16,7 @@ CREATE TABLE employee_contracts (
     bank_name text,
     date_of_signature DATE,
     date_of_eligibility DATE,
-    date_of_start DATE NOT NULL,
+    date_of_start DATE,
     date_of_end DATE,
     file_id INT,
     created_at TIMESTAMP,

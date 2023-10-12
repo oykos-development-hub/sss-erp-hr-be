@@ -25,7 +25,7 @@ type EmployeeContractDTO struct {
 	BankName           *string    `json:"bank_name"`
 	DateOfSignature    *time.Time `json:"date_of_signature"`
 	DateOfEligibility  *time.Time `json:"date_of_eligibility"`
-	DateOfStart        time.Time  `json:"date_of_start" validate:"required"`
+	DateOfStart        *time.Time `json:"date_of_start"`
 	DateOfEnd          *time.Time `json:"date_of_end"`
 	FileID             *int       `json:"file_id"`
 }
@@ -68,7 +68,7 @@ type EmployeeContractResponseDTO struct {
 	BankName           *string    `json:"bank_name"`
 	DateOfSignature    *time.Time `json:"date_of_signature"`
 	DateOfEligibility  *time.Time `json:"date_of_eligibility"`
-	DateOfStart        time.Time  `json:"date_of_start"`
+	DateOfStart        *time.Time `json:"date_of_start"`
 	DateOfEnd          *time.Time `json:"date_of_end"`
 	FileID             *int       `json:"file_id"`
 	CreatedAt          time.Time  `json:"created_at"`
