@@ -15,7 +15,7 @@ type EmployeeResolution struct {
 	DateOfStart       time.Time `db:"date_of_start"`
 	DateOfEnd         time.Time `db:"date_of_end"`
 	Value             *string   `db:"value"`
-	IsAffect          *string   `db:"is_affect"`
+	IsAffect          *bool     `db:"is_affect"`
 	FileID            *int      `db:"file_id"`
 	CreatedAt         time.Time `db:"created_at,omitempty"`
 	UpdatedAt         time.Time `db:"updated_at"`

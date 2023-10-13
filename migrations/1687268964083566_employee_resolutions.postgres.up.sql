@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS employee_resolutions (
     date_of_start DATE NOT NULL,
     date_of_end DATE NOT NULL,
     file_id INT,
-    is_affect TEXT,
+    is_affect BOOLEAN,
     value TEXT,
     created_at timestamp without time zone NOT NULL DEFAULT now(),
     updated_at timestamp without time zone NOT NULL DEFAULT now(),
