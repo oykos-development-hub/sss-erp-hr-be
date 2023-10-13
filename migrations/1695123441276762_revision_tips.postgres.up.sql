@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS revision_tips (
     responsible_person TEXT,
     date_of_accept DATE,
     due_date INTEGER NOT NULL,
+    revision_priority TEXT,
     new_due_date INTEGER,
     date_of_reject DATE,
     date_of_execution DATE,

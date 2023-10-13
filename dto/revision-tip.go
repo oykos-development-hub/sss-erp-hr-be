@@ -17,6 +17,7 @@ type RevisionTipDTO struct {
 	UserProfileID          *int       `json:"user_profile_id"`
 	DateOfAccept           *time.Time `json:"date_of_accept"`
 	DueDate                int        `json:"due_date" validate:"required"`
+	RevisionPriority       *string    `json:"revision_priority"`
 	NewDueDate             *int       `json:"new_due_date"`
 	DateOfReject           *time.Time `json:"date_of_reject"`
 	DateOfExecution        *time.Time `json:"date_of_execution"`
@@ -36,6 +37,7 @@ type RevisionTipResponseDTO struct {
 	DateOfAccept           *time.Time `json:"date_of_accept"`
 	DueDate                int        `json:"due_date"`
 	NewDueDate             *int       `json:"new_due_date"`
+	RevisionPriority       *string    `json:"revision_priority"`
 	DateOfReject           *time.Time `json:"date_of_reject"`
 	DateOfExecution        *time.Time `json:"date_of_execution"`
 	NewDateOfExecution     *time.Time `json:"new_date_of_execution"`
@@ -59,6 +61,7 @@ func (dto RevisionTipDTO) ToRevisionTip() *data.RevisionTip {
 		DateOfReject:           dto.DateOfReject,
 		DateOfExecution:        dto.DateOfExecution,
 		NewDateOfExecution:     dto.NewDateOfExecution,
+		RevisionPriority:       dto.RevisionPriority,
 		Recommendation:         dto.Recommendation,
 		Status:                 dto.Status,
 		Documents:              dto.Documents,
@@ -77,6 +80,7 @@ func ToRevisionTipResponseDTO(data data.RevisionTip) RevisionTipResponseDTO {
 		DueDate:                data.DueDate,
 		NewDueDate:             data.NewDueDate,
 		DateOfReject:           data.DateOfReject,
+		RevisionPriority:       data.RevisionPriority,
 		DateOfExecution:        data.DateOfExecution,
 		NewDateOfExecution:     data.NewDateOfExecution,
 		Recommendation:         data.Recommendation,

@@ -13,7 +13,6 @@ type Revision struct {
 	PlanID                  int       `db:"plan_id"`
 	SerialNumber            string    `db:"serial_number"`
 	DateOfRevision          time.Time `db:"date_of_revision"`
-	RevisionPriority        string    `db:"revision_priority"`
 	RevisionQuartal         string    `db:"revision_quartal"`
 	InternalRevisionSubject *int      `db:"internal_revision_subject"`
 	ExternalRevisionSubject *int      `db:"external_revision_subject"`

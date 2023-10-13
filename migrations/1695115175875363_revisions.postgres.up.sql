@@ -4,7 +4,6 @@ CREATE TABLE IF NOT EXISTS revisions (
     plan_id INTEGER NOT NULL REFERENCES plans(id) ON DELETE CASCADE, 
     serial_number TEXT NOT NULL,
     date_of_revision DATE NOT NULL,
-    revision_priority TEXT NOT NULL,
     revision_quartal TEXT NOT NULL,
     internal_revision_subject INTEGER REFERENCES organization_units(id) ON DELETE CASCADE,
     external_revision_subject INTEGER,

@@ -14,6 +14,7 @@ type RevisionTip struct {
 	DateOfAccept           *time.Time `db:"date_of_accept"`
 	DueDate                int        `db:"due_date"`
 	NewDueDate             *int       `db:"new_due_date"`
+	RevisionPriority       *string    `db:"revision_priority"`
 	DateOfReject           *time.Time `db:"date_of_reject"`
 	DateOfExecution        *time.Time `db:"date_of_execution"`
 	NewDateOfExecution     *time.Time `db:"new_date_of_execution"`

@@ -20,7 +20,6 @@ type RevisionDTO struct {
 	PlanID                  int       `json:"plan_id" validate:"required"`
 	SerialNumber            string    `json:"serial_number" validate:"required"`
 	DateOfRevision          time.Time `json:"date_of_revision" validate:"required"`
-	RevisionPriority        string    `json:"revision_priority" validate:"required"`
 	RevisionQuartal         string    `json:"revision_quartal" validate:"required"`
 	InternalRevisionSubject *int      `json:"internal_revision_subject"`
 	ExternalRevisionSubject *int      `json:"external_revision_subject"`
@@ -35,7 +34,6 @@ type RevisionResponseDTO struct {
 	PlanID                  int       `json:"plan_id"`
 	SerialNumber            string    `json:"serial_number"`
 	DateOfRevision          time.Time `json:"date_of_revision"`
-	RevisionPriority        string    `json:"revision_priority"`
 	RevisionQuartal         string    `json:"revision_quartal"`
 	InternalRevisionSubject *int      `json:"internal_revision_subject"`
 	ExternalRevisionSubject *int      `json:"external_revision_subject"`
@@ -52,7 +50,6 @@ func (dto RevisionDTO) ToRevision() *data.Revision {
 		PlanID:                  dto.PlanID,
 		SerialNumber:            dto.SerialNumber,
 		DateOfRevision:          dto.DateOfRevision,
-		RevisionPriority:        dto.RevisionPriority,
 		RevisionQuartal:         dto.RevisionQuartal,
 		InternalRevisionSubject: dto.InternalRevisionSubject,
 		ExternalRevisionSubject: dto.ExternalRevisionSubject,
@@ -69,7 +66,6 @@ func ToRevisionResponseDTO(data data.Revision) RevisionResponseDTO {
 		PlanID:                  data.PlanID,
 		SerialNumber:            data.SerialNumber,
 		DateOfRevision:          data.DateOfRevision,
-		RevisionPriority:        data.RevisionPriority,
 		RevisionQuartal:         data.RevisionQuartal,
 		InternalRevisionSubject: data.InternalRevisionSubject,
 		ExternalRevisionSubject: data.ExternalRevisionSubject,
