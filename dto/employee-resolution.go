@@ -15,7 +15,7 @@ type EmployeeResolutionDTO struct {
 	UserProfileID     int       `json:"user_profile_id" validate:"required"`
 	ResolutionTypeID  int       `json:"resolution_type_id" validate:"required"`
 	ResolutionPurpose *string   `json:"resolution_purpose"`
-	DateOfStart       time.Time `json:"date_of_start" validate:"required,datetime"`
+	DateOfStart       time.Time `json:"date_of_start"`
 	DateOfEnd         time.Time `json:"date_of_end"`
 	IsAffect          *bool     `json:"is_affect"`
 	Value             *string   `json:"value"`
