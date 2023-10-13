@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS salaries (
     weekly_work_hours TEXT NOT NULL,
     education_rank TEXT NOT NULL,
     education_naming TEXT NOT NULL,
+    obligation_reduction TEXT NOT NULL,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP,
     user_resolution_id INTEGER,
