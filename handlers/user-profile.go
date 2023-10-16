@@ -123,3 +123,13 @@ func (h *userprofileHandlerImpl) GetContracts(w http.ResponseWriter, r *http.Req
 
 	_ = h.App.WriteDataResponse(w, http.StatusOK, "EmployeeContract fetched successfuly", res)
 }
+
+func (h *userprofileHandlerImpl) GetRevisors(w http.ResponseWriter, r *http.Request) {
+	res, err := h.service.GetRevisors()
+	if err != nil {
+		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
+		return
+	}
+
+	_ = h.App.WriteDataResponse(w, http.StatusOK, "EmployeeContract fetched successfuly", res)
+}

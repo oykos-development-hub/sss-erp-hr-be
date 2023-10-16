@@ -89,6 +89,7 @@ type UserProfileHandler interface {
 	GetUserProfileById(w http.ResponseWriter, r *http.Request)
 	GetUserProfileList(w http.ResponseWriter, r *http.Request)
 	GetContracts(w http.ResponseWriter, r *http.Request)
+	GetRevisors(w http.ResponseWriter, r *http.Request)
 }
 
 type EmployeeContractHandler interface {

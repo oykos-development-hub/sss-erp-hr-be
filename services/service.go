@@ -1,6 +1,7 @@
 package services
 
 import (
+	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
 )
 
@@ -49,6 +50,7 @@ type UserProfileService interface {
 	GetUserProfile(id int) (*dto.UserProfileResponseDTO, error)
 	GetUserProfileList(data dto.GetProfilesInputDTO) ([]dto.UserProfileResponseDTO, *uint64, error)
 	GetContracts(id int, input dto.GetEmployeeContracts) ([]dto.EmployeeContractResponseDTO, error)
+	GetRevisors() ([]*data.Revisor, error)
 }
 
 type EmployeeContractService interface {

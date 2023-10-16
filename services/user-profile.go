@@ -114,3 +114,12 @@ func (h *UserProfileServiceImpl) GetContracts(id int, input dto.GetEmployeeContr
 
 	return response, nil
 }
+
+func (h *UserProfileServiceImpl) GetRevisors() ([]*data.Revisor, error) {
+	revisors, err := h.repo.GetRevisors()
+	if err != nil {
+		return nil, errors.ErrInternalServer
+	}
+
+	return revisors, nil
+}

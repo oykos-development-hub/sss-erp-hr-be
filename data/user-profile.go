@@ -45,6 +45,12 @@ type UserProfile struct {
 	UpdatedAt                 time.Time  `db:"updated_at"`
 }
 
+type Revisor struct {
+	ID        int    `json:"id"`
+	FirstName string `json:"first_name"`
+	LastName  string `json:"last_name"`
+}
+
 // Table returns the table name
 func (t *UserProfile) Table() string {
 	return "user_profiles"
@@ -103,6 +109,32 @@ func (t *UserProfile) GetBy(key string, value interface{}) ([]*UserProfile, erro
 	}
 
 	return all, nil
+}
+
+func (t *UserProfile) GetRevisors() ([]*Revisor, error) {
+	var all []*Revisor
+
+	query := `select e.user_profile_id, u.first_name, u.last_name from employees_in_organization_units e, 
+	systematizations s, job_positions_in_organization_units j, job_positions jp, user_profiles u
+	where jp.Title = 'Revizor' and s.active = 2 and j.systematization_id = s.id and j.job_position_id = jp.id 
+	and e.position_in_organization_unit_id = j.id and e.user_profile_id = u.id;`
+
+	rows, err := upper.SQL().Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var item Revisor
+		err = rows.Scan(&item.ID, &item.FirstName, &item.LastName)
+		if err != nil {
+			return nil, err
+		}
+		all = append(all, &item)
+	}
+
+	return all, err
 }
 
 // Update updates a record in the database, using upper

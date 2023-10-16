@@ -47,6 +47,7 @@ func routes(app *celeritas.Celeritas, middleware *middleware.Middleware, handler
 		rt.Get("/user-profiles/{id}/contracts", handlers.UserProfileHandler.GetContracts)
 		rt.Put("/user-profiles/{id}", handlers.UserProfileHandler.UpdateUserProfile)
 		rt.Delete("/user-profiles/{id}", handlers.UserProfileHandler.DeleteUserProfile)
+		rt.Get("/get-revisors", handlers.UserProfileHandler.GetRevisors)
 
 		rt.Post("/employee-contracts", handlers.EmployeeContractHandler.CreateEmployeeContract)
 		rt.Put("/employee-contracts/{id}", handlers.EmployeeContractHandler.UpdateEmployeeContract)
