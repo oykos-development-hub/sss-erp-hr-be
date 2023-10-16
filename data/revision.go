@@ -17,7 +17,7 @@ type Revision struct {
 	InternalRevisionSubject []int     `db:"internal_revision_subject"`
 	ExternalRevisionSubject *int      `db:"external_revision_subject"`
 	Revisor                 []int     `db:"revisor_id"`
-	RevisionType            int       `db:"revision_type"`
+	RevisionType            int       `db:"revision_type_id"`
 	FileID                  *int      `db:"file_id"`
 	CreatedAt               time.Time `db:"created_at,omitempty"`
 	UpdatedAt               time.Time `db:"updated_at"`

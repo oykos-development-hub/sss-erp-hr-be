@@ -24,7 +24,7 @@ type RevisionDTO struct {
 	InternalRevisionSubject []int     `json:"internal_revision_subject"`
 	ExternalRevisionSubject *int      `json:"external_revision_subject"`
 	Revisor                 []int     `json:"revisor_id" validate:"required"`
-	RevisionType            int       `json:"revision_type" validate:"required"`
+	RevisionType            int       `json:"revision_type_id" validate:"required"`
 	FileID                  *int      `json:"file_id"`
 }
 
@@ -38,7 +38,7 @@ type RevisionResponseDTO struct {
 	InternalRevisionSubject []int     `json:"internal_revision_subject"`
 	ExternalRevisionSubject *int      `json:"external_revision_subject"`
 	Revisor                 []int     `json:"revisor_id"`
-	RevisionType            int       `json:"revision_type"`
+	RevisionType            int       `json:"revision_type_id"`
 	FileID                  *int      `json:"file_id"`
 	CreatedAt               time.Time `json:"created_at"`
 	UpdatedAt               time.Time `json:"updated_at"`
