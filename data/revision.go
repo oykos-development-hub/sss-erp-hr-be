@@ -3,24 +3,25 @@ package data
 import (
 	"time"
 
+	"github.com/lib/pq"
 	up "github.com/upper/db/v4"
 )
 
 // Revision struct
 type Revision struct {
-	ID                      int       `db:"id,omitempty"`
-	Title                   string    `db:"title"`
-	PlanID                  int       `db:"plan_id"`
-	SerialNumber            string    `db:"serial_number"`
-	DateOfRevision          time.Time `db:"date_of_revision"`
-	RevisionQuartal         string    `db:"revision_quartal"`
-	InternalRevisionSubject []int64   `db:"internal_revision_subject"`
-	ExternalRevisionSubject *int      `db:"external_revision_subject"`
-	Revisor                 []int64   `db:"revisor_id"`
-	RevisionType            int       `db:"revision_type_id"`
-	FileID                  *int      `db:"file_id"`
-	CreatedAt               time.Time `db:"created_at,omitempty"`
-	UpdatedAt               time.Time `db:"updated_at"`
+	ID                      int           `db:"id,omitempty"`
+	Title                   string        `db:"title"`
+	PlanID                  int           `db:"plan_id"`
+	SerialNumber            string        `db:"serial_number"`
+	DateOfRevision          time.Time     `db:"date_of_revision"`
+	RevisionQuartal         string        `db:"revision_quartal"`
+	InternalRevisionSubject pq.Int64Array `db:"internal_revision_subject"`
+	ExternalRevisionSubject *int          `db:"external_revision_subject"`
+	Revisor                 pq.Int64Array `db:"revisor_id"`
+	RevisionType            int           `db:"revision_type_id"`
+	FileID                  *int          `db:"file_id"`
+	CreatedAt               time.Time     `db:"created_at,omitempty"`
+	UpdatedAt               time.Time     `db:"updated_at"`
 }
 
 // Table returns the table name
