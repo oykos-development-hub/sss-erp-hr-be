@@ -21,9 +21,9 @@ type RevisionDTO struct {
 	SerialNumber            string    `json:"serial_number" validate:"required"`
 	DateOfRevision          time.Time `json:"date_of_revision" validate:"required"`
 	RevisionQuartal         string    `json:"revision_quartal" validate:"required"`
-	InternalRevisionSubject *int      `json:"internal_revision_subject"`
+	InternalRevisionSubject []int     `json:"internal_revision_subject"`
 	ExternalRevisionSubject *int      `json:"external_revision_subject"`
-	Revisor                 int       `json:"revisor" validate:"required"`
+	Revisor                 []int     `json:"revisor" validate:"required"`
 	RevisionType            int       `json:"revision_type" validate:"required"`
 	FileID                  *int      `json:"file_id"`
 }
@@ -35,9 +35,9 @@ type RevisionResponseDTO struct {
 	SerialNumber            string    `json:"serial_number"`
 	DateOfRevision          time.Time `json:"date_of_revision"`
 	RevisionQuartal         string    `json:"revision_quartal"`
-	InternalRevisionSubject *int      `json:"internal_revision_subject"`
+	InternalRevisionSubject []int     `json:"internal_revision_subject"`
 	ExternalRevisionSubject *int      `json:"external_revision_subject"`
-	Revisor                 int       `json:"revisor"`
+	Revisor                 []int     `json:"revisor"`
 	RevisionType            int       `json:"revision_type"`
 	FileID                  *int      `json:"file_id"`
 	CreatedAt               time.Time `json:"created_at"`
