@@ -15,7 +15,7 @@ type Revision struct {
 	SerialNumber            string        `db:"serial_number"`
 	DateOfRevision          time.Time     `db:"date_of_revision"`
 	RevisionQuartal         string        `db:"revision_quartal"`
-	InternalRevisionSubject pq.Int64Array `db:"internal_revision_subject"`
+	InternalRevisionSubject pq.Int64Array `db:"internal_revision_subject_id"`
 	ExternalRevisionSubject *int          `db:"external_revision_subject"`
 	Revisor                 pq.Int64Array `db:"revisor_id"`
 	RevisionType            int           `db:"revision_type_id"`
