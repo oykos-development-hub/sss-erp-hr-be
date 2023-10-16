@@ -7,8 +7,8 @@ CREATE TABLE IF NOT EXISTS revisions (
     revision_quartal TEXT NOT NULL,
     internal_revision_subject INTEGER[],
     external_revision_subject INTEGER,
-    revisor INTEGER[] NOT NULL REFERENCES user_profiles(id) ON DELETE CASCADE,
-    revision_type INTEGER NOT NULL,
+    revisor_id INTEGER[] NOT NULL REFERENCES user_profiles(id) ON DELETE CASCADE,
+    revision_type_id INTEGER NOT NULL,
     file_id INTEGER,
     created_at TIMESTAMP,
     updated_at TIMESTAMP
