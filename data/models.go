@@ -48,6 +48,8 @@ type Models struct {
 		Revision Revision
 		RevisionTip RevisionTip
 		Judge Judge
+		RevisionsInOrganizationUnit RevisionsInOrganizationUnit
+		RevisionRevisor RevisionRevisor
 	}
 
 func New(databasePool *sql.DB) Models {
@@ -85,6 +87,8 @@ func New(databasePool *sql.DB) Models {
 		Revision: Revision{},
 		RevisionTip: RevisionTip{},
 		Judge: Judge{},
+		RevisionsInOrganizationUnit: RevisionsInOrganizationUnit{},
+		RevisionRevisor: RevisionRevisor{},
 	}
 }
 

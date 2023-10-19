@@ -225,3 +225,19 @@ type JudgeService interface {
 	GetJudge(id int) (*dto.JudgeResponseDTO, error)
 	GetJudgeList(input dto.JudgeFilter) ([]dto.JudgeResponseDTO, *uint64, error)
 }
+
+type RevisionsInOrganizationUnitService interface {
+	CreateRevisionsInOrganizationUnit(input dto.RevisionsInOrganizationUnitDTO) (*dto.RevisionsInOrganizationUnitResponseDTO, error)
+	UpdateRevisionsInOrganizationUnit(id int, input dto.RevisionsInOrganizationUnitDTO) (*dto.RevisionsInOrganizationUnitResponseDTO, error)
+	DeleteRevisionsInOrganizationUnit(id int) error
+	GetRevisionsInOrganizationUnit(id int) (*dto.RevisionsInOrganizationUnitResponseDTO, error)
+	GetRevisionsInOrganizationUnitList(input dto.RevisionOrgUnitFilter) ([]dto.RevisionsInOrganizationUnitResponseDTO, error)
+}
+
+type RevisionRevisorService interface {
+	CreateRevisionRevisor(input dto.RevisionRevisorDTO) (*dto.RevisionRevisorResponseDTO, error)
+	UpdateRevisionRevisor(id int, input dto.RevisionRevisorDTO) (*dto.RevisionRevisorResponseDTO, error)
+	DeleteRevisionRevisor(id int) error
+	GetRevisionRevisor(id int) (*dto.RevisionRevisorResponseDTO, error)
+	GetRevisionRevisorList(input dto.RevisionRevisorFilter) ([]dto.RevisionRevisorResponseDTO, error)
+}
