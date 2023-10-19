@@ -16,6 +16,7 @@ type EmployeeContractDTO struct {
 	OrganizationUnitID int        `json:"organization_unit_id" validate:"required"`
 	DepartmentID       *int       `json:"organization_unit_department_id"`
 	Abbreviation       *string    `json:"abbreviation"`
+	NumberOfConference *string    `json:"number_of_conference"`
 	Description        *string    `json:"description"`
 	Active             bool       `json:"active"`
 	SerialNumber       *string    `json:"serial_number"`
@@ -39,6 +40,7 @@ func (dto EmployeeContractDTO) ToEmployeeContract() *data.EmployeeContract {
 		Abbreviation:       dto.Abbreviation,
 		Description:        dto.Description,
 		Active:             dto.Active,
+		NumberOfConference: dto.NumberOfConference,
 		SerialNumber:       dto.SerialNumber,
 		NetSalary:          dto.NetSalary,
 		GrossSalary:        dto.GrossSalary,
@@ -61,6 +63,7 @@ type EmployeeContractResponseDTO struct {
 	Abbreviation       *string    `json:"abbreviation"`
 	Description        *string    `json:"description"`
 	Active             bool       `json:"active"`
+	NumberOfConference *string    `json:"number_of_conference"`
 	SerialNumber       *string    `json:"serial_number"`
 	NetSalary          *string    `json:"net_salary"`
 	GrossSalary        *string    `json:"gross_salary"`
@@ -85,6 +88,7 @@ func ToEmployeeContractResponseDTO(data data.EmployeeContract) EmployeeContractR
 		Abbreviation:       data.Abbreviation,
 		Description:        data.Description,
 		Active:             data.Active,
+		NumberOfConference: data.NumberOfConference,
 		SerialNumber:       data.SerialNumber,
 		NetSalary:          data.NetSalary,
 		GrossSalary:        data.GrossSalary,

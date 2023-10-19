@@ -6,6 +6,7 @@ CREATE TABLE employee_contracts (
     contract_type_id INT NOT NULL,
     organization_unit_id INTEGER NOT NULL,
     organization_unit_department_id INTEGER,
+    number_of_conference TEXT,
     abbreviation text,
     description TEXT,
     active BOOLEAN NOT NULL,
