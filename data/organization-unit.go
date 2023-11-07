@@ -17,6 +17,7 @@ type OrganizationUnit struct {
 	Color          *string   `db:"color"`
 	Icon           *string   `db:"icon"`
 	Address        *string   `db:"address"`
+	City           *string   `db:"city"`
 	Description    *string   `db:"description"`
 	FolderID       *int      `db:"folder_id"`
 	CreatedAt      time.Time `db:"created_at,omitempty"`

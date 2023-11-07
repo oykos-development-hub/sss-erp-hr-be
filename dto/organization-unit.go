@@ -14,6 +14,7 @@ type CreateOrganizationUnitDTO struct {
 	NumberOfJudges *int    `json:"number_of_judges"`
 	Color          *string `json:"color" validate:"omitempty"`
 	Icon           *string `json:"icon" validate:"omitempty"`
+	City           *string `json:"city"`
 	Address        *string `json:"address" validate:"omitempty"`
 	Description    *string `json:"description" validate:"omitempty"`
 	FolderID       *int    `json:"folder_id,omitempty"`
@@ -27,6 +28,7 @@ type UpdateOrganizationUnitDTO struct {
 	NumberOfJudges *int    `json:"number_of_judges"`
 	Color          *string `json:"color" validate:"omitempty"`
 	Icon           *string `json:"icon" validate:"omitempty"`
+	City           *string `json:"city"`
 	Address        *string `json:"address" validate:"omitempty"`
 	Description    *string `json:"description" validate:"omitempty"`
 	FolderID       *int    `json:"folder_id,omitempty"`
@@ -40,6 +42,7 @@ type OrganizationUnitResponseDTO struct {
 	Abbreviation   *string   `json:"abbreviation"`
 	NumberOfJudges *int      `json:"number_of_judges"`
 	Color          *string   `json:"color"`
+	City           *string   `json:"city"`
 	Icon           *string   `json:"icon"`
 	Address        *string   `json:"address"`
 	Description    *string   `json:"description"`
@@ -66,6 +69,7 @@ func (dto CreateOrganizationUnitDTO) ToOrganizationUnit() *data.OrganizationUnit
 		Title:          dto.Title,
 		Abbreviation:   dto.Abbreviation,
 		NumberOfJudges: dto.NumberOfJudges,
+		City:           dto.City,
 		Color:          dto.Color,
 		Icon:           dto.Icon,
 		Address:        dto.Address,
@@ -89,6 +93,7 @@ func (dto UpdateOrganizationUnitDTO) ToOrganizationUnit(data *data.OrganizationU
 	data.Color = dto.Color
 	data.Icon = dto.Icon
 	data.Address = dto.Address
+	data.City = dto.City
 	data.Description = dto.Description
 	data.FolderID = dto.FolderID
 
@@ -103,6 +108,7 @@ func ToOrganizationUnitResponseDTO(data data.OrganizationUnit) OrganizationUnitR
 		Pib:            data.Pib,
 		Abbreviation:   data.Abbreviation,
 		NumberOfJudges: data.NumberOfJudges,
+		City:           data.City,
 		Color:          data.Color,
 		Icon:           data.Icon,
 		Address:        data.Address,
