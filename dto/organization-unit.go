@@ -55,6 +55,7 @@ type GetOrganizationUnitsDTO struct {
 	Page     *int    `json:"page" validate:"omitempty"`
 	PageSize *int    `json:"page_size" validate:"omitempty"`
 	ParentID *int    `json:"parent_id" validate:"omitempty"`
+	IsParent *bool   `json:"is_parent"`
 	Search   *string `json:"search" validate:"omitempty"`
 }
 
