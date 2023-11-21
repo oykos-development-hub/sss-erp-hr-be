@@ -101,7 +101,7 @@ func (h *OrganizationUnitServiceImpl) GetOrganizationUnitList(data dto.GetOrgani
 		if conditionAndExp == nil {
 			conditionAndExp = &up.AndExpr{}
 		}
-		conditionAndExp = up.And(conditionAndExp, &up.Cond{"parent_id IS NOT NULL": *data.ParentID})
+		conditionAndExp = up.And(conditionAndExp, &up.Cond{"parent_id IS NOT NULL": *data.IsParent})
 	}
 
 	res, total, err := h.repo.GetAll(data.Page, data.PageSize, conditionAndExp)

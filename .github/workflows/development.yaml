@@ -62,7 +62,7 @@ jobs:
               go mod tidy
               go build -o hrApp
               if [ ! -f ./hrApp ]; then
-                echo "Go build "hrApp" file does not exist !"
+                echo "Go build "hrApp" file does not exist!"
                 exit 1
               fi
               rm -rf ../../hrApp
