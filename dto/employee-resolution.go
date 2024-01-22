@@ -12,30 +12,30 @@ type GetResolutionListInputDTO struct {
 }
 
 type EmployeeResolutionDTO struct {
-	UserProfileID     int       `json:"user_profile_id" validate:"required"`
-	ResolutionTypeID  int       `json:"resolution_type_id" validate:"required"`
-	ResolutionPurpose *string   `json:"resolution_purpose"`
-	DateOfStart       time.Time `json:"date_of_start"`
-	DateOfEnd         time.Time `json:"date_of_end"`
-	Year              int       `json:"year"`
-	IsAffect          *bool     `json:"is_affect"`
-	Value             *string   `json:"value"`
-	FileId            *int      `json:"file_id"`
+	UserProfileID     int        `json:"user_profile_id" validate:"required"`
+	ResolutionTypeID  int        `json:"resolution_type_id" validate:"required"`
+	ResolutionPurpose *string    `json:"resolution_purpose"`
+	Year              int        `json:"year"`
+	DateOfStart       time.Time  `json:"date_of_start"`
+	DateOfEnd         *time.Time `json:"date_of_end"`
+	IsAffect          *bool      `json:"is_affect"`
+	Value             *string    `json:"value"`
+	FileId            *int       `json:"file_id"`
 }
 
 type EmployeeResolutionResponseDTO struct {
-	ID                int       `json:"id"`
-	UserProfileID     int       `json:"user_profile_id"`
-	ResolutionTypeID  int       `json:"resolution_type_id"`
-	ResolutionPurpose *string   `json:"resolution_purpose"`
-	DateOfStart       time.Time `json:"date_of_start"`
-	DateOfEnd         time.Time `json:"date_of_end"`
-	Year              int       `json:"year"`
-	IsAffect          *bool     `json:"is_affect"`
-	Value             *string   `json:"value"`
-	FileID            *int      `json:"file_id"`
-	CreatedAt         time.Time `json:"created_at"`
-	UpdatedAt         time.Time `json:"updated_at"`
+	ID                int        `json:"id"`
+	UserProfileID     int        `json:"user_profile_id"`
+	ResolutionTypeID  int        `json:"resolution_type_id"`
+	ResolutionPurpose *string    `json:"resolution_purpose"`
+	DateOfStart       time.Time  `json:"date_of_start"`
+	DateOfEnd         *time.Time `json:"date_of_end"`
+	Year              int        `json:"year"`
+	IsAffect          *bool      `json:"is_affect"`
+	Value             *string    `json:"value"`
+	FileID            *int       `json:"file_id"`
+	CreatedAt         time.Time  `json:"created_at"`
+	UpdatedAt         time.Time  `json:"updated_at"`
 }
 
 func (dto EmployeeResolutionDTO) ToEmployeeResolution() *data.EmployeeResolution {

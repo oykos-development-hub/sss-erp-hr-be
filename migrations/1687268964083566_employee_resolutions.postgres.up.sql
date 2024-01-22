@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS employee_resolutions (
     user_profile_id INT NOT NULL,
     resolution_purpose TEXT,
     date_of_start DATE NOT NULL,
-    date_of_end DATE NOT NULL,
+    date_of_end DATE,
     file_id INT,
     is_affect BOOLEAN,
     value TEXT,
