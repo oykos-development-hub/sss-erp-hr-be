@@ -82,7 +82,7 @@ func (h *RevisionServiceImpl) GetRevision(id int) (*dto.RevisionResponseDTO, err
 func (h *RevisionServiceImpl) GetRevisionList(input dto.RevisonFilter) ([]dto.RevisionResponseDTO, *uint64, error) {
 	cond := up.Cond{}
 	if input.RevisionType != nil {
-		cond["revision_type"] = input.RevisionType
+		cond["revision_type_id"] = input.RevisionType
 	}
 	if input.InternalRevisionSubject != nil {
 		cond["internal_revision_subject"] = input.InternalRevisionSubject
