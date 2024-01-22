@@ -41,6 +41,7 @@ type UserProfile struct {
 	RevisorRole               *bool      `db:"revisor_role"`
 	IsJudge                   *bool      `db:"is_judge"`
 	EngagementTypeID          *int       `db:"engagement_type_id,omitempty"`
+	FileID                    int        `db:"file_id"`
 	CreatedAt                 time.Time  `db:"created_at,omitempty"`
 	UpdatedAt                 time.Time  `db:"updated_at"`
 }
