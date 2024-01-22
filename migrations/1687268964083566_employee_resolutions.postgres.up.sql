@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS employee_resolutions (
     file_id INT,
     is_affect BOOLEAN,
     value TEXT,
+    year INTEGER NOT NULL,
     created_at timestamp without time zone NOT NULL DEFAULT now(),
     updated_at timestamp without time zone NOT NULL DEFAULT now(),
     FOREIGN KEY (user_profile_id) REFERENCES user_profiles (id) ON UPDATE CASCADE ON DELETE CASCADE

@@ -17,6 +17,7 @@ type EmployeeResolutionDTO struct {
 	ResolutionPurpose *string   `json:"resolution_purpose"`
 	DateOfStart       time.Time `json:"date_of_start"`
 	DateOfEnd         time.Time `json:"date_of_end"`
+	Year              int       `json:"year"`
 	IsAffect          *bool     `json:"is_affect"`
 	Value             *string   `json:"value"`
 	FileId            *int      `json:"file_id"`
@@ -29,6 +30,7 @@ type EmployeeResolutionResponseDTO struct {
 	ResolutionPurpose *string   `json:"resolution_purpose"`
 	DateOfStart       time.Time `json:"date_of_start"`
 	DateOfEnd         time.Time `json:"date_of_end"`
+	Year              int       `json:"year"`
 	IsAffect          *bool     `json:"is_affect"`
 	Value             *string   `json:"value"`
 	FileID            *int      `json:"file_id"`
@@ -43,6 +45,7 @@ func (dto EmployeeResolutionDTO) ToEmployeeResolution() *data.EmployeeResolution
 		ResolutionPurpose: dto.ResolutionPurpose,
 		DateOfStart:       dto.DateOfStart,
 		DateOfEnd:         dto.DateOfEnd,
+		Year:              dto.Year,
 		FileID:            dto.FileId,
 		IsAffect:          dto.IsAffect,
 		Value:             dto.Value,
@@ -57,6 +60,7 @@ func ToEmployeeResolutionResponseDTO(data data.EmployeeResolution) EmployeeResol
 		ResolutionPurpose: data.ResolutionPurpose,
 		DateOfStart:       data.DateOfStart,
 		DateOfEnd:         data.DateOfEnd,
+		Year:              data.Year,
 		FileID:            data.FileID,
 		IsAffect:          data.IsAffect,
 		Value:             data.Value,
