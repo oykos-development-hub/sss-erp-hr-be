@@ -99,7 +99,8 @@ func (h *EvaluationServiceImpl) GetEmployeesEvaluationList(id int) ([]dto.Evalua
 func (h *EvaluationServiceImpl) GetEvaluationList(input dto.GetEvaluationListInputDTO) ([]dto.EvaluationResponseDTO, error) {
 	cond := up.Cond{}
 	if input.IsJudge != nil && *input.IsJudge {
-		cond["decision_number !="] = 0
+		cond["decision_number !="] = ""
+		cond["decision_number !="] = "0"
 		cond["decision_number IS NOT"] = nil
 	}
 	data, err := h.repo.GetAll(&cond)
