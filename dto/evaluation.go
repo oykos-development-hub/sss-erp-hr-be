@@ -14,9 +14,9 @@ type EvaluationDTO struct {
 	Evaluator           string     `json:"evaluator"`
 	IsRelevant          *bool      `json:"is_relevant" validate:"required"`
 	FileID              *int       `json:"file_id"  validate:"omitempty"`
-	ReasonForEvaluation string     `json:"reason_for_evaluation"`
-	EvaluationPeriod    string     `json:"evaluation_period"`
-	DecisionNumber      string     `json:"decision_number"`
+	ReasonForEvaluation *string    `json:"reason_for_evaluation"`
+	EvaluationPeriod    *string    `json:"evaluation_period"`
+	DecisionNumber      *string    `json:"decision_number"`
 }
 
 type EvaluationResponseDTO struct {
@@ -27,9 +27,9 @@ type EvaluationResponseDTO struct {
 	DateOfEvaluation    *time.Time `json:"date_of_evaluation"`
 	Evaluator           string     `json:"evaluator"`
 	IsRelevant          *bool      `json:"is_relevant"`
-	ReasonForEvaluation string     `json:"reason_for_evaluation"`
-	EvaluationPeriod    string     `json:"evaluation_period"`
-	DecisionNumber      string     `json:"decision_number"`
+	ReasonForEvaluation *string    `json:"reason_for_evaluation"`
+	EvaluationPeriod    *string    `json:"evaluation_period"`
+	DecisionNumber      *string    `json:"decision_number"`
 	CreatedAt           time.Time  `json:"created_at"`
 	UpdatedAt           time.Time  `json:"updated_at"`
 	FileID              *int       `json:"file_id"`
