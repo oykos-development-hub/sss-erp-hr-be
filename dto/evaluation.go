@@ -7,7 +7,9 @@ import (
 )
 
 type GetEvaluationListInputDTO struct {
-	IsJudge *bool `json:"is_judge"`
+	IsJudge             *bool   `json:"is_judge"`
+	Score               *string `json:"score"`
+	ReasonForEvaluation *string `json:"reason_for_evaluation"`
 }
 
 type EvaluationDTO struct {

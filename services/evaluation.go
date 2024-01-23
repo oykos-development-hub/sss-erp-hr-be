@@ -103,6 +103,13 @@ func (h *EvaluationServiceImpl) GetEvaluationList(input dto.GetEvaluationListInp
 		cond["decision_number !="] = "0"
 		cond["decision_number IS NOT"] = nil
 	}
+	if input.Score != nil && *input.Score != "" {
+		cond["score"] = *input.Score
+	}
+	if input.ReasonForEvaluation != nil && *input.ReasonForEvaluation != "" {
+		cond["reason_for_evaluation"] = *input.ReasonForEvaluation
+	}
+
 	data, err := h.repo.GetAll(&cond)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
