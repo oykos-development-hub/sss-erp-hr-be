@@ -82,9 +82,25 @@ func (h *EvaluationServiceImpl) GetEvaluation(id int) (*dto.EvaluationResponseDT
 	return &response, nil
 }
 
-func (h *EvaluationServiceImpl) GetEvaluationList(id int) ([]dto.EvaluationResponseDTO, error) {
+func (h *EvaluationServiceImpl) GetEmployeesEvaluationList(id int) ([]dto.EvaluationResponseDTO, error) {
 	cond := up.Cond{
 		"user_profile_id": id,
+	}
+	data, err := h.repo.GetAll(&cond)
+	if err != nil {
+		h.App.ErrorLog.Println(err)
+		return nil, errors.ErrInternalServer
+	}
+	response := dto.ToEvaluationListResponseDTO(data)
+
+	return response, nil
+}
+
+func (h *EvaluationServiceImpl) GetEvaluationList(input dto.GetEvaluationListInputDTO) ([]dto.EvaluationResponseDTO, error) {
+	cond := up.Cond{}
+	if input.IsJudge != nil && *input.IsJudge {
+		cond["decision_number !="] = 0
+		cond["decision_number IS NOT NULL"] = nil
 	}
 	data, err := h.repo.GetAll(&cond)
 	if err != nil {

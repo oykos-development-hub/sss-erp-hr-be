@@ -103,7 +103,8 @@ type EvaluationService interface {
 	UpdateEvaluation(id int, input dto.EvaluationDTO) (*dto.EvaluationResponseDTO, error)
 	DeleteEvaluation(id int) error
 	GetEvaluation(id int) (*dto.EvaluationResponseDTO, error)
-	GetEvaluationList(id int) ([]dto.EvaluationResponseDTO, error)
+	GetEmployeesEvaluationList(id int) ([]dto.EvaluationResponseDTO, error)
+	GetEvaluationList(dto.GetEvaluationListInputDTO) ([]dto.EvaluationResponseDTO, error)
 }
 
 type ForeignerService interface {

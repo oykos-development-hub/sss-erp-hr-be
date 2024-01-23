@@ -32,9 +32,9 @@ type Handlers struct {
 	RevisionHandler                              RevisionHandler
 	RevisionTipHandler                           RevisionTipHandler
 	JudgeHandler                                 JudgeHandler
-	RevisionsInOrganizationUnitHandler RevisionsInOrganizationUnitHandler
-		RevisionRevisorHandler RevisionRevisorHandler
-	}
+	RevisionsInOrganizationUnitHandler           RevisionsInOrganizationUnitHandler
+	RevisionRevisorHandler                       RevisionRevisorHandler
+}
 
 type EngagementTypeHandler interface {
 	CreateEngagementType(w http.ResponseWriter, r *http.Request)
@@ -145,6 +145,7 @@ type EvaluationHandler interface {
 	DeleteEvaluation(w http.ResponseWriter, r *http.Request)
 	GetEvaluationById(w http.ResponseWriter, r *http.Request)
 	GetEvaluationList(w http.ResponseWriter, r *http.Request)
+	GetEmployeesEvaluationList(w http.ResponseWriter, r *http.Request)
 }
 
 type ForeignerHandler interface {

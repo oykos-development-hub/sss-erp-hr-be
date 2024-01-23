@@ -6,6 +6,10 @@ import (
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 )
 
+type GetEvaluationListInputDTO struct {
+	IsJudge *bool `json:"is_judge"`
+}
+
 type EvaluationDTO struct {
 	UserProfileID       int        `json:"user_profile_id"  validate:"required"`
 	EvaluationTypeID    int        `json:"evaluation_type_id"  validate:"required"`

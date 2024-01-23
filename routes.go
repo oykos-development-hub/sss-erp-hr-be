@@ -83,7 +83,8 @@ func routes(app *celeritas.Celeritas, middleware *middleware.Middleware, handler
 		rt.Delete("/absent-types/{id}", handlers.AbsentTypeHandler.DeleteAbsentType)
 
 		rt.Post("/evaluations", handlers.EvaluationHandler.CreateEvaluation)
-		rt.Get("/user-profiles/{id}/evaluations", handlers.EvaluationHandler.GetEvaluationList)
+		rt.Get("/user-profiles/{id}/evaluations", handlers.EvaluationHandler.GetEmployeesEvaluationList)
+		rt.Get("/evaluations", handlers.EvaluationHandler.GetEvaluationList)
 		rt.Put("/evaluations/{id}", handlers.EvaluationHandler.UpdateEvaluation)
 		rt.Get("/evaluations/{id}", handlers.EvaluationHandler.GetEvaluationById)
 		rt.Delete("/evaluations/{id}", handlers.EvaluationHandler.DeleteEvaluation)
@@ -177,18 +178,18 @@ func routes(app *celeritas.Celeritas, middleware *middleware.Middleware, handler
 		rt.Get("/judges", handlers.JudgeHandler.GetJudgeList)
 		rt.Put("/judges/{id}", handlers.JudgeHandler.UpdateJudge)
 		rt.Delete("/judges/{id}", handlers.JudgeHandler.DeleteJudge)
-	
+
 		rt.Post("/revisions-in-organization-units", handlers.RevisionsInOrganizationUnitHandler.CreateRevisionsInOrganizationUnit)
-rt.Get("/revisions-in-organization-units/{id}", handlers.RevisionsInOrganizationUnitHandler.GetRevisionsInOrganizationUnitById)
-rt.Get("/revisions-in-organization-units", handlers.RevisionsInOrganizationUnitHandler.GetRevisionsInOrganizationUnitList)
-rt.Put("/revisions-in-organization-units/{id}", handlers.RevisionsInOrganizationUnitHandler.UpdateRevisionsInOrganizationUnit)
-rt.Delete("/revisions-in-organization-units/{id}", handlers.RevisionsInOrganizationUnitHandler.DeleteRevisionsInOrganizationUnit)
-	
+		rt.Get("/revisions-in-organization-units/{id}", handlers.RevisionsInOrganizationUnitHandler.GetRevisionsInOrganizationUnitById)
+		rt.Get("/revisions-in-organization-units", handlers.RevisionsInOrganizationUnitHandler.GetRevisionsInOrganizationUnitList)
+		rt.Put("/revisions-in-organization-units/{id}", handlers.RevisionsInOrganizationUnitHandler.UpdateRevisionsInOrganizationUnit)
+		rt.Delete("/revisions-in-organization-units/{id}", handlers.RevisionsInOrganizationUnitHandler.DeleteRevisionsInOrganizationUnit)
+
 		rt.Post("/revision-revisors", handlers.RevisionRevisorHandler.CreateRevisionRevisor)
-rt.Get("/revision-revisors/{id}", handlers.RevisionRevisorHandler.GetRevisionRevisorById)
-rt.Get("/revision-revisors", handlers.RevisionRevisorHandler.GetRevisionRevisorList)
-rt.Put("/revision-revisors/{id}", handlers.RevisionRevisorHandler.UpdateRevisionRevisor)
-rt.Delete("/revision-revisors/{id}", handlers.RevisionRevisorHandler.DeleteRevisionRevisor)
+		rt.Get("/revision-revisors/{id}", handlers.RevisionRevisorHandler.GetRevisionRevisorById)
+		rt.Get("/revision-revisors", handlers.RevisionRevisorHandler.GetRevisionRevisorList)
+		rt.Put("/revision-revisors/{id}", handlers.RevisionRevisorHandler.UpdateRevisionRevisor)
+		rt.Delete("/revision-revisors/{id}", handlers.RevisionRevisorHandler.DeleteRevisionRevisor)
 	})
 
 	return app.Routes

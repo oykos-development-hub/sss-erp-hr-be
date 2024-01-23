@@ -90,9 +90,28 @@ func (h *evaluationHandlerImpl) GetEvaluationById(w http.ResponseWriter, r *http
 	_ = h.App.WriteDataResponse(w, http.StatusOK, "", res)
 }
 
-func (h *evaluationHandlerImpl) GetEvaluationList(w http.ResponseWriter, r *http.Request) {
+func (h *evaluationHandlerImpl) GetEmployeesEvaluationList(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
-	res, err := h.service.GetEvaluationList(id)
+	res, err := h.service.GetEmployeesEvaluationList(id)
+	if err != nil {
+		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
+		return
+	}
+
+	_ = h.App.WriteDataResponse(w, http.StatusOK, "", res)
+}
+
+func (h *evaluationHandlerImpl) GetEvaluationList(w http.ResponseWriter, r *http.Request) {
+	var input dto.GetEvaluationListInputDTO
+	_ = h.App.ReadJSON(w, r, &input)
+
+	validator := h.App.Validator().ValidateStruct(&input)
+	if !validator.Valid() {
+		_ = h.App.WriteErrorResponseWithData(w, errors.MapErrorToStatusCode(errors.ErrBadRequest), errors.ErrBadRequest, validator.Errors)
+		return
+	}
+
+	res, err := h.service.GetEvaluationList(input)
 	if err != nil {
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
