@@ -6,6 +6,9 @@ CREATE TABLE IF NOT EXISTS evaluations (
     date_of_evaluation DATE NOT NULL,
     evaluator TEXT NOT NULL,
     is_relevant BOOLEAN NOT NULL,
+    reason_for_evaluation TEXT,
+    evaluation_period TEXT,
+    decision_number TEXT,
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP,
     file_id INT
