@@ -8,22 +8,22 @@ import (
 
 // TenderApplicationsInOrganizationUnit struct
 type TenderApplicationsInOrganizationUnit struct {
-	ID                 int        `db:"id,omitempty"`
-	JobTenderID        int        `db:"job_tender_id"`
-	UserProfileID      *int       `db:"user_profile_id"`
-	Active             bool       `db:"active"`
-	IsInternal         bool       `db:"is_internal"`
-	FirstName          *string    `db:"first_name"`
-	LastName           *string    `db:"last_name"`
-	Nationality        *string    `db:"nationality"`
-	DateOfBirth        *time.Time `db:"date_of_birth"`
-	DateOfApplication  *time.Time `db:"date_of_application"`
-	OfficialPersonalID *string    `db:"official_personal_id"`
-	Evaluation         *string    `db:"evaluation"`
-	Status             string     `db:"status"`
-	FileID             *int       `db:"file_id"`
-	CreatedAt          time.Time  `db:"created_at,omitempty"`
-	UpdatedAt          time.Time  `db:"updated_at"`
+	ID                             int        `db:"id,omitempty"`
+	JobTenderID                    int        `db:"job_tender_id"`
+	UserProfileID                  *int       `db:"user_profile_id"`
+	Active                         bool       `db:"active"`
+	IsInternal                     bool       `db:"is_internal"`
+	FirstName                      *string    `db:"first_name"`
+	LastName                       *string    `db:"last_name"`
+	Nationality                    *string    `db:"nationality"`
+	DateOfBirth                    *time.Time `db:"date_of_birth"`
+	DateOfApplication              *time.Time `db:"date_of_application"`
+	OfficialPersonalDocumentNumber *string    `db:"official_personal_document_number"`
+	Evaluation                     *string    `db:"evaluation"`
+	Status                         string     `db:"status"`
+	FileID                         *int       `db:"file_id"`
+	CreatedAt                      time.Time  `db:"created_at,omitempty"`
+	UpdatedAt                      time.Time  `db:"updated_at"`
 }
 
 // Table returns the table name

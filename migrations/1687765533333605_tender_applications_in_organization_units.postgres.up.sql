@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS tender_applications_in_organization_units (
     is_internal boolean not null,
     first_name text,
     last_name text,
-    official_personal_id text,
+    official_personal_document_number text,
     nationality text,
     evaluation text,
     date_of_birth date,

@@ -3,7 +3,6 @@ package data
 import (
 	"fmt"
 
-	db2 "github.com/upper/db/v4"
 	up "github.com/upper/db/v4"
 	"github.com/upper/db/v4/adapter/mysql"
 	"github.com/upper/db/v4/adapter/postgresql"
@@ -16,7 +15,7 @@ import (
 var db *sql.DB
 
 //nolint:all
-var upper db2.Session
+var upper up.Session
 
 type Models struct {
 	// any models inserted here (and in the New function)
@@ -44,13 +43,13 @@ type Models struct {
 	TenderType                            TenderType
 	JudgeNumberResolution                 JudgeNumberResolution
 	JudgeNumberResolutionOrganizationUnit JudgeNumberResolutionOrganizationUnit
-	Plan Plan
-		Revision Revision
-		RevisionTip RevisionTip
-		Judge Judge
-		RevisionsInOrganizationUnit RevisionsInOrganizationUnit
-		RevisionRevisor RevisionRevisor
-	}
+	Plan                                  Plan
+	Revision                              Revision
+	RevisionTip                           RevisionTip
+	Judge                                 Judge
+	RevisionsInOrganizationUnit           RevisionsInOrganizationUnit
+	RevisionRevisor                       RevisionRevisor
+}
 
 func New(databasePool *sql.DB) Models {
 	db = databasePool
@@ -83,17 +82,17 @@ func New(databasePool *sql.DB) Models {
 		RevisionsOfOrganizationUnit:           RevisionsOfOrganizationUnit{},
 		JudgeNumberResolution:                 JudgeNumberResolution{},
 		JudgeNumberResolutionOrganizationUnit: JudgeNumberResolutionOrganizationUnit{},
-		Plan: Plan{},
-		Revision: Revision{},
-		RevisionTip: RevisionTip{},
-		Judge: Judge{},
-		RevisionsInOrganizationUnit: RevisionsInOrganizationUnit{},
-		RevisionRevisor: RevisionRevisor{},
+		Plan:                                  Plan{},
+		Revision:                              Revision{},
+		RevisionTip:                           RevisionTip{},
+		Judge:                                 Judge{},
+		RevisionsInOrganizationUnit:           RevisionsInOrganizationUnit{},
+		RevisionRevisor:                       RevisionRevisor{},
 	}
 }
 
 //nolint:all
-func getInsertId(i db2.ID) int {
+func getInsertId(i up.ID) int {
 	idType := fmt.Sprintf("%T", i)
 	if idType == "int64" {
 		return int(i.(int64))
