@@ -6,7 +6,6 @@ import (
 	"gitlab.sudovi.me/erp/hr-ms-api/errors"
 
 	"github.com/oykos-development-hub/celeritas"
-	"github.com/upper/db/v4"
 	up "github.com/upper/db/v4"
 )
 
@@ -87,7 +86,7 @@ func (h *EmployeesInOrganizationUnitServiceImpl) GetEmployeesInOrganizationUnitB
 }
 
 func (h *EmployeesInOrganizationUnitServiceImpl) GetEmployeesInOrganizationUnitList(data dto.GetEmployeesInOrganizationUnitInput) ([]dto.EmployeesInOrganizationUnitResponseDTO, error) {
-	condition := db.Cond{}
+	condition := up.Cond{}
 	if data.PositionInOrganizationUnit != nil {
 		condition["position_in_organization_unit_id"] = data.PositionInOrganizationUnit
 	}

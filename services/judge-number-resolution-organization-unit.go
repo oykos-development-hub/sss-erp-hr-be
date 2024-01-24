@@ -84,6 +84,9 @@ func (h *JudgeNumberResolutionOrganizationUnitServiceImpl) GetJudgeNumberResolut
 	if input.ResolutionID != nil {
 		cond["resolution_id"] = input.ResolutionID
 	}
+	if input.OrganizationUnitID != nil {
+		cond["organization_unit_id"] = input.OrganizationUnitID
+	}
 	data, total, err := h.repo.GetAll(input.Page, input.PageSize, &cond)
 	if err != nil {
 		h.App.ErrorLog.Println(err)

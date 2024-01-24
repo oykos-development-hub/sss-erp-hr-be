@@ -7,9 +7,10 @@ import (
 )
 
 type GetJudgeNumberResolutionOrganizationUnitInputDTO struct {
-	Page         *int `json:"page" validate:"omitempty"`
-	PageSize     *int `json:"page_size" validate:"omitempty"`
-	ResolutionID *int `json:"resolution_id"`
+	Page               *int `json:"page" validate:"omitempty"`
+	PageSize           *int `json:"page_size" validate:"omitempty"`
+	ResolutionID       *int `json:"resolution_id"`
+	OrganizationUnitID *int `json:"organization_unit_id"`
 }
 
 type JudgeNumberResolutionOrganizationUnitDTO struct {

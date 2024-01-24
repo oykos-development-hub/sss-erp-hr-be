@@ -6,7 +6,6 @@ import (
 	"gitlab.sudovi.me/erp/hr-ms-api/errors"
 
 	"github.com/oykos-development-hub/celeritas"
-	"github.com/upper/db/v4"
 	up "github.com/upper/db/v4"
 )
 
@@ -86,9 +85,9 @@ func (h *TenderTypeServiceImpl) GetTenderTypeList(input dto.GetTenderTypeInputDT
 	if input.Search != nil {
 		search := "%" + *input.Search + "%"
 		isJudgeCond := up.Or(
-			db.Cond{"title ILIKE": search},
-			db.Cond{"abbreviation ILIKE": search},
-			db.Cond{"description ILIKE": search},
+			up.Cond{"title ILIKE": search},
+			up.Cond{"abbreviation ILIKE": search},
+			up.Cond{"description ILIKE": search},
 		)
 		cond = append(cond, isJudgeCond)
 	}
