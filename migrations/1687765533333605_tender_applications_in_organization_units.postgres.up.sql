@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS tender_applications_in_organization_units (
     last_name text,
     official_personal_document_number text,
     nationality text,
-    evaluation text,
+    evaluation integer,
     date_of_birth date,
     date_of_application date,
     status text not null,

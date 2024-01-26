@@ -19,7 +19,7 @@ type TenderApplicationsInOrganizationUnit struct {
 	DateOfBirth                    *time.Time `db:"date_of_birth"`
 	DateOfApplication              *time.Time `db:"date_of_application"`
 	OfficialPersonalDocumentNumber *string    `db:"official_personal_document_number"`
-	Evaluation                     *string    `db:"evaluation"`
+	Evaluation                     *int       `db:"evaluation"`
 	Status                         string     `db:"status"`
 	FileID                         *int       `db:"file_id"`
 	CreatedAt                      time.Time  `db:"created_at,omitempty"`

@@ -24,7 +24,7 @@ type TenderApplicationsInOrganizationUnitDTO struct {
 	DateOfBirth                    *time.Time            `json:"date_of_birth"`
 	DateOfApplication              *time.Time            `json:"date_of_application"`
 	OfficialPersonalDocumentNumber *string               `json:"official_personal_document_number"`
-	Evaluation                     *string               `json:"evaluation"`
+	Evaluation                     *int                  `json:"evaluation"`
 	Status                         string                `json:"status"`
 	FileID                         *int                  `json:"file_id"`
 }
@@ -41,7 +41,7 @@ type TenderApplicationsInOrganizationUnitResponseDTO struct {
 	DateOfBirth                    *time.Time            `json:"date_of_birth"`
 	DateOfApplication              *time.Time            `json:"date_of_application"`
 	OfficialPersonalDocumentNumber *string               `json:"official_personal_document_number"`
-	Evaluation                     *string               `json:"evaluation"`
+	Evaluation                     *int                  `json:"evaluation"`
 	Status                         string                `json:"status"`
 	FileID                         *int                  `json:"file_id"`
 	CreatedAt                      time.Time             `json:"created_at"`
