@@ -82,33 +82,19 @@ func (h *UserNormFulfilmentServiceImpl) GetUserNormFulfilment(id int) (*dto.User
 }
 
 func (h *UserNormFulfilmentServiceImpl) GetUserNormFulfilmentList(userProfileID int, input dto.GetUserNormFulfilmentListInput) ([]dto.UserNormFulfilmentResponseDTO, error) {
-	var (
-		combinedCond *up.AndExpr
-		conditions   []up.LogicalExpr
-	)
+	conditionAndExp := &up.AndExpr{}
 
-	if input.NormYear != nil && *input.NormYear != 0 {
+	if input.NormYear != nil && *input.NormYear > 0 {
 		startOfYear := time.Date(*input.NormYear, time.January, 1, 0, 0, 0, 0, time.UTC)
 		endOfYear := time.Date(*input.NormYear, time.December, 31, 23, 59, 59, 999999999, time.UTC)
 
-		dateCond := up.And(
-			up.Cond{"norm_start_date >=": startOfYear},
-			up.Cond{"norm_start_date <=": endOfYear},
-		)
-		conditions = append(conditions, dateCond)
+		conditionAndExp = up.And(conditionAndExp, &up.Cond{"norm_start_date": up.Gte(startOfYear)})
+		conditionAndExp = up.And(conditionAndExp, &up.Cond{"norm_start_date": up.Lte(endOfYear)})
 	}
 
-	cond := up.Cond{
-		"user_profile_id": userProfileID,
-	}
+	conditionAndExp = up.And(conditionAndExp, &up.Cond{"user_profile_id": userProfileID})
 
-	conditions = append(conditions, cond)
-
-	if len(conditions) > 0 {
-		combinedCond = up.And(conditions...)
-	}
-
-	data, err := h.repo.GetAll(combinedCond)
+	data, err := h.repo.GetAll(conditionAndExp)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
 		return nil, errors.ErrInternalServer
