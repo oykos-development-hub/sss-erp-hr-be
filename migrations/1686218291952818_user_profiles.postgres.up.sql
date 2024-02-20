@@ -29,6 +29,7 @@ CREATE TABLE user_profiles (
     martial_status text NOT NULL,
     date_of_taking_oath date,
     date_of_becoming_judge text,
+    judge_application_submission_date text,
     active_contract boolean,
     revisor_role boolean,
     engagement_type_id integer,
