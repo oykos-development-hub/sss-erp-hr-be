@@ -12,40 +12,40 @@ type GetUserNormFulfilmentListInput struct {
 }
 
 type UserNormFulfilmentDTO struct {
-	UserProfileID            int       `json:"user_profile_id" validate:"required"`
-	Topic                    string    `json:"topic" validate:"required"`
-	Title                    string    `json:"title" validate:"required"`
-	NumberOfNormDecrease     int       `json:"number_of_norm_decrease" validate:"required"`
-	NumberOfItems            int       `json:"number_of_items" validate:"required"`
-	NumberOfItemsSolved      int       `json:"number_of_items_solved" validate:"required"`
-	EvaluationID             *int      `json:"evaluation_id"`
-	DateOfEvaluation         time.Time `json:"date_of_evaluation"`
-	DateOfEvaluationValidity time.Time `json:"date_of_evaluation_validity"`
-	NormStartDate            string    `json:"norm_start_date"`
-	NormEndDate              string    `json:"norm_end_date"`
-	RelocationID             *int      `json:"relocation_id"`
-	FileID                   *int      `json:"file_id"`
+	UserProfileID            int        `json:"user_profile_id" validate:"required"`
+	Topic                    string     `json:"topic" validate:"required"`
+	Title                    string     `json:"title" validate:"required"`
+	NumberOfNormDecrease     int        `json:"number_of_norm_decrease" validate:"required"`
+	NumberOfItems            int        `json:"number_of_items" validate:"required"`
+	NumberOfItemsSolved      int        `json:"number_of_items_solved" validate:"required"`
+	EvaluationID             *int       `json:"evaluation_id"`
+	DateOfEvaluation         *time.Time `json:"date_of_evaluation"`
+	DateOfEvaluationValidity *time.Time `json:"date_of_evaluation_validity"`
+	NormStartDate            string     `json:"norm_start_date"`
+	NormEndDate              string     `json:"norm_end_date"`
+	RelocationID             *int       `json:"relocation_id"`
+	FileID                   *int       `json:"file_id"`
 }
 
 type UserNormFulfilmentResponseDTO struct {
-	ID                         int       `json:"id"`
-	UserProfileID              int       `json:"user_profile_id"`
-	Topic                      string    `json:"topic"`
-	Title                      string    `json:"title"`
-	PercentageOfNormDecrease   float32   `json:"percentage_of_norm_decrease"`
-	NumberOfNormDecrease       int       `json:"number_of_norm_decrease"`
-	NumberOfItems              int       `json:"number_of_items"`
-	PercentageOfNormFulfilment float32   `json:"percentage_of_norm_fulfilment"`
-	NumberOfItemsSolved        int       `json:"number_of_items_solved"`
-	EvaluationID               *int      `json:"evaluation_id"`
-	DateOfEvaluation           time.Time `json:"date_of_evaluation"`
-	DateOfEvaluationValidity   time.Time `json:"date_of_evaluation_validity"`
-	NormStartDate              string    `json:"norm_start_date"`
-	NormEndDate                string    `json:"norm_end_date"`
-	RelocationID               *int      `json:"relocation_id"`
-	FileID                     *int      `json:"file_id"`
-	CreatedAt                  time.Time `json:"created_at"`
-	UpdatedAt                  time.Time `json:"updated_at"`
+	ID                         int        `json:"id"`
+	UserProfileID              int        `json:"user_profile_id"`
+	Topic                      string     `json:"topic"`
+	Title                      string     `json:"title"`
+	PercentageOfNormDecrease   float32    `json:"percentage_of_norm_decrease"`
+	NumberOfNormDecrease       int        `json:"number_of_norm_decrease"`
+	NumberOfItems              int        `json:"number_of_items"`
+	PercentageOfNormFulfilment float32    `json:"percentage_of_norm_fulfilment"`
+	NumberOfItemsSolved        int        `json:"number_of_items_solved"`
+	EvaluationID               *int       `json:"evaluation_id"`
+	DateOfEvaluation           *time.Time `json:"date_of_evaluation"`
+	DateOfEvaluationValidity   *time.Time `json:"date_of_evaluation_validity"`
+	NormStartDate              string     `json:"norm_start_date"`
+	NormEndDate                string     `json:"norm_end_date"`
+	RelocationID               *int       `json:"relocation_id"`
+	FileID                     *int       `json:"file_id"`
+	CreatedAt                  time.Time  `json:"created_at"`
+	UpdatedAt                  time.Time  `json:"updated_at"`
 }
 
 func (dto UserNormFulfilmentDTO) ToUserNormFulfilment() *data.UserNormFulfilment {

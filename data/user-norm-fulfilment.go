@@ -8,22 +8,22 @@ import (
 
 // UserNormFulfilment struct
 type UserNormFulfilment struct {
-	ID                       int       `db:"id,omitempty"`
-	UserProfileID            int       `db:"user_profile_id"`
-	Topic                    string    `db:"topic"`
-	Title                    string    `db:"title"`
-	NumberOfNormDecrease     int       `db:"number_of_norm_decrease"`
-	NumberOfItems            int       `db:"number_of_items"`
-	NumberOfItemsSolved      int       `db:"number_of_items_solved"`
-	EvaluationID             *int      `db:"evaluation_id"`
-	DateOfEvaluation         time.Time `db:"date_of_evaluation"`
-	DateOfEvaluationValidity time.Time `db:"date_of_evaluation_validity"`
-	NormStartDate            string    `db:"norm_start_date"`
-	NormEndDate              string    `db:"norm_end_date"`
-	RelocationID             *int      `db:"relocation_id"`
-	FileID                   *int      `db:"file_id"`
-	CreatedAt                time.Time `db:"created_at,omitempty"`
-	UpdatedAt                time.Time `db:"updated_at"`
+	ID                       int        `db:"id,omitempty"`
+	UserProfileID            int        `db:"user_profile_id"`
+	Topic                    string     `db:"topic"`
+	Title                    string     `db:"title"`
+	NumberOfNormDecrease     int        `db:"number_of_norm_decrease"`
+	NumberOfItems            int        `db:"number_of_items"`
+	NumberOfItemsSolved      int        `db:"number_of_items_solved"`
+	EvaluationID             *int       `db:"evaluation_id"`
+	DateOfEvaluation         *time.Time `db:"date_of_evaluation"`
+	DateOfEvaluationValidity *time.Time `db:"date_of_evaluation_validity"`
+	NormStartDate            string     `db:"norm_start_date"`
+	NormEndDate              string     `db:"norm_end_date"`
+	RelocationID             *int       `db:"relocation_id"`
+	FileID                   *int       `db:"file_id"`
+	CreatedAt                time.Time  `db:"created_at,omitempty"`
+	UpdatedAt                time.Time  `db:"updated_at"`
 }
 
 // Table returns the table name

@@ -28,7 +28,11 @@ func NewUserNormFulfilmentHandler(app *celeritas.Celeritas, usernormfulfilmentSe
 
 func (h *usernormfulfilmentHandlerImpl) CreateUserNormFulfilment(w http.ResponseWriter, r *http.Request) {
 	var input dto.UserNormFulfilmentDTO
-	_ = h.App.ReadJSON(w, r, &input)
+	err := h.App.ReadJSON(w, r, &input)
+	if err != nil {
+		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
+		return
+	}
 
 	validator := h.App.Validator().ValidateStruct(&input)
 	if !validator.Valid() {
