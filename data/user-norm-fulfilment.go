@@ -32,7 +32,7 @@ func (t *UserNormFulfilment) Table() string {
 }
 
 // GetAll gets all records from the database, using upper
-func (t *UserNormFulfilment) GetAll(condition *up.Cond) ([]*UserNormFulfilment, error) {
+func (t *UserNormFulfilment) GetAll(condition *up.AndExpr) ([]*UserNormFulfilment, error) {
 	collection := upper.Collection(t.Table())
 	var all []*UserNormFulfilment
 	var res up.Result
