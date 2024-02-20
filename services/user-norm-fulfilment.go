@@ -1,6 +1,7 @@
 package services
 
 import (
+	"fmt"
 	"time"
 
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
@@ -24,7 +25,9 @@ func NewUserNormFulfilmentServiceImpl(app *celeritas.Celeritas, repo data.UserNo
 }
 
 func (h *UserNormFulfilmentServiceImpl) CreateUserNormFulfilment(input dto.UserNormFulfilmentDTO) (*dto.UserNormFulfilmentResponseDTO, error) {
+	fmt.Println(input.DateOfEvaluation.String())
 	data := input.ToUserNormFulfilment()
+	fmt.Println(data.DateOfEvaluation.String())
 
 	id, err := h.repo.Insert(*data)
 	if err != nil {
