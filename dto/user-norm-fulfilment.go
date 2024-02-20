@@ -7,7 +7,7 @@ import (
 )
 
 type GetUserNormFulfilmentListInput struct {
-	NormYear *int `json:"year"`
+	NormYear *int `json:"norm_year"`
 }
 
 type UserNormFulfilmentDTO struct {
