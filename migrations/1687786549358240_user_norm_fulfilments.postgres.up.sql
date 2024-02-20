@@ -9,6 +9,8 @@ CREATE TABLE IF NOT EXISTS user_norm_fulfilments (
     evaluation_id INTEGER,
     date_of_evaluation DATE NOT NULL,
     date_of_evaluation_validity DATE NOT NULL,
+    norm_start_date DATE NOT NULL,
+    norm_end_date DATE NOT NULL,
     relocation_id INTEGER,
     file_id INTEGER,
     created_at TIMESTAMP,

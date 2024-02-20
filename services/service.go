@@ -136,7 +136,7 @@ type UserNormFulfilmentService interface {
 	UpdateUserNormFulfilment(id int, input dto.UserNormFulfilmentDTO) (*dto.UserNormFulfilmentResponseDTO, error)
 	DeleteUserNormFulfilment(id int) error
 	GetUserNormFulfilment(id int) (*dto.UserNormFulfilmentResponseDTO, error)
-	GetUserNormFulfilmentList(userProfileID int) ([]dto.UserNormFulfilmentResponseDTO, error)
+	GetUserNormFulfilmentList(userProfileID int, input dto.GetUserNormFulfilmentListInput) ([]dto.UserNormFulfilmentResponseDTO, error)
 }
 
 type EmployeeAbsentService interface {

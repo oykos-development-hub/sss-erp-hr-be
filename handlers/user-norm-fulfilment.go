@@ -92,8 +92,16 @@ func (h *usernormfulfilmentHandlerImpl) GetUserNormFulfilmentById(w http.Respons
 
 func (h *usernormfulfilmentHandlerImpl) GetUserNormFulfilmentList(w http.ResponseWriter, r *http.Request) {
 	userProfileID, _ := strconv.Atoi(chi.URLParam(r, "id"))
+	var input dto.GetUserNormFulfilmentListInput
+	_ = h.App.ReadJSON(w, r, &input)
 
-	res, err := h.service.GetUserNormFulfilmentList(userProfileID)
+	validator := h.App.Validator().ValidateStruct(&input)
+	if !validator.Valid() {
+		_ = h.App.WriteErrorResponseWithData(w, errors.MapErrorToStatusCode(errors.ErrBadRequest), errors.ErrBadRequest, validator.Errors)
+		return
+	}
+
+	res, err := h.service.GetUserNormFulfilmentList(userProfileID, input)
 	if err != nil {
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

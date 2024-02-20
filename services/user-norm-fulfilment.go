@@ -1,6 +1,8 @@
 package services
 
 import (
+	"time"
+
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
 	"gitlab.sudovi.me/erp/hr-ms-api/errors"
@@ -79,15 +81,24 @@ func (h *UserNormFulfilmentServiceImpl) GetUserNormFulfilment(id int) (*dto.User
 	return &response, nil
 }
 
-func (h *UserNormFulfilmentServiceImpl) GetUserNormFulfilmentList(userProfileID int) ([]dto.UserNormFulfilmentResponseDTO, error) {
+func (h *UserNormFulfilmentServiceImpl) GetUserNormFulfilmentList(userProfileID int, input dto.GetUserNormFulfilmentListInput) ([]dto.UserNormFulfilmentResponseDTO, error) {
 	cond := up.Cond{
 		"user_profile_id": userProfileID,
 	}
+	if input.NormYear != nil {
+		start := time.Date(*input.NormYear, time.January, 1, 0, 0, 0, 0, time.UTC)
+		end := time.Date(*input.NormYear, time.December, 31, 23, 59, 59, 999999999, time.UTC)
+
+		cond["norm_start_date"] = up.Gte(start)
+		cond["norm_start_date"] = up.Lte(end)
+	}
+
 	data, err := h.repo.GetAll(&cond)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
 		return nil, errors.ErrInternalServer
 	}
+
 	response := dto.ToUserNormFulfilmentListResponseDTO(data)
 
 	return response, nil

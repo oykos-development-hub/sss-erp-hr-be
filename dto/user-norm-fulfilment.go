@@ -6,6 +6,10 @@ import (
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 )
 
+type GetUserNormFulfilmentListInput struct {
+	NormYear *int `json:"year"`
+}
+
 type UserNormFulfilmentDTO struct {
 	UserProfileID            int       `json:"user_profile_id" validate:"required"`
 	Topic                    string    `json:"topic" validate:"required"`
@@ -16,6 +20,8 @@ type UserNormFulfilmentDTO struct {
 	EvaluationID             *int      `json:"evaluation_id"`
 	DateOfEvaluation         time.Time `json:"date_of_evaluation"`
 	DateOfEvaluationValidity time.Time `json:"date_of_evaluation_validity"`
+	NormStartDate            time.Time `json:"norm_start_date"`
+	NormEndDate              time.Time `json:"norm_end_date"`
 	RelocationID             *int      `json:"relocation_id"`
 	FileID                   *int      `json:"file_id"`
 }
@@ -33,6 +39,8 @@ type UserNormFulfilmentResponseDTO struct {
 	EvaluationID               *int      `json:"evaluation_id"`
 	DateOfEvaluation           time.Time `json:"date_of_evaluation"`
 	DateOfEvaluationValidity   time.Time `json:"date_of_evaluation_validity"`
+	NormStartDate              time.Time `json:"norm_start_date"`
+	NormEndDate                time.Time `json:"norm_end_date"`
 	RelocationID               *int      `json:"relocation_id"`
 	FileID                     *int      `json:"file_id"`
 	CreatedAt                  time.Time `json:"created_at"`
@@ -47,6 +55,8 @@ func (dto UserNormFulfilmentDTO) ToUserNormFulfilment() *data.UserNormFulfilment
 		NumberOfNormDecrease:     dto.NumberOfNormDecrease,
 		NumberOfItems:            dto.NumberOfItems,
 		NumberOfItemsSolved:      dto.NumberOfItemsSolved,
+		NormEndDate:              dto.NormEndDate,
+		NormStartDate:            dto.NormStartDate,
 		EvaluationID:             dto.EvaluationID,
 		DateOfEvaluation:         dto.DateOfEvaluation,
 		DateOfEvaluationValidity: dto.DateOfEvaluationValidity,
@@ -72,6 +82,8 @@ func ToUserNormFulfilmentResponseDTO(data data.UserNormFulfilment) UserNormFulfi
 		EvaluationID:               data.EvaluationID,
 		DateOfEvaluation:           data.DateOfEvaluation,
 		DateOfEvaluationValidity:   data.DateOfEvaluationValidity,
+		NormEndDate:                data.NormEndDate,
+		NormStartDate:              data.NormStartDate,
 		RelocationID:               data.RelocationID,
 		FileID:                     data.FileID,
 		CreatedAt:                  data.CreatedAt,
