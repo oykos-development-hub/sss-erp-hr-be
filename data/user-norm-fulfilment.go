@@ -18,8 +18,8 @@ type UserNormFulfilment struct {
 	EvaluationID             *int      `db:"evaluation_id"`
 	DateOfEvaluation         time.Time `db:"date_of_evaluation"`
 	DateOfEvaluationValidity time.Time `db:"date_of_evaluation_validity"`
-	NormStartDate            time.Time `db:"norm_start_date"`
-	NormEndDate              time.Time `db:"norm_end_date"`
+	NormStartDate            string    `db:"norm_start_date"`
+	NormEndDate              string    `db:"norm_end_date"`
 	RelocationID             *int      `db:"relocation_id"`
 	FileID                   *int      `db:"file_id"`
 	CreatedAt                time.Time `db:"created_at,omitempty"`

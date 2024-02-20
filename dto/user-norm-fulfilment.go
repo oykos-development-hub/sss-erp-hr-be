@@ -21,8 +21,8 @@ type UserNormFulfilmentDTO struct {
 	EvaluationID             *int      `json:"evaluation_id"`
 	DateOfEvaluation         time.Time `json:"date_of_evaluation"`
 	DateOfEvaluationValidity time.Time `json:"date_of_evaluation_validity"`
-	NormStartDate            time.Time `json:"norm_start_date"`
-	NormEndDate              time.Time `json:"norm_end_date"`
+	NormStartDate            string    `json:"norm_start_date"`
+	NormEndDate              string    `json:"norm_end_date"`
 	RelocationID             *int      `json:"relocation_id"`
 	FileID                   *int      `json:"file_id"`
 }
@@ -40,8 +40,8 @@ type UserNormFulfilmentResponseDTO struct {
 	EvaluationID               *int      `json:"evaluation_id"`
 	DateOfEvaluation           time.Time `json:"date_of_evaluation"`
 	DateOfEvaluationValidity   time.Time `json:"date_of_evaluation_validity"`
-	NormStartDate              time.Time `json:"norm_start_date"`
-	NormEndDate                time.Time `json:"norm_end_date"`
+	NormStartDate              string    `json:"norm_start_date"`
+	NormEndDate                string    `json:"norm_end_date"`
 	RelocationID               *int      `json:"relocation_id"`
 	FileID                     *int      `json:"file_id"`
 	CreatedAt                  time.Time `json:"created_at"`
