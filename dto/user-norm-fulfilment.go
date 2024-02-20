@@ -1,7 +1,6 @@
 package dto
 
 import (
-	"fmt"
 	"time"
 
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
@@ -49,7 +48,6 @@ type UserNormFulfilmentResponseDTO struct {
 }
 
 func (dto UserNormFulfilmentDTO) ToUserNormFulfilment() *data.UserNormFulfilment {
-	fmt.Println(dto.NormStartDate, dto.NormEndDate)
 	return &data.UserNormFulfilment{
 		UserProfileID:            dto.UserProfileID,
 		Topic:                    dto.Topic,
