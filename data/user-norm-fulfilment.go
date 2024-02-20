@@ -38,7 +38,7 @@ func (t *UserNormFulfilment) GetAll(condition *up.AndExpr) ([]*UserNormFulfilmen
 	var res up.Result
 
 	if condition != nil {
-		res = collection.Find(*condition)
+		res = collection.Find(condition)
 	} else {
 		res = collection.Find()
 	}
