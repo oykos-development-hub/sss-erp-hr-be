@@ -8,7 +8,7 @@ import (
 
 type JudgeNumberResolutionDTO struct {
 	Active       bool   `json:"active"`
-	SerialNumber string `json:"serial_number" validate:"required"`
+	SerialNumber string `json:"serial_number"`
 }
 
 type JudgeNumberResolutionResponseDTO struct {
