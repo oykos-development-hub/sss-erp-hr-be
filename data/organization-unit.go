@@ -51,7 +51,7 @@ func (t *OrganizationUnit) GetAll(page *int, pageSize *int, conditions *up.AndEx
 		res = paginateResult(res, *page, *pageSize)
 	}
 
-	err = res.OrderBy("order_id desc").All(&all)
+	err = res.OrderBy("order_id asc").All(&all)
 	if err != nil {
 		return nil, nil, err
 	}
