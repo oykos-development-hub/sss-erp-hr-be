@@ -14,6 +14,7 @@ type OrganizationUnit struct {
 	Pib            *string   `db:"pib"`
 	Abbreviation   *string   `db:"abbreviation"`
 	NumberOfJudges *int      `db:"number_of_judges"`
+	OrderID        *int      `db:"order_id"`
 	Color          *string   `db:"color"`
 	Icon           *string   `db:"icon"`
 	Address        *string   `db:"address"`
@@ -50,7 +51,7 @@ func (t *OrganizationUnit) GetAll(page *int, pageSize *int, conditions *up.AndEx
 		res = paginateResult(res, *page, *pageSize)
 	}
 
-	err = res.OrderBy("created_at desc").All(&all)
+	err = res.OrderBy("COALESCE(order_id, id) desc").All(&all)
 	if err != nil {
 		return nil, nil, err
 	}

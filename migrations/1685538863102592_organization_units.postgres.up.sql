@@ -6,6 +6,7 @@ CREATE TABLE organization_units (
     title text NOT NULL,
     abbreviation text,
     pib text,
+    order_id int,
     number_of_judges SMALLINT DEFAULT 0,
     color text NULL,
     icon text NULL,

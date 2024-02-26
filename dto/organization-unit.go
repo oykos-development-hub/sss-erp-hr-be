@@ -15,6 +15,7 @@ type CreateOrganizationUnitDTO struct {
 	Color          *string `json:"color" validate:"omitempty"`
 	Icon           *string `json:"icon" validate:"omitempty"`
 	City           *string `json:"city"`
+	OrderID        *int    `json:"order_id"`
 	Address        *string `json:"address" validate:"omitempty"`
 	Description    *string `json:"description" validate:"omitempty"`
 	FolderID       *int    `json:"folder_id,omitempty"`
@@ -29,6 +30,7 @@ type UpdateOrganizationUnitDTO struct {
 	Color          *string `json:"color" validate:"omitempty"`
 	Icon           *string `json:"icon" validate:"omitempty"`
 	City           *string `json:"city"`
+	OrderID        *int    `json:"order_id"`
 	Address        *string `json:"address" validate:"omitempty"`
 	Description    *string `json:"description" validate:"omitempty"`
 	FolderID       *int    `json:"folder_id,omitempty"`
@@ -42,6 +44,7 @@ type OrganizationUnitResponseDTO struct {
 	Abbreviation   *string   `json:"abbreviation"`
 	NumberOfJudges *int      `json:"number_of_judges"`
 	Color          *string   `json:"color"`
+	OrderID        *int      `json:"order_id"`
 	City           *string   `json:"city"`
 	Icon           *string   `json:"icon"`
 	Address        *string   `json:"address"`
@@ -68,6 +71,7 @@ func (dto CreateOrganizationUnitDTO) ToOrganizationUnit() *data.OrganizationUnit
 		ParentID:       pid,
 		Pib:            dto.Pib,
 		Title:          dto.Title,
+		OrderID:        dto.OrderID,
 		Abbreviation:   dto.Abbreviation,
 		NumberOfJudges: dto.NumberOfJudges,
 		City:           dto.City,
@@ -95,6 +99,7 @@ func (dto UpdateOrganizationUnitDTO) ToOrganizationUnit(data *data.OrganizationU
 	data.Icon = dto.Icon
 	data.Address = dto.Address
 	data.City = dto.City
+	data.OrderID = dto.OrderID
 	data.Description = dto.Description
 	data.FolderID = dto.FolderID
 
@@ -110,6 +115,7 @@ func ToOrganizationUnitResponseDTO(data data.OrganizationUnit) OrganizationUnitR
 		Abbreviation:   data.Abbreviation,
 		NumberOfJudges: data.NumberOfJudges,
 		City:           data.City,
+		OrderID:        data.OrderID,
 		Color:          data.Color,
 		Icon:           data.Icon,
 		Address:        data.Address,
