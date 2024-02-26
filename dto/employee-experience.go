@@ -12,8 +12,12 @@ type EmployeeExperienceDTO struct {
 	Relevant                  bool      `json:"relevant"`
 	OrganizationUnit          *string   `json:"organization_unit" validate:"omitempty,required_without=organization_unit_id"`
 	OrganizationUnitID        *int      `json:"organization_unit_id" validate:"omitempty,required_without=organization_unit"`
-	AmountOfExperience        *int      `json:"amount_of_experience"`
-	AmountOfInsuredExperience *int      `json:"amount_of_insured_experience"`
+	YearsOfExperience         *int      `json:"years_of_experience"`
+	YearsOfInsuredExperience  *int      `json:"years_of_insured_experience"`
+	MonthsOfExperience        *int      `json:"months_of_experience"`
+	MonthsOfInsuredExperience *int      `json:"months_of_insured_experience"`
+	DaysOfExperience          *int      `json:"days_of_experience"`
+	DaysOfInsuredExperience   *int      `json:"days_of_insured_experience"`
 	DateOfStart               time.Time `json:"date_of_start" validate:"required"`
 	DateOfEnd                 time.Time `json:"date_of_end" validate:"required"`
 	FileID                    int       `json:"reference_file_id"`
@@ -25,8 +29,12 @@ type EmployeeExperienceResponseDTO struct {
 	Relevant                  bool       `json:"relevant"`
 	OrganizationUnit          *string    `json:"organization_unit"`
 	OrganizationUnitID        *int       `json:"organization_unit_id"`
-	AmountOfExperience        *int       `json:"amount_of_experience"`
-	AmountOfInsuredExperience *int       `json:"amount_of_insured_experience"`
+	YearsOfExperience         *int       `json:"years_of_experience"`
+	YearsOfInsuredExperience  *int       `json:"years_of_insured_experience"`
+	MonthsOfExperience        *int       `json:"months_of_experience"`
+	MonthsOfInsuredExperience *int       `json:"months_of_insured_experience"`
+	DaysOfExperience          *int       `json:"days_of_experience"`
+	DaysOfInsuredExperience   *int       `json:"days_of_insured_experience"`
 	DateOfStart               time.Time  `json:"date_of_start"`
 	DateOfEnd                 time.Time  `json:"date_of_end"`
 	FileID                    int        `json:"reference_file_id"`
@@ -40,8 +48,12 @@ func (dto EmployeeExperienceDTO) ToEmployeeExperience() *data.EmployeeExperience
 		Relevant:                  dto.Relevant,
 		OrganizationUnit:          dto.OrganizationUnit,
 		OrganizationUnitID:        dto.OrganizationUnitID,
-		AmountOfExperience:        dto.AmountOfExperience,
-		AmountOfInsuredExperience: dto.AmountOfInsuredExperience,
+		YearsOfExperience:         dto.YearsOfExperience,
+		YearsOfInsuredExperience:  dto.YearsOfInsuredExperience,
+		MonthsOfExperience:        dto.MonthsOfExperience,
+		MonthsOfInsuredExperience: dto.MonthsOfInsuredExperience,
+		DaysOfExperience:          dto.DaysOfExperience,
+		DaysOfInsuredExperience:   dto.DaysOfInsuredExperience,
 		DateOfStart:               dto.DateOfStart,
 		DateOfEnd:                 dto.DateOfEnd,
 		FileID:                    dto.FileID,
@@ -55,8 +67,12 @@ func ToEmployeeExperienceResponseDTO(data data.EmployeeExperience) EmployeeExper
 		Relevant:                  data.Relevant,
 		OrganizationUnit:          data.OrganizationUnit,
 		OrganizationUnitID:        data.OrganizationUnitID,
-		AmountOfExperience:        data.AmountOfExperience,
-		AmountOfInsuredExperience: data.AmountOfInsuredExperience,
+		YearsOfExperience:         data.YearsOfExperience,
+		YearsOfInsuredExperience:  data.YearsOfInsuredExperience,
+		MonthsOfExperience:        data.MonthsOfExperience,
+		MonthsOfInsuredExperience: data.MonthsOfInsuredExperience,
+		DaysOfExperience:          data.DaysOfExperience,
+		DaysOfInsuredExperience:   data.DaysOfInsuredExperience,
 		DateOfStart:               data.DateOfStart,
 		DateOfEnd:                 data.DateOfEnd,
 		FileID:                    data.FileID,

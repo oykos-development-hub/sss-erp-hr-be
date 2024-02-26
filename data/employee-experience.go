@@ -13,8 +13,12 @@ type EmployeeExperience struct {
 	Relevant                  bool      `db:"relevant"`
 	OrganizationUnit          *string   `db:"organization_unit"`
 	OrganizationUnitID        *int      `db:"organization_unit_id"`
-	AmountOfExperience        *int      `db:"amount_of_experience"`
-	AmountOfInsuredExperience *int      `db:"amount_of_insured_experience"`
+	YearsOfExperience         *int      `db:"years_of_experience"`
+	YearsOfInsuredExperience  *int      `db:"years_of_insured_experience"`
+	MonthsOfExperience        *int      `db:"months_of_experience"`
+	MonthsOfInsuredExperience *int      `db:"months_of_insured_experience"`
+	DaysOfExperience          *int      `db:"days_of_experience"`
+	DaysOfInsuredExperience   *int      `db:"days_of_insured_experience"`
 	DateOfStart               time.Time `db:"date_of_start"`
 	DateOfEnd                 time.Time `db:"date_of_end"`
 	FileID                    int       `db:"file_id"`
