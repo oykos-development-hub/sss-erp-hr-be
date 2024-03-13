@@ -26,6 +26,7 @@ type RevisionDTO struct {
 	Revisor                 []int64   `json:"revisor_id" validate:"required"`
 	RevisionType            int       `json:"revision_type_id" validate:"required"`
 	FileID                  *int      `json:"file_id"`
+	TipsFileID              *int      `json:"tips_file_id"`
 }
 
 type RevisionResponseDTO struct {
@@ -40,6 +41,7 @@ type RevisionResponseDTO struct {
 	Revisor                 []int64   `json:"revisor_id"`
 	RevisionType            int       `json:"revision_type_id"`
 	FileID                  *int      `json:"file_id"`
+	TipsFileID              *int      `json:"tips_file_id"`
 	CreatedAt               time.Time `json:"created_at"`
 	UpdatedAt               time.Time `json:"updated_at"`
 }
@@ -56,6 +58,7 @@ func (dto RevisionDTO) ToRevision() *data.Revision {
 		Revisor:                 dto.Revisor,
 		RevisionType:            dto.RevisionType,
 		FileID:                  dto.FileID,
+		TipsFileID:              dto.TipsFileID,
 	}
 }
 
@@ -72,6 +75,7 @@ func ToRevisionResponseDTO(data data.Revision) RevisionResponseDTO {
 		Revisor:                 data.Revisor,
 		RevisionType:            data.RevisionType,
 		FileID:                  data.FileID,
+		TipsFileID:              data.TipsFileID,
 		CreatedAt:               data.CreatedAt,
 		UpdatedAt:               data.UpdatedAt,
 	}

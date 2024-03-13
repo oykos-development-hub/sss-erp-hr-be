@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS revisions (
     revisor_id INTEGER[] NOT NULL REFERENCES user_profiles(id) ON DELETE CASCADE,
     revision_type_id INTEGER NOT NULL,
     file_id INTEGER,
+    tips_file_id INTEGER,
     created_at TIMESTAMP,
     updated_at TIMESTAMP
 );
