@@ -13,6 +13,7 @@ CREATE TABLE organization_units (
     address text NULL,
     description text NULL,
     folder_id INTEGER NULL,
+    bank_accounts TEXT[],
     created_at TIMESTAMP,
     updated_at TIMESTAMP
 );

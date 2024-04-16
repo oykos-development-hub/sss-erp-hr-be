@@ -7,33 +7,35 @@ import (
 )
 
 type CreateOrganizationUnitDTO struct {
-	ParentID       *int    `json:"parent_id,omitempty"`
-	Title          string  `json:"title" validate:"required"`
-	Pib            *string `json:"pib"`
-	Abbreviation   *string `json:"abbreviation"`
-	NumberOfJudges *int    `json:"number_of_judges"`
-	Color          *string `json:"color" validate:"omitempty"`
-	Icon           *string `json:"icon" validate:"omitempty"`
-	City           *string `json:"city"`
-	OrderID        *int    `json:"order_id"`
-	Address        *string `json:"address" validate:"omitempty"`
-	Description    *string `json:"description" validate:"omitempty"`
-	FolderID       *int    `json:"folder_id,omitempty"`
+	ParentID       *int     `json:"parent_id,omitempty"`
+	Title          string   `json:"title" validate:"required"`
+	Pib            *string  `json:"pib"`
+	Abbreviation   *string  `json:"abbreviation"`
+	NumberOfJudges *int     `json:"number_of_judges"`
+	Color          *string  `json:"color" validate:"omitempty"`
+	Icon           *string  `json:"icon" validate:"omitempty"`
+	City           *string  `json:"city"`
+	OrderID        *int     `json:"order_id"`
+	BankAccounts   []string `json:"bank_accounts"`
+	Address        *string  `json:"address" validate:"omitempty"`
+	Description    *string  `json:"description" validate:"omitempty"`
+	FolderID       *int     `json:"folder_id,omitempty"`
 }
 
 type UpdateOrganizationUnitDTO struct {
-	ParentID       *int    `json:"parent_id,omitempty"`
-	Title          *string `json:"title"`
-	Abbreviation   *string `json:"abbreviation"`
-	Pib            *string `json:"pib"`
-	NumberOfJudges *int    `json:"number_of_judges"`
-	Color          *string `json:"color" validate:"omitempty"`
-	Icon           *string `json:"icon" validate:"omitempty"`
-	City           *string `json:"city"`
-	OrderID        *int    `json:"order_id"`
-	Address        *string `json:"address" validate:"omitempty"`
-	Description    *string `json:"description" validate:"omitempty"`
-	FolderID       *int    `json:"folder_id,omitempty"`
+	ParentID       *int     `json:"parent_id,omitempty"`
+	Title          *string  `json:"title"`
+	Abbreviation   *string  `json:"abbreviation"`
+	Pib            *string  `json:"pib"`
+	NumberOfJudges *int     `json:"number_of_judges"`
+	Color          *string  `json:"color" validate:"omitempty"`
+	Icon           *string  `json:"icon" validate:"omitempty"`
+	City           *string  `json:"city"`
+	OrderID        *int     `json:"order_id"`
+	BankAccounts   []string `json:"bank_accounts"`
+	Address        *string  `json:"address" validate:"omitempty"`
+	Description    *string  `json:"description" validate:"omitempty"`
+	FolderID       *int     `json:"folder_id,omitempty"`
 }
 
 type OrganizationUnitResponseDTO struct {
@@ -44,6 +46,7 @@ type OrganizationUnitResponseDTO struct {
 	Abbreviation   *string   `json:"abbreviation"`
 	NumberOfJudges *int      `json:"number_of_judges"`
 	Color          *string   `json:"color"`
+	BankAccounts   []string  `json:"bank_accounts"`
 	OrderID        *int      `json:"order_id"`
 	City           *string   `json:"city"`
 	Icon           *string   `json:"icon"`
@@ -80,6 +83,7 @@ func (dto CreateOrganizationUnitDTO) ToOrganizationUnit() *data.OrganizationUnit
 		Address:        dto.Address,
 		Description:    dto.Description,
 		FolderID:       dto.FolderID,
+		BankAccounts:   dto.BankAccounts,
 		CreatedAt:      time.Now(),
 		UpdatedAt:      time.Now(),
 	}
@@ -102,7 +106,7 @@ func (dto UpdateOrganizationUnitDTO) ToOrganizationUnit(data *data.OrganizationU
 	data.OrderID = dto.OrderID
 	data.Description = dto.Description
 	data.FolderID = dto.FolderID
-
+	data.BankAccounts = dto.BankAccounts
 	data.UpdatedAt = time.Now()
 }
 
@@ -119,6 +123,7 @@ func ToOrganizationUnitResponseDTO(data data.OrganizationUnit) OrganizationUnitR
 		Color:          data.Color,
 		Icon:           data.Icon,
 		Address:        data.Address,
+		BankAccounts:   data.BankAccounts,
 		Description:    data.Description,
 		FolderID:       data.FolderID,
 		CreatedAt:      data.CreatedAt,

@@ -3,26 +3,28 @@ package data
 import (
 	"time"
 
+	"github.com/lib/pq"
 	up "github.com/upper/db/v4"
 )
 
 // OrganizationUnit struct
 type OrganizationUnit struct {
-	ID             int       `db:"id,omitempty"`
-	ParentID       *int      `db:"parent_id"`
-	Title          string    `db:"title"`
-	Pib            *string   `db:"pib"`
-	Abbreviation   *string   `db:"abbreviation"`
-	NumberOfJudges *int      `db:"number_of_judges"`
-	OrderID        *int      `db:"order_id"`
-	Color          *string   `db:"color"`
-	Icon           *string   `db:"icon"`
-	Address        *string   `db:"address"`
-	City           *string   `db:"city"`
-	Description    *string   `db:"description"`
-	FolderID       *int      `db:"folder_id"`
-	CreatedAt      time.Time `db:"created_at,omitempty"`
-	UpdatedAt      time.Time `db:"updated_at"`
+	ID             int            `db:"id,omitempty"`
+	ParentID       *int           `db:"parent_id"`
+	Title          string         `db:"title"`
+	Pib            *string        `db:"pib"`
+	Abbreviation   *string        `db:"abbreviation"`
+	NumberOfJudges *int           `db:"number_of_judges"`
+	OrderID        *int           `db:"order_id"`
+	Color          *string        `db:"color"`
+	Icon           *string        `db:"icon"`
+	Address        *string        `db:"address"`
+	City           *string        `db:"city"`
+	Description    *string        `db:"description"`
+	FolderID       *int           `db:"folder_id"`
+	BankAccounts   pq.StringArray `db:"bank_accounts"`
+	CreatedAt      time.Time      `db:"created_at,omitempty"`
+	UpdatedAt      time.Time      `db:"updated_at"`
 }
 
 // Table returns the table name
