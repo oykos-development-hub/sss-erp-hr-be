@@ -34,6 +34,8 @@ CREATE TABLE user_profiles (
     revisor_role boolean,
     engagement_type_id integer,
     is_judge bool,
+    personal_id text,
+    year integer,
     file_id integer not null,
     created_at timestamp without time zone NOT NULL DEFAULT now(),
     updated_at timestamp without time zone NOT NULL DEFAULT now()
