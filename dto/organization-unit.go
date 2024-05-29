@@ -133,6 +133,7 @@ func ToOrganizationUnitResponseDTO(data data.OrganizationUnit) OrganizationUnitR
 		BankAccounts:   data.BankAccounts,
 		Description:    data.Description,
 		FolderID:       data.FolderID,
+		Code:           data.Code,
 		CreatedAt:      data.CreatedAt,
 		UpdatedAt:      data.UpdatedAt,
 	}
