@@ -14,6 +14,7 @@ CREATE TABLE organization_units (
     description text NULL,
     folder_id INTEGER NULL,
     bank_accounts TEXT[],
+    code TEXT NOT NULL DEFAULT '',
     created_at TIMESTAMP,
     updated_at TIMESTAMP
 );

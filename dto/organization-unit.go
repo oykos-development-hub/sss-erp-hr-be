@@ -19,6 +19,7 @@ type CreateOrganizationUnitDTO struct {
 	BankAccounts   []string `json:"bank_accounts"`
 	Address        *string  `json:"address" validate:"omitempty"`
 	Description    *string  `json:"description" validate:"omitempty"`
+	Code           string   `json:"code"`
 	FolderID       *int     `json:"folder_id,omitempty"`
 }
 
@@ -35,6 +36,7 @@ type UpdateOrganizationUnitDTO struct {
 	BankAccounts   []string `json:"bank_accounts"`
 	Address        *string  `json:"address" validate:"omitempty"`
 	Description    *string  `json:"description" validate:"omitempty"`
+	Code           *string  `json:"code"`
 	FolderID       *int     `json:"folder_id,omitempty"`
 }
 
@@ -53,6 +55,7 @@ type OrganizationUnitResponseDTO struct {
 	Address        *string   `json:"address"`
 	Description    *string   `json:"description"`
 	FolderID       *int      `json:"folder_id"`
+	Code           string    `json:"code"`
 	CreatedAt      time.Time `json:"created_at"`
 	UpdatedAt      time.Time `json:"updated_at"`
 }
@@ -84,6 +87,7 @@ func (dto CreateOrganizationUnitDTO) ToOrganizationUnit() *data.OrganizationUnit
 		Description:    dto.Description,
 		FolderID:       dto.FolderID,
 		BankAccounts:   dto.BankAccounts,
+		Code:           dto.Code,
 		CreatedAt:      time.Now(),
 		UpdatedAt:      time.Now(),
 	}
@@ -96,6 +100,9 @@ func (dto UpdateOrganizationUnitDTO) ToOrganizationUnit(data *data.OrganizationU
 	}
 	if dto.Abbreviation != nil {
 		data.Abbreviation = dto.Abbreviation
+	}
+	if dto.Code != nil {
+		data.Code = *dto.Code
 	}
 	data.Pib = dto.Pib
 	data.NumberOfJudges = dto.NumberOfJudges

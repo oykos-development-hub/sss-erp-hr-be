@@ -23,6 +23,7 @@ type OrganizationUnit struct {
 	Description    *string        `db:"description"`
 	FolderID       *int           `db:"folder_id"`
 	BankAccounts   pq.StringArray `db:"bank_accounts"`
+	Code           string         `db:"code"`
 	CreatedAt      time.Time      `db:"created_at,omitempty"`
 	UpdatedAt      time.Time      `db:"updated_at"`
 }
