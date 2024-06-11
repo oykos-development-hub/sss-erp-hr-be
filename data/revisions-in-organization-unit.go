@@ -20,9 +20,9 @@ func (t *RevisionsInOrganizationUnit) Table() string {
 	return "revisions_in_organization_units"
 }
 
-// GetAll gets all records from the database, using upper
+// GetAll gets all records from the database, using Upper
 func (t *RevisionsInOrganizationUnit) GetAll(condition *up.Cond) ([]*RevisionsInOrganizationUnit, error) {
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	var all []*RevisionsInOrganizationUnit
 	var res up.Result
 
@@ -40,10 +40,10 @@ func (t *RevisionsInOrganizationUnit) GetAll(condition *up.Cond) ([]*RevisionsIn
 	return all, err
 }
 
-// Get gets one record from the database, by id, using upper
+// Get gets one record from the database, by id, using Upper
 func (t *RevisionsInOrganizationUnit) Get(id int) (*RevisionsInOrganizationUnit, error) {
 	var one RevisionsInOrganizationUnit
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 
 	res := collection.Find(up.Cond{"id": id})
 	err := res.One(&one)
@@ -53,10 +53,10 @@ func (t *RevisionsInOrganizationUnit) Get(id int) (*RevisionsInOrganizationUnit,
 	return &one, nil
 }
 
-// Update updates a record in the database, using upper
+// Update updates a record in the database, using Upper
 func (t *RevisionsInOrganizationUnit) Update(m RevisionsInOrganizationUnit) error {
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res := collection.Find(m.ID)
 	err := res.Update(&m)
 	if err != nil {
@@ -65,9 +65,9 @@ func (t *RevisionsInOrganizationUnit) Update(m RevisionsInOrganizationUnit) erro
 	return nil
 }
 
-// Delete deletes a record from the database by id, using upper
+// Delete deletes a record from the database by id, using Upper
 func (t *RevisionsInOrganizationUnit) Delete(id int) error {
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res := collection.Find(id)
 	err := res.Delete()
 	if err != nil {
@@ -76,11 +76,11 @@ func (t *RevisionsInOrganizationUnit) Delete(id int) error {
 	return nil
 }
 
-// Insert inserts a model into the database, using upper
+// Insert inserts a model into the database, using Upper
 func (t *RevisionsInOrganizationUnit) Insert(m RevisionsInOrganizationUnit) (int, error) {
 	m.CreatedAt = time.Now()
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res, err := collection.Insert(m)
 	if err != nil {
 		return 0, err

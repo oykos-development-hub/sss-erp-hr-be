@@ -1,6 +1,8 @@
 package services
 
 import (
+	"context"
+
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
 	"gitlab.sudovi.me/erp/hr-ms-api/errors"
@@ -23,10 +25,10 @@ func NewUserProfileServiceImpl(app *celeritas.Celeritas, repo data.UserProfile, 
 	}
 }
 
-func (h *UserProfileServiceImpl) CreateUserProfile(input dto.UserProfileDTO) (*dto.UserProfileResponseDTO, error) {
+func (h *UserProfileServiceImpl) CreateUserProfile(ctx context.Context, input dto.UserProfileDTO) (*dto.UserProfileResponseDTO, error) {
 	userData := input.ToUserProfile()
 
-	id, err := h.repo.Insert(*userData)
+	id, err := h.repo.Insert(ctx, *userData)
 	if err != nil {
 		return nil, err
 	}
@@ -41,11 +43,11 @@ func (h *UserProfileServiceImpl) CreateUserProfile(input dto.UserProfileDTO) (*d
 	return &res, nil
 }
 
-func (h *UserProfileServiceImpl) UpdateUserProfile(id int, input dto.UserProfileDTO) (*dto.UserProfileResponseDTO, error) {
+func (h *UserProfileServiceImpl) UpdateUserProfile(ctx context.Context, id int, input dto.UserProfileDTO) (*dto.UserProfileResponseDTO, error) {
 	userData := input.ToUserProfile()
 	userData.ID = id
 
-	err := h.repo.Update(*userData)
+	err := h.repo.Update(ctx, *userData)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -59,8 +61,8 @@ func (h *UserProfileServiceImpl) UpdateUserProfile(id int, input dto.UserProfile
 	return &response, nil
 }
 
-func (h *UserProfileServiceImpl) DeleteUserProfile(id int) error {
-	err := h.repo.Delete(id)
+func (h *UserProfileServiceImpl) DeleteUserProfile(ctx context.Context, id int) error {
+	err := h.repo.Delete(ctx, id)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
 		return errors.ErrInternalServer

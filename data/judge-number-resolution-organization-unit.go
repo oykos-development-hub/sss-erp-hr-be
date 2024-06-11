@@ -23,7 +23,7 @@ func (t *JudgeNumberResolutionOrganizationUnit) Table() string {
 }
 
 func (t *JudgeNumberResolutionOrganizationUnit) GetAll(page *int, pageSize *int, condition *up.Cond) ([]*JudgeNumberResolutionOrganizationUnit, *uint64, error) {
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	var all []*JudgeNumberResolutionOrganizationUnit
 	var res up.Result
 
@@ -50,10 +50,10 @@ func (t *JudgeNumberResolutionOrganizationUnit) GetAll(page *int, pageSize *int,
 	return all, &total, err
 }
 
-// Get gets one record from the database, by id, using upper
+// Get gets one record from the database, by id, using Upper
 func (t *JudgeNumberResolutionOrganizationUnit) Get(id int) (*JudgeNumberResolutionOrganizationUnit, error) {
 	var one JudgeNumberResolutionOrganizationUnit
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 
 	res := collection.Find(up.Cond{"id": id})
 	err := res.One(&one)
@@ -63,10 +63,10 @@ func (t *JudgeNumberResolutionOrganizationUnit) Get(id int) (*JudgeNumberResolut
 	return &one, nil
 }
 
-// Update updates a record in the database, using upper
+// Update updates a record in the database, using Upper
 func (t *JudgeNumberResolutionOrganizationUnit) Update(m JudgeNumberResolutionOrganizationUnit) error {
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res := collection.Find(m.ID)
 	err := res.Update(&m)
 	if err != nil {
@@ -75,9 +75,9 @@ func (t *JudgeNumberResolutionOrganizationUnit) Update(m JudgeNumberResolutionOr
 	return nil
 }
 
-// Delete deletes a record from the database by id, using upper
+// Delete deletes a record from the database by id, using Upper
 func (t *JudgeNumberResolutionOrganizationUnit) Delete(id int) error {
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res := collection.Find(id)
 	err := res.Delete()
 	if err != nil {
@@ -86,11 +86,11 @@ func (t *JudgeNumberResolutionOrganizationUnit) Delete(id int) error {
 	return nil
 }
 
-// Insert inserts a model into the database, using upper
+// Insert inserts a model into the database, using Upper
 func (t *JudgeNumberResolutionOrganizationUnit) Insert(m JudgeNumberResolutionOrganizationUnit) (int, error) {
 	m.CreatedAt = time.Now()
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res, err := collection.Insert(m)
 	if err != nil {
 		return 0, err

@@ -38,9 +38,9 @@ func (t *EmployeeFamilyMember) Table() string {
 	return "employee_family_members"
 }
 
-// GetAll gets all records from the database, using upper
+// GetAll gets all records from the database, using Upper
 func (t *EmployeeFamilyMember) GetAll(condition *up.Cond) ([]*EmployeeFamilyMember, error) {
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	var all []*EmployeeFamilyMember
 	var res up.Result
 
@@ -58,10 +58,10 @@ func (t *EmployeeFamilyMember) GetAll(condition *up.Cond) ([]*EmployeeFamilyMemb
 	return all, err
 }
 
-// Get gets one record from the database, by id, using upper
+// Get gets one record from the database, by id, using Upper
 func (t *EmployeeFamilyMember) Get(id int) (*EmployeeFamilyMember, error) {
 	var one EmployeeFamilyMember
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 
 	res := collection.Find(up.Cond{"id": id})
 	err := res.One(&one)
@@ -71,10 +71,10 @@ func (t *EmployeeFamilyMember) Get(id int) (*EmployeeFamilyMember, error) {
 	return &one, nil
 }
 
-// Update updates a record in the database, using upper
+// Update updates a record in the database, using Upper
 func (t *EmployeeFamilyMember) Update(m EmployeeFamilyMember) error {
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res := collection.Find(m.ID)
 	err := res.Update(&m)
 	if err != nil {
@@ -83,9 +83,9 @@ func (t *EmployeeFamilyMember) Update(m EmployeeFamilyMember) error {
 	return nil
 }
 
-// Delete deletes a record from the database by id, using upper
+// Delete deletes a record from the database by id, using Upper
 func (t *EmployeeFamilyMember) Delete(id int) error {
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res := collection.Find(id)
 	err := res.Delete()
 	if err != nil {
@@ -94,11 +94,11 @@ func (t *EmployeeFamilyMember) Delete(id int) error {
 	return nil
 }
 
-// Insert inserts a model into the database, using upper
+// Insert inserts a model into the database, using Upper
 func (t *EmployeeFamilyMember) Insert(m EmployeeFamilyMember) (int, error) {
 	m.CreatedAt = time.Now()
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res, err := collection.Insert(m)
 	if err != nil {
 		return 0, err

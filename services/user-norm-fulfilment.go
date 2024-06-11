@@ -1,6 +1,7 @@
 package services
 
 import (
+	"context"
 	"time"
 
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
@@ -23,10 +24,10 @@ func NewUserNormFulfilmentServiceImpl(app *celeritas.Celeritas, repo data.UserNo
 	}
 }
 
-func (h *UserNormFulfilmentServiceImpl) CreateUserNormFulfilment(input dto.UserNormFulfilmentDTO) (*dto.UserNormFulfilmentResponseDTO, error) {
+func (h *UserNormFulfilmentServiceImpl) CreateUserNormFulfilment(ctx context.Context, input dto.UserNormFulfilmentDTO) (*dto.UserNormFulfilmentResponseDTO, error) {
 	data := input.ToUserNormFulfilment()
 
-	id, err := h.repo.Insert(*data)
+	id, err := h.repo.Insert(ctx, *data)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -41,11 +42,11 @@ func (h *UserNormFulfilmentServiceImpl) CreateUserNormFulfilment(input dto.UserN
 	return &res, nil
 }
 
-func (h *UserNormFulfilmentServiceImpl) UpdateUserNormFulfilment(id int, input dto.UserNormFulfilmentDTO) (*dto.UserNormFulfilmentResponseDTO, error) {
+func (h *UserNormFulfilmentServiceImpl) UpdateUserNormFulfilment(ctx context.Context, id int, input dto.UserNormFulfilmentDTO) (*dto.UserNormFulfilmentResponseDTO, error) {
 	data := input.ToUserNormFulfilment()
 	data.ID = id
 
-	err := h.repo.Update(*data)
+	err := h.repo.Update(ctx, *data)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -60,8 +61,8 @@ func (h *UserNormFulfilmentServiceImpl) UpdateUserNormFulfilment(id int, input d
 	return &response, nil
 }
 
-func (h *UserNormFulfilmentServiceImpl) DeleteUserNormFulfilment(id int) error {
-	err := h.repo.Delete(id)
+func (h *UserNormFulfilmentServiceImpl) DeleteUserNormFulfilment(ctx context.Context, id int) error {
+	err := h.repo.Delete(ctx, id)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
 		return errors.ErrInternalServer

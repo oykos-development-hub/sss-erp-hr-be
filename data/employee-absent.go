@@ -1,9 +1,13 @@
 package data
 
 import (
+	"context"
+	"errors"
+	"fmt"
 	"time"
 
 	up "github.com/upper/db/v4"
+	"gitlab.sudovi.me/erp/hr-ms-api/contextutil"
 )
 
 // EmployeeAbsent struct
@@ -26,9 +30,9 @@ func (t *EmployeeAbsent) Table() string {
 	return "employee_absents"
 }
 
-// GetAll gets all records from the database, using upper
+// GetAll gets all records from the database, using Upper
 func (t *EmployeeAbsent) GetAll(condition *up.Cond) ([]*EmployeeAbsent, error) {
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	var all []*EmployeeAbsent
 	var res up.Result
 
@@ -46,10 +50,10 @@ func (t *EmployeeAbsent) GetAll(condition *up.Cond) ([]*EmployeeAbsent, error) {
 	return all, err
 }
 
-// Get gets one record from the database, by id, using upper
+// Get gets one record from the database, by id, using Upper
 func (t *EmployeeAbsent) Get(id int) (*EmployeeAbsent, error) {
 	var one EmployeeAbsent
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 
 	res := collection.Find(up.Cond{"id": id})
 	err := res.One(&one)
@@ -59,40 +63,99 @@ func (t *EmployeeAbsent) Get(id int) (*EmployeeAbsent, error) {
 	return &one, nil
 }
 
-// Update updates a record in the database, using upper
-func (t *EmployeeAbsent) Update(m EmployeeAbsent) error {
+// Update updates a record in the database, using Upper
+func (t *EmployeeAbsent) Update(ctx context.Context, m EmployeeAbsent) error {
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
-	res := collection.Find(m.ID)
-	err := res.Update(&m)
+	userID, ok := contextutil.GetUserIDFromContext(ctx)
+	if !ok {
+		return errors.New("user ID not found in context")
+	}
+
+	err := Upper.Tx(func(sess up.Session) error {
+
+		query := fmt.Sprintf("SET myapp.user_id = %d", userID)
+		if _, err := sess.SQL().Exec(query); err != nil {
+			return err
+		}
+
+		collection := sess.Collection(t.Table())
+		res := collection.Find(m.ID)
+		if err := res.Update(&m); err != nil {
+			return err
+		}
+
+		return nil
+	})
+
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-// Delete deletes a record from the database by id, using upper
-func (t *EmployeeAbsent) Delete(id int) error {
-	collection := upper.Collection(t.Table())
-	res := collection.Find(id)
-	err := res.Delete()
+// Delete deletes a record from the database by id, using Upper
+func (t *EmployeeAbsent) Delete(ctx context.Context, id int) error {
+	userID, ok := contextutil.GetUserIDFromContext(ctx)
+	if !ok {
+		return errors.New("user ID not found in context")
+	}
+
+	err := Upper.Tx(func(sess up.Session) error {
+		query := fmt.Sprintf("SET myapp.user_id = %d", userID)
+		if _, err := sess.SQL().Exec(query); err != nil {
+			return err
+		}
+
+		collection := sess.Collection(t.Table())
+		res := collection.Find(id)
+		if err := res.Delete(); err != nil {
+			return err
+		}
+
+		return nil
+	})
+
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-// Insert inserts a model into the database, using upper
-func (t *EmployeeAbsent) Insert(m EmployeeAbsent) (int, error) {
+// Insert inserts a model into the database, using Upper
+func (t *EmployeeAbsent) Insert(ctx context.Context, m EmployeeAbsent) (int, error) {
 	m.CreatedAt = time.Now()
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
-	res, err := collection.Insert(m)
+	userID, ok := contextutil.GetUserIDFromContext(ctx)
+	if !ok {
+		return 0, errors.New("user ID not found in context")
+	}
+
+	var id int
+
+	err := Upper.Tx(func(sess up.Session) error {
+
+		query := fmt.Sprintf("SET myapp.user_id = %d", userID)
+		if _, err := sess.SQL().Exec(query); err != nil {
+			return err
+		}
+
+		collection := sess.Collection(t.Table())
+
+		var res up.InsertResult
+		var err error
+
+		if res, err = collection.Insert(m); err != nil {
+			return err
+		}
+
+		id = getInsertId(res.ID())
+
+		return nil
+	})
+
 	if err != nil {
 		return 0, err
 	}
-
-	id := getInsertId(res.ID())
 
 	return id, nil
 }

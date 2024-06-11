@@ -22,9 +22,9 @@ func (t *Judge) Table() string {
 	return "judges"
 }
 
-// GetAll gets all records from the database, using upper
+// GetAll gets all records from the database, using Upper
 func (t *Judge) GetAll(page *int, size *int, condition *up.Cond) ([]*Judge, *uint64, error) {
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	var all []*Judge
 	var res up.Result
 
@@ -52,10 +52,10 @@ func (t *Judge) GetAll(page *int, size *int, condition *up.Cond) ([]*Judge, *uin
 	return all, &total, err
 }
 
-// Get gets one record from the database, by id, using upper
+// Get gets one record from the database, by id, using Upper
 func (t *Judge) Get(id int) (*Judge, error) {
 	var one Judge
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 
 	res := collection.Find(up.Cond{"id": id})
 	err := res.One(&one)
@@ -65,10 +65,10 @@ func (t *Judge) Get(id int) (*Judge, error) {
 	return &one, nil
 }
 
-// Update updates a record in the database, using upper
+// Update updates a record in the database, using Upper
 func (t *Judge) Update(m Judge) error {
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res := collection.Find(m.ID)
 	err := res.Update(&m)
 	if err != nil {
@@ -77,9 +77,9 @@ func (t *Judge) Update(m Judge) error {
 	return nil
 }
 
-// Delete deletes a record from the database by id, using upper
+// Delete deletes a record from the database by id, using Upper
 func (t *Judge) Delete(id int) error {
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res := collection.Find(id)
 	err := res.Delete()
 	if err != nil {
@@ -88,11 +88,11 @@ func (t *Judge) Delete(id int) error {
 	return nil
 }
 
-// Insert inserts a model into the database, using upper
+// Insert inserts a model into the database, using Upper
 func (t *Judge) Insert(m Judge) (int, error) {
 	m.CreatedAt = time.Now()
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res, err := collection.Insert(m)
 	if err != nil {
 		return 0, err

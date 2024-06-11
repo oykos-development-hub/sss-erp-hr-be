@@ -31,9 +31,9 @@ func (t *TenderApplicationsInOrganizationUnit) Table() string {
 	return "tender_applications_in_organization_units"
 }
 
-// GetAll gets all records from the database, using upper
+// GetAll gets all records from the database, using Upper
 func (t *TenderApplicationsInOrganizationUnit) GetAll(page *int, pageSize *int, condition *up.AndExpr) ([]*TenderApplicationsInOrganizationUnit, *uint64, error) {
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	var all []*TenderApplicationsInOrganizationUnit
 	var res up.Result
 
@@ -60,10 +60,10 @@ func (t *TenderApplicationsInOrganizationUnit) GetAll(page *int, pageSize *int, 
 	return all, &total, err
 }
 
-// Get gets one record from the database, by id, using upper
+// Get gets one record from the database, by id, using Upper
 func (t *TenderApplicationsInOrganizationUnit) Get(id int) (*TenderApplicationsInOrganizationUnit, error) {
 	var one TenderApplicationsInOrganizationUnit
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 
 	res := collection.Find(up.Cond{"id": id})
 	err := res.One(&one)
@@ -73,10 +73,10 @@ func (t *TenderApplicationsInOrganizationUnit) Get(id int) (*TenderApplicationsI
 	return &one, nil
 }
 
-// Update updates a record in the database, using upper
+// Update updates a record in the database, using Upper
 func (t *TenderApplicationsInOrganizationUnit) Update(m TenderApplicationsInOrganizationUnit) error {
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res := collection.Find(m.ID)
 	err := res.Update(&m)
 	if err != nil {
@@ -85,9 +85,9 @@ func (t *TenderApplicationsInOrganizationUnit) Update(m TenderApplicationsInOrga
 	return nil
 }
 
-// Delete deletes a record from the database by id, using upper
+// Delete deletes a record from the database by id, using Upper
 func (t *TenderApplicationsInOrganizationUnit) Delete(id int) error {
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res := collection.Find(id)
 	err := res.Delete()
 	if err != nil {
@@ -96,11 +96,11 @@ func (t *TenderApplicationsInOrganizationUnit) Delete(id int) error {
 	return nil
 }
 
-// Insert inserts a model into the database, using upper
+// Insert inserts a model into the database, using Upper
 func (t *TenderApplicationsInOrganizationUnit) Insert(m TenderApplicationsInOrganizationUnit) (int, error) {
 	m.CreatedAt = time.Now()
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res, err := collection.Insert(m)
 	if err != nil {
 		return 0, err

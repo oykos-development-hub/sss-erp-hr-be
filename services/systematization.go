@@ -1,6 +1,7 @@
 package services
 
 import (
+	"context"
 	"fmt"
 	"strconv"
 
@@ -23,10 +24,10 @@ func NewSystematizationServiceImpl(app *celeritas.Celeritas, repo data.Systemati
 	}
 }
 
-func (h *SystematizationServiceImpl) CreateSystematization(input dto.SystematizationDTO) (*dto.SystematizationResponseDTO, error) {
+func (h *SystematizationServiceImpl) CreateSystematization(ctx context.Context, input dto.SystematizationDTO) (*dto.SystematizationResponseDTO, error) {
 	data := input.ToSystematization()
 
-	id, err := h.repo.Insert(*data)
+	id, err := h.repo.Insert(ctx, *data)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -41,11 +42,11 @@ func (h *SystematizationServiceImpl) CreateSystematization(input dto.Systematiza
 	return &res, nil
 }
 
-func (h *SystematizationServiceImpl) UpdateSystematization(id int, input dto.SystematizationDTO) (*dto.SystematizationResponseDTO, error) {
+func (h *SystematizationServiceImpl) UpdateSystematization(ctx context.Context, id int, input dto.SystematizationDTO) (*dto.SystematizationResponseDTO, error) {
 	data := input.ToSystematization()
 	data.ID = id
 
-	err := h.repo.Update(*data)
+	err := h.repo.Update(ctx, *data)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -60,8 +61,8 @@ func (h *SystematizationServiceImpl) UpdateSystematization(id int, input dto.Sys
 	return &response, nil
 }
 
-func (h *SystematizationServiceImpl) DeleteSystematization(id int) error {
-	err := h.repo.Delete(id)
+func (h *SystematizationServiceImpl) DeleteSystematization(ctx context.Context, id int) error {
+	err := h.repo.Delete(ctx, id)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
 		return errors.ErrInternalServer

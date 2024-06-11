@@ -190,6 +190,12 @@ func routes(app *celeritas.Celeritas, middleware *middleware.Middleware, handler
 		rt.Get("/revision-revisors", handlers.RevisionRevisorHandler.GetRevisionRevisorList)
 		rt.Put("/revision-revisors/{id}", handlers.RevisionRevisorHandler.UpdateRevisionRevisor)
 		rt.Delete("/revision-revisors/{id}", handlers.RevisionRevisorHandler.DeleteRevisionRevisor)
+	
+		rt.Post("/logs", handlers.LogHandler.CreateLog)
+rt.Get("/logs/{id}", handlers.LogHandler.GetLogById)
+rt.Get("/logs", handlers.LogHandler.GetLogList)
+rt.Put("/logs/{id}", handlers.LogHandler.UpdateLog)
+rt.Delete("/logs/{id}", handlers.LogHandler.DeleteLog)
 	})
 
 	return app.Routes

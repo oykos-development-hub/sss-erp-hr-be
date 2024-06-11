@@ -34,7 +34,8 @@ type Handlers struct {
 	JudgeHandler                                 JudgeHandler
 	RevisionsInOrganizationUnitHandler           RevisionsInOrganizationUnitHandler
 	RevisionRevisorHandler                       RevisionRevisorHandler
-}
+	LogHandler LogHandler
+	}
 
 type EngagementTypeHandler interface {
 	CreateEngagementType(w http.ResponseWriter, r *http.Request)
@@ -282,4 +283,12 @@ type RevisionRevisorHandler interface {
 	DeleteRevisionRevisor(w http.ResponseWriter, r *http.Request)
 	GetRevisionRevisorById(w http.ResponseWriter, r *http.Request)
 	GetRevisionRevisorList(w http.ResponseWriter, r *http.Request)
+}
+
+type LogHandler interface {
+	CreateLog(w http.ResponseWriter, r *http.Request)
+	UpdateLog(w http.ResponseWriter, r *http.Request)
+	DeleteLog(w http.ResponseWriter, r *http.Request)
+	GetLogById(w http.ResponseWriter, r *http.Request)
+	GetLogList(w http.ResponseWriter, r *http.Request)
 }

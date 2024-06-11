@@ -1,6 +1,7 @@
 package services
 
 import (
+	"context"
 	"fmt"
 
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
@@ -23,10 +24,10 @@ func NewJobPositionServiceImpl(app *celeritas.Celeritas, repo data.JobPosition) 
 	}
 }
 
-func (h *JobPositionServiceImpl) CreateJobPosition(input dto.CreateJobPositionDTO) (*dto.JobPositionResponseDTO, error) {
+func (h *JobPositionServiceImpl) CreateJobPosition(ctx context.Context, input dto.CreateJobPositionDTO) (*dto.JobPositionResponseDTO, error) {
 	data := input.ToJobPosition()
 
-	id, err := h.repo.Insert(*data)
+	id, err := h.repo.Insert(ctx, *data)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -41,11 +42,11 @@ func (h *JobPositionServiceImpl) CreateJobPosition(input dto.CreateJobPositionDT
 	return &res, nil
 }
 
-func (h *JobPositionServiceImpl) UpdateJobPosition(id int, input dto.UpdateJobPositionDTO) (*dto.JobPositionResponseDTO, error) {
+func (h *JobPositionServiceImpl) UpdateJobPosition(ctx context.Context, id int, input dto.UpdateJobPositionDTO) (*dto.JobPositionResponseDTO, error) {
 	data, _ := h.repo.Get(id)
 	input.ToJobPosition(data)
 
-	err := h.repo.Update(*data)
+	err := h.repo.Update(ctx, *data)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -55,8 +56,8 @@ func (h *JobPositionServiceImpl) UpdateJobPosition(id int, input dto.UpdateJobPo
 	return &response, nil
 }
 
-func (h *JobPositionServiceImpl) DeleteJobPosition(id int) error {
-	err := h.repo.Delete(id)
+func (h *JobPositionServiceImpl) DeleteJobPosition(ctx context.Context, id int) error {
+	err := h.repo.Delete(ctx, id)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
 		return errors.ErrInternalServer

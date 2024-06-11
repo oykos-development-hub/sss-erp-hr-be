@@ -1,9 +1,13 @@
 package data
 
 import (
+	"context"
+	apierrors "errors"
+	"fmt"
 	"time"
 
 	up "github.com/upper/db/v4"
+	"gitlab.sudovi.me/erp/hr-ms-api/contextutil"
 	"gitlab.sudovi.me/erp/hr-ms-api/errors"
 )
 
@@ -60,7 +64,7 @@ func (t *UserProfile) Table() string {
 
 // GetAll gets all records from the database, using upper
 func (t *UserProfile) GetAll(page *int, pageSize *int, condition *up.Cond) ([]*UserProfile, *uint64, error) {
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	var all []*UserProfile
 	var res up.Result
 
@@ -87,10 +91,10 @@ func (t *UserProfile) GetAll(page *int, pageSize *int, condition *up.Cond) ([]*U
 	return all, &total, err
 }
 
-// Get gets one record from the database, by id, using upper
+// Get gets one record from the database, by id, using Upper
 func (t *UserProfile) Get(id int) (*UserProfile, error) {
 	var one UserProfile
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 
 	res := collection.Find(up.Cond{"id": id})
 	err := res.One(&one)
@@ -102,7 +106,7 @@ func (t *UserProfile) Get(id int) (*UserProfile, error) {
 
 func (t *UserProfile) GetBy(key string, value interface{}) ([]*UserProfile, error) {
 	var all []*UserProfile
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 
 	res := collection.Find(up.Cond{key: value})
 	err := res.All(&all)
@@ -121,7 +125,7 @@ func (t *UserProfile) GetRevisors() ([]*Revisor, error) {
 	where jp.Title = 'Revizor' and s.active = 2 and j.systematization_id = s.id and j.job_position_id = jp.id 
 	and e.position_in_organization_unit_id = j.id and e.user_profile_id = u.id;`
 
-	rows, err := upper.SQL().Query(query)
+	rows, err := Upper.SQL().Query(query)
 	if err != nil {
 		return nil, err
 	}
@@ -139,8 +143,8 @@ func (t *UserProfile) GetRevisors() ([]*Revisor, error) {
 	return all, err
 }
 
-// Update updates a record in the database, using upper
-func (t *UserProfile) Update(m UserProfile) error {
+// Update updates a record in the database, using Upper
+func (t *UserProfile) Update(ctx context.Context, m UserProfile) error {
 	m.UpdatedAt = time.Now()
 
 	userByOfficialPersonalID, _ := t.GetBy("official_personal_id", m.OfficialPersonalID)
@@ -150,28 +154,63 @@ func (t *UserProfile) Update(m UserProfile) error {
 		}
 	}
 
-	collection := upper.Collection(t.Table())
-	res := collection.Find(m.ID)
-	err := res.Update(&m)
+	userID, ok := contextutil.GetUserIDFromContext(ctx)
+	if !ok {
+		return apierrors.New("user ID not found in context")
+	}
+
+	err := Upper.Tx(func(sess up.Session) error {
+
+		query := fmt.Sprintf("SET myapp.user_id = %d", userID)
+		if _, err := sess.SQL().Exec(query); err != nil {
+			return err
+		}
+
+		collection := sess.Collection(t.Table())
+		res := collection.Find(m.ID)
+		if err := res.Update(&m); err != nil {
+			return err
+		}
+
+		return nil
+	})
+
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-// Delete deletes a record from the database by id, using upper
-func (t *UserProfile) Delete(id int) error {
-	collection := upper.Collection(t.Table())
-	res := collection.Find(id)
-	err := res.Delete()
+// Delete deletes a record from the database by id, using Upper
+func (t *UserProfile) Delete(ctx context.Context, id int) error {
+	userID, ok := contextutil.GetUserIDFromContext(ctx)
+	if !ok {
+		return apierrors.New("user ID not found in context")
+	}
+
+	err := Upper.Tx(func(sess up.Session) error {
+		query := fmt.Sprintf("SET myapp.user_id = %d", userID)
+		if _, err := sess.SQL().Exec(query); err != nil {
+			return err
+		}
+
+		collection := sess.Collection(t.Table())
+		res := collection.Find(id)
+		if err := res.Delete(); err != nil {
+			return err
+		}
+
+		return nil
+	})
+
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-// Insert inserts a model into the database, using upper
-func (t *UserProfile) Insert(m UserProfile) (int, error) {
+// Insert inserts a model into the database, using Upper
+func (t *UserProfile) Insert(ctx context.Context, m UserProfile) (int, error) {
 	m.CreatedAt = time.Now()
 	m.UpdatedAt = time.Now()
 
@@ -180,13 +219,37 @@ func (t *UserProfile) Insert(m UserProfile) (int, error) {
 		return 0, errors.ErrUserJMBGExists
 	}
 
-	collection := upper.Collection(t.Table())
-	res, err := collection.Insert(m)
+	userID, ok := contextutil.GetUserIDFromContext(ctx)
+	if !ok {
+		return 0, apierrors.New("user ID not found in context")
+	}
+
+	var id int
+
+	err := Upper.Tx(func(sess up.Session) error {
+
+		query := fmt.Sprintf("SET myapp.user_id = %d", userID)
+		if _, err := sess.SQL().Exec(query); err != nil {
+			return err
+		}
+
+		collection := sess.Collection(t.Table())
+
+		var res up.InsertResult
+		var err error
+
+		if res, err = collection.Insert(m); err != nil {
+			return err
+		}
+
+		id = getInsertId(res.ID())
+
+		return nil
+	})
+
 	if err != nil {
 		return 0, err
 	}
-
-	id := getInsertId(res.ID())
 
 	return id, nil
 }

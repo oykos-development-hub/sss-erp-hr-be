@@ -1,6 +1,7 @@
 package services
 
 import (
+	"context"
 	"fmt"
 
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
@@ -23,10 +24,10 @@ func NewOrganizationUnitServiceImpl(app *celeritas.Celeritas, repo data.Organiza
 	}
 }
 
-func (h *OrganizationUnitServiceImpl) CreateOrganizationUnit(input dto.CreateOrganizationUnitDTO) (*dto.OrganizationUnitResponseDTO, error) {
+func (h *OrganizationUnitServiceImpl) CreateOrganizationUnit(ctx context.Context, input dto.CreateOrganizationUnitDTO) (*dto.OrganizationUnitResponseDTO, error) {
 	data := input.ToOrganizationUnit()
 
-	id, err := h.repo.Insert(*data)
+	id, err := h.repo.Insert(ctx, *data)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -41,11 +42,11 @@ func (h *OrganizationUnitServiceImpl) CreateOrganizationUnit(input dto.CreateOrg
 	return &res, nil
 }
 
-func (h *OrganizationUnitServiceImpl) UpdateOrganizationUnit(id int, input dto.UpdateOrganizationUnitDTO) (*dto.OrganizationUnitResponseDTO, error) {
+func (h *OrganizationUnitServiceImpl) UpdateOrganizationUnit(ctx context.Context, id int, input dto.UpdateOrganizationUnitDTO) (*dto.OrganizationUnitResponseDTO, error) {
 	data, _ := h.repo.Get(id)
 	input.ToOrganizationUnit(data)
 
-	err := h.repo.Update(*data)
+	err := h.repo.Update(ctx, *data)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -55,8 +56,8 @@ func (h *OrganizationUnitServiceImpl) UpdateOrganizationUnit(id int, input dto.U
 	return &response, nil
 }
 
-func (h *OrganizationUnitServiceImpl) DeleteOrganizationUnit(id int) error {
-	err := h.repo.Delete(id)
+func (h *OrganizationUnitServiceImpl) DeleteOrganizationUnit(ctx context.Context, id int) error {
+	err := h.repo.Delete(ctx, id)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
 		return errors.ErrInternalServer

@@ -1,6 +1,8 @@
 package services
 
 import (
+	"context"
+
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
 	"gitlab.sudovi.me/erp/hr-ms-api/errors"
@@ -20,10 +22,10 @@ func NewEmployeeContractServiceImpl(app *celeritas.Celeritas, repo data.Employee
 	}
 }
 
-func (h *EmployeeContractServiceImpl) CreateEmployeeContract(input dto.EmployeeContractDTO) (*dto.EmployeeContractResponseDTO, error) {
+func (h *EmployeeContractServiceImpl) CreateEmployeeContract(ctx context.Context, input dto.EmployeeContractDTO) (*dto.EmployeeContractResponseDTO, error) {
 	data := input.ToEmployeeContract()
 
-	id, err := h.repo.Insert(*data)
+	id, err := h.repo.Insert(ctx, *data)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -38,11 +40,11 @@ func (h *EmployeeContractServiceImpl) CreateEmployeeContract(input dto.EmployeeC
 	return &res, nil
 }
 
-func (h *EmployeeContractServiceImpl) UpdateEmployeeContract(id int, input dto.EmployeeContractDTO) (*dto.EmployeeContractResponseDTO, error) {
+func (h *EmployeeContractServiceImpl) UpdateEmployeeContract(ctx context.Context, id int, input dto.EmployeeContractDTO) (*dto.EmployeeContractResponseDTO, error) {
 	data := input.ToEmployeeContract()
 	data.ID = id
 
-	err := h.repo.Update(*data)
+	err := h.repo.Update(ctx, *data)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -54,8 +56,8 @@ func (h *EmployeeContractServiceImpl) UpdateEmployeeContract(id int, input dto.E
 	return &response, nil
 }
 
-func (h *EmployeeContractServiceImpl) DeleteEmployeeContract(id int) error {
-	err := h.repo.Delete(id)
+func (h *EmployeeContractServiceImpl) DeleteEmployeeContract(ctx context.Context, id int) error {
+	err := h.repo.Delete(ctx, id)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
 		return errors.ErrInternalServer

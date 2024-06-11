@@ -22,9 +22,9 @@ func (t *EmployeesInOrganizationUnit) Table() string {
 	return "employees_in_organization_units"
 }
 
-// GetAll gets all records from the database, using upper
+// GetAll gets all records from the database, using Upper
 func (t *EmployeesInOrganizationUnit) GetAll(condition *up.Cond) ([]*EmployeesInOrganizationUnit, error) {
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	var all []*EmployeesInOrganizationUnit
 	var res up.Result
 
@@ -44,10 +44,10 @@ func (t *EmployeesInOrganizationUnit) GetAll(condition *up.Cond) ([]*EmployeesIn
 	return all, err
 }
 
-// Get gets one record from the database, by id, using upper
+// Get gets one record from the database, by id, using Upper
 func (t *EmployeesInOrganizationUnit) Get(id int) (*EmployeesInOrganizationUnit, error) {
 	var one EmployeesInOrganizationUnit
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 
 	res := collection.Find(up.Cond{"id": id})
 	err := res.One(&one)
@@ -57,10 +57,10 @@ func (t *EmployeesInOrganizationUnit) Get(id int) (*EmployeesInOrganizationUnit,
 	return &one, nil
 }
 
-// Update updates a record in the database, using upper
+// Update updates a record in the database, using Upper
 func (t *EmployeesInOrganizationUnit) Update(m EmployeesInOrganizationUnit) error {
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res := collection.Find(m.ID)
 	err := res.Update(&m)
 	if err != nil {
@@ -69,9 +69,9 @@ func (t *EmployeesInOrganizationUnit) Update(m EmployeesInOrganizationUnit) erro
 	return nil
 }
 
-// Delete deletes a record from the database by id, using upper
+// Delete deletes a record from the database by id, using Upper
 func (t *EmployeesInOrganizationUnit) Delete(id int) error {
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	var res up.Result
 	condition := up.Cond{
 		"position_in_organization_unit_id": id,
@@ -87,7 +87,7 @@ func (t *EmployeesInOrganizationUnit) Delete(id int) error {
 }
 
 func (t *EmployeesInOrganizationUnit) DeleteByID(id int) error {
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	var res up.Result
 	condition := up.Cond{
 		"id": id,
@@ -102,11 +102,11 @@ func (t *EmployeesInOrganizationUnit) DeleteByID(id int) error {
 	return nil
 }
 
-// Insert inserts a model into the database, using upper
+// Insert inserts a model into the database, using Upper
 func (t *EmployeesInOrganizationUnit) Insert(m EmployeesInOrganizationUnit) (int, error) {
 	m.CreatedAt = time.Now()
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res, err := collection.Insert(m)
 	if err != nil {
 		return 0, err

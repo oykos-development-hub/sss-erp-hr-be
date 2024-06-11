@@ -1,6 +1,8 @@
 package services
 
 import (
+	"context"
+
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
 	"gitlab.sudovi.me/erp/hr-ms-api/errors"
@@ -21,10 +23,10 @@ func NewTendersInOrganizationUnitServiceImpl(app *celeritas.Celeritas, repo data
 	}
 }
 
-func (h *TendersInOrganizationUnitServiceImpl) CreateTendersInOrganizationUnit(input dto.TendersInOrganizationUnitDTO) (*dto.TendersInOrganizationUnitResponseDTO, error) {
+func (h *TendersInOrganizationUnitServiceImpl) CreateTendersInOrganizationUnit(ctx context.Context, input dto.TendersInOrganizationUnitDTO) (*dto.TendersInOrganizationUnitResponseDTO, error) {
 	data := input.ToTendersInOrganizationUnit()
 
-	id, err := h.repo.Insert(*data)
+	id, err := h.repo.Insert(ctx, *data)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -39,11 +41,11 @@ func (h *TendersInOrganizationUnitServiceImpl) CreateTendersInOrganizationUnit(i
 	return &res, nil
 }
 
-func (h *TendersInOrganizationUnitServiceImpl) UpdateTendersInOrganizationUnit(id int, input dto.TendersInOrganizationUnitDTO) (*dto.TendersInOrganizationUnitResponseDTO, error) {
+func (h *TendersInOrganizationUnitServiceImpl) UpdateTendersInOrganizationUnit(ctx context.Context, id int, input dto.TendersInOrganizationUnitDTO) (*dto.TendersInOrganizationUnitResponseDTO, error) {
 	data := input.ToTendersInOrganizationUnit()
 	data.ID = id
 
-	err := h.repo.Update(*data)
+	err := h.repo.Update(ctx, *data)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -58,8 +60,8 @@ func (h *TendersInOrganizationUnitServiceImpl) UpdateTendersInOrganizationUnit(i
 	return &response, nil
 }
 
-func (h *TendersInOrganizationUnitServiceImpl) DeleteTendersInOrganizationUnit(id int) error {
-	err := h.repo.Delete(id)
+func (h *TendersInOrganizationUnitServiceImpl) DeleteTendersInOrganizationUnit(ctx context.Context, id int) error {
+	err := h.repo.Delete(ctx, id)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
 		return errors.ErrInternalServer

@@ -31,9 +31,9 @@ func (t *EmployeeExperience) Table() string {
 	return "employee_experiences"
 }
 
-// GetAll gets all records from the database, using upper
+// GetAll gets all records from the database, using Upper
 func (t *EmployeeExperience) GetAll(condition *up.Cond) ([]*EmployeeExperience, error) {
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	var all []*EmployeeExperience
 	var res up.Result
 
@@ -51,10 +51,10 @@ func (t *EmployeeExperience) GetAll(condition *up.Cond) ([]*EmployeeExperience, 
 	return all, err
 }
 
-// Get gets one record from the database, by id, using upper
+// Get gets one record from the database, by id, using Upper
 func (t *EmployeeExperience) Get(id int) (*EmployeeExperience, error) {
 	var one EmployeeExperience
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 
 	res := collection.Find(up.Cond{"id": id})
 	err := res.One(&one)
@@ -64,10 +64,10 @@ func (t *EmployeeExperience) Get(id int) (*EmployeeExperience, error) {
 	return &one, nil
 }
 
-// Update updates a record in the database, using upper
+// Update updates a record in the database, using Upper
 func (t *EmployeeExperience) Update(m EmployeeExperience) error {
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res := collection.Find(m.ID)
 	err := res.Update(&m)
 	if err != nil {
@@ -76,9 +76,9 @@ func (t *EmployeeExperience) Update(m EmployeeExperience) error {
 	return nil
 }
 
-// Delete deletes a record from the database by id, using upper
+// Delete deletes a record from the database by id, using Upper
 func (t *EmployeeExperience) Delete(id int) error {
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res := collection.Find(id)
 	err := res.Delete()
 	if err != nil {
@@ -87,11 +87,11 @@ func (t *EmployeeExperience) Delete(id int) error {
 	return nil
 }
 
-// Insert inserts a model into the database, using upper
+// Insert inserts a model into the database, using Upper
 func (t *EmployeeExperience) Insert(m EmployeeExperience) (int, error) {
 	m.CreatedAt = time.Now()
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res, err := collection.Insert(m)
 	if err != nil {
 		return 0, err

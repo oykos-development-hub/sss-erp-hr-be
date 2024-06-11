@@ -1,5 +1,3 @@
-DROP TABLE if exists user_profiles;
-
 CREATE TABLE user_profiles (
     id serial PRIMARY KEY,
     user_account_id int NOT NULL,

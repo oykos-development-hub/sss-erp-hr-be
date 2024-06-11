@@ -1,6 +1,8 @@
 package services
 
 import (
+	"context"
+
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
 	"gitlab.sudovi.me/erp/hr-ms-api/errors"
@@ -21,10 +23,10 @@ func NewEvaluationServiceImpl(app *celeritas.Celeritas, repo data.Evaluation) Ev
 	}
 }
 
-func (h *EvaluationServiceImpl) CreateEvaluation(input dto.EvaluationDTO) (*dto.EvaluationResponseDTO, error) {
+func (h *EvaluationServiceImpl) CreateEvaluation(ctx context.Context, input dto.EvaluationDTO) (*dto.EvaluationResponseDTO, error) {
 	data := input.ToEvaluation()
 
-	id, err := h.repo.Insert(*data)
+	id, err := h.repo.Insert(ctx, *data)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -39,14 +41,14 @@ func (h *EvaluationServiceImpl) CreateEvaluation(input dto.EvaluationDTO) (*dto.
 	return &res, nil
 }
 
-func (h *EvaluationServiceImpl) UpdateEvaluation(id int, input dto.EvaluationDTO) (*dto.EvaluationResponseDTO, error) {
+func (h *EvaluationServiceImpl) UpdateEvaluation(ctx context.Context, id int, input dto.EvaluationDTO) (*dto.EvaluationResponseDTO, error) {
 	data, _ := h.repo.Get(id)
 	createdAt := data.CreatedAt
 	data = input.ToEvaluation()
 	data.ID = id
 	data.CreatedAt = createdAt
 
-	err := h.repo.Update(*data)
+	err := h.repo.Update(ctx, *data)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -61,8 +63,8 @@ func (h *EvaluationServiceImpl) UpdateEvaluation(id int, input dto.EvaluationDTO
 	return &response, nil
 }
 
-func (h *EvaluationServiceImpl) DeleteEvaluation(id int) error {
-	err := h.repo.Delete(id)
+func (h *EvaluationServiceImpl) DeleteEvaluation(ctx context.Context, id int) error {
+	err := h.repo.Delete(ctx, id)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
 		return errors.ErrInternalServer

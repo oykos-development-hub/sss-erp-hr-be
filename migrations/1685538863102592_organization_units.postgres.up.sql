@@ -1,5 +1,3 @@
-drop table if exists organization_units;
-
 CREATE TABLE organization_units (
     id serial PRIMARY KEY,
     parent_id INTEGER REFERENCES organization_units(id) ON DELETE CASCADE,
@@ -18,3 +16,29 @@ CREATE TABLE organization_units (
     created_at TIMESTAMP,
     updated_at TIMESTAMP
 );
+
+INSERT INTO organization_units (parent_id, title, abbreviation, entity_id, color, icon, logo, address, postal_address, is_active, created_at, updated_at, description, city, is_public, tags)
+VALUES
+(NULL, 'Apelacioni sud Crne Gore', 'ASCG', 10, '#3498DB', 'icon.png', '', 'Ul. Njegoševa br. 10', '', 0, '2023-09-13 14:34:57.623383', '2024-03-22 08:27:46.094636', '', 'Podgorica, Crna Gora', 0, '{}'),
+(NULL, 'Sekretarijat Sudskog savjeta', 'SSSCG', 20, '#3498DB', 'icon.png', '', 'Miljana Vukova bb', 'kanc.11', 0, '2023-09-13 14:34:57.623383', '2024-04-16 16:31:04.151547', '', '', 0, '{123456,7890}'),
+(NULL, 'Osnovni sud Žabljak', 'OSŽB', 0, '', '', '', 'Trg Durmitorskih ratnika br.1', 'kanc.br.1', 0, '2023-10-11 10:55:35.738331', '2024-03-22 08:31:30.654212', '', 'Žabljak, Crna Gora', 0, '{}'),
+(NULL, 'Upravni sud Crne Gore', 'US', 0, '', '', '', 'Bulevar Svetog Petra Cetinjskog 130', 'kanc.1', 0, '2024-01-23 14:57:21.552414', '2024-03-22 08:34:19.421321', '02420902', 'Podgorica, Crna Gora', 0, '{}'),
+(NULL, 'Osnovni sud Berane', 'OSBA', 0, '', '', '', 'Mojsija Zečevića br. 1', '', 0, '2024-02-28 12:22:24.454405', '2024-05-29 13:06:24.690748', 'test123', 'Berane, Crna Gora', 0, '{}'),
+(NULL, 'Osnovni sud Cetinje', 'OSCT', 0, '', '', '', 'Bajova br. 2', '', 0, '2024-02-28 12:22:45.5988', '2024-03-22 08:28:16.27746', '', 'Cetinje, Crna Gora', 0, '{}'),
+(NULL, 'Osnovni sud Danilovgrad', 'OSDA', 0, '', '', '', 'Sava Burića', '', 0, '2024-02-28 12:23:26.428266', '2024-03-22 08:28:30.048645', '', 'Danilovgrad, Crna Gora', 0, '{}'),
+(NULL, 'Osnovni sud Herceg Novi', 'OSHN', 0, '', '', '', 'Trg Mića Pavlovića br.4', '', 0, '2024-02-28 12:23:50.583063', '2024-03-22 08:28:43.618266', '', 'Herceg Novi, Crna Gora', 0, '{}'),
+(NULL, 'Osnovni sud Kolašin', 'OSKL', 0, '', '', '', 'Generala Anđelića', '', 0, '2024-02-28 12:26:20.553553', '2024-03-22 08:29:10.030597', '', 'Kolašin, Crna Gora', 0, '{}'),
+(NULL, 'Osnovni sud Nikšić', 'OSNK', 0, '', '', '', 'Nikole Tesle br. 2', 'parking suda', 0, '2024-02-28 12:27:04.092267', '2024-04-17 07:28:22.521429', '', 'Nikšić, Crna Gora', 0, '{}'),
+(NULL, 'Osnovni sud Ulcinj', 'OSUL', 0, '', '', '', '26.Novembra bb', '', 0, '2024-02-28 12:31:23.510435', '2024-03-22 08:31:20.242977', '', 'Ulcinj, Crna Gora', 0, '{}'),
+(NULL, 'Osnovni sud Rožaje', 'OSRO', 0, '', '', '', '13.Jul', '', 0, '2024-02-28 12:29:59.208255', '2024-03-22 08:31:06.155262', '', 'Rožaje, Crna Gora', 0, '{}'),
+(NULL, 'Osnovni sud Bar', 'OSBR', 0, '', '', '', 'Bulevar revolucije br.7', '', 0, '2024-02-28 12:33:10.840919', '2024-03-22 08:31:42.60038', '', 'Bar, Crna Gora', 0, '{}'),
+(NULL, 'Osnovni sud Bijelo Polje', 'OSBP', 0, '', '', '', 'Ul.Muniba Kučevića bb', '', 0, '2024-02-28 12:34:24.053653', '2024-03-22 08:32:06.230618', '', 'Bijelo Polje, Crna Gora', 0, '{}'),
+(NULL, 'Osnovni sud Pljevlja', 'OSPV', 0, '', '', '', 'Tršova br. 3', '', 0, '2024-02-28 12:35:19.115094', '2024-03-22 08:32:57.117981', '', 'Pljevlja, Crna Gora', 0, '{}'),
+(NULL, 'Osnovni sud Plav', 'OSPL', 0, '', '', '', 'Čaršijska bb', 'Arhiva', 7, '2024-02-16 11:47:50.286962', '2024-03-22 08:30:41.805785', '', 'Plav, Crna Gora', 0, '{}'),
+(NULL, 'Sud za prekršaje Bijelo Polje', 'SPBP', 0, '', '', '', 'Ul. Radomira Medojevića br.1', 'kanc.4 bivši sud za prekršaje', 7, '2024-02-26 11:46:41.353887', '2024-03-22 08:33:39.872219', '', 'Bijelo Polje, Crna Gora', 0, '{}'),
+(NULL, 'Sud za prekršaje Budva', 'SPBD', 0, '', '', '', 'Mediteranska bb', '', 7, '2024-03-01 08:36:29.657078', '2024-03-22 08:33:50.508464', '', 'Budva, Crna Gora', 0, '{}'),
+(NULL, 'Sud za prekršaje u Podgorici', 'SPPG', 0, '', '', '', 'Ul. 13.Jula bb', '', 7, '2024-03-01 08:38:16.555753', '2024-03-22 08:34:00.581848', '', 'Podgorici, Crna Gora', 0, '{}'),
+(NULL, 'Privredni sud Crne Gore', 'PSCG', 0, '', '', '', 'Ulica IV. Proleterske br.2', '', 7, '2024-03-01 08:35:24.113329', '2024-03-22 08:33:08.903016', '', 'Podgorica, Crna Gora', 0, '{}'),
+(NULL, 'Viši sud Bijelo Polje', 'VSBP', 0, '', '', '', 'Muniba Kučevića bb', 'Velika sala', 0, '2024-02-28 12:40:38.012984', '2024-03-22 08:37:54.049783', '', 'Bijelo Polje, Crna Gora', 0, '{}'),
+(NULL, 'Viši sud za prekršaje Crne Gore', 'VSPRCG', 0, '', '', '', 'Oktobarske revolucije br. 130 (Zgrada Razvršje)', '', 7, '2024-03-01 08:41:15.158483', '2024-04-17 07:27:15.810475', '', 'Podgorica, Crna Gora', 0, '{123123}'),
+(NULL, 'Vrhovni sud Crne Gore', 'VSCG', 0, '', '', '', 'Ul. Njegoševa br. 10', '', 7, '2024-03-01 08:41:45.763858', '2024-04-17 07:34:14.417225', '', 'Podgorica, Crna Gora', 0, '{12312}');

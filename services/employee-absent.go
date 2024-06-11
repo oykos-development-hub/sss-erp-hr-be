@@ -1,6 +1,8 @@
 package services
 
 import (
+	"context"
+
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
 	"gitlab.sudovi.me/erp/hr-ms-api/errors"
@@ -21,10 +23,10 @@ func NewEmployeeAbsentServiceImpl(app *celeritas.Celeritas, repo data.EmployeeAb
 	}
 }
 
-func (h *EmployeeAbsentServiceImpl) CreateEmployeeAbsent(input dto.EmployeeAbsentDTO) (*dto.EmployeeAbsentResponseDTO, error) {
+func (h *EmployeeAbsentServiceImpl) CreateEmployeeAbsent(ctx context.Context, input dto.EmployeeAbsentDTO) (*dto.EmployeeAbsentResponseDTO, error) {
 	data := input.ToEmployeeAbsent()
 
-	id, err := h.repo.Insert(*data)
+	id, err := h.repo.Insert(ctx, *data)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -39,11 +41,11 @@ func (h *EmployeeAbsentServiceImpl) CreateEmployeeAbsent(input dto.EmployeeAbsen
 	return &res, nil
 }
 
-func (h *EmployeeAbsentServiceImpl) UpdateEmployeeAbsent(id int, input dto.EmployeeAbsentDTO) (*dto.EmployeeAbsentResponseDTO, error) {
+func (h *EmployeeAbsentServiceImpl) UpdateEmployeeAbsent(ctx context.Context, id int, input dto.EmployeeAbsentDTO) (*dto.EmployeeAbsentResponseDTO, error) {
 	data := input.ToEmployeeAbsent()
 	data.ID = id
 
-	err := h.repo.Update(*data)
+	err := h.repo.Update(ctx, *data)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -58,8 +60,8 @@ func (h *EmployeeAbsentServiceImpl) UpdateEmployeeAbsent(id int, input dto.Emplo
 	return &response, nil
 }
 
-func (h *EmployeeAbsentServiceImpl) DeleteEmployeeAbsent(id int) error {
-	err := h.repo.Delete(id)
+func (h *EmployeeAbsentServiceImpl) DeleteEmployeeAbsent(ctx context.Context, id int) error {
+	err := h.repo.Delete(ctx, id)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
 		return errors.ErrInternalServer

@@ -24,9 +24,9 @@ func (t *JobPositionsInOrganizationUnits) Table() string {
 	return "job_positions_in_organization_units"
 }
 
-// Delete deletes a record from the database by id, using upper
+// Delete deletes a record from the database by id, using Upper
 func (t *JobPositionsInOrganizationUnits) Delete(id int) error {
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res := collection.Find(id)
 	err := res.Delete()
 	if err != nil {
@@ -35,10 +35,10 @@ func (t *JobPositionsInOrganizationUnits) Delete(id int) error {
 	return nil
 }
 
-// Get gets one record from the database, by id, using upper
+// Get gets one record from the database, by id, using Upper
 func (t *JobPositionsInOrganizationUnits) Get(id int) (*JobPositionsInOrganizationUnits, error) {
 	var one JobPositionsInOrganizationUnits
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 
 	res := collection.Find(up.Cond{"id": id})
 	err := res.One(&one)
@@ -48,11 +48,11 @@ func (t *JobPositionsInOrganizationUnits) Get(id int) (*JobPositionsInOrganizati
 	return &one, nil
 }
 
-// Insert inserts a model into the database, using upper
+// Insert inserts a model into the database, using Upper
 func (t *JobPositionsInOrganizationUnits) Insert(m JobPositionsInOrganizationUnits) (int, error) {
 	m.CreatedAt = time.Now()
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res, err := collection.Insert(m)
 	if err != nil {
 		return 0, err
@@ -65,7 +65,7 @@ func (t *JobPositionsInOrganizationUnits) Insert(m JobPositionsInOrganizationUni
 
 func (t *JobPositionsInOrganizationUnits) Update(m JobPositionsInOrganizationUnits) error {
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res := collection.Find(m.ID)
 	err := res.Update(&m)
 	if err != nil {
@@ -74,9 +74,9 @@ func (t *JobPositionsInOrganizationUnits) Update(m JobPositionsInOrganizationUni
 	return nil
 }
 
-// GetAll gets all records from the database, using upper
+// GetAll gets all records from the database, using Upper
 func (t *JobPositionsInOrganizationUnits) GetAll(page *int, pageSize *int, condition *up.AndExpr) ([]*JobPositionsInOrganizationUnits, *uint64, error) {
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	var all []*JobPositionsInOrganizationUnits
 	var res up.Result
 

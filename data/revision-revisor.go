@@ -20,9 +20,9 @@ func (t *RevisionRevisor) Table() string {
 	return "revision_revisors"
 }
 
-// GetAll gets all records from the database, using upper
+// GetAll gets all records from the database, using Upper
 func (t *RevisionRevisor) GetAll(condition *up.Cond) ([]*RevisionRevisor, error) {
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	var all []*RevisionRevisor
 	var res up.Result
 
@@ -40,10 +40,10 @@ func (t *RevisionRevisor) GetAll(condition *up.Cond) ([]*RevisionRevisor, error)
 	return all, err
 }
 
-// Get gets one record from the database, by id, using upper
+// Get gets one record from the database, by id, using Upper
 func (t *RevisionRevisor) Get(id int) (*RevisionRevisor, error) {
 	var one RevisionRevisor
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 
 	res := collection.Find(up.Cond{"id": id})
 	err := res.One(&one)
@@ -53,10 +53,10 @@ func (t *RevisionRevisor) Get(id int) (*RevisionRevisor, error) {
 	return &one, nil
 }
 
-// Update updates a record in the database, using upper
+// Update updates a record in the database, using Upper
 func (t *RevisionRevisor) Update(m RevisionRevisor) error {
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res := collection.Find(m.ID)
 	err := res.Update(&m)
 	if err != nil {
@@ -65,9 +65,9 @@ func (t *RevisionRevisor) Update(m RevisionRevisor) error {
 	return nil
 }
 
-// Delete deletes a record from the database by id, using upper
+// Delete deletes a record from the database by id, using Upper
 func (t *RevisionRevisor) Delete(id int) error {
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res := collection.Find(id)
 	err := res.Delete()
 	if err != nil {
@@ -76,11 +76,11 @@ func (t *RevisionRevisor) Delete(id int) error {
 	return nil
 }
 
-// Insert inserts a model into the database, using upper
+// Insert inserts a model into the database, using Upper
 func (t *RevisionRevisor) Insert(m RevisionRevisor) (int, error) {
 	m.CreatedAt = time.Now()
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	res, err := collection.Insert(m)
 	if err != nil {
 		return 0, err

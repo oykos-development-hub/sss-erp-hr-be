@@ -1,6 +1,8 @@
 package services
 
 import (
+	"context"
+
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
 	"gitlab.sudovi.me/erp/hr-ms-api/errors"
@@ -21,10 +23,10 @@ func NewRevisionTipServiceImpl(app *celeritas.Celeritas, repo data.RevisionTip) 
 	}
 }
 
-func (h *RevisionTipServiceImpl) CreateRevisionTip(input dto.RevisionTipDTO) (*dto.RevisionTipResponseDTO, error) {
+func (h *RevisionTipServiceImpl) CreateRevisionTip(ctx context.Context, input dto.RevisionTipDTO) (*dto.RevisionTipResponseDTO, error) {
 	data := input.ToRevisionTip()
 
-	id, err := h.repo.Insert(*data)
+	id, err := h.repo.Insert(ctx, *data)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -39,11 +41,11 @@ func (h *RevisionTipServiceImpl) CreateRevisionTip(input dto.RevisionTipDTO) (*d
 	return &res, nil
 }
 
-func (h *RevisionTipServiceImpl) UpdateRevisionTip(id int, input dto.RevisionTipDTO) (*dto.RevisionTipResponseDTO, error) {
+func (h *RevisionTipServiceImpl) UpdateRevisionTip(ctx context.Context, id int, input dto.RevisionTipDTO) (*dto.RevisionTipResponseDTO, error) {
 	data := input.ToRevisionTip()
 	data.ID = id
 
-	err := h.repo.Update(*data)
+	err := h.repo.Update(ctx, *data)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -58,8 +60,8 @@ func (h *RevisionTipServiceImpl) UpdateRevisionTip(id int, input dto.RevisionTip
 	return &response, nil
 }
 
-func (h *RevisionTipServiceImpl) DeleteRevisionTip(id int) error {
-	err := h.repo.Delete(id)
+func (h *RevisionTipServiceImpl) DeleteRevisionTip(ctx context.Context, id int) error {
+	err := h.repo.Delete(ctx, id)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
 		return errors.ErrInternalServer

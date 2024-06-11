@@ -1,9 +1,13 @@
 package data
 
 import (
+	"context"
+	"errors"
+	"fmt"
 	"time"
 
 	up "github.com/upper/db/v4"
+	"gitlab.sudovi.me/erp/hr-ms-api/contextutil"
 )
 
 // UserNormFulfilment struct
@@ -31,9 +35,9 @@ func (t *UserNormFulfilment) Table() string {
 	return "user_norm_fulfilments"
 }
 
-// GetAll gets all records from the database, using upper
+// GetAll gets all records from the database, using Upper
 func (t *UserNormFulfilment) GetAll(condition *up.AndExpr) ([]*UserNormFulfilment, error) {
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	var all []*UserNormFulfilment
 	var res up.Result
 
@@ -51,10 +55,10 @@ func (t *UserNormFulfilment) GetAll(condition *up.AndExpr) ([]*UserNormFulfilmen
 	return all, err
 }
 
-// Get gets one record from the database, by id, using upper
+// Get gets one record from the database, by id, using Upper
 func (t *UserNormFulfilment) Get(id int) (*UserNormFulfilment, error) {
 	var one UserNormFulfilment
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 
 	res := collection.Find(up.Cond{"id": id})
 	err := res.One(&one)
@@ -64,40 +68,99 @@ func (t *UserNormFulfilment) Get(id int) (*UserNormFulfilment, error) {
 	return &one, nil
 }
 
-// Update updates a record in the database, using upper
-func (t *UserNormFulfilment) Update(m UserNormFulfilment) error {
+// Update updates a record in the database, using Upper
+func (t *UserNormFulfilment) Update(ctx context.Context, m UserNormFulfilment) error {
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
-	res := collection.Find(m.ID)
-	err := res.Update(&m)
+	userID, ok := contextutil.GetUserIDFromContext(ctx)
+	if !ok {
+		return errors.New("user ID not found in context")
+	}
+
+	err := Upper.Tx(func(sess up.Session) error {
+
+		query := fmt.Sprintf("SET myapp.user_id = %d", userID)
+		if _, err := sess.SQL().Exec(query); err != nil {
+			return err
+		}
+
+		collection := sess.Collection(t.Table())
+		res := collection.Find(m.ID)
+		if err := res.Update(&m); err != nil {
+			return err
+		}
+
+		return nil
+	})
+
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-// Delete deletes a record from the database by id, using upper
-func (t *UserNormFulfilment) Delete(id int) error {
-	collection := upper.Collection(t.Table())
-	res := collection.Find(id)
-	err := res.Delete()
+// Delete deletes a record from the database by id, using Upper
+func (t *UserNormFulfilment) Delete(ctx context.Context, id int) error {
+	userID, ok := contextutil.GetUserIDFromContext(ctx)
+	if !ok {
+		return errors.New("user ID not found in context")
+	}
+
+	err := Upper.Tx(func(sess up.Session) error {
+		query := fmt.Sprintf("SET myapp.user_id = %d", userID)
+		if _, err := sess.SQL().Exec(query); err != nil {
+			return err
+		}
+
+		collection := sess.Collection(t.Table())
+		res := collection.Find(id)
+		if err := res.Delete(); err != nil {
+			return err
+		}
+
+		return nil
+	})
+
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-// Insert inserts a model into the database, using upper
-func (t *UserNormFulfilment) Insert(m UserNormFulfilment) (int, error) {
+// Insert inserts a model into the database, using Upper
+func (t *UserNormFulfilment) Insert(ctx context.Context, m UserNormFulfilment) (int, error) {
 	m.CreatedAt = time.Now()
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
-	res, err := collection.Insert(m)
+	userID, ok := contextutil.GetUserIDFromContext(ctx)
+	if !ok {
+		return 0, errors.New("user ID not found in context")
+	}
+
+	var id int
+
+	err := Upper.Tx(func(sess up.Session) error {
+
+		query := fmt.Sprintf("SET myapp.user_id = %d", userID)
+		if _, err := sess.SQL().Exec(query); err != nil {
+			return err
+		}
+
+		collection := sess.Collection(t.Table())
+
+		var res up.InsertResult
+		var err error
+
+		if res, err = collection.Insert(m); err != nil {
+			return err
+		}
+
+		id = getInsertId(res.ID())
+
+		return nil
+	})
+
 	if err != nil {
 		return 0, err
 	}
-
-	id := getInsertId(res.ID())
 
 	return id, nil
 }

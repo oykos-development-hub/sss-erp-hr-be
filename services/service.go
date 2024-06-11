@@ -1,6 +1,8 @@
 package services
 
 import (
+	"context"
+
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
 )
@@ -12,25 +14,25 @@ type BaseService interface {
 }
 
 type OrganizationUnitService interface {
-	CreateOrganizationUnit(input dto.CreateOrganizationUnitDTO) (*dto.OrganizationUnitResponseDTO, error)
-	UpdateOrganizationUnit(id int, input dto.UpdateOrganizationUnitDTO) (*dto.OrganizationUnitResponseDTO, error)
-	DeleteOrganizationUnit(id int) error
+	CreateOrganizationUnit(ctx context.Context, input dto.CreateOrganizationUnitDTO) (*dto.OrganizationUnitResponseDTO, error)
+	UpdateOrganizationUnit(ctx context.Context, id int, input dto.UpdateOrganizationUnitDTO) (*dto.OrganizationUnitResponseDTO, error)
+	DeleteOrganizationUnit(ctx context.Context, id int) error
 	GetOrganizationUnit(id int) (*dto.OrganizationUnitResponseDTO, error)
 	GetOrganizationUnitList(data dto.GetOrganizationUnitsDTO) ([]dto.OrganizationUnitResponseDTO, *uint64, error)
 }
 
 type SystematizationService interface {
-	CreateSystematization(input dto.SystematizationDTO) (*dto.SystematizationResponseDTO, error)
-	UpdateSystematization(id int, input dto.SystematizationDTO) (*dto.SystematizationResponseDTO, error)
-	DeleteSystematization(id int) error
+	CreateSystematization(ctx context.Context, input dto.SystematizationDTO) (*dto.SystematizationResponseDTO, error)
+	UpdateSystematization(ctx context.Context, id int, input dto.SystematizationDTO) (*dto.SystematizationResponseDTO, error)
+	DeleteSystematization(ctx context.Context, id int) error
 	GetSystematization(id int) (*dto.SystematizationResponseDTO, error)
 	GetSystematizationList(data dto.GetSystematizationsDTO) ([]dto.SystematizationResponseDTO, *uint64, error)
 }
 
 type JobPositionService interface {
-	CreateJobPosition(input dto.CreateJobPositionDTO) (*dto.JobPositionResponseDTO, error)
-	UpdateJobPosition(id int, input dto.UpdateJobPositionDTO) (*dto.JobPositionResponseDTO, error)
-	DeleteJobPosition(id int) error
+	CreateJobPosition(ctx context.Context, input dto.CreateJobPositionDTO) (*dto.JobPositionResponseDTO, error)
+	UpdateJobPosition(ctx context.Context, id int, input dto.UpdateJobPositionDTO) (*dto.JobPositionResponseDTO, error)
+	DeleteJobPosition(ctx context.Context, id int) error
 	GetJobPosition(id int) (*dto.JobPositionResponseDTO, error)
 	GetJobPositionList(data dto.GetJobPositionsDTO) ([]dto.JobPositionResponseDTO, *uint64, error)
 }
@@ -44,9 +46,9 @@ type JobPositionsInOrganizationUnitsService interface {
 }
 
 type UserProfileService interface {
-	CreateUserProfile(input dto.UserProfileDTO) (*dto.UserProfileResponseDTO, error)
-	UpdateUserProfile(id int, input dto.UserProfileDTO) (*dto.UserProfileResponseDTO, error)
-	DeleteUserProfile(id int) error
+	CreateUserProfile(ctx context.Context, input dto.UserProfileDTO) (*dto.UserProfileResponseDTO, error)
+	UpdateUserProfile(ctx context.Context, id int, input dto.UserProfileDTO) (*dto.UserProfileResponseDTO, error)
+	DeleteUserProfile(ctx context.Context, id int) error
 	GetUserProfile(id int) (*dto.UserProfileResponseDTO, error)
 	GetUserProfileList(data dto.GetProfilesInputDTO) ([]dto.UserProfileResponseDTO, *uint64, error)
 	GetContracts(id int, input dto.GetEmployeeContracts) ([]dto.EmployeeContractResponseDTO, error)
@@ -54,9 +56,9 @@ type UserProfileService interface {
 }
 
 type EmployeeContractService interface {
-	CreateEmployeeContract(input dto.EmployeeContractDTO) (*dto.EmployeeContractResponseDTO, error)
-	UpdateEmployeeContract(id int, input dto.EmployeeContractDTO) (*dto.EmployeeContractResponseDTO, error)
-	DeleteEmployeeContract(id int) error
+	CreateEmployeeContract(ctx context.Context, input dto.EmployeeContractDTO) (*dto.EmployeeContractResponseDTO, error)
+	UpdateEmployeeContract(ctx context.Context, id int, input dto.EmployeeContractDTO) (*dto.EmployeeContractResponseDTO, error)
+	DeleteEmployeeContract(ctx context.Context, id int) error
 }
 
 type EmployeesInOrganizationUnitService interface {
@@ -83,9 +85,9 @@ type EmployeeEducationService interface {
 }
 
 type EmployeeResolutionService interface {
-	CreateEmployeeResolution(input dto.EmployeeResolutionDTO) (*dto.EmployeeResolutionResponseDTO, error)
-	UpdateEmployeeResolution(id int, input dto.EmployeeResolutionDTO) (*dto.EmployeeResolutionResponseDTO, error)
-	DeleteEmployeeResolution(id int) error
+	CreateEmployeeResolution(ctx context.Context, input dto.EmployeeResolutionDTO) (*dto.EmployeeResolutionResponseDTO, error)
+	UpdateEmployeeResolution(ctx context.Context, id int, input dto.EmployeeResolutionDTO) (*dto.EmployeeResolutionResponseDTO, error)
+	DeleteEmployeeResolution(ctx context.Context, id int) error
 	GetEmployeeResolutionList(userProfileID int, input dto.GetResolutionListInputDTO) ([]dto.EmployeeResolutionResponseDTO, error)
 	GetEmployeeResolution(id int) (*dto.EmployeeResolutionResponseDTO, error)
 }
@@ -99,9 +101,9 @@ type AbsentTypeService interface {
 }
 
 type EvaluationService interface {
-	CreateEvaluation(input dto.EvaluationDTO) (*dto.EvaluationResponseDTO, error)
-	UpdateEvaluation(id int, input dto.EvaluationDTO) (*dto.EvaluationResponseDTO, error)
-	DeleteEvaluation(id int) error
+	CreateEvaluation(ctx context.Context, input dto.EvaluationDTO) (*dto.EvaluationResponseDTO, error)
+	UpdateEvaluation(ctx context.Context, id int, input dto.EvaluationDTO) (*dto.EvaluationResponseDTO, error)
+	DeleteEvaluation(ctx context.Context, id int) error
 	GetEvaluation(id int) (*dto.EvaluationResponseDTO, error)
 	GetEmployeesEvaluationList(id int) ([]dto.EvaluationResponseDTO, error)
 	GetEvaluationList(dto.GetEvaluationListInputDTO) ([]dto.EvaluationResponseDTO, error)
@@ -124,25 +126,25 @@ type EmployeeFamilyMemberService interface {
 }
 
 type SalaryService interface {
-	CreateSalary(input dto.SalaryDTO) (*dto.SalaryResponseDTO, error)
-	UpdateSalary(id int, input dto.SalaryDTO) (*dto.SalaryResponseDTO, error)
-	DeleteSalary(id int) error
+	CreateSalary(ctx context.Context, input dto.SalaryDTO) (*dto.SalaryResponseDTO, error)
+	UpdateSalary(ctx context.Context, id int, input dto.SalaryDTO) (*dto.SalaryResponseDTO, error)
+	DeleteSalary(ctx context.Context, id int) error
 	GetSalary(id int) (*dto.SalaryResponseDTO, error)
 	GetSalaryList(id int) ([]dto.SalaryResponseDTO, error)
 }
 
 type UserNormFulfilmentService interface {
-	CreateUserNormFulfilment(input dto.UserNormFulfilmentDTO) (*dto.UserNormFulfilmentResponseDTO, error)
-	UpdateUserNormFulfilment(id int, input dto.UserNormFulfilmentDTO) (*dto.UserNormFulfilmentResponseDTO, error)
-	DeleteUserNormFulfilment(id int) error
+	CreateUserNormFulfilment(ctx context.Context, input dto.UserNormFulfilmentDTO) (*dto.UserNormFulfilmentResponseDTO, error)
+	UpdateUserNormFulfilment(ctx context.Context, id int, input dto.UserNormFulfilmentDTO) (*dto.UserNormFulfilmentResponseDTO, error)
+	DeleteUserNormFulfilment(ctx context.Context, id int) error
 	GetUserNormFulfilment(id int) (*dto.UserNormFulfilmentResponseDTO, error)
 	GetUserNormFulfilmentList(userProfileID int, input dto.GetUserNormFulfilmentListInput) ([]dto.UserNormFulfilmentResponseDTO, error)
 }
 
 type EmployeeAbsentService interface {
-	CreateEmployeeAbsent(input dto.EmployeeAbsentDTO) (*dto.EmployeeAbsentResponseDTO, error)
-	UpdateEmployeeAbsent(id int, input dto.EmployeeAbsentDTO) (*dto.EmployeeAbsentResponseDTO, error)
-	DeleteEmployeeAbsent(id int) error
+	CreateEmployeeAbsent(ctx context.Context, input dto.EmployeeAbsentDTO) (*dto.EmployeeAbsentResponseDTO, error)
+	UpdateEmployeeAbsent(ctx context.Context, id int, input dto.EmployeeAbsentDTO) (*dto.EmployeeAbsentResponseDTO, error)
+	DeleteEmployeeAbsent(ctx context.Context, id int) error
 	GetAbsent(id int) (*dto.EmployeeAbsentResponseDTO, error)
 	GetEmployeeAbsentList(userProfileID int, input dto.GetEmployeeAbsentsInputDTO) ([]dto.EmployeeAbsentResponseDTO, error)
 }
@@ -156,9 +158,9 @@ type RevisionsOfOrganizationUnitService interface {
 }
 
 type TendersInOrganizationUnitService interface {
-	CreateTendersInOrganizationUnit(input dto.TendersInOrganizationUnitDTO) (*dto.TendersInOrganizationUnitResponseDTO, error)
-	UpdateTendersInOrganizationUnit(id int, input dto.TendersInOrganizationUnitDTO) (*dto.TendersInOrganizationUnitResponseDTO, error)
-	DeleteTendersInOrganizationUnit(id int) error
+	CreateTendersInOrganizationUnit(ctx context.Context, input dto.TendersInOrganizationUnitDTO) (*dto.TendersInOrganizationUnitResponseDTO, error)
+	UpdateTendersInOrganizationUnit(ctx context.Context, id int, input dto.TendersInOrganizationUnitDTO) (*dto.TendersInOrganizationUnitResponseDTO, error)
+	DeleteTendersInOrganizationUnit(ctx context.Context, id int) error
 	GetTendersInOrganizationUnit(id int) (*dto.TendersInOrganizationUnitResponseDTO, error)
 	GetTendersInOrganizationUnitList(input dto.GetTendersInputDTO) ([]dto.TendersInOrganizationUnitResponseDTO, *uint64, error)
 }
@@ -180,9 +182,9 @@ type TenderTypeService interface {
 }
 
 type JudgeNumberResolutionService interface {
-	CreateJudgeNumberResolution(input dto.JudgeNumberResolutionDTO) (*dto.JudgeNumberResolutionResponseDTO, error)
-	UpdateJudgeNumberResolution(id int, input dto.JudgeNumberResolutionDTO) (*dto.JudgeNumberResolutionResponseDTO, error)
-	DeleteJudgeNumberResolution(id int) error
+	CreateJudgeNumberResolution(ctx context.Context, input dto.JudgeNumberResolutionDTO) (*dto.JudgeNumberResolutionResponseDTO, error)
+	UpdateJudgeNumberResolution(ctx context.Context, id int, input dto.JudgeNumberResolutionDTO) (*dto.JudgeNumberResolutionResponseDTO, error)
+	DeleteJudgeNumberResolution(ctx context.Context, id int) error
 	GetJudgeNumberResolution(id int) (*dto.JudgeNumberResolutionResponseDTO, error)
 	GetJudgeNumberResolutionList(input dto.GetJudgeNumberResolutionInputDTO) ([]dto.JudgeNumberResolutionResponseDTO, *uint64, error)
 }
@@ -196,25 +198,25 @@ type JudgeNumberResolutionOrganizationUnitService interface {
 }
 
 type PlanService interface {
-	CreatePlan(input dto.PlanDTO) (*dto.PlanResponseDTO, error)
-	UpdatePlan(id int, input dto.PlanDTO) (*dto.PlanResponseDTO, error)
-	DeletePlan(id int) error
+	CreatePlan(ctx context.Context, input dto.PlanDTO) (*dto.PlanResponseDTO, error)
+	UpdatePlan(ctx context.Context, id int, input dto.PlanDTO) (*dto.PlanResponseDTO, error)
+	DeletePlan(ctx context.Context, id int) error
 	GetPlan(id int) (*dto.PlanResponseDTO, error)
 	GetPlanList(input dto.PlanFilter) ([]dto.PlanResponseDTO, *uint64, error)
 }
 
 type RevisionService interface {
-	CreateRevision(input dto.RevisionDTO) (*dto.RevisionResponseDTO, error)
-	UpdateRevision(id int, input dto.RevisionDTO) (*dto.RevisionResponseDTO, error)
-	DeleteRevision(id int) error
+	CreateRevision(ctx context.Context, input dto.RevisionDTO) (*dto.RevisionResponseDTO, error)
+	UpdateRevision(ctx context.Context, id int, input dto.RevisionDTO) (*dto.RevisionResponseDTO, error)
+	DeleteRevision(ctx context.Context, id int) error
 	GetRevision(id int) (*dto.RevisionResponseDTO, error)
 	GetRevisionList(filter dto.RevisonFilter) ([]dto.RevisionResponseDTO, *uint64, error)
 }
 
 type RevisionTipService interface {
-	CreateRevisionTip(input dto.RevisionTipDTO) (*dto.RevisionTipResponseDTO, error)
-	UpdateRevisionTip(id int, input dto.RevisionTipDTO) (*dto.RevisionTipResponseDTO, error)
-	DeleteRevisionTip(id int) error
+	CreateRevisionTip(ctx context.Context, input dto.RevisionTipDTO) (*dto.RevisionTipResponseDTO, error)
+	UpdateRevisionTip(ctx context.Context, id int, input dto.RevisionTipDTO) (*dto.RevisionTipResponseDTO, error)
+	DeleteRevisionTip(ctx context.Context, id int) error
 	GetRevisionTip(id int) (*dto.RevisionTipResponseDTO, error)
 	GetRevisionTipList(input dto.RevisionTipFilter) ([]dto.RevisionTipResponseDTO, *uint64, error)
 }
@@ -241,4 +243,12 @@ type RevisionRevisorService interface {
 	DeleteRevisionRevisor(id int) error
 	GetRevisionRevisor(id int) (*dto.RevisionRevisorResponseDTO, error)
 	GetRevisionRevisorList(input dto.RevisionRevisorFilter) ([]dto.RevisionRevisorResponseDTO, error)
+}
+
+type LogService interface {
+	CreateLog(input dto.LogDTO) (*dto.LogResponseDTO, error)
+	UpdateLog(id int, input dto.LogDTO) (*dto.LogResponseDTO, error)
+	DeleteLog(id int) error
+	GetLog(id int) (*dto.LogResponseDTO, error)
+	GetLogList(filter dto.LogFilterDTO) ([]dto.LogResponseDTO, *uint64, error)
 }

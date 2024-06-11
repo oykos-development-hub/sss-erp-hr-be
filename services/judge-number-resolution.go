@@ -1,6 +1,8 @@
 package services
 
 import (
+	"context"
+
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
 	"gitlab.sudovi.me/erp/hr-ms-api/errors"
@@ -21,10 +23,10 @@ func NewJudgeNumberResolutionServiceImpl(app *celeritas.Celeritas, repo data.Jud
 	}
 }
 
-func (h *JudgeNumberResolutionServiceImpl) CreateJudgeNumberResolution(input dto.JudgeNumberResolutionDTO) (*dto.JudgeNumberResolutionResponseDTO, error) {
+func (h *JudgeNumberResolutionServiceImpl) CreateJudgeNumberResolution(ctx context.Context, input dto.JudgeNumberResolutionDTO) (*dto.JudgeNumberResolutionResponseDTO, error) {
 	data := input.ToJudgeNumberResolution()
 
-	id, err := h.repo.Insert(*data)
+	id, err := h.repo.Insert(ctx, *data)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -35,7 +37,7 @@ func (h *JudgeNumberResolutionServiceImpl) CreateJudgeNumberResolution(input dto
 	}
 
 	if data.Active {
-		err = h.repo.InactivateOtherResolutions(id)
+		err = h.repo.InactivateOtherResolutions(ctx, id)
 		if err != nil {
 			return nil, errors.ErrInternalServer
 		}
@@ -46,11 +48,11 @@ func (h *JudgeNumberResolutionServiceImpl) CreateJudgeNumberResolution(input dto
 	return &res, nil
 }
 
-func (h *JudgeNumberResolutionServiceImpl) UpdateJudgeNumberResolution(id int, input dto.JudgeNumberResolutionDTO) (*dto.JudgeNumberResolutionResponseDTO, error) {
+func (h *JudgeNumberResolutionServiceImpl) UpdateJudgeNumberResolution(ctx context.Context, id int, input dto.JudgeNumberResolutionDTO) (*dto.JudgeNumberResolutionResponseDTO, error) {
 	data := input.ToJudgeNumberResolution()
 	data.ID = id
 
-	err := h.repo.Update(*data)
+	err := h.repo.Update(ctx, *data)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -65,8 +67,8 @@ func (h *JudgeNumberResolutionServiceImpl) UpdateJudgeNumberResolution(id int, i
 	return &response, nil
 }
 
-func (h *JudgeNumberResolutionServiceImpl) DeleteJudgeNumberResolution(id int) error {
-	err := h.repo.Delete(id)
+func (h *JudgeNumberResolutionServiceImpl) DeleteJudgeNumberResolution(ctx context.Context, id int) error {
+	err := h.repo.Delete(ctx, id)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
 		return errors.ErrInternalServer

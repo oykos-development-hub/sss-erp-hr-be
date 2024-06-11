@@ -1,9 +1,13 @@
 package data
 
 import (
+	"context"
+	"errors"
+	"fmt"
 	"time"
 
 	up "github.com/upper/db/v4"
+	"gitlab.sudovi.me/erp/hr-ms-api/contextutil"
 )
 
 // JudgeNumberResolution struct
@@ -21,7 +25,7 @@ func (t *JudgeNumberResolution) Table() string {
 }
 
 func (t *JudgeNumberResolution) GetAll(page *int, pageSize *int, condition *up.Cond) ([]*JudgeNumberResolution, *uint64, error) {
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 	var all []*JudgeNumberResolution
 	var res up.Result
 
@@ -48,10 +52,10 @@ func (t *JudgeNumberResolution) GetAll(page *int, pageSize *int, condition *up.C
 	return all, &total, err
 }
 
-// Get gets one record from the database, by id, using upper
+// Get gets one record from the database, by id, using Upper
 func (t *JudgeNumberResolution) Get(id int) (*JudgeNumberResolution, error) {
 	var one JudgeNumberResolution
-	collection := upper.Collection(t.Table())
+	collection := Upper.Collection(t.Table())
 
 	res := collection.Find(up.Cond{"id": id})
 	err := res.One(&one)
@@ -61,12 +65,30 @@ func (t *JudgeNumberResolution) Get(id int) (*JudgeNumberResolution, error) {
 	return &one, nil
 }
 
-// Update updates a record in the database, using upper
-func (t *JudgeNumberResolution) Update(m JudgeNumberResolution) error {
+// Update updates a record in the database, using Upper
+func (t *JudgeNumberResolution) Update(ctx context.Context, m JudgeNumberResolution) error {
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
-	res := collection.Find(m.ID)
-	err := res.Update(&m)
+	userID, ok := contextutil.GetUserIDFromContext(ctx)
+	if !ok {
+		return errors.New("user ID not found in context")
+	}
+
+	err := Upper.Tx(func(sess up.Session) error {
+
+		query := fmt.Sprintf("SET myapp.user_id = %d", userID)
+		if _, err := sess.SQL().Exec(query); err != nil {
+			return err
+		}
+
+		collection := sess.Collection(t.Table())
+		res := collection.Find(m.ID)
+		if err := res.Update(&m); err != nil {
+			return err
+		}
+
+		return nil
+	})
+
 	if err != nil {
 		return err
 	}
@@ -75,13 +97,57 @@ func (t *JudgeNumberResolution) Update(m JudgeNumberResolution) error {
 
 // Inactivate all resolutions excepct the one that is activated
 // InactivateOtherResolutions inactivates all JudgeNumberResolutions except the one with the provided ID.
-func (t *JudgeNumberResolution) InactivateOtherResolutions(id int) error {
-	q := upper.SQL().Update(t.Table()).
-		Where(up.Cond{"id !=": id}).
-		And(up.Cond{"active": true}).
-		Set("active", false)
+func (t *JudgeNumberResolution) InactivateOtherResolutions(ctx context.Context, id int) error {
+	userID, ok := contextutil.GetUserIDFromContext(ctx)
+	if !ok {
+		return errors.New("user ID not found in context")
+	}
 
-	_, err := q.Exec()
+	err := Upper.Tx(func(sess up.Session) error {
+		// Set the user_id variable
+		query := fmt.Sprintf("SET myapp.user_id = %d", userID)
+		if _, err := sess.SQL().Exec(query); err != nil {
+			return err
+		}
+
+		// Perform the update
+		q := sess.SQL().Update(t.Table()).
+			Where(up.Cond{"id !=": id}).
+			And(up.Cond{"active": true}).
+			Set("active", false)
+
+		_, err := q.Exec()
+		if err != nil {
+			return err
+		}
+
+		return nil
+	})
+
+	return err
+}
+
+// Delete deletes a record from the database by id, using Upper
+func (t *JudgeNumberResolution) Delete(ctx context.Context, id int) error {
+	userID, ok := contextutil.GetUserIDFromContext(ctx)
+	if !ok {
+		return errors.New("user ID not found in context")
+	}
+
+	err := Upper.Tx(func(sess up.Session) error {
+		query := fmt.Sprintf("SET myapp.user_id = %d", userID)
+		if _, err := sess.SQL().Exec(query); err != nil {
+			return err
+		}
+
+		collection := sess.Collection(t.Table())
+		res := collection.Find(id)
+		if err := res.Delete(); err != nil {
+			return err
+		}
+
+		return nil
+	})
 
 	if err != nil {
 		return err
@@ -89,28 +155,42 @@ func (t *JudgeNumberResolution) InactivateOtherResolutions(id int) error {
 	return nil
 }
 
-// Delete deletes a record from the database by id, using upper
-func (t *JudgeNumberResolution) Delete(id int) error {
-	collection := upper.Collection(t.Table())
-	res := collection.Find(id)
-	err := res.Delete()
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
-// Insert inserts a model into the database, using upper
-func (t *JudgeNumberResolution) Insert(m JudgeNumberResolution) (int, error) {
+// Insert inserts a model into the database, using Upper
+func (t *JudgeNumberResolution) Insert(ctx context.Context, m JudgeNumberResolution) (int, error) {
 	m.CreatedAt = time.Now()
 	m.UpdatedAt = time.Now()
-	collection := upper.Collection(t.Table())
-	res, err := collection.Insert(m)
+
+	userID, ok := contextutil.GetUserIDFromContext(ctx)
+	if !ok {
+		return 0, errors.New("user ID not found in context")
+	}
+
+	var id int
+
+	err := Upper.Tx(func(sess up.Session) error {
+
+		query := fmt.Sprintf("SET myapp.user_id = %d", userID)
+		if _, err := sess.SQL().Exec(query); err != nil {
+			return err
+		}
+
+		collection := sess.Collection(t.Table())
+
+		var res up.InsertResult
+		var err error
+
+		if res, err = collection.Insert(m); err != nil {
+			return err
+		}
+
+		id = getInsertId(res.ID())
+
+		return nil
+	})
+
 	if err != nil {
 		return 0, err
 	}
-
-	id := getInsertId(res.ID())
 
 	return id, nil
 }

@@ -1,6 +1,8 @@
 package services
 
 import (
+	"context"
+
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
 	"gitlab.sudovi.me/erp/hr-ms-api/errors"
@@ -21,10 +23,10 @@ func NewEmployeeResolutionServiceImpl(app *celeritas.Celeritas, repo data.Employ
 	}
 }
 
-func (h *EmployeeResolutionServiceImpl) CreateEmployeeResolution(input dto.EmployeeResolutionDTO) (*dto.EmployeeResolutionResponseDTO, error) {
+func (h *EmployeeResolutionServiceImpl) CreateEmployeeResolution(ctx context.Context, input dto.EmployeeResolutionDTO) (*dto.EmployeeResolutionResponseDTO, error) {
 	data := input.ToEmployeeResolution()
 
-	id, err := h.repo.Insert(*data)
+	id, err := h.repo.Insert(ctx, *data)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -39,11 +41,11 @@ func (h *EmployeeResolutionServiceImpl) CreateEmployeeResolution(input dto.Emplo
 	return &res, nil
 }
 
-func (h *EmployeeResolutionServiceImpl) UpdateEmployeeResolution(id int, input dto.EmployeeResolutionDTO) (*dto.EmployeeResolutionResponseDTO, error) {
+func (h *EmployeeResolutionServiceImpl) UpdateEmployeeResolution(ctx context.Context, id int, input dto.EmployeeResolutionDTO) (*dto.EmployeeResolutionResponseDTO, error) {
 	data := input.ToEmployeeResolution()
 	data.ID = id
 
-	err := h.repo.Update(*data)
+	err := h.repo.Update(ctx, *data)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -58,8 +60,8 @@ func (h *EmployeeResolutionServiceImpl) UpdateEmployeeResolution(id int, input d
 	return &response, nil
 }
 
-func (h *EmployeeResolutionServiceImpl) DeleteEmployeeResolution(id int) error {
-	err := h.repo.Delete(id)
+func (h *EmployeeResolutionServiceImpl) DeleteEmployeeResolution(ctx context.Context, id int) error {
+	err := h.repo.Delete(ctx, id)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
 		return errors.ErrInternalServer

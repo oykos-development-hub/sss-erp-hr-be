@@ -1,6 +1,8 @@
 package services
 
 import (
+	"context"
+
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
 	"gitlab.sudovi.me/erp/hr-ms-api/errors"
@@ -21,10 +23,10 @@ func NewRevisionServiceImpl(app *celeritas.Celeritas, repo data.Revision) Revisi
 	}
 }
 
-func (h *RevisionServiceImpl) CreateRevision(input dto.RevisionDTO) (*dto.RevisionResponseDTO, error) {
+func (h *RevisionServiceImpl) CreateRevision(ctx context.Context, input dto.RevisionDTO) (*dto.RevisionResponseDTO, error) {
 	data := input.ToRevision()
 
-	id, err := h.repo.Insert(*data)
+	id, err := h.repo.Insert(ctx, *data)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -39,11 +41,11 @@ func (h *RevisionServiceImpl) CreateRevision(input dto.RevisionDTO) (*dto.Revisi
 	return &res, nil
 }
 
-func (h *RevisionServiceImpl) UpdateRevision(id int, input dto.RevisionDTO) (*dto.RevisionResponseDTO, error) {
+func (h *RevisionServiceImpl) UpdateRevision(ctx context.Context, id int, input dto.RevisionDTO) (*dto.RevisionResponseDTO, error) {
 	data := input.ToRevision()
 	data.ID = id
 
-	err := h.repo.Update(*data)
+	err := h.repo.Update(ctx, *data)
 	if err != nil {
 		return nil, errors.ErrInternalServer
 	}
@@ -58,8 +60,8 @@ func (h *RevisionServiceImpl) UpdateRevision(id int, input dto.RevisionDTO) (*dt
 	return &response, nil
 }
 
-func (h *RevisionServiceImpl) DeleteRevision(id int) error {
-	err := h.repo.Delete(id)
+func (h *RevisionServiceImpl) DeleteRevision(ctx context.Context, id int) error {
+	err := h.repo.Delete(ctx, id)
 	if err != nil {
 		h.App.ErrorLog.Println(err)
 		return errors.ErrInternalServer
