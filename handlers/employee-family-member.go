@@ -32,12 +32,14 @@ func (h *employeefamilymemberHandlerImpl) CreateEmployeeFamilyMember(w http.Resp
 
 	validator := h.App.Validator().ValidateStruct(&input)
 	if !validator.Valid() {
+		h.App.ErrorLog.Print(validator.Errors)
 		_ = h.App.WriteErrorResponseWithData(w, errors.MapErrorToStatusCode(errors.ErrBadRequest), errors.ErrBadRequest, validator.Errors)
 		return
 	}
 
 	res, err := h.service.CreateEmployeeFamilyMember(input)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -53,12 +55,14 @@ func (h *employeefamilymemberHandlerImpl) UpdateEmployeeFamilyMember(w http.Resp
 
 	validator := h.App.Validator().ValidateStruct(&input)
 	if !validator.Valid() {
+		h.App.ErrorLog.Print(validator.Errors)
 		_ = h.App.WriteErrorResponseWithData(w, errors.MapErrorToStatusCode(errors.ErrBadRequest), errors.ErrBadRequest, validator.Errors)
 		return
 	}
 
 	res, err := h.service.UpdateEmployeeFamilyMember(id, input)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -71,6 +75,7 @@ func (h *employeefamilymemberHandlerImpl) DeleteEmployeeFamilyMember(w http.Resp
 
 	err := h.service.DeleteEmployeeFamilyMember(id)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -83,6 +88,7 @@ func (h *employeefamilymemberHandlerImpl) GetEmployeeFamilyMemberById(w http.Res
 
 	res, err := h.service.GetEmployeeFamilyMember(id)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -95,6 +101,7 @@ func (h *employeefamilymemberHandlerImpl) GetEmployeeFamilyMemberList(w http.Res
 
 	res, err := h.service.GetEmployeeFamilyMemberList(userProfileID)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}

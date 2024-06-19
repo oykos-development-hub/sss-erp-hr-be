@@ -5,7 +5,7 @@ import (
 
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
-	"gitlab.sudovi.me/erp/hr-ms-api/errors"
+	newErrors "gitlab.sudovi.me/erp/hr-ms-api/pkg/errors"
 
 	"github.com/oykos-development-hub/celeritas"
 	up "github.com/upper/db/v4"
@@ -28,12 +28,12 @@ func (h *TendersInOrganizationUnitServiceImpl) CreateTendersInOrganizationUnit(c
 
 	id, err := h.repo.Insert(ctx, *data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo tender in organization unit insert")
 	}
 
 	data, err = data.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo tender in organization unit get")
 	}
 
 	res := dto.ToTendersInOrganizationUnitResponseDTO(*data)
@@ -47,12 +47,12 @@ func (h *TendersInOrganizationUnitServiceImpl) UpdateTendersInOrganizationUnit(c
 
 	err := h.repo.Update(ctx, *data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo tender in organization unit update")
 	}
 
 	data, err = h.repo.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo tender in organization unit get")
 	}
 
 	response := dto.ToTendersInOrganizationUnitResponseDTO(*data)
@@ -63,8 +63,8 @@ func (h *TendersInOrganizationUnitServiceImpl) UpdateTendersInOrganizationUnit(c
 func (h *TendersInOrganizationUnitServiceImpl) DeleteTendersInOrganizationUnit(ctx context.Context, id int) error {
 	err := h.repo.Delete(ctx, id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return errors.ErrInternalServer
+
+		return newErrors.Wrap(err, "repo tender in organization unit delete")
 	}
 
 	return nil
@@ -73,8 +73,8 @@ func (h *TendersInOrganizationUnitServiceImpl) DeleteTendersInOrganizationUnit(c
 func (h *TendersInOrganizationUnitServiceImpl) GetTendersInOrganizationUnit(id int) (*dto.TendersInOrganizationUnitResponseDTO, error) {
 	data, err := h.repo.Get(id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, errors.ErrNotFound
+
+		return nil, newErrors.Wrap(err, "repo tender in organization unit get")
 	}
 	response := dto.ToTendersInOrganizationUnitResponseDTO(*data)
 
@@ -86,8 +86,8 @@ func (h *TendersInOrganizationUnitServiceImpl) GetTendersInOrganizationUnitList(
 
 	data, total, err := h.repo.GetAll(input.Page, input.Size, &cond)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, nil, errors.ErrInternalServer
+
+		return nil, nil, newErrors.Wrap(err, "repo tender in organization unit get all")
 	}
 	response := dto.ToTendersInOrganizationUnitListResponseDTO(data)
 

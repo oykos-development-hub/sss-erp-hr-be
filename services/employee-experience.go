@@ -3,7 +3,7 @@ package services
 import (
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
-	"gitlab.sudovi.me/erp/hr-ms-api/errors"
+	newErrors "gitlab.sudovi.me/erp/hr-ms-api/pkg/errors"
 
 	"github.com/oykos-development-hub/celeritas"
 	up "github.com/upper/db/v4"
@@ -26,12 +26,12 @@ func (h *EmployeeExperienceServiceImpl) CreateEmployeeExperience(input dto.Emplo
 
 	id, err := h.repo.Insert(*data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo employee experience insert")
 	}
 
 	data, err = data.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo employee experience get")
 	}
 
 	res := dto.ToEmployeeExperienceResponseDTO(*data)
@@ -45,12 +45,12 @@ func (h *EmployeeExperienceServiceImpl) UpdateEmployeeExperience(id int, input d
 
 	err := h.repo.Update(*data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo employee experience update")
 	}
 
 	data, err = h.repo.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo employee experience get")
 	}
 
 	response := dto.ToEmployeeExperienceResponseDTO(*data)
@@ -61,8 +61,7 @@ func (h *EmployeeExperienceServiceImpl) UpdateEmployeeExperience(id int, input d
 func (h *EmployeeExperienceServiceImpl) DeleteEmployeeExperience(id int) error {
 	err := h.repo.Delete(id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return errors.ErrInternalServer
+		return newErrors.Wrap(err, "repo employee experience delete")
 	}
 
 	return nil
@@ -74,8 +73,7 @@ func (h *EmployeeExperienceServiceImpl) GetEmployeeExperienceList(userProfileID 
 	}
 	data, err := h.repo.GetAll(&cond)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo employee experience get all")
 	}
 	response := dto.ToEmployeeExperienceListResponseDTO(data)
 

@@ -3,7 +3,7 @@ package services
 import (
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
-	"gitlab.sudovi.me/erp/hr-ms-api/errors"
+	newErrors "gitlab.sudovi.me/erp/hr-ms-api/pkg/errors"
 
 	"github.com/oykos-development-hub/celeritas"
 	up "github.com/upper/db/v4"
@@ -26,12 +26,12 @@ func (h *RevisionsInOrganizationUnitServiceImpl) CreateRevisionsInOrganizationUn
 
 	id, err := h.repo.Insert(*data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo revisions in organization unit insert")
 	}
 
 	data, err = data.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo revisions in organization unit get")
 	}
 
 	res := dto.ToRevisionsInOrganizationUnitResponseDTO(*data)
@@ -45,12 +45,12 @@ func (h *RevisionsInOrganizationUnitServiceImpl) UpdateRevisionsInOrganizationUn
 
 	err := h.repo.Update(*data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo revisions in organization unit update")
 	}
 
 	data, err = h.repo.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo revisions in organization unit get")
 	}
 
 	response := dto.ToRevisionsInOrganizationUnitResponseDTO(*data)
@@ -61,8 +61,8 @@ func (h *RevisionsInOrganizationUnitServiceImpl) UpdateRevisionsInOrganizationUn
 func (h *RevisionsInOrganizationUnitServiceImpl) DeleteRevisionsInOrganizationUnit(id int) error {
 	err := h.repo.Delete(id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return errors.ErrInternalServer
+
+		return newErrors.Wrap(err, "repo revisions in organization unit delete")
 	}
 
 	return nil
@@ -71,8 +71,8 @@ func (h *RevisionsInOrganizationUnitServiceImpl) DeleteRevisionsInOrganizationUn
 func (h *RevisionsInOrganizationUnitServiceImpl) GetRevisionsInOrganizationUnit(id int) (*dto.RevisionsInOrganizationUnitResponseDTO, error) {
 	data, err := h.repo.Get(id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, errors.ErrNotFound
+
+		return nil, newErrors.Wrap(err, "repo revisions in organization unit get")
 	}
 	response := dto.ToRevisionsInOrganizationUnitResponseDTO(*data)
 
@@ -89,8 +89,8 @@ func (h *RevisionsInOrganizationUnitServiceImpl) GetRevisionsInOrganizationUnitL
 	}
 	data, err := h.repo.GetAll(&cond)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, errors.ErrInternalServer
+
+		return nil, newErrors.Wrap(err, "repo revisions in organization unit get all")
 	}
 	response := dto.ToRevisionsInOrganizationUnitListResponseDTO(data)
 

@@ -4,6 +4,7 @@ import (
 	"time"
 
 	up "github.com/upper/db/v4"
+	newErrors "gitlab.sudovi.me/erp/hr-ms-api/pkg/errors"
 )
 
 // RevisionRevisor struct
@@ -34,7 +35,7 @@ func (t *RevisionRevisor) GetAll(condition *up.Cond) ([]*RevisionRevisor, error)
 
 	err := res.All(&all)
 	if err != nil {
-		return nil, err
+		return nil, newErrors.Wrap(err, "upper order by")
 	}
 
 	return all, err
@@ -48,7 +49,7 @@ func (t *RevisionRevisor) Get(id int) (*RevisionRevisor, error) {
 	res := collection.Find(up.Cond{"id": id})
 	err := res.One(&one)
 	if err != nil {
-		return nil, err
+		return nil, newErrors.Wrap(err, "upper get")
 	}
 	return &one, nil
 }
@@ -60,7 +61,7 @@ func (t *RevisionRevisor) Update(m RevisionRevisor) error {
 	res := collection.Find(m.ID)
 	err := res.Update(&m)
 	if err != nil {
-		return err
+		return newErrors.Wrap(err, "upper update")
 	}
 	return nil
 }
@@ -71,7 +72,7 @@ func (t *RevisionRevisor) Delete(id int) error {
 	res := collection.Find(id)
 	err := res.Delete()
 	if err != nil {
-		return err
+		return newErrors.Wrap(err, "upper delete")
 	}
 	return nil
 }
@@ -83,7 +84,7 @@ func (t *RevisionRevisor) Insert(m RevisionRevisor) (int, error) {
 	collection := Upper.Collection(t.Table())
 	res, err := collection.Insert(m)
 	if err != nil {
-		return 0, err
+		return 0, newErrors.Wrap(err, "upper insert")
 	}
 
 	id := getInsertId(res.ID())

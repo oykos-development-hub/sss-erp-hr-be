@@ -34,6 +34,7 @@ func (h *employeeabsentHandlerImpl) CreateEmployeeAbsent(w http.ResponseWriter, 
 
 	validator := h.App.Validator().ValidateStruct(&input)
 	if !validator.Valid() {
+		h.App.ErrorLog.Print(validator.Errors)
 		_ = h.App.WriteErrorResponseWithData(w, errors.MapErrorToStatusCode(errors.ErrBadRequest), errors.ErrBadRequest, validator.Errors)
 		return
 	}
@@ -43,6 +44,7 @@ func (h *employeeabsentHandlerImpl) CreateEmployeeAbsent(w http.ResponseWriter, 
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
 	}
@@ -52,6 +54,7 @@ func (h *employeeabsentHandlerImpl) CreateEmployeeAbsent(w http.ResponseWriter, 
 
 	res, err := h.service.CreateEmployeeAbsent(ctx, input)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -67,6 +70,7 @@ func (h *employeeabsentHandlerImpl) UpdateEmployeeAbsent(w http.ResponseWriter, 
 
 	validator := h.App.Validator().ValidateStruct(&input)
 	if !validator.Valid() {
+		h.App.ErrorLog.Print(validator.Errors)
 		_ = h.App.WriteErrorResponseWithData(w, errors.MapErrorToStatusCode(errors.ErrBadRequest), errors.ErrBadRequest, validator.Errors)
 		return
 	}
@@ -76,6 +80,7 @@ func (h *employeeabsentHandlerImpl) UpdateEmployeeAbsent(w http.ResponseWriter, 
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
 	}
@@ -85,6 +90,7 @@ func (h *employeeabsentHandlerImpl) UpdateEmployeeAbsent(w http.ResponseWriter, 
 
 	res, err := h.service.UpdateEmployeeAbsent(ctx, id, input)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -100,6 +106,7 @@ func (h *employeeabsentHandlerImpl) DeleteEmployeeAbsent(w http.ResponseWriter, 
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrBadRequest)
 		return
 	}
@@ -109,6 +116,7 @@ func (h *employeeabsentHandlerImpl) DeleteEmployeeAbsent(w http.ResponseWriter, 
 
 	err = h.service.DeleteEmployeeAbsent(ctx, id)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -124,12 +132,14 @@ func (h *employeeabsentHandlerImpl) GetEmployeeAbsentList(w http.ResponseWriter,
 
 	validator := h.App.Validator().ValidateStruct(&input)
 	if !validator.Valid() {
+		h.App.ErrorLog.Print(validator.Errors)
 		_ = h.App.WriteErrorResponseWithData(w, errors.MapErrorToStatusCode(errors.ErrBadRequest), errors.ErrBadRequest, validator.Errors)
 		return
 	}
 
 	res, err := h.service.GetEmployeeAbsentList(userProfileId, input)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -142,6 +152,7 @@ func (h *employeeabsentHandlerImpl) GetAbsentById(w http.ResponseWriter, r *http
 
 	res, err := h.service.GetAbsent(id)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}

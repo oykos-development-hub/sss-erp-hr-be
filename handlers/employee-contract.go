@@ -34,6 +34,7 @@ func (h *employeecontractHandlerImpl) CreateEmployeeContract(w http.ResponseWrit
 
 	validator := h.App.Validator().ValidateStruct(&input)
 	if !validator.Valid() {
+		h.App.ErrorLog.Print(validator.Errors)
 		_ = h.App.WriteErrorResponseWithData(w, errors.MapErrorToStatusCode(errors.ErrBadRequest), errors.ErrBadRequest, validator.Errors)
 		return
 	}
@@ -43,6 +44,7 @@ func (h *employeecontractHandlerImpl) CreateEmployeeContract(w http.ResponseWrit
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
 	}
@@ -52,6 +54,7 @@ func (h *employeecontractHandlerImpl) CreateEmployeeContract(w http.ResponseWrit
 
 	res, err := h.service.CreateEmployeeContract(ctx, input)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -67,6 +70,7 @@ func (h *employeecontractHandlerImpl) UpdateEmployeeContract(w http.ResponseWrit
 
 	validator := h.App.Validator().ValidateStruct(&input)
 	if !validator.Valid() {
+		h.App.ErrorLog.Print(validator.Errors)
 		_ = h.App.WriteErrorResponseWithData(w, errors.MapErrorToStatusCode(errors.ErrBadRequest), errors.ErrBadRequest, validator.Errors)
 		return
 	}
@@ -76,6 +80,7 @@ func (h *employeecontractHandlerImpl) UpdateEmployeeContract(w http.ResponseWrit
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
 	}
@@ -85,6 +90,7 @@ func (h *employeecontractHandlerImpl) UpdateEmployeeContract(w http.ResponseWrit
 
 	res, err := h.service.UpdateEmployeeContract(ctx, id, input)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -100,6 +106,7 @@ func (h *employeecontractHandlerImpl) DeleteEmployeeContract(w http.ResponseWrit
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrBadRequest)
 		return
 	}
@@ -109,6 +116,7 @@ func (h *employeecontractHandlerImpl) DeleteEmployeeContract(w http.ResponseWrit
 
 	err = h.service.DeleteEmployeeContract(ctx, id)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}

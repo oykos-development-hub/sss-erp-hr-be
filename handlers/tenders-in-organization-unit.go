@@ -34,6 +34,7 @@ func (h *tendersinorganizationunitHandlerImpl) CreateTendersInOrganizationUnit(w
 
 	validator := h.App.Validator().ValidateStruct(&input)
 	if !validator.Valid() {
+		h.App.ErrorLog.Print(validator.Errors)
 		_ = h.App.WriteErrorResponseWithData(w, errors.MapErrorToStatusCode(errors.ErrBadRequest), errors.ErrBadRequest, validator.Errors)
 		return
 	}
@@ -43,6 +44,7 @@ func (h *tendersinorganizationunitHandlerImpl) CreateTendersInOrganizationUnit(w
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
 	}
@@ -52,6 +54,7 @@ func (h *tendersinorganizationunitHandlerImpl) CreateTendersInOrganizationUnit(w
 
 	res, err := h.service.CreateTendersInOrganizationUnit(ctx, input)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -67,6 +70,7 @@ func (h *tendersinorganizationunitHandlerImpl) UpdateTendersInOrganizationUnit(w
 
 	validator := h.App.Validator().ValidateStruct(&input)
 	if !validator.Valid() {
+		h.App.ErrorLog.Print(validator.Errors)
 		_ = h.App.WriteErrorResponseWithData(w, errors.MapErrorToStatusCode(errors.ErrBadRequest), errors.ErrBadRequest, validator.Errors)
 		return
 	}
@@ -76,6 +80,7 @@ func (h *tendersinorganizationunitHandlerImpl) UpdateTendersInOrganizationUnit(w
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
 	}
@@ -85,6 +90,7 @@ func (h *tendersinorganizationunitHandlerImpl) UpdateTendersInOrganizationUnit(w
 
 	res, err := h.service.UpdateTendersInOrganizationUnit(ctx, id, input)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -100,6 +106,7 @@ func (h *tendersinorganizationunitHandlerImpl) DeleteTendersInOrganizationUnit(w
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrBadRequest)
 		return
 	}
@@ -109,6 +116,7 @@ func (h *tendersinorganizationunitHandlerImpl) DeleteTendersInOrganizationUnit(w
 
 	err = h.service.DeleteTendersInOrganizationUnit(ctx, id)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -121,6 +129,7 @@ func (h *tendersinorganizationunitHandlerImpl) GetTendersInOrganizationUnitById(
 
 	res, err := h.service.GetTendersInOrganizationUnit(id)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -134,12 +143,14 @@ func (h *tendersinorganizationunitHandlerImpl) GetTendersInOrganizationUnitList(
 
 	validator := h.App.Validator().ValidateStruct(&input)
 	if !validator.Valid() {
+		h.App.ErrorLog.Print(validator.Errors)
 		_ = h.App.WriteErrorResponseWithData(w, errors.MapErrorToStatusCode(errors.ErrBadRequest), errors.ErrBadRequest, validator.Errors)
 		return
 	}
 
 	res, total, err := h.service.GetTendersInOrganizationUnitList(input)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}

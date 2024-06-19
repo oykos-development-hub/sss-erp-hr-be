@@ -5,7 +5,7 @@ import (
 
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
-	"gitlab.sudovi.me/erp/hr-ms-api/errors"
+	newErrors "gitlab.sudovi.me/erp/hr-ms-api/pkg/errors"
 
 	"github.com/oykos-development-hub/celeritas"
 	up "github.com/upper/db/v4"
@@ -30,12 +30,12 @@ func (h *UserProfileServiceImpl) CreateUserProfile(ctx context.Context, input dt
 
 	id, err := h.repo.Insert(ctx, *userData)
 	if err != nil {
-		return nil, err
+		return nil, newErrors.Wrap(err, "repo user profile create")
 	}
 
 	user, err := h.repo.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo user profile get")
 	}
 
 	res := dto.ToUserProfileResponseDTO(*user)
@@ -49,11 +49,11 @@ func (h *UserProfileServiceImpl) UpdateUserProfile(ctx context.Context, id int, 
 
 	err := h.repo.Update(ctx, *userData)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo user profile update")
 	}
 	user, err := h.repo.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo user profile get")
 	}
 
 	response := dto.ToUserProfileResponseDTO(*user)
@@ -64,8 +64,8 @@ func (h *UserProfileServiceImpl) UpdateUserProfile(ctx context.Context, id int, 
 func (h *UserProfileServiceImpl) DeleteUserProfile(ctx context.Context, id int) error {
 	err := h.repo.Delete(ctx, id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return errors.ErrInternalServer
+
+		return newErrors.Wrap(err, "repo user profile delete")
 	}
 
 	return nil
@@ -74,8 +74,8 @@ func (h *UserProfileServiceImpl) DeleteUserProfile(ctx context.Context, id int) 
 func (h *UserProfileServiceImpl) GetUserProfile(id int) (*dto.UserProfileResponseDTO, error) {
 	user, err := h.repo.Get(id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, errors.ErrInternalServer
+
+		return nil, newErrors.Wrap(err, "repo user profile get")
 	}
 
 	response := dto.ToUserProfileResponseDTO(*user)
@@ -93,8 +93,8 @@ func (h *UserProfileServiceImpl) GetUserProfileList(data dto.GetProfilesInputDTO
 	}
 	res, total, err := h.repo.GetAll(nil, nil, &cond)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, nil, errors.ErrInternalServer
+
+		return nil, nil, newErrors.Wrap(err, "repo user profile get all")
 	}
 
 	response := dto.ToUserProfileListResponseDTO(res)
@@ -109,7 +109,7 @@ func (h *UserProfileServiceImpl) GetContracts(id int, input dto.GetEmployeeContr
 	}
 	contracts, err := h.contractRepo.GetByUserProfileId(id, &cond)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo employee contracts get")
 	}
 
 	response := dto.ToEmployeeContractListResponseDTO(contracts)
@@ -120,7 +120,7 @@ func (h *UserProfileServiceImpl) GetContracts(id int, input dto.GetEmployeeContr
 func (h *UserProfileServiceImpl) GetRevisors() ([]*data.Revisor, error) {
 	revisors, err := h.repo.GetRevisors()
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo user profile get revisors")
 	}
 
 	return revisors, nil

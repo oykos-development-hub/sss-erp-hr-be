@@ -9,7 +9,7 @@ import (
 	up "github.com/upper/db/v4"
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
-	"gitlab.sudovi.me/erp/hr-ms-api/errors"
+	newErrors "gitlab.sudovi.me/erp/hr-ms-api/pkg/errors"
 )
 
 type SystematizationServiceImpl struct {
@@ -29,12 +29,12 @@ func (h *SystematizationServiceImpl) CreateSystematization(ctx context.Context, 
 
 	id, err := h.repo.Insert(ctx, *data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo systematization insert")
 	}
 
 	data, err = data.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo systematization get")
 	}
 
 	res := dto.ToSystematizationResponseDTO(*data)
@@ -48,12 +48,12 @@ func (h *SystematizationServiceImpl) UpdateSystematization(ctx context.Context, 
 
 	err := h.repo.Update(ctx, *data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo systematization update")
 	}
 
 	data, err = h.repo.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo systematization get")
 	}
 
 	response := dto.ToSystematizationResponseDTO(*data)
@@ -64,8 +64,8 @@ func (h *SystematizationServiceImpl) UpdateSystematization(ctx context.Context, 
 func (h *SystematizationServiceImpl) DeleteSystematization(ctx context.Context, id int) error {
 	err := h.repo.Delete(ctx, id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return errors.ErrInternalServer
+
+		return newErrors.Wrap(err, "repo systematization delete")
 	}
 
 	return nil
@@ -74,8 +74,8 @@ func (h *SystematizationServiceImpl) DeleteSystematization(ctx context.Context, 
 func (h *SystematizationServiceImpl) GetSystematization(id int) (*dto.SystematizationResponseDTO, error) {
 	data, err := h.repo.Get(id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, errors.ErrNotFound
+
+		return nil, newErrors.Wrap(err, "repo systematization get")
 	}
 	response := dto.ToSystematizationResponseDTO(*data)
 
@@ -111,8 +111,8 @@ func (h *SystematizationServiceImpl) GetSystematizationList(input dto.GetSystema
 
 	res, total, err := h.repo.GetAll(input.Page, input.PageSize, conditionAndExp)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, nil, errors.ErrInternalServer
+
+		return nil, nil, newErrors.Wrap(err, "repo systematization get all")
 	}
 	response := dto.ToSystematizationListResponseDTO(res)
 

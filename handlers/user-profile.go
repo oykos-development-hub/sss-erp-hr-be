@@ -34,6 +34,7 @@ func (h *userprofileHandlerImpl) CreateUserProfile(w http.ResponseWriter, r *htt
 
 	validator := h.App.Validator().ValidateStruct(&input)
 	if !validator.Valid() {
+		h.App.ErrorLog.Print(validator.Errors)
 		_ = h.App.WriteErrorResponseWithData(w, errors.MapErrorToStatusCode(errors.ErrBadRequest), errors.ErrBadRequest, validator.Errors)
 		return
 	}
@@ -43,6 +44,7 @@ func (h *userprofileHandlerImpl) CreateUserProfile(w http.ResponseWriter, r *htt
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
 	}
@@ -52,6 +54,7 @@ func (h *userprofileHandlerImpl) CreateUserProfile(w http.ResponseWriter, r *htt
 
 	res, err := h.service.CreateUserProfile(ctx, input)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -68,6 +71,7 @@ func (h *userprofileHandlerImpl) UpdateUserProfile(w http.ResponseWriter, r *htt
 
 	validator := h.App.Validator().ValidateStruct(&input)
 	if !validator.Valid() {
+		h.App.ErrorLog.Print(validator.Errors)
 		_ = h.App.WriteErrorResponseWithData(w, errors.MapErrorToStatusCode(errors.ErrBadRequest), errors.ErrBadRequest, validator.Errors)
 		return
 	}
@@ -77,6 +81,7 @@ func (h *userprofileHandlerImpl) UpdateUserProfile(w http.ResponseWriter, r *htt
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
 	}
@@ -86,6 +91,7 @@ func (h *userprofileHandlerImpl) UpdateUserProfile(w http.ResponseWriter, r *htt
 
 	res, err := h.service.UpdateUserProfile(ctx, id, input)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -101,6 +107,7 @@ func (h *userprofileHandlerImpl) DeleteUserProfile(w http.ResponseWriter, r *htt
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrBadRequest)
 		return
 	}
@@ -110,6 +117,7 @@ func (h *userprofileHandlerImpl) DeleteUserProfile(w http.ResponseWriter, r *htt
 
 	err = h.service.DeleteUserProfile(ctx, id)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -122,6 +130,7 @@ func (h *userprofileHandlerImpl) GetUserProfileById(w http.ResponseWriter, r *ht
 
 	res, err := h.service.GetUserProfile(id)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -135,12 +144,14 @@ func (h *userprofileHandlerImpl) GetUserProfileList(w http.ResponseWriter, r *ht
 
 	validator := h.App.Validator().ValidateStruct(&input)
 	if !validator.Valid() {
+		h.App.ErrorLog.Print(validator.Errors)
 		_ = h.App.WriteErrorResponseWithData(w, errors.MapErrorToStatusCode(errors.ErrBadRequest), errors.ErrBadRequest, validator.Errors)
 		return
 	}
 
 	res, total, err := h.service.GetUserProfileList(input)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -155,6 +166,7 @@ func (h *userprofileHandlerImpl) GetContracts(w http.ResponseWriter, r *http.Req
 
 	res, err := h.service.GetContracts(id, input)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -165,6 +177,7 @@ func (h *userprofileHandlerImpl) GetContracts(w http.ResponseWriter, r *http.Req
 func (h *userprofileHandlerImpl) GetRevisors(w http.ResponseWriter, r *http.Request) {
 	res, err := h.service.GetRevisors()
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}

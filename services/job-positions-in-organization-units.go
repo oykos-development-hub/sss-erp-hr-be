@@ -3,7 +3,7 @@ package services
 import (
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
-	"gitlab.sudovi.me/erp/hr-ms-api/errors"
+	newErrors "gitlab.sudovi.me/erp/hr-ms-api/pkg/errors"
 
 	"github.com/oykos-development-hub/celeritas"
 	up "github.com/upper/db/v4"
@@ -26,12 +26,12 @@ func (h *JobPositionsInOrganizationUnitsServiceImpl) CreateJobPositionsInOrganiz
 
 	id, err := h.repo.Insert(*data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo job position in organization unit insert")
 	}
 
 	data, err = data.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo job position in organization unit get")
 	}
 
 	res := dto.ToJobPositionsInOrganizationUnitsResponseDTO(*data)
@@ -44,12 +44,12 @@ func (h *JobPositionsInOrganizationUnitsServiceImpl) UpdateJobPositionsInOrganiz
 
 	err := h.repo.Update(*data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo job position in organization unit update")
 	}
 
 	data, err = data.Get(input.Id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo job position in organization unit get")
 	}
 
 	res := dto.ToJobPositionsInOrganizationUnitsResponseDTO(*data)
@@ -60,8 +60,7 @@ func (h *JobPositionsInOrganizationUnitsServiceImpl) UpdateJobPositionsInOrganiz
 func (h *JobPositionsInOrganizationUnitsServiceImpl) DeleteJobPositionsInOrganizationUnits(id int) error {
 	err := h.repo.Delete(id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return errors.ErrInternalServer
+		return newErrors.Wrap(err, "repo job position in organization unit delete")
 	}
 
 	return nil
@@ -70,8 +69,7 @@ func (h *JobPositionsInOrganizationUnitsServiceImpl) DeleteJobPositionsInOrganiz
 func (h *JobPositionsInOrganizationUnitsServiceImpl) GetJobPositionInOrganziationUnitById(id int) (*dto.JobPositionsInOrganizationUnitsResponseDTO, error) {
 	data, err := h.repo.Get(id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, errors.ErrNotFound
+		return nil, newErrors.Wrap(err, "repo job position in organization unit get")
 	}
 	response := dto.ToJobPositionsInOrganizationUnitsResponseDTO(*data)
 
@@ -95,8 +93,7 @@ func (h *JobPositionsInOrganizationUnitsServiceImpl) GetJobPositionsInOrganizati
 
 	res, total, err := h.repo.GetAll(data.Page, data.PageSize, conditionAndExp)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, nil, errors.ErrInternalServer
+		return nil, nil, newErrors.Wrap(err, "repo job position in organization unit get all")
 	}
 	response := dto.ToJobPositionsInOrganizationUnitsListResponseDTO(res)
 

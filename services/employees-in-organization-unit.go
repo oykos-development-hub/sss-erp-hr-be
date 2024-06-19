@@ -4,6 +4,7 @@ import (
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
 	"gitlab.sudovi.me/erp/hr-ms-api/errors"
+	newErrors "gitlab.sudovi.me/erp/hr-ms-api/pkg/errors"
 
 	"github.com/oykos-development-hub/celeritas"
 	up "github.com/upper/db/v4"
@@ -28,19 +29,19 @@ func (h *EmployeesInOrganizationUnitServiceImpl) CreateEmployeesInOrganizationUn
 	}
 	result, _ := h.repo.GetAll(&cond)
 	if len(result) > 0 {
-		return nil, errors.ErrResourceExists
+		return nil, newErrors.Wrap(errors.ErrResourceExists, "repo employee in organization unit get all")
 	}
 
 	data := input.ToEmployeesInOrganizationUnit()
 
 	id, err := h.repo.Insert(*data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo employee in organization unit insert")
 	}
 
 	data, err = data.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo employee in organization unit get")
 	}
 
 	response := dto.ToEmployeesInOrganizationUnitResponseDTO(*data)
@@ -51,8 +52,7 @@ func (h *EmployeesInOrganizationUnitServiceImpl) CreateEmployeesInOrganizationUn
 func (h *EmployeesInOrganizationUnitServiceImpl) DeleteEmployeesInOrganizationUnit(id int) error {
 	err := h.repo.Delete(id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return errors.ErrInternalServer
+		return newErrors.Wrap(err, "repo employee in organization unit delete")
 	}
 
 	return nil
@@ -61,8 +61,7 @@ func (h *EmployeesInOrganizationUnitServiceImpl) DeleteEmployeesInOrganizationUn
 func (h *EmployeesInOrganizationUnitServiceImpl) DeleteEmployeesInOrganizationUnitByID(id int) error {
 	err := h.repo.DeleteByID(id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return errors.ErrInternalServer
+		return newErrors.Wrap(err, "repo employee in organization unit delete by id")
 	}
 
 	return nil
@@ -74,8 +73,7 @@ func (h *EmployeesInOrganizationUnitServiceImpl) GetEmployeesInOrganizationUnitB
 	}
 	data, err := h.repo.GetAll(&cond)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, errors.ErrNotFound
+		return nil, newErrors.Wrap(err, "repo employee in organization unit get all")
 	}
 	if len(data) == 0 {
 		return nil, nil
@@ -95,8 +93,7 @@ func (h *EmployeesInOrganizationUnitServiceImpl) GetEmployeesInOrganizationUnitL
 	}
 	res, err := h.repo.GetAll(&condition)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo employee in organization unit get all")
 	}
 	response := dto.ToEmployeesInOrganizationUnitListResponseDTO(res)
 
@@ -113,17 +110,17 @@ func (h *EmployeesInOrganizationUnitServiceImpl) UpdateEmployeesInOrganizationUn
 	}
 	result, _ := h.repo.GetAll(&cond)
 	if len(result) > 0 && result[0].ID != id {
-		return nil, errors.ErrResourceExists
+		return nil, newErrors.Wrap(errors.ErrResourceExists, "repo employee in organization unit get all")
 	}
 
 	err := h.repo.Update(*data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo employee in organization unit update")
 	}
 
 	data, err = h.repo.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo employee in organization unit get")
 	}
 
 	response := dto.ToEmployeesInOrganizationUnitResponseDTO(*data)

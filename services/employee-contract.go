@@ -5,7 +5,7 @@ import (
 
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
-	"gitlab.sudovi.me/erp/hr-ms-api/errors"
+	newErrors "gitlab.sudovi.me/erp/hr-ms-api/pkg/errors"
 
 	"github.com/oykos-development-hub/celeritas"
 )
@@ -27,12 +27,12 @@ func (h *EmployeeContractServiceImpl) CreateEmployeeContract(ctx context.Context
 
 	id, err := h.repo.Insert(ctx, *data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo employee contract insert")
 	}
 
 	data, err = data.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo employee contract get")
 	}
 
 	res := dto.ToEmployeeContractResponseDTO(*data)
@@ -46,7 +46,7 @@ func (h *EmployeeContractServiceImpl) UpdateEmployeeContract(ctx context.Context
 
 	err := h.repo.Update(ctx, *data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo employee contract update")
 	}
 
 	updatedData, _ := h.repo.Get(id)
@@ -59,8 +59,7 @@ func (h *EmployeeContractServiceImpl) UpdateEmployeeContract(ctx context.Context
 func (h *EmployeeContractServiceImpl) DeleteEmployeeContract(ctx context.Context, id int) error {
 	err := h.repo.Delete(ctx, id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return errors.ErrInternalServer
+		return newErrors.Wrap(err, "repo employee contract delete")
 	}
 
 	return nil

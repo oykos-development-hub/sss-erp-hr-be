@@ -6,7 +6,7 @@ import (
 
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
-	"gitlab.sudovi.me/erp/hr-ms-api/errors"
+	newErrors "gitlab.sudovi.me/erp/hr-ms-api/pkg/errors"
 
 	"github.com/oykos-development-hub/celeritas"
 	up "github.com/upper/db/v4"
@@ -29,12 +29,12 @@ func (h *JobPositionServiceImpl) CreateJobPosition(ctx context.Context, input dt
 
 	id, err := h.repo.Insert(ctx, *data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo job position insert")
 	}
 
 	data, err = data.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo job position get")
 	}
 
 	res := dto.ToJobPositionResponseDTO(*data)
@@ -48,7 +48,7 @@ func (h *JobPositionServiceImpl) UpdateJobPosition(ctx context.Context, id int, 
 
 	err := h.repo.Update(ctx, *data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo job position update")
 	}
 
 	response := dto.ToJobPositionResponseDTO(*data)
@@ -59,8 +59,7 @@ func (h *JobPositionServiceImpl) UpdateJobPosition(ctx context.Context, id int, 
 func (h *JobPositionServiceImpl) DeleteJobPosition(ctx context.Context, id int) error {
 	err := h.repo.Delete(ctx, id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return errors.ErrInternalServer
+		return newErrors.Wrap(err, "repo job position delete")
 	}
 
 	return nil
@@ -69,8 +68,7 @@ func (h *JobPositionServiceImpl) DeleteJobPosition(ctx context.Context, id int) 
 func (h *JobPositionServiceImpl) GetJobPosition(id int) (*dto.JobPositionResponseDTO, error) {
 	data, err := h.repo.Get(id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, errors.ErrNotFound
+		return nil, newErrors.Wrap(err, "repo job position get")
 	}
 	response := dto.ToJobPositionResponseDTO(*data)
 
@@ -116,8 +114,7 @@ func (h *JobPositionServiceImpl) GetJobPositionList(data dto.GetJobPositionsDTO)
 
 	res, total, err := h.repo.GetAll(data.Page, data.PageSize, combinedCond)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, nil, errors.ErrInternalServer
+		return nil, nil, newErrors.Wrap(err, "repo job position get all")
 	}
 	response := dto.ToJobPositionListResponseDTO(res)
 

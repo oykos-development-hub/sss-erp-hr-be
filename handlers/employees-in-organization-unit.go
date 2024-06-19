@@ -32,12 +32,14 @@ func (h *employeesinorganizationunitHandlerImpl) CreateEmployeesInOrganizationUn
 
 	validator := h.App.Validator().ValidateStruct(&input)
 	if !validator.Valid() {
+		h.App.ErrorLog.Print(validator.Errors)
 		_ = h.App.WriteErrorResponseWithData(w, errors.MapErrorToStatusCode(errors.ErrBadRequest), errors.ErrBadRequest, validator.Errors)
 		return
 	}
 
 	res, err := h.service.CreateEmployeesInOrganizationUnit(input)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -50,6 +52,7 @@ func (h *employeesinorganizationunitHandlerImpl) DeleteEmployeesInOrganizationUn
 
 	err := h.service.DeleteEmployeesInOrganizationUnit(id)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -62,6 +65,7 @@ func (h *employeesinorganizationunitHandlerImpl) DeleteEmployeesInOrganizationUn
 
 	err := h.service.DeleteEmployeesInOrganizationUnitByID(id)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -74,6 +78,7 @@ func (h *employeesinorganizationunitHandlerImpl) GetEmployeesInOrganizationUnitB
 
 	res, err := h.service.GetEmployeesInOrganizationUnitByEmployee(id)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -87,12 +92,14 @@ func (h *employeesinorganizationunitHandlerImpl) GetEmployeesInOrganizationUnitL
 
 	validator := h.App.Validator().ValidateStruct(&input)
 	if !validator.Valid() {
+		h.App.ErrorLog.Print(validator.Errors)
 		_ = h.App.WriteErrorResponseWithData(w, errors.MapErrorToStatusCode(errors.ErrBadRequest), errors.ErrBadRequest, validator.Errors)
 		return
 	}
 
 	res, err := h.service.GetEmployeesInOrganizationUnitList(input)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}
@@ -108,12 +115,14 @@ func (h *employeesinorganizationunitHandlerImpl) UpdateJobPositionInOrganization
 
 	validator := h.App.Validator().ValidateStruct(&input)
 	if !validator.Valid() {
+		h.App.ErrorLog.Print(validator.Errors)
 		_ = h.App.WriteErrorResponseWithData(w, errors.MapErrorToStatusCode(errors.ErrBadRequest), errors.ErrBadRequest, validator.Errors)
 		return
 	}
 
 	res, err := h.service.UpdateEmployeesInOrganizationUnit(id, input)
 	if err != nil {
+		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
 	}

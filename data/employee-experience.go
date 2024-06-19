@@ -4,6 +4,7 @@ import (
 	"time"
 
 	up "github.com/upper/db/v4"
+	newErrors "gitlab.sudovi.me/erp/hr-ms-api/pkg/errors"
 )
 
 // EmployeeExperience struct
@@ -45,7 +46,7 @@ func (t *EmployeeExperience) GetAll(condition *up.Cond) ([]*EmployeeExperience, 
 
 	err := res.OrderBy("created_at desc").All(&all)
 	if err != nil {
-		return nil, err
+		return nil, newErrors.Wrap(err, "upper order by")
 	}
 
 	return all, err
@@ -59,7 +60,7 @@ func (t *EmployeeExperience) Get(id int) (*EmployeeExperience, error) {
 	res := collection.Find(up.Cond{"id": id})
 	err := res.One(&one)
 	if err != nil {
-		return nil, err
+		return nil, newErrors.Wrap(err, "upper get")
 	}
 	return &one, nil
 }
@@ -71,7 +72,7 @@ func (t *EmployeeExperience) Update(m EmployeeExperience) error {
 	res := collection.Find(m.ID)
 	err := res.Update(&m)
 	if err != nil {
-		return err
+		return newErrors.Wrap(err, "upper update")
 	}
 	return nil
 }
@@ -82,7 +83,7 @@ func (t *EmployeeExperience) Delete(id int) error {
 	res := collection.Find(id)
 	err := res.Delete()
 	if err != nil {
-		return err
+		return newErrors.Wrap(err, "upper delete")
 	}
 	return nil
 }
@@ -94,7 +95,7 @@ func (t *EmployeeExperience) Insert(m EmployeeExperience) (int, error) {
 	collection := Upper.Collection(t.Table())
 	res, err := collection.Insert(m)
 	if err != nil {
-		return 0, err
+		return 0, newErrors.Wrap(err, "upper insert")
 	}
 
 	id := getInsertId(res.ID())

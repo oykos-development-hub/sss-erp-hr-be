@@ -6,7 +6,7 @@ import (
 
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
-	"gitlab.sudovi.me/erp/hr-ms-api/errors"
+	newErrors "gitlab.sudovi.me/erp/hr-ms-api/pkg/errors"
 
 	"github.com/oykos-development-hub/celeritas"
 	up "github.com/upper/db/v4"
@@ -30,12 +30,12 @@ func (h *SalaryServiceImpl) CreateSalary(ctx context.Context, input dto.SalaryDT
 	data.UpdatedAt = time.Now()
 	id, err := h.repo.Insert(ctx, *data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo salary insert")
 	}
 
 	data, err = data.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo salary get")
 	}
 
 	res := dto.ToSalaryResponseDTO(*data)
@@ -46,7 +46,7 @@ func (h *SalaryServiceImpl) CreateSalary(ctx context.Context, input dto.SalaryDT
 func (h *SalaryServiceImpl) UpdateSalary(ctx context.Context, id int, input dto.SalaryDTO) (*dto.SalaryResponseDTO, error) {
 	curr, err := h.repo.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo salary get")
 	}
 
 	data := input.ToSalary()
@@ -56,12 +56,12 @@ func (h *SalaryServiceImpl) UpdateSalary(ctx context.Context, id int, input dto.
 
 	err = h.repo.Update(ctx, *data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo salary update")
 	}
 
 	data, err = h.repo.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo salary get")
 	}
 
 	response := dto.ToSalaryResponseDTO(*data)
@@ -72,8 +72,8 @@ func (h *SalaryServiceImpl) UpdateSalary(ctx context.Context, id int, input dto.
 func (h *SalaryServiceImpl) DeleteSalary(ctx context.Context, id int) error {
 	err := h.repo.Delete(ctx, id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return errors.ErrInternalServer
+
+		return newErrors.Wrap(err, "repo salary delete")
 	}
 
 	return nil
@@ -82,8 +82,8 @@ func (h *SalaryServiceImpl) DeleteSalary(ctx context.Context, id int) error {
 func (h *SalaryServiceImpl) GetSalary(id int) (*dto.SalaryResponseDTO, error) {
 	data, err := h.repo.Get(id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, errors.ErrNotFound
+
+		return nil, newErrors.Wrap(err, "repo salary get")
 	}
 	response := dto.ToSalaryResponseDTO(*data)
 
@@ -96,8 +96,8 @@ func (h *SalaryServiceImpl) GetSalaryList(id int) ([]dto.SalaryResponseDTO, erro
 	}
 	data, err := h.repo.GetAll(&cond)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, errors.ErrInternalServer
+
+		return nil, newErrors.Wrap(err, "repo salary get all")
 	}
 	response := dto.ToSalaryListResponseDTO(data)
 

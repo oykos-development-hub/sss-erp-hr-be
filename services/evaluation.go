@@ -5,7 +5,7 @@ import (
 
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
-	"gitlab.sudovi.me/erp/hr-ms-api/errors"
+	newErrors "gitlab.sudovi.me/erp/hr-ms-api/pkg/errors"
 
 	"github.com/oykos-development-hub/celeritas"
 	up "github.com/upper/db/v4"
@@ -28,12 +28,12 @@ func (h *EvaluationServiceImpl) CreateEvaluation(ctx context.Context, input dto.
 
 	id, err := h.repo.Insert(ctx, *data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo evaluation insert")
 	}
 
 	data, err = data.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo evaluation get")
 	}
 
 	res := dto.ToEvaluationResponseDTO(*data)
@@ -50,12 +50,12 @@ func (h *EvaluationServiceImpl) UpdateEvaluation(ctx context.Context, id int, in
 
 	err := h.repo.Update(ctx, *data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo evaluation update")
 	}
 
 	data, err = h.repo.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo evaluation get")
 	}
 
 	response := dto.ToEvaluationResponseDTO(*data)
@@ -66,8 +66,7 @@ func (h *EvaluationServiceImpl) UpdateEvaluation(ctx context.Context, id int, in
 func (h *EvaluationServiceImpl) DeleteEvaluation(ctx context.Context, id int) error {
 	err := h.repo.Delete(ctx, id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return errors.ErrInternalServer
+		return newErrors.Wrap(err, "repo evaluation delete")
 	}
 
 	return nil
@@ -76,8 +75,7 @@ func (h *EvaluationServiceImpl) DeleteEvaluation(ctx context.Context, id int) er
 func (h *EvaluationServiceImpl) GetEvaluation(id int) (*dto.EvaluationResponseDTO, error) {
 	data, err := h.repo.Get(id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, errors.ErrNotFound
+		return nil, newErrors.Wrap(err, "repo evaluation get")
 	}
 	response := dto.ToEvaluationResponseDTO(*data)
 
@@ -90,8 +88,7 @@ func (h *EvaluationServiceImpl) GetEmployeesEvaluationList(id int) ([]dto.Evalua
 	}
 	data, err := h.repo.GetAll(&cond)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo evaluation get all")
 	}
 	response := dto.ToEvaluationListResponseDTO(data)
 
@@ -114,8 +111,7 @@ func (h *EvaluationServiceImpl) GetEvaluationList(input dto.GetEvaluationListInp
 
 	data, err := h.repo.GetAll(&cond)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo evaluation get all")
 	}
 	response := dto.ToEvaluationListResponseDTO(data)
 

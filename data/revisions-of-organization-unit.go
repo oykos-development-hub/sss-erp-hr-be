@@ -4,6 +4,7 @@ import (
 	"time"
 
 	up "github.com/upper/db/v4"
+	newErrors "gitlab.sudovi.me/erp/hr-ms-api/pkg/errors"
 )
 
 type RevisionsOfOrganizationUnit struct {
@@ -58,7 +59,7 @@ func (t *RevisionsOfOrganizationUnit) GetAll(page *int, pageSize *int, condition
 
 	total, err := res.Count()
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, newErrors.Wrap(err, "upper count")
 	}
 
 	if page != nil && pageSize != nil {
@@ -67,7 +68,7 @@ func (t *RevisionsOfOrganizationUnit) GetAll(page *int, pageSize *int, condition
 
 	err = res.OrderBy("created_at desc").All(&all)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, newErrors.Wrap(err, "upper order by")
 	}
 
 	return all, &total, err
@@ -81,7 +82,7 @@ func (t *RevisionsOfOrganizationUnit) Get(id int) (*RevisionsOfOrganizationUnit,
 	res := collection.Find(up.Cond{"id": id})
 	err := res.One(&one)
 	if err != nil {
-		return nil, err
+		return nil, newErrors.Wrap(err, "upper get")
 	}
 	return &one, nil
 }
@@ -93,7 +94,7 @@ func (t *RevisionsOfOrganizationUnit) Update(m RevisionsOfOrganizationUnit) erro
 	res := collection.Find(m.ID)
 	err := res.Update(&m)
 	if err != nil {
-		return err
+		return newErrors.Wrap(err, "upper update")
 	}
 	return nil
 }
@@ -104,7 +105,7 @@ func (t *RevisionsOfOrganizationUnit) Delete(id int) error {
 	res := collection.Find(id)
 	err := res.Delete()
 	if err != nil {
-		return err
+		return newErrors.Wrap(err, "upper delete")
 	}
 	return nil
 }
@@ -116,7 +117,7 @@ func (t *RevisionsOfOrganizationUnit) Insert(m RevisionsOfOrganizationUnit) (int
 	collection := Upper.Collection(t.Table())
 	res, err := collection.Insert(m)
 	if err != nil {
-		return 0, err
+		return 0, newErrors.Wrap(err, "upper insert")
 	}
 
 	id := getInsertId(res.ID())

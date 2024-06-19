@@ -6,7 +6,7 @@ import (
 
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
-	"gitlab.sudovi.me/erp/hr-ms-api/errors"
+	newErrors "gitlab.sudovi.me/erp/hr-ms-api/pkg/errors"
 
 	"github.com/oykos-development-hub/celeritas"
 	up "github.com/upper/db/v4"
@@ -29,12 +29,12 @@ func (h *OrganizationUnitServiceImpl) CreateOrganizationUnit(ctx context.Context
 
 	id, err := h.repo.Insert(ctx, *data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo organization unit insert")
 	}
 
 	data, err = data.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo organization unit get")
 	}
 
 	res := dto.ToOrganizationUnitResponseDTO(*data)
@@ -48,7 +48,7 @@ func (h *OrganizationUnitServiceImpl) UpdateOrganizationUnit(ctx context.Context
 
 	err := h.repo.Update(ctx, *data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo organization unit update")
 	}
 
 	response := dto.ToOrganizationUnitResponseDTO(*data)
@@ -59,8 +59,7 @@ func (h *OrganizationUnitServiceImpl) UpdateOrganizationUnit(ctx context.Context
 func (h *OrganizationUnitServiceImpl) DeleteOrganizationUnit(ctx context.Context, id int) error {
 	err := h.repo.Delete(ctx, id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return errors.ErrInternalServer
+		return newErrors.Wrap(err, "repo organization unit delete")
 	}
 
 	return nil
@@ -69,8 +68,7 @@ func (h *OrganizationUnitServiceImpl) DeleteOrganizationUnit(ctx context.Context
 func (h *OrganizationUnitServiceImpl) GetOrganizationUnit(id int) (*dto.OrganizationUnitResponseDTO, error) {
 	data, err := h.repo.Get(id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, errors.ErrNotFound
+		return nil, newErrors.Wrap(err, "repo organization unit get")
 	}
 	response := dto.ToOrganizationUnitResponseDTO(*data)
 
@@ -107,8 +105,7 @@ func (h *OrganizationUnitServiceImpl) GetOrganizationUnitList(data dto.GetOrgani
 
 	res, total, err := h.repo.GetAll(data.Page, data.PageSize, conditionAndExp)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, nil, errors.ErrInternalServer
+		return nil, nil, newErrors.Wrap(err, "repo organization unit get all")
 	}
 	response := dto.ToOrganizationUnitListResponseDTO(res)
 

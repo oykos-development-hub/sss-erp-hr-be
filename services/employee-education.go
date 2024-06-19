@@ -3,7 +3,7 @@ package services
 import (
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
-	"gitlab.sudovi.me/erp/hr-ms-api/errors"
+	newErrors "gitlab.sudovi.me/erp/hr-ms-api/pkg/errors"
 
 	"github.com/oykos-development-hub/celeritas"
 	up "github.com/upper/db/v4"
@@ -26,12 +26,12 @@ func (h *EmployeeEducationServiceImpl) CreateEmployeeEducation(input dto.Employe
 
 	id, err := h.repo.Insert(*data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo employee education insert")
 	}
 
 	data, err = data.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo employee education get")
 	}
 
 	res := dto.ToEmployeeEducationResponseDTO(*data)
@@ -45,12 +45,12 @@ func (h *EmployeeEducationServiceImpl) UpdateEmployeeEducation(id int, input dto
 
 	err := h.repo.Update(*data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo employee education update")
 	}
 
 	data, err = h.repo.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo employee education get")
 	}
 
 	response := dto.ToEmployeeEducationResponseDTO(*data)
@@ -61,8 +61,7 @@ func (h *EmployeeEducationServiceImpl) UpdateEmployeeEducation(id int, input dto
 func (h *EmployeeEducationServiceImpl) DeleteEmployeeEducation(id int) error {
 	err := h.repo.Delete(id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return errors.ErrInternalServer
+		return newErrors.Wrap(err, "repo employee education get")
 	}
 
 	return nil
@@ -82,8 +81,7 @@ func (h *EmployeeEducationServiceImpl) GetEmployeeEducationList(input dto.Educat
 
 	data, err := h.repo.GetAll(&cond)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo employee education get all")
 	}
 	response := dto.ToEmployeeEducationListResponseDTO(data)
 

@@ -3,7 +3,8 @@ package services
 import (
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
-	"gitlab.sudovi.me/erp/hr-ms-api/errors"
+
+	newErrors "gitlab.sudovi.me/erp/hr-ms-api/pkg/errors"
 
 	"github.com/oykos-development-hub/celeritas"
 	up "github.com/upper/db/v4"
@@ -26,12 +27,12 @@ func (h *AbsentTypeServiceImpl) CreateAbsentType(input dto.AbsentTypeDTO) (*dto.
 
 	id, err := h.repo.Insert(*data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo absent type insert")
 	}
 
 	data, err = data.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo absent type get")
 	}
 
 	res := dto.ToAbsentTypeResponseDTO(*data)
@@ -45,12 +46,12 @@ func (h *AbsentTypeServiceImpl) UpdateAbsentType(id int, input dto.AbsentTypeDTO
 
 	err := h.repo.Update(*data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo absent type update")
 	}
 
 	data, err = h.repo.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo absent type get")
 	}
 
 	response := dto.ToAbsentTypeResponseDTO(*data)
@@ -61,8 +62,7 @@ func (h *AbsentTypeServiceImpl) UpdateAbsentType(id int, input dto.AbsentTypeDTO
 func (h *AbsentTypeServiceImpl) DeleteAbsentType(id int) error {
 	err := h.repo.Delete(id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return errors.ErrInternalServer
+		return newErrors.Wrap(err, "repo absent type delete")
 	}
 
 	return nil
@@ -71,8 +71,7 @@ func (h *AbsentTypeServiceImpl) DeleteAbsentType(id int) error {
 func (h *AbsentTypeServiceImpl) GetAbsentType(id int) (*dto.AbsentTypeResponseDTO, error) {
 	data, err := h.repo.Get(id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, errors.ErrNotFound
+		return nil, newErrors.Wrap(err, "repo absent type get")
 	}
 	response := dto.ToAbsentTypeResponseDTO(*data)
 
@@ -87,8 +86,7 @@ func (h *AbsentTypeServiceImpl) GetAbsentTypeList(data dto.GetAbesntTypeDTO) ([]
 
 	res, total, err := h.repo.GetAll(data.Page, data.Size, &cond)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, nil, errors.ErrInternalServer
+		return nil, nil, newErrors.Wrap(err, "repo absent type get all")
 	}
 	response := dto.ToAbsentTypeListResponseDTO(res)
 

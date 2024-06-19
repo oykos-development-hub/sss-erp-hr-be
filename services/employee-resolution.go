@@ -5,7 +5,7 @@ import (
 
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
-	"gitlab.sudovi.me/erp/hr-ms-api/errors"
+	newErrors "gitlab.sudovi.me/erp/hr-ms-api/pkg/errors"
 
 	"github.com/oykos-development-hub/celeritas"
 	up "github.com/upper/db/v4"
@@ -28,12 +28,12 @@ func (h *EmployeeResolutionServiceImpl) CreateEmployeeResolution(ctx context.Con
 
 	id, err := h.repo.Insert(ctx, *data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo employee resolution insert")
 	}
 
 	data, err = data.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo employee resolution get")
 	}
 
 	res := dto.ToEmployeeResolutionResponseDTO(*data)
@@ -47,12 +47,12 @@ func (h *EmployeeResolutionServiceImpl) UpdateEmployeeResolution(ctx context.Con
 
 	err := h.repo.Update(ctx, *data)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo employee resolution update")
 	}
 
 	data, err = h.repo.Get(id)
 	if err != nil {
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo employee resolution get")
 	}
 
 	response := dto.ToEmployeeResolutionResponseDTO(*data)
@@ -63,8 +63,7 @@ func (h *EmployeeResolutionServiceImpl) UpdateEmployeeResolution(ctx context.Con
 func (h *EmployeeResolutionServiceImpl) DeleteEmployeeResolution(ctx context.Context, id int) error {
 	err := h.repo.Delete(ctx, id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return errors.ErrInternalServer
+		return newErrors.Wrap(err, "repo employee resolution delete")
 	}
 
 	return nil
@@ -73,8 +72,7 @@ func (h *EmployeeResolutionServiceImpl) DeleteEmployeeResolution(ctx context.Con
 func (h *EmployeeResolutionServiceImpl) GetEmployeeResolution(id int) (*dto.EmployeeResolutionResponseDTO, error) {
 	data, err := h.repo.Get(id)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, errors.ErrNotFound
+		return nil, newErrors.Wrap(err, "repo employee resolution resolution")
 	}
 	response := dto.ToEmployeeResolutionResponseDTO(*data)
 
@@ -93,8 +91,7 @@ func (h *EmployeeResolutionServiceImpl) GetEmployeeResolutionList(userProfileID 
 	}
 	data, err := h.repo.GetAll(&cond)
 	if err != nil {
-		h.App.ErrorLog.Println(err)
-		return nil, errors.ErrInternalServer
+		return nil, newErrors.Wrap(err, "repo employee resolution get all")
 	}
 	response := dto.ToEmployeeResolutionListResponseDTO(data)
 
