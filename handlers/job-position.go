@@ -16,15 +16,17 @@ import (
 
 // JobPositionHandler is a concrete type that implements JobPositionHandler
 type jobPositionHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.JobPositionService
+	App             *celeritas.Celeritas
+	service         services.JobPositionService
+	errorLogService services.ErrorLogService
 }
 
 // NewJobPositionHandler initializes a new JobPositionHandler with its dependencies
-func NewJobPositionHandler(app *celeritas.Celeritas, jobPositionService services.JobPositionService) JobPositionHandler {
+func NewJobPositionHandler(app *celeritas.Celeritas, jobPositionService services.JobPositionService, errorLogService services.ErrorLogService) JobPositionHandler {
 	return &jobPositionHandlerImpl{
-		App:     app,
-		service: jobPositionService,
+		App:             app,
+		service:         jobPositionService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -44,6 +46,7 @@ func (h *jobPositionHandlerImpl) CreateJobPosition(w http.ResponseWriter, r *htt
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
@@ -54,6 +57,7 @@ func (h *jobPositionHandlerImpl) CreateJobPosition(w http.ResponseWriter, r *htt
 
 	res, err := h.service.CreateJobPosition(ctx, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -80,6 +84,7 @@ func (h *jobPositionHandlerImpl) UpdateJobPosition(w http.ResponseWriter, r *htt
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
@@ -90,6 +95,7 @@ func (h *jobPositionHandlerImpl) UpdateJobPosition(w http.ResponseWriter, r *htt
 
 	res, err := h.service.UpdateJobPosition(ctx, id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -106,6 +112,7 @@ func (h *jobPositionHandlerImpl) DeleteJobPosition(w http.ResponseWriter, r *htt
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrBadRequest)
 		return
@@ -116,6 +123,7 @@ func (h *jobPositionHandlerImpl) DeleteJobPosition(w http.ResponseWriter, r *htt
 
 	err = h.service.DeleteJobPosition(ctx, id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -129,6 +137,7 @@ func (h *jobPositionHandlerImpl) GetJobPositionById(w http.ResponseWriter, r *ht
 
 	res, err := h.service.GetJobPosition(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -150,6 +159,7 @@ func (h *jobPositionHandlerImpl) GetJobPositionList(w http.ResponseWriter, r *ht
 
 	res, total, err := h.service.GetJobPositionList(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

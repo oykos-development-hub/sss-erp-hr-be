@@ -16,15 +16,17 @@ import (
 
 // EmployeeAbsentHandler is a concrete type that implements EmployeeAbsentHandler
 type employeeabsentHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.EmployeeAbsentService
+	App             *celeritas.Celeritas
+	service         services.EmployeeAbsentService
+	errorLogService services.ErrorLogService
 }
 
 // NewEmployeeAbsentHandler initializes a new EmployeeAbsentHandler with its dependencies
-func NewEmployeeAbsentHandler(app *celeritas.Celeritas, employeeabsentService services.EmployeeAbsentService) EmployeeAbsentHandler {
+func NewEmployeeAbsentHandler(app *celeritas.Celeritas, employeeabsentService services.EmployeeAbsentService, errorLogService services.ErrorLogService) EmployeeAbsentHandler {
 	return &employeeabsentHandlerImpl{
-		App:     app,
-		service: employeeabsentService,
+		App:             app,
+		service:         employeeabsentService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -44,6 +46,7 @@ func (h *employeeabsentHandlerImpl) CreateEmployeeAbsent(w http.ResponseWriter, 
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
@@ -54,6 +57,7 @@ func (h *employeeabsentHandlerImpl) CreateEmployeeAbsent(w http.ResponseWriter, 
 
 	res, err := h.service.CreateEmployeeAbsent(ctx, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -80,6 +84,7 @@ func (h *employeeabsentHandlerImpl) UpdateEmployeeAbsent(w http.ResponseWriter, 
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
@@ -90,6 +95,7 @@ func (h *employeeabsentHandlerImpl) UpdateEmployeeAbsent(w http.ResponseWriter, 
 
 	res, err := h.service.UpdateEmployeeAbsent(ctx, id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -106,6 +112,7 @@ func (h *employeeabsentHandlerImpl) DeleteEmployeeAbsent(w http.ResponseWriter, 
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrBadRequest)
 		return
@@ -116,6 +123,7 @@ func (h *employeeabsentHandlerImpl) DeleteEmployeeAbsent(w http.ResponseWriter, 
 
 	err = h.service.DeleteEmployeeAbsent(ctx, id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -139,6 +147,7 @@ func (h *employeeabsentHandlerImpl) GetEmployeeAbsentList(w http.ResponseWriter,
 
 	res, err := h.service.GetEmployeeAbsentList(userProfileId, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -152,6 +161,7 @@ func (h *employeeabsentHandlerImpl) GetAbsentById(w http.ResponseWriter, r *http
 
 	res, err := h.service.GetAbsent(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

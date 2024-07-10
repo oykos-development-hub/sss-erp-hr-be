@@ -14,15 +14,17 @@ import (
 
 // RevisionsOfOrganizationUnitHandler is a concrete type that implements RevisionsOfOrganizationUnitHandler
 type revisionsoforganizationunitHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.RevisionsOfOrganizationUnitService
+	App             *celeritas.Celeritas
+	service         services.RevisionsOfOrganizationUnitService
+	errorLogService services.ErrorLogService
 }
 
 // NewRevisionsOfOrganizationUnitHandler initializes a new RevisionsOfOrganizationUnitHandler with its dependencies
-func NewRevisionsOfOrganizationUnitHandler(app *celeritas.Celeritas, revisionsoforganizationunitService services.RevisionsOfOrganizationUnitService) RevisionsOfOrganizationUnitHandler {
+func NewRevisionsOfOrganizationUnitHandler(app *celeritas.Celeritas, revisionsoforganizationunitService services.RevisionsOfOrganizationUnitService, errorLogService services.ErrorLogService) RevisionsOfOrganizationUnitHandler {
 	return &revisionsoforganizationunitHandlerImpl{
-		App:     app,
-		service: revisionsoforganizationunitService,
+		App:             app,
+		service:         revisionsoforganizationunitService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -39,6 +41,7 @@ func (h *revisionsoforganizationunitHandlerImpl) CreateRevisionsOfOrganizationUn
 
 	res, err := h.service.CreateRevisionsOfOrganizationUnit(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -62,6 +65,7 @@ func (h *revisionsoforganizationunitHandlerImpl) UpdateRevisionsOfOrganizationUn
 
 	res, err := h.service.UpdateRevisionsOfOrganizationUnit(id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -75,6 +79,7 @@ func (h *revisionsoforganizationunitHandlerImpl) DeleteRevisionsOfOrganizationUn
 
 	err := h.service.DeleteRevisionsOfOrganizationUnit(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -88,6 +93,7 @@ func (h *revisionsoforganizationunitHandlerImpl) GetRevisionsOfOrganizationUnitB
 
 	res, err := h.service.GetRevisionsOfOrganizationUnit(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -109,6 +115,7 @@ func (h *revisionsoforganizationunitHandlerImpl) GetRevisionsOfOrganizationUnitL
 
 	res, total, err := h.service.GetRevisionsOfOrganizationUnitList(&input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

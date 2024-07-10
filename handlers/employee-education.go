@@ -14,15 +14,17 @@ import (
 
 // EmployeeEducationHandler is a concrete type that implements EmployeeEducationHandler
 type employeeeducationHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.EmployeeEducationService
+	App             *celeritas.Celeritas
+	service         services.EmployeeEducationService
+	errorLogService services.ErrorLogService
 }
 
 // NewEmployeeEducationHandler initializes a new EmployeeEducationHandler with its dependencies
-func NewEmployeeEducationHandler(app *celeritas.Celeritas, employeeeducationService services.EmployeeEducationService) EmployeeEducationHandler {
+func NewEmployeeEducationHandler(app *celeritas.Celeritas, employeeeducationService services.EmployeeEducationService, errorLogService services.ErrorLogService) EmployeeEducationHandler {
 	return &employeeeducationHandlerImpl{
-		App:     app,
-		service: employeeeducationService,
+		App:             app,
+		service:         employeeeducationService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -39,6 +41,7 @@ func (h *employeeeducationHandlerImpl) CreateEmployeeEducation(w http.ResponseWr
 
 	res, err := h.service.CreateEmployeeEducation(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -62,6 +65,7 @@ func (h *employeeeducationHandlerImpl) UpdateEmployeeEducation(w http.ResponseWr
 
 	res, err := h.service.UpdateEmployeeEducation(id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -75,6 +79,7 @@ func (h *employeeeducationHandlerImpl) DeleteEmployeeEducation(w http.ResponseWr
 
 	err := h.service.DeleteEmployeeEducation(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -96,6 +101,7 @@ func (h *employeeeducationHandlerImpl) GetEmployeeEducationList(w http.ResponseW
 
 	res, err := h.service.GetEmployeeEducationList(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

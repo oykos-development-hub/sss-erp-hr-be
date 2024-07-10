@@ -14,15 +14,17 @@ import (
 
 // ForeignerHandler is a concrete type that implements ForeignerHandler
 type foreignerHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.ForeignerService
+	App             *celeritas.Celeritas
+	service         services.ForeignerService
+	errorLogService services.ErrorLogService
 }
 
 // NewForeignerHandler initializes a new ForeignerHandler with its dependencies
-func NewForeignerHandler(app *celeritas.Celeritas, foreignerService services.ForeignerService) ForeignerHandler {
+func NewForeignerHandler(app *celeritas.Celeritas, foreignerService services.ForeignerService, errorLogService services.ErrorLogService) ForeignerHandler {
 	return &foreignerHandlerImpl{
-		App:     app,
-		service: foreignerService,
+		App:             app,
+		service:         foreignerService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -39,6 +41,7 @@ func (h *foreignerHandlerImpl) CreateForeigner(w http.ResponseWriter, r *http.Re
 
 	res, err := h.service.CreateForeigner(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -62,6 +65,7 @@ func (h *foreignerHandlerImpl) UpdateForeigner(w http.ResponseWriter, r *http.Re
 
 	res, err := h.service.UpdateForeigner(id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -75,6 +79,7 @@ func (h *foreignerHandlerImpl) DeleteForeigner(w http.ResponseWriter, r *http.Re
 
 	err := h.service.DeleteForeigner(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -88,6 +93,7 @@ func (h *foreignerHandlerImpl) GetForeignerById(w http.ResponseWriter, r *http.R
 
 	res, err := h.service.GetForeigner(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -100,6 +106,7 @@ func (h *foreignerHandlerImpl) GetForeignerList(w http.ResponseWriter, r *http.R
 	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
 	res, err := h.service.GetForeignerList(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

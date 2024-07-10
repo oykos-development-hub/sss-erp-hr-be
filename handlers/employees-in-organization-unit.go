@@ -14,15 +14,17 @@ import (
 
 // EmployeesInOrganizationUnitHandler is a concrete type that implements EmployeesInOrganizationUnitHandler
 type employeesinorganizationunitHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.EmployeesInOrganizationUnitService
+	App             *celeritas.Celeritas
+	service         services.EmployeesInOrganizationUnitService
+	errorLogService services.ErrorLogService
 }
 
 // NewEmployeesInOrganizationUnitHandler initializes a new EmployeesInOrganizationUnitHandler with its dependencies
-func NewEmployeesInOrganizationUnitHandler(app *celeritas.Celeritas, employeesinorganizationunitService services.EmployeesInOrganizationUnitService) EmployeesInOrganizationUnitHandler {
+func NewEmployeesInOrganizationUnitHandler(app *celeritas.Celeritas, employeesinorganizationunitService services.EmployeesInOrganizationUnitService, errorLogService services.ErrorLogService) EmployeesInOrganizationUnitHandler {
 	return &employeesinorganizationunitHandlerImpl{
-		App:     app,
-		service: employeesinorganizationunitService,
+		App:             app,
+		service:         employeesinorganizationunitService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -39,6 +41,7 @@ func (h *employeesinorganizationunitHandlerImpl) CreateEmployeesInOrganizationUn
 
 	res, err := h.service.CreateEmployeesInOrganizationUnit(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -52,6 +55,7 @@ func (h *employeesinorganizationunitHandlerImpl) DeleteEmployeesInOrganizationUn
 
 	err := h.service.DeleteEmployeesInOrganizationUnit(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -65,6 +69,7 @@ func (h *employeesinorganizationunitHandlerImpl) DeleteEmployeesInOrganizationUn
 
 	err := h.service.DeleteEmployeesInOrganizationUnitByID(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -78,6 +83,7 @@ func (h *employeesinorganizationunitHandlerImpl) GetEmployeesInOrganizationUnitB
 
 	res, err := h.service.GetEmployeesInOrganizationUnitByEmployee(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -99,6 +105,7 @@ func (h *employeesinorganizationunitHandlerImpl) GetEmployeesInOrganizationUnitL
 
 	res, err := h.service.GetEmployeesInOrganizationUnitList(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -122,6 +129,7 @@ func (h *employeesinorganizationunitHandlerImpl) UpdateJobPositionInOrganization
 
 	res, err := h.service.UpdateEmployeesInOrganizationUnit(id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

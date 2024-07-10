@@ -14,15 +14,17 @@ import (
 
 // JudgeHandler is a concrete type that implements JudgeHandler
 type judgeHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.JudgeService
+	App             *celeritas.Celeritas
+	service         services.JudgeService
+	errorLogService services.ErrorLogService
 }
 
 // NewJudgeHandler initializes a new JudgeHandler with its dependencies
-func NewJudgeHandler(app *celeritas.Celeritas, judgeService services.JudgeService) JudgeHandler {
+func NewJudgeHandler(app *celeritas.Celeritas, judgeService services.JudgeService, errorLogService services.ErrorLogService) JudgeHandler {
 	return &judgeHandlerImpl{
-		App:     app,
-		service: judgeService,
+		App:             app,
+		service:         judgeService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -30,6 +32,7 @@ func (h *judgeHandlerImpl) CreateJudge(w http.ResponseWriter, r *http.Request) {
 	var input dto.JudgeDTO
 	err := h.App.ReadJSON(w, r, &input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, http.StatusBadRequest, err)
 		return
@@ -44,6 +47,7 @@ func (h *judgeHandlerImpl) CreateJudge(w http.ResponseWriter, r *http.Request) {
 
 	res, err := h.service.CreateJudge(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -58,6 +62,7 @@ func (h *judgeHandlerImpl) UpdateJudge(w http.ResponseWriter, r *http.Request) {
 	var input dto.JudgeDTO
 	err := h.App.ReadJSON(w, r, &input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, http.StatusBadRequest, err)
 		return
@@ -72,6 +77,7 @@ func (h *judgeHandlerImpl) UpdateJudge(w http.ResponseWriter, r *http.Request) {
 
 	res, err := h.service.UpdateJudge(id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -85,6 +91,7 @@ func (h *judgeHandlerImpl) DeleteJudge(w http.ResponseWriter, r *http.Request) {
 
 	err := h.service.DeleteJudge(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -98,6 +105,7 @@ func (h *judgeHandlerImpl) GetJudgeById(w http.ResponseWriter, r *http.Request) 
 
 	res, err := h.service.GetJudge(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -119,6 +127,7 @@ func (h *judgeHandlerImpl) GetJudgeList(w http.ResponseWriter, r *http.Request) 
 
 	res, total, err := h.service.GetJudgeList(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

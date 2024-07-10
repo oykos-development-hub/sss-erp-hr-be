@@ -16,15 +16,17 @@ import (
 
 // SystematizationHandlerImpl is a concrete type that implements SystematizationHandler
 type systematizationHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.SystematizationService
+	App             *celeritas.Celeritas
+	service         services.SystematizationService
+	errorLogService services.ErrorLogService
 }
 
 // NewSystematizationHandler initializes a new SystematizationHandler with its dependencies
-func NewSystematizationHandler(app *celeritas.Celeritas, systematizationService services.SystematizationService) SystematizationHandler {
+func NewSystematizationHandler(app *celeritas.Celeritas, systematizationService services.SystematizationService, errorLogService services.ErrorLogService) SystematizationHandler {
 	return &systematizationHandlerImpl{
-		App:     app,
-		service: systematizationService,
+		App:             app,
+		service:         systematizationService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -44,6 +46,7 @@ func (h *systematizationHandlerImpl) CreateSystematization(w http.ResponseWriter
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
@@ -54,6 +57,7 @@ func (h *systematizationHandlerImpl) CreateSystematization(w http.ResponseWriter
 
 	res, err := h.service.CreateSystematization(ctx, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -80,6 +84,7 @@ func (h *systematizationHandlerImpl) UpdateSystematization(w http.ResponseWriter
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
@@ -90,6 +95,7 @@ func (h *systematizationHandlerImpl) UpdateSystematization(w http.ResponseWriter
 
 	res, err := h.service.UpdateSystematization(ctx, id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -106,6 +112,7 @@ func (h *systematizationHandlerImpl) DeleteSystematization(w http.ResponseWriter
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrBadRequest)
 		return
@@ -116,6 +123,7 @@ func (h *systematizationHandlerImpl) DeleteSystematization(w http.ResponseWriter
 
 	err = h.service.DeleteSystematization(ctx, id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -129,6 +137,7 @@ func (h *systematizationHandlerImpl) GetSystematizationById(w http.ResponseWrite
 
 	res, err := h.service.GetSystematization(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -150,6 +159,7 @@ func (h *systematizationHandlerImpl) GetSystematizationList(w http.ResponseWrite
 
 	res, total, err := h.service.GetSystematizationList(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

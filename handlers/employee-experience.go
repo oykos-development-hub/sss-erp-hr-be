@@ -14,15 +14,17 @@ import (
 
 // EmployeeExperienceHandler is a concrete type that implements EmployeeExperienceHandler
 type employeeexperienceHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.EmployeeExperienceService
+	App             *celeritas.Celeritas
+	service         services.EmployeeExperienceService
+	errorLogService services.ErrorLogService
 }
 
 // NewEmployeeExperienceHandler initializes a new EmployeeExperienceHandler with its dependencies
-func NewEmployeeExperienceHandler(app *celeritas.Celeritas, employeeexperienceService services.EmployeeExperienceService) EmployeeExperienceHandler {
+func NewEmployeeExperienceHandler(app *celeritas.Celeritas, employeeexperienceService services.EmployeeExperienceService, errorLogService services.ErrorLogService) EmployeeExperienceHandler {
 	return &employeeexperienceHandlerImpl{
-		App:     app,
-		service: employeeexperienceService,
+		App:             app,
+		service:         employeeexperienceService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -39,6 +41,7 @@ func (h *employeeexperienceHandlerImpl) CreateEmployeeExperience(w http.Response
 
 	res, err := h.service.CreateEmployeeExperience(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -62,6 +65,7 @@ func (h *employeeexperienceHandlerImpl) UpdateEmployeeExperience(w http.Response
 
 	res, err := h.service.UpdateEmployeeExperience(id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -75,6 +79,7 @@ func (h *employeeexperienceHandlerImpl) DeleteEmployeeExperience(w http.Response
 
 	err := h.service.DeleteEmployeeExperience(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -88,6 +93,7 @@ func (h *employeeexperienceHandlerImpl) GetEmployeeExperienceList(w http.Respons
 
 	res, err := h.service.GetEmployeeExperienceList(userProfileID)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

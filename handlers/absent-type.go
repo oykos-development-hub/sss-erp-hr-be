@@ -14,15 +14,17 @@ import (
 
 // AbsentTypeHandler is a concrete type that implements AbsentTypeHandler
 type absenttypeHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.AbsentTypeService
+	App             *celeritas.Celeritas
+	service         services.AbsentTypeService
+	errorLogService services.ErrorLogService
 }
 
 // NewAbsentTypeHandler initializes a new AbsentTypeHandler with its dependencies
-func NewAbsentTypeHandler(app *celeritas.Celeritas, absenttypeService services.AbsentTypeService) AbsentTypeHandler {
+func NewAbsentTypeHandler(app *celeritas.Celeritas, absenttypeService services.AbsentTypeService, errorLogService services.ErrorLogService) AbsentTypeHandler {
 	return &absenttypeHandlerImpl{
-		App:     app,
-		service: absenttypeService,
+		App:             app,
+		service:         absenttypeService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -39,6 +41,7 @@ func (h *absenttypeHandlerImpl) CreateAbsentType(w http.ResponseWriter, r *http.
 
 	res, err := h.service.CreateAbsentType(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -62,6 +65,7 @@ func (h *absenttypeHandlerImpl) UpdateAbsentType(w http.ResponseWriter, r *http.
 
 	res, err := h.service.UpdateAbsentType(id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -75,6 +79,7 @@ func (h *absenttypeHandlerImpl) DeleteAbsentType(w http.ResponseWriter, r *http.
 
 	err := h.service.DeleteAbsentType(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -88,6 +93,7 @@ func (h *absenttypeHandlerImpl) GetAbsentTypeById(w http.ResponseWriter, r *http
 
 	res, err := h.service.GetAbsentType(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -109,6 +115,7 @@ func (h *absenttypeHandlerImpl) GetAbsentTypeList(w http.ResponseWriter, r *http
 
 	res, total, err := h.service.GetAbsentTypeList(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

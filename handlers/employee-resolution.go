@@ -16,15 +16,17 @@ import (
 
 // EmployeeResolutionHandler is a concrete type that implements EmployeeResolutionHandler
 type employeeresolutionHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.EmployeeResolutionService
+	App             *celeritas.Celeritas
+	service         services.EmployeeResolutionService
+	errorLogService services.ErrorLogService
 }
 
 // NewEmployeeResolutionHandler initializes a new EmployeeResolutionHandler with its dependencies
-func NewEmployeeResolutionHandler(app *celeritas.Celeritas, employeeresolutionService services.EmployeeResolutionService) EmployeeResolutionHandler {
+func NewEmployeeResolutionHandler(app *celeritas.Celeritas, employeeresolutionService services.EmployeeResolutionService, errorLogService services.ErrorLogService) EmployeeResolutionHandler {
 	return &employeeresolutionHandlerImpl{
-		App:     app,
-		service: employeeresolutionService,
+		App:             app,
+		service:         employeeresolutionService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -44,6 +46,7 @@ func (h *employeeresolutionHandlerImpl) CreateEmployeeResolution(w http.Response
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
@@ -54,6 +57,7 @@ func (h *employeeresolutionHandlerImpl) CreateEmployeeResolution(w http.Response
 
 	res, err := h.service.CreateEmployeeResolution(ctx, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -80,6 +84,7 @@ func (h *employeeresolutionHandlerImpl) UpdateEmployeeResolution(w http.Response
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
@@ -90,6 +95,7 @@ func (h *employeeresolutionHandlerImpl) UpdateEmployeeResolution(w http.Response
 
 	res, err := h.service.UpdateEmployeeResolution(ctx, id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -106,6 +112,7 @@ func (h *employeeresolutionHandlerImpl) DeleteEmployeeResolution(w http.Response
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrBadRequest)
 		return
@@ -116,6 +123,7 @@ func (h *employeeresolutionHandlerImpl) DeleteEmployeeResolution(w http.Response
 
 	err = h.service.DeleteEmployeeResolution(ctx, id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -139,6 +147,7 @@ func (h *employeeresolutionHandlerImpl) GetEmployeeResolutionList(w http.Respons
 
 	res, err := h.service.GetEmployeeResolutionList(userProfileID, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -152,6 +161,7 @@ func (h *employeeresolutionHandlerImpl) GetEmployeeResolution(w http.ResponseWri
 
 	res, err := h.service.GetEmployeeResolution(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

@@ -16,15 +16,17 @@ import (
 
 // RevisionTipHandler is a concrete type that implements RevisionTipHandler
 type revisiontipHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.RevisionTipService
+	App             *celeritas.Celeritas
+	service         services.RevisionTipService
+	errorLogService services.ErrorLogService
 }
 
 // NewRevisionTipHandler initializes a new RevisionTipHandler with its dependencies
-func NewRevisionTipHandler(app *celeritas.Celeritas, revisiontipService services.RevisionTipService) RevisionTipHandler {
+func NewRevisionTipHandler(app *celeritas.Celeritas, revisiontipService services.RevisionTipService, errorLogService services.ErrorLogService) RevisionTipHandler {
 	return &revisiontipHandlerImpl{
-		App:     app,
-		service: revisiontipService,
+		App:             app,
+		service:         revisiontipService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -32,6 +34,7 @@ func (h *revisiontipHandlerImpl) CreateRevisionTip(w http.ResponseWriter, r *htt
 	var input dto.RevisionTipDTO
 	err := h.App.ReadJSON(w, r, &input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, http.StatusBadRequest, err)
 		return
@@ -49,6 +52,7 @@ func (h *revisiontipHandlerImpl) CreateRevisionTip(w http.ResponseWriter, r *htt
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
@@ -59,6 +63,7 @@ func (h *revisiontipHandlerImpl) CreateRevisionTip(w http.ResponseWriter, r *htt
 
 	res, err := h.service.CreateRevisionTip(ctx, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -73,6 +78,7 @@ func (h *revisiontipHandlerImpl) UpdateRevisionTip(w http.ResponseWriter, r *htt
 	var input dto.RevisionTipDTO
 	err := h.App.ReadJSON(w, r, &input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, http.StatusBadRequest, err)
 		return
@@ -90,6 +96,7 @@ func (h *revisiontipHandlerImpl) UpdateRevisionTip(w http.ResponseWriter, r *htt
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
@@ -100,6 +107,7 @@ func (h *revisiontipHandlerImpl) UpdateRevisionTip(w http.ResponseWriter, r *htt
 
 	res, err := h.service.UpdateRevisionTip(ctx, id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -116,6 +124,7 @@ func (h *revisiontipHandlerImpl) DeleteRevisionTip(w http.ResponseWriter, r *htt
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrBadRequest)
 		return
@@ -126,6 +135,7 @@ func (h *revisiontipHandlerImpl) DeleteRevisionTip(w http.ResponseWriter, r *htt
 
 	err = h.service.DeleteRevisionTip(ctx, id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -139,6 +149,7 @@ func (h *revisiontipHandlerImpl) GetRevisionTipById(w http.ResponseWriter, r *ht
 
 	res, err := h.service.GetRevisionTip(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -160,6 +171,7 @@ func (h *revisiontipHandlerImpl) GetRevisionTipList(w http.ResponseWriter, r *ht
 
 	res, total, err := h.service.GetRevisionTipList(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

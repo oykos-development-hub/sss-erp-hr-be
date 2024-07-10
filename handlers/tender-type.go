@@ -14,15 +14,17 @@ import (
 
 // TenderTypeHandler is a concrete type that implements TenderTypeHandler
 type tendertypeHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.TenderTypeService
+	App             *celeritas.Celeritas
+	service         services.TenderTypeService
+	errorLogService services.ErrorLogService
 }
 
 // NewTenderTypeHandler initializes a new TenderTypeHandler with its dependencies
-func NewTenderTypeHandler(app *celeritas.Celeritas, tendertypeService services.TenderTypeService) TenderTypeHandler {
+func NewTenderTypeHandler(app *celeritas.Celeritas, tendertypeService services.TenderTypeService, errorLogService services.ErrorLogService) TenderTypeHandler {
 	return &tendertypeHandlerImpl{
-		App:     app,
-		service: tendertypeService,
+		App:             app,
+		service:         tendertypeService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -39,6 +41,7 @@ func (h *tendertypeHandlerImpl) CreateTenderType(w http.ResponseWriter, r *http.
 
 	res, err := h.service.CreateTenderType(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -62,6 +65,7 @@ func (h *tendertypeHandlerImpl) UpdateTenderType(w http.ResponseWriter, r *http.
 
 	res, err := h.service.UpdateTenderType(id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -75,6 +79,7 @@ func (h *tendertypeHandlerImpl) DeleteTenderType(w http.ResponseWriter, r *http.
 
 	err := h.service.DeleteTenderType(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -88,6 +93,7 @@ func (h *tendertypeHandlerImpl) GetTenderTypeById(w http.ResponseWriter, r *http
 
 	res, err := h.service.GetTenderType(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -108,6 +114,7 @@ func (h *tendertypeHandlerImpl) GetTenderTypeList(w http.ResponseWriter, r *http
 	}
 	res, err := h.service.GetTenderTypeList(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

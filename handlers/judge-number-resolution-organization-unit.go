@@ -14,15 +14,17 @@ import (
 
 // JudgeNumberResolutionOrganizationUnitHandler is a concrete type that implements JudgeNumberResolutionOrganizationUnitHandler
 type judgenumberresolutionorganizationunitHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.JudgeNumberResolutionOrganizationUnitService
+	App             *celeritas.Celeritas
+	service         services.JudgeNumberResolutionOrganizationUnitService
+	errorLogService services.ErrorLogService
 }
 
 // NewJudgeNumberResolutionOrganizationUnitHandler initializes a new JudgeNumberResolutionOrganizationUnitHandler with its dependencies
-func NewJudgeNumberResolutionOrganizationUnitHandler(app *celeritas.Celeritas, judgenumberresolutionorganizationunitService services.JudgeNumberResolutionOrganizationUnitService) JudgeNumberResolutionOrganizationUnitHandler {
+func NewJudgeNumberResolutionOrganizationUnitHandler(app *celeritas.Celeritas, judgenumberresolutionorganizationunitService services.JudgeNumberResolutionOrganizationUnitService, errorLogService services.ErrorLogService) JudgeNumberResolutionOrganizationUnitHandler {
 	return &judgenumberresolutionorganizationunitHandlerImpl{
-		App:     app,
-		service: judgenumberresolutionorganizationunitService,
+		App:             app,
+		service:         judgenumberresolutionorganizationunitService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -39,6 +41,7 @@ func (h *judgenumberresolutionorganizationunitHandlerImpl) CreateJudgeNumberReso
 
 	res, err := h.service.CreateJudgeNumberResolutionOrganizationUnit(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -62,6 +65,7 @@ func (h *judgenumberresolutionorganizationunitHandlerImpl) UpdateJudgeNumberReso
 
 	res, err := h.service.UpdateJudgeNumberResolutionOrganizationUnit(id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -75,6 +79,7 @@ func (h *judgenumberresolutionorganizationunitHandlerImpl) DeleteJudgeNumberReso
 
 	err := h.service.DeleteJudgeNumberResolutionOrganizationUnit(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -88,6 +93,7 @@ func (h *judgenumberresolutionorganizationunitHandlerImpl) GetJudgeNumberResolut
 
 	res, err := h.service.GetJudgeNumberResolutionOrganizationUnit(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -109,6 +115,7 @@ func (h *judgenumberresolutionorganizationunitHandlerImpl) GetJudgeNumberResolut
 
 	res, total, err := h.service.GetJudgeNumberResolutionOrganizationUnitList(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

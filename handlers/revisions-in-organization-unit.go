@@ -14,15 +14,17 @@ import (
 
 // RevisionsInOrganizationUnitHandler is a concrete type that implements RevisionsInOrganizationUnitHandler
 type revisionsinorganizationunitHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.RevisionsInOrganizationUnitService
+	App             *celeritas.Celeritas
+	service         services.RevisionsInOrganizationUnitService
+	errorLogService services.ErrorLogService
 }
 
 // NewRevisionsInOrganizationUnitHandler initializes a new RevisionsInOrganizationUnitHandler with its dependencies
-func NewRevisionsInOrganizationUnitHandler(app *celeritas.Celeritas, revisionsinorganizationunitService services.RevisionsInOrganizationUnitService) RevisionsInOrganizationUnitHandler {
+func NewRevisionsInOrganizationUnitHandler(app *celeritas.Celeritas, revisionsinorganizationunitService services.RevisionsInOrganizationUnitService, errorLogService services.ErrorLogService) RevisionsInOrganizationUnitHandler {
 	return &revisionsinorganizationunitHandlerImpl{
-		App:     app,
-		service: revisionsinorganizationunitService,
+		App:             app,
+		service:         revisionsinorganizationunitService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -30,6 +32,7 @@ func (h *revisionsinorganizationunitHandlerImpl) CreateRevisionsInOrganizationUn
 	var input dto.RevisionsInOrganizationUnitDTO
 	err := h.App.ReadJSON(w, r, &input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, http.StatusBadRequest, err)
 		return
@@ -44,6 +47,7 @@ func (h *revisionsinorganizationunitHandlerImpl) CreateRevisionsInOrganizationUn
 
 	res, err := h.service.CreateRevisionsInOrganizationUnit(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -58,6 +62,7 @@ func (h *revisionsinorganizationunitHandlerImpl) UpdateRevisionsInOrganizationUn
 	var input dto.RevisionsInOrganizationUnitDTO
 	err := h.App.ReadJSON(w, r, &input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, http.StatusBadRequest, err)
 		return
@@ -72,6 +77,7 @@ func (h *revisionsinorganizationunitHandlerImpl) UpdateRevisionsInOrganizationUn
 
 	res, err := h.service.UpdateRevisionsInOrganizationUnit(id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -85,6 +91,7 @@ func (h *revisionsinorganizationunitHandlerImpl) DeleteRevisionsInOrganizationUn
 
 	err := h.service.DeleteRevisionsInOrganizationUnit(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -98,6 +105,7 @@ func (h *revisionsinorganizationunitHandlerImpl) GetRevisionsInOrganizationUnitB
 
 	res, err := h.service.GetRevisionsInOrganizationUnit(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -119,6 +127,7 @@ func (h *revisionsinorganizationunitHandlerImpl) GetRevisionsInOrganizationUnitL
 
 	res, err := h.service.GetRevisionsInOrganizationUnitList(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

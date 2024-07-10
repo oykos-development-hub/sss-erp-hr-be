@@ -14,15 +14,17 @@ import (
 
 // EmployeeFamilyMemberHandler is a concrete type that implements EmployeeFamilyMemberHandler
 type employeefamilymemberHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.EmployeeFamilyMemberService
+	App             *celeritas.Celeritas
+	service         services.EmployeeFamilyMemberService
+	errorLogService services.ErrorLogService
 }
 
 // NewEmployeeFamilyMemberHandler initializes a new EmployeeFamilyMemberHandler with its dependencies
-func NewEmployeeFamilyMemberHandler(app *celeritas.Celeritas, employeefamilymemberService services.EmployeeFamilyMemberService) EmployeeFamilyMemberHandler {
+func NewEmployeeFamilyMemberHandler(app *celeritas.Celeritas, employeefamilymemberService services.EmployeeFamilyMemberService, errorLogService services.ErrorLogService) EmployeeFamilyMemberHandler {
 	return &employeefamilymemberHandlerImpl{
-		App:     app,
-		service: employeefamilymemberService,
+		App:             app,
+		service:         employeefamilymemberService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -39,6 +41,7 @@ func (h *employeefamilymemberHandlerImpl) CreateEmployeeFamilyMember(w http.Resp
 
 	res, err := h.service.CreateEmployeeFamilyMember(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -62,6 +65,7 @@ func (h *employeefamilymemberHandlerImpl) UpdateEmployeeFamilyMember(w http.Resp
 
 	res, err := h.service.UpdateEmployeeFamilyMember(id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -75,6 +79,7 @@ func (h *employeefamilymemberHandlerImpl) DeleteEmployeeFamilyMember(w http.Resp
 
 	err := h.service.DeleteEmployeeFamilyMember(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -88,6 +93,7 @@ func (h *employeefamilymemberHandlerImpl) GetEmployeeFamilyMemberById(w http.Res
 
 	res, err := h.service.GetEmployeeFamilyMember(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -101,6 +107,7 @@ func (h *employeefamilymemberHandlerImpl) GetEmployeeFamilyMemberList(w http.Res
 
 	res, err := h.service.GetEmployeeFamilyMemberList(userProfileID)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

@@ -16,15 +16,17 @@ import (
 
 // EmployeeContractHandler is a concrete type that implements EmployeeContractHandler
 type employeecontractHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.EmployeeContractService
+	App             *celeritas.Celeritas
+	service         services.EmployeeContractService
+	errorLogService services.ErrorLogService
 }
 
 // NewEmployeeContractHandler initializes a new EmployeeContractHandler with its dependencies
-func NewEmployeeContractHandler(app *celeritas.Celeritas, employeecontractService services.EmployeeContractService) EmployeeContractHandler {
+func NewEmployeeContractHandler(app *celeritas.Celeritas, employeecontractService services.EmployeeContractService, errorLogService services.ErrorLogService) EmployeeContractHandler {
 	return &employeecontractHandlerImpl{
-		App:     app,
-		service: employeecontractService,
+		App:             app,
+		service:         employeecontractService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -44,6 +46,7 @@ func (h *employeecontractHandlerImpl) CreateEmployeeContract(w http.ResponseWrit
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
@@ -54,6 +57,7 @@ func (h *employeecontractHandlerImpl) CreateEmployeeContract(w http.ResponseWrit
 
 	res, err := h.service.CreateEmployeeContract(ctx, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -80,6 +84,7 @@ func (h *employeecontractHandlerImpl) UpdateEmployeeContract(w http.ResponseWrit
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
@@ -90,6 +95,7 @@ func (h *employeecontractHandlerImpl) UpdateEmployeeContract(w http.ResponseWrit
 
 	res, err := h.service.UpdateEmployeeContract(ctx, id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -106,6 +112,7 @@ func (h *employeecontractHandlerImpl) DeleteEmployeeContract(w http.ResponseWrit
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrBadRequest)
 		return
@@ -116,6 +123,7 @@ func (h *employeecontractHandlerImpl) DeleteEmployeeContract(w http.ResponseWrit
 
 	err = h.service.DeleteEmployeeContract(ctx, id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

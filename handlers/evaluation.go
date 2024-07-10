@@ -16,15 +16,17 @@ import (
 
 // EvaluationHandler is a concrete type that implements EvaluationHandler
 type evaluationHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.EvaluationService
+	App             *celeritas.Celeritas
+	service         services.EvaluationService
+	errorLogService services.ErrorLogService
 }
 
 // NewEvaluationHandler initializes a new EvaluationHandler with its dependencies
-func NewEvaluationHandler(app *celeritas.Celeritas, evaluationService services.EvaluationService) EvaluationHandler {
+func NewEvaluationHandler(app *celeritas.Celeritas, evaluationService services.EvaluationService, errorLogService services.ErrorLogService) EvaluationHandler {
 	return &evaluationHandlerImpl{
-		App:     app,
-		service: evaluationService,
+		App:             app,
+		service:         evaluationService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -44,6 +46,7 @@ func (h *evaluationHandlerImpl) CreateEvaluation(w http.ResponseWriter, r *http.
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
@@ -54,6 +57,7 @@ func (h *evaluationHandlerImpl) CreateEvaluation(w http.ResponseWriter, r *http.
 
 	res, err := h.service.CreateEvaluation(ctx, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -80,6 +84,7 @@ func (h *evaluationHandlerImpl) UpdateEvaluation(w http.ResponseWriter, r *http.
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
@@ -90,6 +95,7 @@ func (h *evaluationHandlerImpl) UpdateEvaluation(w http.ResponseWriter, r *http.
 
 	res, err := h.service.UpdateEvaluation(ctx, id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -106,6 +112,7 @@ func (h *evaluationHandlerImpl) DeleteEvaluation(w http.ResponseWriter, r *http.
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrBadRequest)
 		return
@@ -116,6 +123,7 @@ func (h *evaluationHandlerImpl) DeleteEvaluation(w http.ResponseWriter, r *http.
 
 	err = h.service.DeleteEvaluation(ctx, id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -129,6 +137,7 @@ func (h *evaluationHandlerImpl) GetEvaluationById(w http.ResponseWriter, r *http
 
 	res, err := h.service.GetEvaluation(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -141,6 +150,7 @@ func (h *evaluationHandlerImpl) GetEmployeesEvaluationList(w http.ResponseWriter
 	id, _ := strconv.Atoi(chi.URLParam(r, "id"))
 	res, err := h.service.GetEmployeesEvaluationList(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -162,6 +172,7 @@ func (h *evaluationHandlerImpl) GetEvaluationList(w http.ResponseWriter, r *http
 
 	res, err := h.service.GetEvaluationList(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

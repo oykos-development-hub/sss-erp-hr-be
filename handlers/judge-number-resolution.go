@@ -16,15 +16,17 @@ import (
 
 // JudgeNumberResolutionHandler is a concrete type that implements JudgeNumberResolutionHandler
 type judgenumberresolutionHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.JudgeNumberResolutionService
+	App             *celeritas.Celeritas
+	service         services.JudgeNumberResolutionService
+	errorLogService services.ErrorLogService
 }
 
 // NewJudgeNumberResolutionHandler initializes a new JudgeNumberResolutionHandler with its dependencies
-func NewJudgeNumberResolutionHandler(app *celeritas.Celeritas, judgenumberresolutionService services.JudgeNumberResolutionService) JudgeNumberResolutionHandler {
+func NewJudgeNumberResolutionHandler(app *celeritas.Celeritas, judgenumberresolutionService services.JudgeNumberResolutionService, errorLogService services.ErrorLogService) JudgeNumberResolutionHandler {
 	return &judgenumberresolutionHandlerImpl{
-		App:     app,
-		service: judgenumberresolutionService,
+		App:             app,
+		service:         judgenumberresolutionService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -44,6 +46,7 @@ func (h *judgenumberresolutionHandlerImpl) CreateJudgeNumberResolution(w http.Re
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
@@ -54,6 +57,7 @@ func (h *judgenumberresolutionHandlerImpl) CreateJudgeNumberResolution(w http.Re
 
 	res, err := h.service.CreateJudgeNumberResolution(ctx, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -80,6 +84,7 @@ func (h *judgenumberresolutionHandlerImpl) UpdateJudgeNumberResolution(w http.Re
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
@@ -90,6 +95,7 @@ func (h *judgenumberresolutionHandlerImpl) UpdateJudgeNumberResolution(w http.Re
 
 	res, err := h.service.UpdateJudgeNumberResolution(ctx, id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -106,6 +112,7 @@ func (h *judgenumberresolutionHandlerImpl) DeleteJudgeNumberResolution(w http.Re
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrBadRequest)
 		return
@@ -116,6 +123,7 @@ func (h *judgenumberresolutionHandlerImpl) DeleteJudgeNumberResolution(w http.Re
 
 	err = h.service.DeleteJudgeNumberResolution(ctx, id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -129,6 +137,7 @@ func (h *judgenumberresolutionHandlerImpl) GetJudgeNumberResolutionById(w http.R
 
 	res, err := h.service.GetJudgeNumberResolution(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -150,6 +159,7 @@ func (h *judgenumberresolutionHandlerImpl) GetJudgeNumberResolutionList(w http.R
 
 	res, total, err := h.service.GetJudgeNumberResolutionList(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

@@ -14,15 +14,17 @@ import (
 
 // RevisionRevisorHandler is a concrete type that implements RevisionRevisorHandler
 type revisionrevisorHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.RevisionRevisorService
+	App             *celeritas.Celeritas
+	service         services.RevisionRevisorService
+	errorLogService services.ErrorLogService
 }
 
 // NewRevisionRevisorHandler initializes a new RevisionRevisorHandler with its dependencies
-func NewRevisionRevisorHandler(app *celeritas.Celeritas, revisionrevisorService services.RevisionRevisorService) RevisionRevisorHandler {
+func NewRevisionRevisorHandler(app *celeritas.Celeritas, revisionrevisorService services.RevisionRevisorService, errorLogService services.ErrorLogService) RevisionRevisorHandler {
 	return &revisionrevisorHandlerImpl{
-		App:     app,
-		service: revisionrevisorService,
+		App:             app,
+		service:         revisionrevisorService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -30,6 +32,7 @@ func (h *revisionrevisorHandlerImpl) CreateRevisionRevisor(w http.ResponseWriter
 	var input dto.RevisionRevisorDTO
 	err := h.App.ReadJSON(w, r, &input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, http.StatusBadRequest, err)
 		return
@@ -44,6 +47,7 @@ func (h *revisionrevisorHandlerImpl) CreateRevisionRevisor(w http.ResponseWriter
 
 	res, err := h.service.CreateRevisionRevisor(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -58,6 +62,7 @@ func (h *revisionrevisorHandlerImpl) UpdateRevisionRevisor(w http.ResponseWriter
 	var input dto.RevisionRevisorDTO
 	err := h.App.ReadJSON(w, r, &input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, http.StatusBadRequest, err)
 		return
@@ -72,6 +77,7 @@ func (h *revisionrevisorHandlerImpl) UpdateRevisionRevisor(w http.ResponseWriter
 
 	res, err := h.service.UpdateRevisionRevisor(id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -85,6 +91,7 @@ func (h *revisionrevisorHandlerImpl) DeleteRevisionRevisor(w http.ResponseWriter
 
 	err := h.service.DeleteRevisionRevisor(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -98,6 +105,7 @@ func (h *revisionrevisorHandlerImpl) GetRevisionRevisorById(w http.ResponseWrite
 
 	res, err := h.service.GetRevisionRevisor(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -119,6 +127,7 @@ func (h *revisionrevisorHandlerImpl) GetRevisionRevisorList(w http.ResponseWrite
 
 	res, err := h.service.GetRevisionRevisorList(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

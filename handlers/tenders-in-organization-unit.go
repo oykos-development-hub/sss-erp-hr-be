@@ -16,15 +16,17 @@ import (
 
 // TendersInOrganizationUnitHandler is a concrete type that implements TendersInOrganizationUnitHandler
 type tendersinorganizationunitHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.TendersInOrganizationUnitService
+	App             *celeritas.Celeritas
+	service         services.TendersInOrganizationUnitService
+	errorLogService services.ErrorLogService
 }
 
 // NewTendersInOrganizationUnitHandler initializes a new TendersInOrganizationUnitHandler with its dependencies
-func NewTendersInOrganizationUnitHandler(app *celeritas.Celeritas, tendersinorganizationunitService services.TendersInOrganizationUnitService) TendersInOrganizationUnitHandler {
+func NewTendersInOrganizationUnitHandler(app *celeritas.Celeritas, tendersinorganizationunitService services.TendersInOrganizationUnitService, errorLogService services.ErrorLogService) TendersInOrganizationUnitHandler {
 	return &tendersinorganizationunitHandlerImpl{
-		App:     app,
-		service: tendersinorganizationunitService,
+		App:             app,
+		service:         tendersinorganizationunitService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -44,6 +46,7 @@ func (h *tendersinorganizationunitHandlerImpl) CreateTendersInOrganizationUnit(w
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
@@ -54,6 +57,7 @@ func (h *tendersinorganizationunitHandlerImpl) CreateTendersInOrganizationUnit(w
 
 	res, err := h.service.CreateTendersInOrganizationUnit(ctx, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -80,6 +84,7 @@ func (h *tendersinorganizationunitHandlerImpl) UpdateTendersInOrganizationUnit(w
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
@@ -90,6 +95,7 @@ func (h *tendersinorganizationunitHandlerImpl) UpdateTendersInOrganizationUnit(w
 
 	res, err := h.service.UpdateTendersInOrganizationUnit(ctx, id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -106,6 +112,7 @@ func (h *tendersinorganizationunitHandlerImpl) DeleteTendersInOrganizationUnit(w
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrBadRequest)
 		return
@@ -116,6 +123,7 @@ func (h *tendersinorganizationunitHandlerImpl) DeleteTendersInOrganizationUnit(w
 
 	err = h.service.DeleteTendersInOrganizationUnit(ctx, id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -129,6 +137,7 @@ func (h *tendersinorganizationunitHandlerImpl) GetTendersInOrganizationUnitById(
 
 	res, err := h.service.GetTendersInOrganizationUnit(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -150,6 +159,7 @@ func (h *tendersinorganizationunitHandlerImpl) GetTendersInOrganizationUnitList(
 
 	res, total, err := h.service.GetTendersInOrganizationUnitList(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

@@ -16,15 +16,17 @@ import (
 
 // OrganizationUnitHandler is a concrete type that implements OrganizationUnitHandler
 type organizationunitHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.OrganizationUnitService
+	App             *celeritas.Celeritas
+	service         services.OrganizationUnitService
+	errorLogService services.ErrorLogService
 }
 
 // NewOrganizationUnitHandler initializes a new OrganizationUnitHandler with its dependencies
-func NewOrganizationUnitHandler(app *celeritas.Celeritas, organizationunitService services.OrganizationUnitService) OrganizationUnitHandler {
+func NewOrganizationUnitHandler(app *celeritas.Celeritas, organizationunitService services.OrganizationUnitService, errorLogService services.ErrorLogService) OrganizationUnitHandler {
 	return &organizationunitHandlerImpl{
-		App:     app,
-		service: organizationunitService,
+		App:             app,
+		service:         organizationunitService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -44,6 +46,7 @@ func (h *organizationunitHandlerImpl) CreateOrganizationUnit(w http.ResponseWrit
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
@@ -54,6 +57,7 @@ func (h *organizationunitHandlerImpl) CreateOrganizationUnit(w http.ResponseWrit
 
 	res, err := h.service.CreateOrganizationUnit(ctx, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -80,6 +84,7 @@ func (h *organizationunitHandlerImpl) UpdateOrganizationUnit(w http.ResponseWrit
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
@@ -90,6 +95,7 @@ func (h *organizationunitHandlerImpl) UpdateOrganizationUnit(w http.ResponseWrit
 
 	res, err := h.service.UpdateOrganizationUnit(ctx, id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -106,6 +112,7 @@ func (h *organizationunitHandlerImpl) DeleteOrganizationUnit(w http.ResponseWrit
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrBadRequest)
 		return
@@ -116,6 +123,7 @@ func (h *organizationunitHandlerImpl) DeleteOrganizationUnit(w http.ResponseWrit
 
 	err = h.service.DeleteOrganizationUnit(ctx, id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -129,6 +137,7 @@ func (h *organizationunitHandlerImpl) GetOrganizationUnitById(w http.ResponseWri
 
 	res, err := h.service.GetOrganizationUnit(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -150,6 +159,7 @@ func (h *organizationunitHandlerImpl) GetOrganizationUnitList(w http.ResponseWri
 
 	res, total, err := h.service.GetOrganizationUnitList(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

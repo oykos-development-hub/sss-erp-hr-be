@@ -16,15 +16,17 @@ import (
 
 // RevisionHandler is a concrete type that implements RevisionHandler
 type revisionHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.RevisionService
+	App             *celeritas.Celeritas
+	service         services.RevisionService
+	errorLogService services.ErrorLogService
 }
 
 // NewRevisionHandler initializes a new RevisionHandler with its dependencies
-func NewRevisionHandler(app *celeritas.Celeritas, revisionService services.RevisionService) RevisionHandler {
+func NewRevisionHandler(app *celeritas.Celeritas, revisionService services.RevisionService, errorLogService services.ErrorLogService) RevisionHandler {
 	return &revisionHandlerImpl{
-		App:     app,
-		service: revisionService,
+		App:             app,
+		service:         revisionService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -32,6 +34,7 @@ func (h *revisionHandlerImpl) CreateRevision(w http.ResponseWriter, r *http.Requ
 	var input dto.RevisionDTO
 	err := h.App.ReadJSON(w, r, &input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, http.StatusBadRequest, err)
 		return
@@ -49,6 +52,7 @@ func (h *revisionHandlerImpl) CreateRevision(w http.ResponseWriter, r *http.Requ
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
@@ -59,6 +63,7 @@ func (h *revisionHandlerImpl) CreateRevision(w http.ResponseWriter, r *http.Requ
 
 	res, err := h.service.CreateRevision(ctx, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -73,6 +78,7 @@ func (h *revisionHandlerImpl) UpdateRevision(w http.ResponseWriter, r *http.Requ
 	var input dto.RevisionDTO
 	err := h.App.ReadJSON(w, r, &input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, http.StatusBadRequest, err)
 		return
@@ -90,6 +96,7 @@ func (h *revisionHandlerImpl) UpdateRevision(w http.ResponseWriter, r *http.Requ
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
@@ -100,6 +107,7 @@ func (h *revisionHandlerImpl) UpdateRevision(w http.ResponseWriter, r *http.Requ
 
 	res, err := h.service.UpdateRevision(ctx, id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -116,6 +124,7 @@ func (h *revisionHandlerImpl) DeleteRevision(w http.ResponseWriter, r *http.Requ
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrBadRequest)
 		return
@@ -126,6 +135,7 @@ func (h *revisionHandlerImpl) DeleteRevision(w http.ResponseWriter, r *http.Requ
 
 	err = h.service.DeleteRevision(ctx, id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -139,6 +149,7 @@ func (h *revisionHandlerImpl) GetRevisionById(w http.ResponseWriter, r *http.Req
 
 	res, err := h.service.GetRevision(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -160,6 +171,7 @@ func (h *revisionHandlerImpl) GetRevisionList(w http.ResponseWriter, r *http.Req
 
 	res, total, err := h.service.GetRevisionList(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

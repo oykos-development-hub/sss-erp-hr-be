@@ -14,15 +14,17 @@ import (
 
 // TenderApplicationsInOrganizationUnitHandler is a concrete type that implements TenderApplicationsInOrganizationUnitHandler
 type tenderapplicationsinorganizationunitHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.TenderApplicationsInOrganizationUnitService
+	App             *celeritas.Celeritas
+	service         services.TenderApplicationsInOrganizationUnitService
+	errorLogService services.ErrorLogService
 }
 
 // NewTenderApplicationsInOrganizationUnitHandler initializes a new TenderApplicationsInOrganizationUnitHandler with its dependencies
-func NewTenderApplicationsInOrganizationUnitHandler(app *celeritas.Celeritas, tenderapplicationsinorganizationunitService services.TenderApplicationsInOrganizationUnitService) TenderApplicationsInOrganizationUnitHandler {
+func NewTenderApplicationsInOrganizationUnitHandler(app *celeritas.Celeritas, tenderapplicationsinorganizationunitService services.TenderApplicationsInOrganizationUnitService, errorLogService services.ErrorLogService) TenderApplicationsInOrganizationUnitHandler {
 	return &tenderapplicationsinorganizationunitHandlerImpl{
-		App:     app,
-		service: tenderapplicationsinorganizationunitService,
+		App:             app,
+		service:         tenderapplicationsinorganizationunitService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -39,6 +41,7 @@ func (h *tenderapplicationsinorganizationunitHandlerImpl) CreateTenderApplicatio
 
 	res, err := h.service.CreateTenderApplicationsInOrganizationUnit(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -62,6 +65,7 @@ func (h *tenderapplicationsinorganizationunitHandlerImpl) UpdateTenderApplicatio
 
 	res, err := h.service.UpdateTenderApplicationsInOrganizationUnit(id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -75,6 +79,7 @@ func (h *tenderapplicationsinorganizationunitHandlerImpl) DeleteTenderApplicatio
 
 	err := h.service.DeleteTenderApplicationsInOrganizationUnit(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -88,6 +93,7 @@ func (h *tenderapplicationsinorganizationunitHandlerImpl) GetTenderApplicationsI
 
 	res, err := h.service.GetTenderApplicationsInOrganizationUnit(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -109,6 +115,7 @@ func (h *tenderapplicationsinorganizationunitHandlerImpl) GetTenderApplicationsI
 
 	res, total, err := h.service.GetTenderApplicationsInOrganizationUnitList(input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return

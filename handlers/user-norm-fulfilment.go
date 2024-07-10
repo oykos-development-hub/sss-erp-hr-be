@@ -16,15 +16,17 @@ import (
 
 // UserNormFulfilmentHandler is a concrete type that implements UserNormFulfilmentHandler
 type usernormfulfilmentHandlerImpl struct {
-	App     *celeritas.Celeritas
-	service services.UserNormFulfilmentService
+	App             *celeritas.Celeritas
+	service         services.UserNormFulfilmentService
+	errorLogService services.ErrorLogService
 }
 
 // NewUserNormFulfilmentHandler initializes a new UserNormFulfilmentHandler with its dependencies
-func NewUserNormFulfilmentHandler(app *celeritas.Celeritas, usernormfulfilmentService services.UserNormFulfilmentService) UserNormFulfilmentHandler {
+func NewUserNormFulfilmentHandler(app *celeritas.Celeritas, usernormfulfilmentService services.UserNormFulfilmentService, errorLogService services.ErrorLogService) UserNormFulfilmentHandler {
 	return &usernormfulfilmentHandlerImpl{
-		App:     app,
-		service: usernormfulfilmentService,
+		App:             app,
+		service:         usernormfulfilmentService,
+		errorLogService: errorLogService,
 	}
 }
 
@@ -32,6 +34,7 @@ func (h *usernormfulfilmentHandlerImpl) CreateUserNormFulfilment(w http.Response
 	var input dto.UserNormFulfilmentDTO
 	err := h.App.ReadJSON(w, r, &input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -49,6 +52,7 @@ func (h *usernormfulfilmentHandlerImpl) CreateUserNormFulfilment(w http.Response
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
@@ -59,6 +63,7 @@ func (h *usernormfulfilmentHandlerImpl) CreateUserNormFulfilment(w http.Response
 
 	res, err := h.service.CreateUserNormFulfilment(ctx, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -85,6 +90,7 @@ func (h *usernormfulfilmentHandlerImpl) UpdateUserNormFulfilment(w http.Response
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrUnauthorized)
 		return
@@ -95,6 +101,7 @@ func (h *usernormfulfilmentHandlerImpl) UpdateUserNormFulfilment(w http.Response
 
 	res, err := h.service.UpdateUserNormFulfilment(ctx, id, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -111,6 +118,7 @@ func (h *usernormfulfilmentHandlerImpl) DeleteUserNormFulfilment(w http.Response
 	userID, err := strconv.Atoi(userIDString)
 
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(errors.ErrUnauthorized), errors.ErrBadRequest)
 		return
@@ -121,6 +129,7 @@ func (h *usernormfulfilmentHandlerImpl) DeleteUserNormFulfilment(w http.Response
 
 	err = h.service.DeleteUserNormFulfilment(ctx, id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -134,6 +143,7 @@ func (h *usernormfulfilmentHandlerImpl) GetUserNormFulfilmentById(w http.Respons
 
 	res, err := h.service.GetUserNormFulfilment(id)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
@@ -156,6 +166,7 @@ func (h *usernormfulfilmentHandlerImpl) GetUserNormFulfilmentList(w http.Respons
 
 	res, err := h.service.GetUserNormFulfilmentList(userProfileID, input)
 	if err != nil {
+		h.errorLogService.CreateErrorLog(err)
 		h.App.ErrorLog.Print(err)
 		_ = h.App.WriteErrorResponse(w, errors.MapErrorToStatusCode(err), err)
 		return
