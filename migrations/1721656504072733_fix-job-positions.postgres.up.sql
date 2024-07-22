@@ -1,0 +1,1 @@
+alter table job_positions add column is_active default true;
