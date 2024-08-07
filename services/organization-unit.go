@@ -103,7 +103,7 @@ func (h *OrganizationUnitServiceImpl) GetOrganizationUnitList(data dto.GetOrgani
 		conditionAndExp = up.And(conditionAndExp, &up.Cond{"parent_id": nil})
 	}
 
-	if data.Active == nil && *data.Active {
+	if data.Active == nil || *data.Active {
 		if conditionAndExp == nil {
 			conditionAndExp = &up.AndExpr{}
 		}
