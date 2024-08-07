@@ -121,7 +121,7 @@ func (t *EmployeesInOrganizationUnit) Insert(m EmployeesInOrganizationUnit) (int
 func (t *EmployeesInOrganizationUnit) GetEmployeeInActiveSystematization(id int) (*EmployeesInOrganizationUnit, error) {
 	var response EmployeesInOrganizationUnit
 
-	query1 := `select id, position_in_organization_unit_id, active from employees_in_organization_units e,
+	query1 := `select e.id, e.position_in_organization_unit_id, e.active from employees_in_organization_units e,
 	           job_positions_in_organization_units u, systematizations s 
 			   where s.id = u.systematization_id and e.position_in_organization_unit_id = u.id 
 			   and s.active = 2 and e.user_profile_id = $1;
