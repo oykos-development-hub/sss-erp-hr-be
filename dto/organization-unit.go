@@ -19,6 +19,7 @@ type CreateOrganizationUnitDTO struct {
 	BankAccounts   []string `json:"bank_accounts"`
 	Address        *string  `json:"address" validate:"omitempty"`
 	Description    *string  `json:"description" validate:"omitempty"`
+	Active         bool     `json:"active"`
 	Code           string   `json:"code"`
 	FolderID       *int     `json:"folder_id,omitempty"`
 }
@@ -34,6 +35,7 @@ type UpdateOrganizationUnitDTO struct {
 	City           *string  `json:"city"`
 	OrderID        *int     `json:"order_id"`
 	BankAccounts   []string `json:"bank_accounts"`
+	Active         bool     `db:"active"`
 	Address        *string  `json:"address" validate:"omitempty"`
 	Description    *string  `json:"description" validate:"omitempty"`
 	Code           *string  `json:"code"`
@@ -52,6 +54,7 @@ type OrganizationUnitResponseDTO struct {
 	OrderID        *int      `json:"order_id"`
 	City           *string   `json:"city"`
 	Icon           *string   `json:"icon"`
+	Active         bool      `db:"active"`
 	Address        *string   `json:"address"`
 	Description    *string   `json:"description"`
 	FolderID       *int      `json:"folder_id"`
@@ -66,6 +69,7 @@ type GetOrganizationUnitsDTO struct {
 	ParentID *int    `json:"parent_id" validate:"omitempty"`
 	IsParent *bool   `json:"is_parent"`
 	Search   *string `json:"search" validate:"omitempty"`
+	Active   *bool   `json:"active"`
 }
 
 func (dto CreateOrganizationUnitDTO) ToOrganizationUnit() *data.OrganizationUnit {
@@ -88,6 +92,7 @@ func (dto CreateOrganizationUnitDTO) ToOrganizationUnit() *data.OrganizationUnit
 		FolderID:       dto.FolderID,
 		BankAccounts:   dto.BankAccounts,
 		Code:           dto.Code,
+		Active:         dto.Active,
 		CreatedAt:      time.Now(),
 		UpdatedAt:      time.Now(),
 	}
@@ -114,6 +119,7 @@ func (dto UpdateOrganizationUnitDTO) ToOrganizationUnit(data *data.OrganizationU
 	data.Description = dto.Description
 	data.FolderID = dto.FolderID
 	data.BankAccounts = dto.BankAccounts
+	data.Active = dto.Active
 	data.UpdatedAt = time.Now()
 }
 
@@ -134,6 +140,7 @@ func ToOrganizationUnitResponseDTO(data data.OrganizationUnit) OrganizationUnitR
 		Description:    data.Description,
 		FolderID:       data.FolderID,
 		Code:           data.Code,
+		Active:         data.Active,
 		CreatedAt:      data.CreatedAt,
 		UpdatedAt:      data.UpdatedAt,
 	}

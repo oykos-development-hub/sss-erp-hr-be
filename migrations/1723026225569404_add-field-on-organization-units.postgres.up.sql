@@ -1,0 +1,1 @@
+alter table organization_units add column active boolean default true;

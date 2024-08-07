@@ -29,6 +29,7 @@ type OrganizationUnit struct {
 	FolderID       *int           `db:"folder_id"`
 	BankAccounts   pq.StringArray `db:"bank_accounts"`
 	Code           string         `db:"code"`
+	Active         bool           `db:"active"`
 	CreatedAt      time.Time      `db:"created_at,omitempty"`
 	UpdatedAt      time.Time      `db:"updated_at"`
 }

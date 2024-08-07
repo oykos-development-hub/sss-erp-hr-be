@@ -103,6 +103,18 @@ func (h *OrganizationUnitServiceImpl) GetOrganizationUnitList(data dto.GetOrgani
 		conditionAndExp = up.And(conditionAndExp, &up.Cond{"parent_id": nil})
 	}
 
+	if data.Active == nil && *data.Active {
+		if conditionAndExp == nil {
+			conditionAndExp = &up.AndExpr{}
+		}
+		conditionAndExp = up.And(conditionAndExp, &up.Cond{"active": true})
+	} else if !*data.Active {
+		if conditionAndExp == nil {
+			conditionAndExp = &up.AndExpr{}
+		}
+		conditionAndExp = up.And(conditionAndExp, &up.Cond{"active": false})
+	}
+
 	res, total, err := h.repo.GetAll(data.Page, data.PageSize, conditionAndExp)
 	if err != nil {
 		return nil, nil, newErrors.Wrap(err, "repo organization unit get all")
