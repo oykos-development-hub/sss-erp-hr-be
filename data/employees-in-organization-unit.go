@@ -117,3 +117,30 @@ func (t *EmployeesInOrganizationUnit) Insert(m EmployeesInOrganizationUnit) (int
 
 	return id, nil
 }
+
+func (t *EmployeesInOrganizationUnit) GetEmployeeInActiveSystematization(id int) (*EmployeesInOrganizationUnit, error) {
+	var response EmployeesInOrganizationUnit
+
+	query1 := `select id, position_in_organization_unit_id, active from employees_in_organization_units e,
+	           job_positions_in_organization_units u, systematizations s 
+			   where s.id = u.systematization_id and e.position_in_organization_unit_id = u.id 
+			   and s.active = 2 and e.user_profile_id = $1;
+`
+
+	rows1, err := Upper.SQL().Query(query1, id)
+	if err != nil {
+		return &response, newErrors.Wrap(err, "upper exec")
+	}
+	defer rows1.Close()
+
+	for rows1.Next() {
+		err = rows1.Scan(&response.ID, &response.PositionInOrganizationUnitId, &response.Active)
+		response.UserProfileId = id
+
+		if err != nil {
+			return &response, newErrors.Wrap(err, "upper scan")
+		}
+	}
+
+	return &response, nil
+}

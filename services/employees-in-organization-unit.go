@@ -68,19 +68,18 @@ func (h *EmployeesInOrganizationUnitServiceImpl) DeleteEmployeesInOrganizationUn
 }
 
 func (h *EmployeesInOrganizationUnitServiceImpl) GetEmployeesInOrganizationUnitByEmployee(id int) (*dto.EmployeesInOrganizationUnitResponseDTO, error) {
-	cond := up.Cond{
-		"user_profile_id": id,
-	}
-	data, err := h.repo.GetAll(&cond)
+
+	data, err := h.repo.GetEmployeeInActiveSystematization(id)
 	if err != nil {
 		return nil, newErrors.Wrap(err, "repo employee in organization unit get all")
 	}
-	if len(data) == 0 {
-		return nil, nil
-	}
-	response := dto.ToEmployeesInOrganizationUnitResponseDTO(*data[0])
 
-	return &response, nil
+	if data != nil {
+		response := dto.ToEmployeesInOrganizationUnitResponseDTO(*data)
+		return &response, nil
+	}
+
+	return nil, nil
 }
 
 func (h *EmployeesInOrganizationUnitServiceImpl) GetEmployeesInOrganizationUnitList(data dto.GetEmployeesInOrganizationUnitInput) ([]dto.EmployeesInOrganizationUnitResponseDTO, error) {
