@@ -2,6 +2,7 @@ package services
 
 import (
 	"fmt"
+	"strings"
 
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
 	"gitlab.sudovi.me/erp/hr-ms-api/dto"
@@ -88,12 +89,15 @@ func (h *TenderApplicationsInOrganizationUnitServiceImpl) GetTenderApplicationsI
 	)
 
 	if input.Search != nil && *input.Search != "" {
-		likeCondition := fmt.Sprintf("%%%s%%", *input.Search)
-		searchCond := up.Or(
-			up.Cond{"first_name ILIKE": likeCondition},
-			up.Cond{"last_name ILIKE": likeCondition},
-		)
-		conditions = append(conditions, searchCond)
+		searchTerms := strings.Fields(*input.Search)
+		for _, term := range searchTerms {
+			likeCondition := fmt.Sprintf("%%%s%%", term)
+			searchCond := up.Or(
+				up.Cond{"first_name ILIKE": likeCondition},
+				up.Cond{"last_name ILIKE": likeCondition},
+			)
+			conditions = append(conditions, searchCond)
+		}
 	}
 
 	if input.JobTenderID != nil && *input.JobTenderID != 0 {
