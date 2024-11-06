@@ -1,1 +1,1 @@
-alter table job_positions add column is_active default true;
+ALTER TABLE job_positions ADD COLUMN is_active BOOLEAN DEFAULT TRUE;

@@ -1,0 +1,1 @@
+ALTER TABLE employee_contracts ALTER COLUMN file_id TYPE jsonb USING jsonb_build_array(file_id);
