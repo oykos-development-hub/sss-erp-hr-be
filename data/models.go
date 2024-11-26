@@ -50,8 +50,9 @@ type Models struct {
 	RevisionsInOrganizationUnit           RevisionsInOrganizationUnit
 	RevisionRevisor                       RevisionRevisor
 	Log                                   Log
-	ErrorLog ErrorLog
-	}
+	ErrorLog                              ErrorLog
+	RevisionTipImplementation             RevisionTipImplementation
+}
 
 func New(databasePool *sql.DB) Models {
 	db = databasePool
@@ -91,7 +92,8 @@ func New(databasePool *sql.DB) Models {
 		RevisionsInOrganizationUnit:           RevisionsInOrganizationUnit{},
 		RevisionRevisor:                       RevisionRevisor{},
 		Log:                                   Log{},
-		ErrorLog: ErrorLog{},
+		ErrorLog:                              ErrorLog{},
+		RevisionTipImplementation:             RevisionTipImplementation{},
 	}
 }
 

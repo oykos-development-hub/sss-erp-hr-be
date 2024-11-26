@@ -13,88 +13,72 @@ type RevisionTipFilter struct {
 }
 
 type RevisionTipDTO struct {
-	RevisionID             int        `json:"revision_id" validate:"required"`
-	UserProfileID          *int       `json:"user_profile_id"`
-	DateOfAccept           *time.Time `json:"date_of_accept"`
-	DueDate                int        `json:"due_date" validate:"required"`
-	RevisionPriority       *string    `json:"revision_priority"`
-	NewDueDate             *int       `json:"new_due_date"`
-	EndDate                *time.Time `json:"end_date"`
-	DateOfReject           *time.Time `json:"date_of_reject"`
-	DateOfExecution        *time.Time `json:"date_of_execution"`
-	NewDateOfExecution     *time.Time `json:"new_date_of_execution"`
-	Recommendation         string     `json:"recommendation" validate:"required"`
-	Status                 *string    `json:"status"`
-	Documents              *string    `json:"documents"`
-	ResponsiblePerson      *string    `json:"responsible_person"`
-	ReasonsForNonExecuting *string    `json:"reasons_for_non_executing"`
-	FileID                 *int       `json:"file_id"`
+	RevisionID        int        `json:"revision_id" validate:"required"`
+	UserProfileID     *int       `json:"user_profile_id"`
+	DateOfAccept      *time.Time `json:"date_of_accept"`
+	DueDate           int        `json:"due_date" validate:"required"`
+	RevisionPriority  *string    `json:"revision_priority"`
+	EndDate           *time.Time `json:"end_date"`
+	DateOfReject      *time.Time `json:"date_of_reject"`
+	DateOfExecution   *time.Time `json:"date_of_execution"`
+	Recommendation    string     `json:"recommendation" validate:"required"`
+	Status            *string    `json:"status"`
+	ResponsiblePerson *string    `json:"responsible_person"`
+	FileIDs           []int64    `json:"file_ids"`
 }
 
 type RevisionTipResponseDTO struct {
-	ID                     int        `json:"id"`
-	RevisionID             int        `json:"revision_id"`
-	UserProfileID          *int       `json:"user_profile_id"`
-	DateOfAccept           *time.Time `json:"date_of_accept"`
-	DueDate                int        `json:"due_date"`
-	NewDueDate             *int       `json:"new_due_date"`
-	RevisionPriority       *string    `json:"revision_priority"`
-	EndDate                *time.Time `json:"end_date"`
-	DateOfReject           *time.Time `json:"date_of_reject"`
-	DateOfExecution        *time.Time `json:"date_of_execution"`
-	NewDateOfExecution     *time.Time `json:"new_date_of_execution"`
-	Recommendation         string     `json:"recommendation"`
-	Status                 *string    `json:"status"`
-	Documents              *string    `json:"documents"`
-	ReasonsForNonExecuting *string    `json:"reasons_for_non_executing"`
-	FileID                 *int       `json:"file_id"`
-	ResponsiblePerson      *string    `json:"responsible_person"`
-	CreatedAt              time.Time  `json:"created_at"`
-	UpdatedAt              time.Time  `json:"updated_at"`
+	ID                int        `json:"id"`
+	RevisionID        int        `json:"revision_id" validate:"required"`
+	UserProfileID     *int       `json:"user_profile_id"`
+	DateOfAccept      *time.Time `json:"date_of_accept"`
+	DueDate           int        `json:"due_date" validate:"required"`
+	RevisionPriority  *string    `json:"revision_priority"`
+	EndDate           *time.Time `json:"end_date"`
+	DateOfReject      *time.Time `json:"date_of_reject"`
+	DateOfExecution   *time.Time `json:"date_of_execution"`
+	Recommendation    string     `json:"recommendation" validate:"required"`
+	Status            *string    `json:"status"`
+	ResponsiblePerson *string    `json:"responsible_person"`
+	FileIDs           []int64    `json:"file_ids"`
+	CreatedAt         time.Time  `json:"created_at"`
+	UpdatedAt         time.Time  `json:"updated_at"`
 }
 
 func (dto RevisionTipDTO) ToRevisionTip() *data.RevisionTip {
 	return &data.RevisionTip{
-		UserProfileID:          dto.UserProfileID,
-		RevisionID:             dto.RevisionID,
-		DateOfAccept:           dto.DateOfAccept,
-		DueDate:                dto.DueDate,
-		NewDueDate:             dto.NewDueDate,
-		DateOfReject:           dto.DateOfReject,
-		EndDate:                dto.EndDate,
-		DateOfExecution:        dto.DateOfExecution,
-		NewDateOfExecution:     dto.NewDateOfExecution,
-		RevisionPriority:       dto.RevisionPriority,
-		Recommendation:         dto.Recommendation,
-		Status:                 dto.Status,
-		Documents:              dto.Documents,
-		ResponsiblePerson:      dto.ResponsiblePerson,
-		ReasonsForNonExecuting: dto.ReasonsForNonExecuting,
-		FileID:                 dto.FileID,
+		UserProfileID:     dto.UserProfileID,
+		RevisionID:        dto.RevisionID,
+		DateOfAccept:      dto.DateOfAccept,
+		DueDate:           dto.DueDate,
+		DateOfReject:      dto.DateOfReject,
+		EndDate:           dto.EndDate,
+		DateOfExecution:   dto.DateOfExecution,
+		RevisionPriority:  dto.RevisionPriority,
+		Recommendation:    dto.Recommendation,
+		Status:            dto.Status,
+		ResponsiblePerson: dto.ResponsiblePerson,
+		FileIDs:           dto.FileIDs,
 	}
 }
 
 func ToRevisionTipResponseDTO(data data.RevisionTip) RevisionTipResponseDTO {
 	return RevisionTipResponseDTO{
-		ID:                     data.ID,
-		RevisionID:             data.RevisionID,
-		UserProfileID:          data.UserProfileID,
-		DateOfAccept:           data.DateOfAccept,
-		DueDate:                data.DueDate,
-		EndDate:                data.EndDate,
-		NewDueDate:             data.NewDueDate,
-		DateOfReject:           data.DateOfReject,
-		RevisionPriority:       data.RevisionPriority,
-		DateOfExecution:        data.DateOfExecution,
-		NewDateOfExecution:     data.NewDateOfExecution,
-		Recommendation:         data.Recommendation,
-		Status:                 data.Status,
-		Documents:              data.Documents,
-		ReasonsForNonExecuting: data.ReasonsForNonExecuting,
-		ResponsiblePerson:      data.ResponsiblePerson,
-		FileID:                 data.FileID,
-		CreatedAt:              data.CreatedAt,
-		UpdatedAt:              data.UpdatedAt,
+		ID:                data.ID,
+		RevisionID:        data.RevisionID,
+		UserProfileID:     data.UserProfileID,
+		DateOfAccept:      data.DateOfAccept,
+		DueDate:           data.DueDate,
+		EndDate:           data.EndDate,
+		DateOfReject:      data.DateOfReject,
+		RevisionPriority:  data.RevisionPriority,
+		DateOfExecution:   data.DateOfExecution,
+		Recommendation:    data.Recommendation,
+		Status:            data.Status,
+		ResponsiblePerson: data.ResponsiblePerson,
+		FileIDs:           data.FileIDs,
+		CreatedAt:         data.CreatedAt,
+		UpdatedAt:         data.UpdatedAt,
 	}
 }
 

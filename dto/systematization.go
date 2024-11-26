@@ -13,7 +13,7 @@ type SystematizationDTO struct {
 	SerialNumber       string     `json:"serial_number" validate:"required"`
 	Active             int        `json:"active"`
 	DateOfActivation   *time.Time `json:"date_of_activation"`
-	FileId             *int       `json:"file_id,omitempty"`
+	FileIds            []int64    `json:"file_ids,omitempty"`
 }
 
 type SystematizationResponseDTO struct {
@@ -24,7 +24,7 @@ type SystematizationResponseDTO struct {
 	SerialNumber       string     `json:"serial_number"`
 	Active             int        `json:"active"`
 	DateOfActivation   *time.Time `json:"date_of_activation"`
-	FileId             *int       `json:"file_id"`
+	FileIds            []int64    `json:"file_ids,omitempty"`
 	CreatedAt          time.Time  `json:"created_at"`
 	UpdatedAt          time.Time  `json:"updated_at"`
 }
@@ -46,7 +46,7 @@ func (dto SystematizationDTO) ToSystematization() *data.Systematization {
 		SerialNumber:       dto.SerialNumber,
 		Active:             dto.Active,
 		DateOfActivation:   dto.DateOfActivation,
-		FileId:             dto.FileId,
+		FileIds:            dto.FileIds,
 	}
 }
 
@@ -59,7 +59,7 @@ func ToSystematizationResponseDTO(data data.Systematization) SystematizationResp
 		SerialNumber:       data.SerialNumber,
 		Active:             data.Active,
 		DateOfActivation:   data.DateOfActivation,
-		FileId:             data.FileId,
+		FileIds:            data.FileIds,
 		CreatedAt:          data.CreatedAt,
 		UpdatedAt:          data.UpdatedAt,
 	}

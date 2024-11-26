@@ -22,11 +22,11 @@ type RevisionDTO struct {
 	DateOfRevision          time.Time `json:"date_of_revision" validate:"required"`
 	RevisionQuartal         string    `json:"revision_quartal" validate:"required"`
 	InternalRevisionSubject []int64   `json:"internal_revision_subject_id"`
-	ExternalRevisionSubject *int      `json:"external_revision_subject"`
+	ExternalRevisionSubject *int      `json:"external_revision_subject_id"`
 	Revisor                 []int64   `json:"revisor_id" validate:"required"`
 	RevisionType            int       `json:"revision_type_id" validate:"required"`
-	FileID                  *int      `json:"file_id"`
-	TipsFileID              *int      `json:"tips_file_id"`
+	FileIDs                 []int64   `json:"file_ids"`
+	TipsFileIDs             []int64   `json:"tips_file_ids"`
 }
 
 type RevisionResponseDTO struct {
@@ -37,11 +37,11 @@ type RevisionResponseDTO struct {
 	DateOfRevision          time.Time `json:"date_of_revision"`
 	RevisionQuartal         string    `json:"revision_quartal"`
 	InternalRevisionSubject []int64   `json:"internal_revision_subject_id"`
-	ExternalRevisionSubject *int      `json:"external_revision_subject"`
+	ExternalRevisionSubject *int      `json:"external_revision_subject_id"`
 	Revisor                 []int64   `json:"revisor_id"`
 	RevisionType            int       `json:"revision_type_id"`
-	FileID                  *int      `json:"file_id"`
-	TipsFileID              *int      `json:"tips_file_id"`
+	FileIDs                 []int64   `json:"file_ids"`
+	TipsFileIDs             []int64   `json:"tips_file_ids"`
 	CreatedAt               time.Time `json:"created_at"`
 	UpdatedAt               time.Time `json:"updated_at"`
 }
@@ -57,8 +57,8 @@ func (dto RevisionDTO) ToRevision() *data.Revision {
 		ExternalRevisionSubject: dto.ExternalRevisionSubject,
 		Revisor:                 dto.Revisor,
 		RevisionType:            dto.RevisionType,
-		FileID:                  dto.FileID,
-		TipsFileID:              dto.TipsFileID,
+		FileIDs:                 dto.FileIDs,
+		TipsFileIDs:             dto.FileIDs,
 	}
 }
 
@@ -74,8 +74,8 @@ func ToRevisionResponseDTO(data data.Revision) RevisionResponseDTO {
 		ExternalRevisionSubject: data.ExternalRevisionSubject,
 		Revisor:                 data.Revisor,
 		RevisionType:            data.RevisionType,
-		FileID:                  data.FileID,
-		TipsFileID:              data.TipsFileID,
+		FileIDs:                 data.FileIDs,
+		TipsFileIDs:             data.TipsFileIDs,
 		CreatedAt:               data.CreatedAt,
 		UpdatedAt:               data.UpdatedAt,
 	}

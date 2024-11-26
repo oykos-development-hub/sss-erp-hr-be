@@ -25,7 +25,7 @@ type EmployeeEducationDTO struct {
 	CertificateIssuer   *string    `json:"certificate_issuer"`
 	Description         *string    `json:"description"`
 	Title               *string    `json:"title"`
-	FileId              *int       `json:"file_id"`
+	FileIDs             []int64    `json:"file_ids"`
 }
 
 type EmployeeEducationResponseDTO struct {
@@ -42,7 +42,7 @@ type EmployeeEducationResponseDTO struct {
 	CertificateIssuer   *string    `json:"certificate_issuer"`
 	Title               *string    `json:"title"`
 	Description         *string    `json:"description"`
-	FileID              *int       `json:"file_id"`
+	FileIDs             []int64    `json:"file_ids"`
 	CreatedAt           time.Time  `json:"created_at"`
 	UpdatedAt           time.Time  `json:"updated_at"`
 }
@@ -61,7 +61,7 @@ func (dto EmployeeEducationDTO) ToEmployeeEducation() *data.EmployeeEducation {
 		CertificateIssuer:   dto.CertificateIssuer,
 		Title:               dto.Title,
 		Description:         dto.Description,
-		FileId:              dto.FileId,
+		FileIDs:             dto.FileIDs,
 	}
 }
 
@@ -79,7 +79,7 @@ func ToEmployeeEducationResponseDTO(data data.EmployeeEducation) EmployeeEducati
 		CertificateIssuer:   data.CertificateIssuer,
 		Score:               data.Score,
 		Description:         data.Description,
-		FileID:              data.FileId,
+		FileIDs:             data.FileIDs,
 		CreatedAt:           data.CreatedAt,
 		UpdatedAt:           data.UpdatedAt,
 	}

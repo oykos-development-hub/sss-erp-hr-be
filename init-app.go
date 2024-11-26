@@ -122,6 +122,9 @@ func initApplication() *celeritas.Celeritas {
 	LogService := services.NewLogServiceImpl(cel, models.Log)
 	LogHandler := handlers.NewLogHandler(cel, LogService, ErrorLogService)
 
+	RevisionTipImplementationService := services.NewRevisionTipImplementationServiceImpl(cel, models.RevisionTipImplementation)
+	RevisionTipImplementationHandler := handlers.NewRevisionTipImplementationHandler(cel, RevisionTipImplementationService, ErrorLogService)
+
 	myHandlers := &handlers.Handlers{
 		OrganizationUnitHandler:                      OrganizationUnitHandler,
 		JobPositionHandler:                           JobPositionHandler,
@@ -154,6 +157,7 @@ func initApplication() *celeritas.Celeritas {
 		RevisionRevisorHandler:                       RevisionRevisorHandler,
 		LogHandler:                                   LogHandler,
 		ErrorLogHandler:                              ErrorLogHandler,
+		RevisionTipImplementationHandler:             RevisionTipImplementationHandler,
 	}
 
 	myMiddleware := &middleware.Middleware{

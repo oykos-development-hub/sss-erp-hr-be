@@ -3,28 +3,29 @@ package data
 import (
 	"time"
 
+	"github.com/lib/pq"
 	up "github.com/upper/db/v4"
 	newErrors "gitlab.sudovi.me/erp/hr-ms-api/pkg/errors"
 )
 
 // EmployeeExperience struct
 type EmployeeExperience struct {
-	ID                        int       `db:"id,omitempty"`
-	UserProfileID             int       `db:"user_profile_id"`
-	Relevant                  bool      `db:"relevant"`
-	OrganizationUnit          *string   `db:"organization_unit"`
-	OrganizationUnitID        *int      `db:"organization_unit_id"`
-	YearsOfExperience         *int      `db:"years_of_experience"`
-	YearsOfInsuredExperience  *int      `db:"years_of_insured_experience"`
-	MonthsOfExperience        *int      `db:"months_of_experience"`
-	MonthsOfInsuredExperience *int      `db:"months_of_insured_experience"`
-	DaysOfExperience          *int      `db:"days_of_experience"`
-	DaysOfInsuredExperience   *int      `db:"days_of_insured_experience"`
-	DateOfStart               time.Time `db:"date_of_start"`
-	DateOfEnd                 time.Time `db:"date_of_end"`
-	FileID                    int       `db:"file_id"`
-	CreatedAt                 time.Time `db:"created_at,omitempty"`
-	UpdatedAt                 time.Time `db:"updated_at"`
+	ID                        int           `db:"id,omitempty"`
+	UserProfileID             int           `db:"user_profile_id"`
+	Relevant                  bool          `db:"relevant"`
+	OrganizationUnit          *string       `db:"organization_unit"`
+	OrganizationUnitID        *int          `db:"organization_unit_id"`
+	YearsOfExperience         *int          `db:"years_of_experience"`
+	YearsOfInsuredExperience  *int          `db:"years_of_insured_experience"`
+	MonthsOfExperience        *int          `db:"months_of_experience"`
+	MonthsOfInsuredExperience *int          `db:"months_of_insured_experience"`
+	DaysOfExperience          *int          `db:"days_of_experience"`
+	DaysOfInsuredExperience   *int          `db:"days_of_insured_experience"`
+	DateOfStart               time.Time     `db:"date_of_start"`
+	DateOfEnd                 time.Time     `db:"date_of_end"`
+	FileIDs                   pq.Int64Array `db:"file_ids"`
+	CreatedAt                 time.Time     `db:"created_at,omitempty"`
+	UpdatedAt                 time.Time     `db:"updated_at"`
 }
 
 // Table returns the table name

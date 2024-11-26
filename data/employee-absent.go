@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/lib/pq"
 	up "github.com/upper/db/v4"
 	"gitlab.sudovi.me/erp/hr-ms-api/contextutil"
 	newErrors "gitlab.sudovi.me/erp/hr-ms-api/pkg/errors"
@@ -13,17 +14,17 @@ import (
 
 // EmployeeAbsent struct
 type EmployeeAbsent struct {
-	ID                       int       `db:"id,omitempty"`
-	AbsentTypeID             int       `db:"absent_type_id"`
-	UserProfileID            int       `db:"user_profile_id"`
-	TargetOrganizationUnitID *int      `db:"target_organization_unit_id"`
-	Description              *string   `db:"description"`
-	DateOfStart              time.Time `db:"date_of_start"`
-	DateOfEnd                time.Time `db:"date_of_end"`
-	Location                 *string   `db:"location"`
-	FileID                   *int      `db:"file_id"`
-	CreatedAt                time.Time `db:"created_at,omitempty"`
-	UpdatedAt                time.Time `db:"updated_at,omitempty"`
+	ID                       int           `db:"id,omitempty"`
+	AbsentTypeID             int           `db:"absent_type_id"`
+	UserProfileID            int           `db:"user_profile_id"`
+	TargetOrganizationUnitID *int          `db:"target_organization_unit_id"`
+	Description              *string       `db:"description"`
+	DateOfStart              time.Time     `db:"date_of_start"`
+	DateOfEnd                time.Time     `db:"date_of_end"`
+	Location                 *string       `db:"location"`
+	FileIDs                  pq.Int64Array `db:"file_ids"`
+	CreatedAt                time.Time     `db:"created_at,omitempty"`
+	UpdatedAt                time.Time     `db:"updated_at,omitempty"`
 }
 
 // Table returns the table name

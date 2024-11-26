@@ -39,13 +39,17 @@ func (h *EmployeesInOrganizationUnitServiceImpl) CreateEmployeesInOrganizationUn
 		return nil, newErrors.Wrap(err, "repo employee in organization unit insert")
 	}
 
-	data, err = data.Get(id)
-	if err != nil {
+	data, _ = h.repo.Get(id)
+
+	/*	if err != nil {
 		return nil, newErrors.Wrap(err, "repo employee in organization unit get")
+	}*/
+
+	var response dto.EmployeesInOrganizationUnitResponseDTO
+
+	if data != nil {
+		response = dto.ToEmployeesInOrganizationUnitResponseDTO(*data)
 	}
-
-	response := dto.ToEmployeesInOrganizationUnitResponseDTO(*data)
-
 	return &response, nil
 }
 
@@ -117,12 +121,17 @@ func (h *EmployeesInOrganizationUnitServiceImpl) UpdateEmployeesInOrganizationUn
 		return nil, newErrors.Wrap(err, "repo employee in organization unit update")
 	}
 
-	data, err = h.repo.Get(id)
-	if err != nil {
-		return nil, newErrors.Wrap(err, "repo employee in organization unit get")
-	}
+	data, _ = h.repo.Get(id)
 
-	response := dto.ToEmployeesInOrganizationUnitResponseDTO(*data)
+	/*	if err != nil {
+		return nil, newErrors.Wrap(err, "repo employee in organization unit get")
+	}*/
+
+	var response dto.EmployeesInOrganizationUnitResponseDTO
+
+	if data != nil {
+		response = dto.ToEmployeesInOrganizationUnitResponseDTO(*data)
+	}
 
 	return &response, nil
 }

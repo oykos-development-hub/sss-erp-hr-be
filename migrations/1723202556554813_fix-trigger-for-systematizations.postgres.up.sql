@@ -1,0 +1,6 @@
+DROP TRIGGER IF EXISTS trigger_delete_inactive_employees ON employees_in_organization_units;
+
+CREATE TRIGGER trigger_delete_inactive_employees
+BEFORE INSERT ON employees_in_organization_units
+FOR EACH ROW
+EXECUTE FUNCTION delete_inactive_employees();

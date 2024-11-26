@@ -20,7 +20,7 @@ type EmployeeExperienceDTO struct {
 	DaysOfInsuredExperience   *int      `json:"days_of_insured_experience"`
 	DateOfStart               time.Time `json:"date_of_start" validate:"required"`
 	DateOfEnd                 time.Time `json:"date_of_end" validate:"required"`
-	FileID                    int       `json:"reference_file_id"`
+	FileIDs                   []int64   `json:"file_ids"`
 }
 
 type EmployeeExperienceResponseDTO struct {
@@ -37,7 +37,7 @@ type EmployeeExperienceResponseDTO struct {
 	DaysOfInsuredExperience   *int       `json:"days_of_insured_experience"`
 	DateOfStart               time.Time  `json:"date_of_start"`
 	DateOfEnd                 time.Time  `json:"date_of_end"`
-	FileID                    int        `json:"reference_file_id"`
+	FileIDs                   []int64    `json:"file_ids"`
 	CreatedAt                 *time.Time `json:"created_at"`
 	UpdatedAt                 *time.Time `json:"updated_at"`
 }
@@ -56,7 +56,7 @@ func (dto EmployeeExperienceDTO) ToEmployeeExperience() *data.EmployeeExperience
 		DaysOfInsuredExperience:   dto.DaysOfInsuredExperience,
 		DateOfStart:               dto.DateOfStart,
 		DateOfEnd:                 dto.DateOfEnd,
-		FileID:                    dto.FileID,
+		FileIDs:                   dto.FileIDs,
 	}
 }
 
@@ -75,7 +75,7 @@ func ToEmployeeExperienceResponseDTO(data data.EmployeeExperience) EmployeeExper
 		DaysOfInsuredExperience:   data.DaysOfInsuredExperience,
 		DateOfStart:               data.DateOfStart,
 		DateOfEnd:                 data.DateOfEnd,
-		FileID:                    data.FileID,
+		FileIDs:                   data.FileIDs,
 		CreatedAt:                 &data.CreatedAt,
 		UpdatedAt:                 &data.UpdatedAt,
 	}

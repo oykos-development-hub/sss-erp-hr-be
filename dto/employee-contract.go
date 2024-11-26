@@ -1,8 +1,6 @@
 package dto
 
 import (
-	"encoding/json"
-	"log"
 	"time"
 
 	"gitlab.sudovi.me/erp/hr-ms-api/data"
@@ -30,15 +28,10 @@ type EmployeeContractDTO struct {
 	DateOfEligibility  *time.Time `json:"date_of_eligibility"`
 	DateOfStart        *time.Time `json:"date_of_start"`
 	DateOfEnd          *time.Time `json:"date_of_end"`
-	FileIDs            []int      `json:"file_ids"`
+	FileIDs            []int64    `json:"file_ids"`
 }
 
 func (dto EmployeeContractDTO) ToEmployeeContract() *data.EmployeeContract {
-	marshaledFileIds, err := json.Marshal(dto.FileIDs)
-	if err != nil {
-		log.Println(err)
-	}
-
 	return &data.EmployeeContract{
 		UserProfileID:      dto.UserProfileID,
 		ContractTypeID:     dto.ContractTypeID,
@@ -57,7 +50,7 @@ func (dto EmployeeContractDTO) ToEmployeeContract() *data.EmployeeContract {
 		DateOfEligibility:  dto.DateOfEligibility,
 		DateOfStart:        dto.DateOfStart,
 		DateOfEnd:          dto.DateOfEnd,
-		FileID:             string(marshaledFileIds),
+		FileIDs:            dto.FileIDs,
 	}
 }
 
@@ -80,18 +73,12 @@ type EmployeeContractResponseDTO struct {
 	DateOfEligibility  *time.Time `json:"date_of_eligibility"`
 	DateOfStart        *time.Time `json:"date_of_start"`
 	DateOfEnd          *time.Time `json:"date_of_end"`
-	FileIDs            []int      `json:"file_ids"`
+	FileIDs            []int64    `json:"file_ids"`
 	CreatedAt          time.Time  `json:"created_at"`
 	UpdatedAt          time.Time  `json:"updated_at"`
 }
 
 func ToEmployeeContractResponseDTO(data data.EmployeeContract) EmployeeContractResponseDTO {
-	var decodedFileIDs []int
-	err := json.Unmarshal([]byte(data.FileID), &decodedFileIDs)
-	if err != nil {
-		log.Println(err)
-	}
-
 	return EmployeeContractResponseDTO{
 		ID:                 data.ID,
 		UserProfileID:      data.UserProfileID,
@@ -111,7 +98,7 @@ func ToEmployeeContractResponseDTO(data data.EmployeeContract) EmployeeContractR
 		DateOfEligibility:  data.DateOfEligibility,
 		DateOfStart:        data.DateOfStart,
 		DateOfEnd:          data.DateOfEnd,
-		FileIDs:            decodedFileIDs,
+		FileIDs:            data.FileIDs,
 		CreatedAt:          data.CreatedAt,
 		UpdatedAt:          data.UpdatedAt,
 	}

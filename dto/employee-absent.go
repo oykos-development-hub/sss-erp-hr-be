@@ -20,7 +20,7 @@ type EmployeeAbsentDTO struct {
 	DateOfStart              time.Time `json:"date_of_start" validate:"required,datetime"`
 	DateOfEnd                time.Time `json:"date_of_end" validate:"required,datetime"`
 	Location                 *string   `json:"location" validate:"omitempty"`
-	FileID                   *int      `json:"file_id" validate:"omitempty"`
+	FileIDs                  []int64   `json:"file_ids" validate:"omitempty"`
 }
 
 type EmployeeAbsentResponseDTO struct {
@@ -32,7 +32,7 @@ type EmployeeAbsentResponseDTO struct {
 	DateOfStart              time.Time `json:"date_of_start"`
 	DateOfEnd                time.Time `json:"date_of_end"`
 	Location                 *string   `json:"location"`
-	FileID                   *int      `json:"file_id"`
+	FileIDs                  []int64   `json:"file_ids"`
 	CreatedAt                time.Time `json:"created_at"`
 	UpdatedAt                time.Time `json:"updated_at"`
 }
@@ -46,7 +46,7 @@ func (dto EmployeeAbsentDTO) ToEmployeeAbsent() *data.EmployeeAbsent {
 		DateOfStart:              dto.DateOfStart,
 		DateOfEnd:                dto.DateOfEnd,
 		Location:                 dto.Location,
-		FileID:                   dto.FileID,
+		FileIDs:                  dto.FileIDs,
 	}
 }
 
@@ -60,7 +60,7 @@ func ToEmployeeAbsentResponseDTO(data data.EmployeeAbsent) EmployeeAbsentRespons
 		DateOfStart:              data.DateOfStart,
 		DateOfEnd:                data.DateOfEnd,
 		Location:                 data.Location,
-		FileID:                   data.FileID,
+		FileIDs:                  data.FileIDs,
 		CreatedAt:                data.CreatedAt,
 		UpdatedAt:                data.UpdatedAt,
 	}

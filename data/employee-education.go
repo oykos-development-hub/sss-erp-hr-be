@@ -3,28 +3,29 @@ package data
 import (
 	"time"
 
+	"github.com/lib/pq"
 	up "github.com/upper/db/v4"
 	newErrors "gitlab.sudovi.me/erp/hr-ms-api/pkg/errors"
 )
 
 // EmployeeEducation struct
 type EmployeeEducation struct {
-	ID                  int        `db:"id,omitempty"`
-	UserProfileID       int        `db:"user_profile_id"`
-	TypeID              int        `db:"type_id"`
-	DateOfCertification *time.Time `db:"date_of_certification"`
-	Price               *float32   `db:"price"`
-	DateOfStart         *time.Time `db:"date_of_start"`
-	DateOfEnd           *time.Time `db:"date_of_end"`
-	AcademicTitle       *string    `db:"academic_title"`
-	ExpertiseLevel      *string    `db:"expertise_level"`
-	CertificateIssuer   *string    `db:"certificate_issuer"`
-	Score               *string    `db:"score"`
-	Title               *string    `db:"title"`
-	Description         *string    `db:"description"`
-	FileId              *int       `db:"file_id"`
-	CreatedAt           time.Time  `db:"created_at,omitempty"`
-	UpdatedAt           time.Time  `db:"updated_at"`
+	ID                  int           `db:"id,omitempty"`
+	UserProfileID       int           `db:"user_profile_id"`
+	TypeID              int           `db:"type_id"`
+	DateOfCertification *time.Time    `db:"date_of_certification"`
+	Price               *float32      `db:"price"`
+	DateOfStart         *time.Time    `db:"date_of_start"`
+	DateOfEnd           *time.Time    `db:"date_of_end"`
+	AcademicTitle       *string       `db:"academic_title"`
+	ExpertiseLevel      *string       `db:"expertise_level"`
+	CertificateIssuer   *string       `db:"certificate_issuer"`
+	Score               *string       `db:"score"`
+	Title               *string       `db:"title"`
+	Description         *string       `db:"description"`
+	FileIDs             pq.Int64Array `db:"file_ids"`
+	CreatedAt           time.Time     `db:"created_at,omitempty"`
+	UpdatedAt           time.Time     `db:"updated_at"`
 }
 
 // Table returns the table name

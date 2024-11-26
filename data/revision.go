@@ -24,8 +24,8 @@ type Revision struct {
 	ExternalRevisionSubject *int          `db:"external_revision_subject"`
 	Revisor                 pq.Int64Array `db:"revisor_id"`
 	RevisionType            int           `db:"revision_type_id"`
-	FileID                  *int          `db:"file_id"`
-	TipsFileID              *int          `db:"tips_file_id"`
+	FileIDs                 pq.Int64Array `db:"file_ids"`
+	TipsFileIDs             pq.Int64Array `db:"tips_file_ids"`
 	CreatedAt               time.Time     `db:"created_at,omitempty"`
 	UpdatedAt               time.Time     `db:"updated_at"`
 }

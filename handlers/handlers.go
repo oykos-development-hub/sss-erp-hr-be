@@ -36,6 +36,7 @@ type Handlers struct {
 	RevisionRevisorHandler                       RevisionRevisorHandler
 	LogHandler                                   LogHandler
 	ErrorLogHandler                              ErrorLogHandler
+	RevisionTipImplementationHandler             RevisionTipImplementationHandler
 }
 
 type EngagementTypeHandler interface {
@@ -299,4 +300,12 @@ type ErrorLogHandler interface {
 	DeleteErrorLog(w http.ResponseWriter, r *http.Request)
 	GetErrorLogById(w http.ResponseWriter, r *http.Request)
 	GetErrorLogList(w http.ResponseWriter, r *http.Request)
+}
+
+type RevisionTipImplementationHandler interface {
+	CreateRevisionTipImplementation(w http.ResponseWriter, r *http.Request)
+	UpdateRevisionTipImplementation(w http.ResponseWriter, r *http.Request)
+	DeleteRevisionTipImplementation(w http.ResponseWriter, r *http.Request)
+	GetRevisionTipImplementationById(w http.ResponseWriter, r *http.Request)
+	GetRevisionTipImplementationList(w http.ResponseWriter, r *http.Request)
 }

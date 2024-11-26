@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/lib/pq"
 	up "github.com/upper/db/v4"
 	"gitlab.sudovi.me/erp/hr-ms-api/contextutil"
 	newErrors "gitlab.sudovi.me/erp/hr-ms-api/pkg/errors"
@@ -13,19 +14,19 @@ import (
 
 // Evaluation struct
 type Evaluation struct {
-	ID                  int        `db:"id,omitempty"`
-	UserProfileID       int        `db:"user_profile_id"`
-	EvaluationTypeID    int        `db:"evaluation_type_id"`
-	Score               string     `db:"score"`
-	DateOfEvaluation    *time.Time `db:"date_of_evaluation"`
-	Evaluator           string     `db:"evaluator"`
-	IsRelevant          *bool      `db:"is_relevant"`
-	ReasonForEvaluation *string    `db:"reason_for_evaluation"`
-	EvaluationPeriod    *string    `db:"evaluation_period"`
-	DecisionNumber      *string    `db:"decision_number"`
-	CreatedAt           time.Time  `db:"created_at,omitempty"`
-	UpdatedAt           time.Time  `db:"updated_at"`
-	FileID              *int       `db:"file_id"`
+	ID                  int           `db:"id,omitempty"`
+	UserProfileID       int           `db:"user_profile_id"`
+	EvaluationTypeID    int           `db:"evaluation_type_id"`
+	Score               string        `db:"score"`
+	DateOfEvaluation    *time.Time    `db:"date_of_evaluation"`
+	Evaluator           string        `db:"evaluator"`
+	IsRelevant          *bool         `db:"is_relevant"`
+	ReasonForEvaluation *string       `db:"reason_for_evaluation"`
+	EvaluationPeriod    *string       `db:"evaluation_period"`
+	DecisionNumber      *string       `db:"decision_number"`
+	CreatedAt           time.Time     `db:"created_at,omitempty"`
+	UpdatedAt           time.Time     `db:"updated_at"`
+	FileIDs             pq.Int64Array `db:"file_ids"`
 }
 
 // Table returns the table name

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/lib/pq"
 	up "github.com/upper/db/v4"
 	"gitlab.sudovi.me/erp/hr-ms-api/contextutil"
 	newErrors "gitlab.sudovi.me/erp/hr-ms-api/pkg/errors"
@@ -13,18 +14,18 @@ import (
 
 // EmployeeResolution struct
 type EmployeeResolution struct {
-	ID                int        `db:"id,omitempty"`
-	ResolutionTypeID  int        `db:"resolution_type_id"`
-	UserProfileID     int        `db:"user_profile_id"`
-	ResolutionPurpose *string    `db:"resolution_purpose"`
-	DateOfStart       time.Time  `db:"date_of_start"`
-	DateOfEnd         *time.Time `db:"date_of_end"`
-	Year              int        `db:"year"`
-	Value             *string    `db:"value"`
-	IsAffect          *bool      `db:"is_affect"`
-	FileID            *int       `db:"file_id"`
-	CreatedAt         time.Time  `db:"created_at,omitempty"`
-	UpdatedAt         time.Time  `db:"updated_at"`
+	ID                int           `db:"id,omitempty"`
+	ResolutionTypeID  int           `db:"resolution_type_id"`
+	UserProfileID     int           `db:"user_profile_id"`
+	ResolutionPurpose *string       `db:"resolution_purpose"`
+	DateOfStart       time.Time     `db:"date_of_start"`
+	DateOfEnd         *time.Time    `db:"date_of_end"`
+	Year              int           `db:"year"`
+	Value             *string       `db:"value"`
+	IsAffect          *bool         `db:"is_affect"`
+	FileIDs           pq.Int64Array `db:"file_ids"`
+	CreatedAt         time.Time     `db:"created_at,omitempty"`
+	UpdatedAt         time.Time     `db:"updated_at"`
 }
 
 // Table returns the table name

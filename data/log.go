@@ -62,6 +62,7 @@ func (t *Log) GetAll(page *int, size *int, condition *up.AndExpr, orders []inter
 	} else {
 		res = collection.Find()
 	}
+
 	total, err := res.Count()
 	if err != nil {
 		return nil, nil, newErrors.Wrap(err, "upper count")

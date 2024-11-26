@@ -19,7 +19,7 @@ type EvaluationDTO struct {
 	DateOfEvaluation    *time.Time `json:"date_of_evaluation"  validate:"required"`
 	Evaluator           string     `json:"evaluator"`
 	IsRelevant          *bool      `json:"is_relevant" validate:"required"`
-	FileID              *int       `json:"file_id"  validate:"omitempty"`
+	FileIDs             []int64    `json:"file_ids"  validate:"omitempty"`
 	ReasonForEvaluation *string    `json:"reason_for_evaluation"`
 	EvaluationPeriod    *string    `json:"evaluation_period"`
 	DecisionNumber      *string    `json:"decision_number"`
@@ -38,7 +38,7 @@ type EvaluationResponseDTO struct {
 	DecisionNumber      *string    `json:"decision_number"`
 	CreatedAt           time.Time  `json:"created_at"`
 	UpdatedAt           time.Time  `json:"updated_at"`
-	FileID              *int       `json:"file_id"`
+	FileIDs             []int64    `json:"file_ids"`
 }
 
 func (dto EvaluationDTO) ToEvaluation() *data.Evaluation {
@@ -49,7 +49,7 @@ func (dto EvaluationDTO) ToEvaluation() *data.Evaluation {
 		DateOfEvaluation:    dto.DateOfEvaluation,
 		Evaluator:           dto.Evaluator,
 		IsRelevant:          dto.IsRelevant,
-		FileID:              dto.FileID,
+		FileIDs:             dto.FileIDs,
 		ReasonForEvaluation: dto.ReasonForEvaluation,
 		EvaluationPeriod:    dto.EvaluationPeriod,
 		DecisionNumber:      dto.DecisionNumber,
@@ -70,7 +70,7 @@ func ToEvaluationResponseDTO(data data.Evaluation) EvaluationResponseDTO {
 		DecisionNumber:      data.DecisionNumber,
 		CreatedAt:           data.CreatedAt,
 		UpdatedAt:           data.UpdatedAt,
-		FileID:              data.FileID,
+		FileIDs:             data.FileIDs,
 	}
 }
 

@@ -260,3 +260,11 @@ type ErrorLogService interface {
 	GetErrorLog(id int) (*dto.ErrorLogResponseDTO, error)
 	GetErrorLogList(filter dto.ErrorLogFilterDTO) ([]dto.ErrorLogResponseDTO, *uint64, error)
 }
+
+type RevisionTipImplementationService interface {
+	CreateRevisionTipImplementation(input dto.RevisionTipImplementationDTO) (*dto.RevisionTipImplementationResponseDTO, error)
+	UpdateRevisionTipImplementation(id int, input dto.RevisionTipImplementationDTO) (*dto.RevisionTipImplementationResponseDTO, error)
+	DeleteRevisionTipImplementation(id int) error
+	GetRevisionTipImplementation(id int) (*dto.RevisionTipImplementationResponseDTO, error)
+	GetRevisionTipImplementationList(input dto.RevisionTipImplementationsFilter) ([]dto.RevisionTipImplementationResponseDTO, error)
+}

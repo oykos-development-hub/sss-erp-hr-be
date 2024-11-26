@@ -1,1 +1,0 @@
-ALTER TABLE job_positions ADD COLUMN is_active BOOLEAN DEFAULT TRUE;

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/lib/pq"
 	up "github.com/upper/db/v4"
 	"gitlab.sudovi.me/erp/hr-ms-api/contextutil"
 	newErrors "gitlab.sudovi.me/erp/hr-ms-api/pkg/errors"
@@ -13,25 +14,21 @@ import (
 
 // RevisionTip struct
 type RevisionTip struct {
-	ID                     int        `db:"id,omitempty"`
-	RevisionID             int        `db:"revision_id"`
-	UserProfileID          *int       `db:"user_profile_id"`
-	DateOfAccept           *time.Time `db:"date_of_accept"`
-	DueDate                int        `db:"due_date"`
-	NewDueDate             *int       `db:"new_due_date"`
-	RevisionPriority       *string    `db:"revision_priority"`
-	DateOfReject           *time.Time `db:"date_of_reject"`
-	EndDate                *time.Time `db:"end_date"`
-	DateOfExecution        *time.Time `db:"date_of_execution"`
-	NewDateOfExecution     *time.Time `db:"new_date_of_execution"`
-	Recommendation         string     `db:"recommendation"`
-	Status                 *string    `db:"status"`
-	Documents              *string    `db:"documents"`
-	ReasonsForNonExecuting *string    `db:"reasons_for_non_executing"`
-	FileID                 *int       `db:"file_id"`
-	ResponsiblePerson      *string    `db:"responsible_person"`
-	CreatedAt              time.Time  `db:"created_at,omitempty"`
-	UpdatedAt              time.Time  `db:"updated_at"`
+	ID                int           `db:"id,omitempty"`
+	RevisionID        int           `db:"revision_id"`
+	UserProfileID     *int          `db:"user_profile_id"`
+	DateOfAccept      *time.Time    `db:"date_of_accept"`
+	DueDate           int           `db:"due_date"`
+	RevisionPriority  *string       `db:"revision_priority"`
+	DateOfReject      *time.Time    `db:"date_of_reject"`
+	EndDate           *time.Time    `db:"end_date"`
+	DateOfExecution   *time.Time    `db:"date_of_execution"`
+	Recommendation    string        `db:"recommendation"`
+	Status            *string       `db:"status"`
+	FileIDs           pq.Int64Array `db:"file_ids"`
+	ResponsiblePerson *string       `db:"responsible_person"`
+	CreatedAt         time.Time     `db:"created_at,omitempty"`
+	UpdatedAt         time.Time     `db:"updated_at"`
 }
 
 // Table returns the table name
