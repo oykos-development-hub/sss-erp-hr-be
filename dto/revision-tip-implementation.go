@@ -20,8 +20,6 @@ type RevisionTipImplementationDTO struct {
 	RevisorID              *int       `json:"revisor_id"`
 	Documents              string     `json:"documents"`
 	FileIDs                []int64    `json:"file_ids"`
-	CreatedAt              time.Time  `json:"created_at"`
-	UpdatedAt              time.Time  `json:"updated_at"`
 }
 
 type RevisionTipImplementationResponseDTO struct {
