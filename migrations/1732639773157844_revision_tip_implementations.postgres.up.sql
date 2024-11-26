@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS revision_tip_implementations (
     status TEXT NOT NULL,
     documents TEXT,
     reasons_for_non_executing TEXT,
-    file_ids INTEGER,
+    file_ids int[],
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
