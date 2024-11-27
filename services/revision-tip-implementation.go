@@ -44,7 +44,7 @@ func (h *RevisionTipImplementationServiceImpl) CreateRevisionTipImplementation(c
 	res := dto.ToRevisionTipImplementationResponseDTO(*data)
 
 	if res.Status == datapkg.StatusTipImplFinished {
-		tipData, err := h.tipRepo.Get(id)
+		tipData, err := h.tipRepo.Get(data.TipID)
 		if err != nil {
 			return nil, newErrors.Wrap(err, "tip repo get")
 		}
@@ -77,9 +77,9 @@ func (h *RevisionTipImplementationServiceImpl) UpdateRevisionTipImplementation(c
 	res := dto.ToRevisionTipImplementationResponseDTO(*data)
 
 	if res.Status == datapkg.StatusTipImplFinished {
-		tipData, err := h.tipRepo.Get(id)
+		tipData, err := h.tipRepo.Get(data.TipID)
 		if err != nil {
-			return nil, newErrors.Wrap(err, "repo get")
+			return nil, newErrors.Wrap(err, "tip repo get")
 		}
 
 		tipData.Status = datapkg.StatusTipImplFinished
