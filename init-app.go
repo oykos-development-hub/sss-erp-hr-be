@@ -122,7 +122,7 @@ func initApplication() *celeritas.Celeritas {
 	LogService := services.NewLogServiceImpl(cel, models.Log)
 	LogHandler := handlers.NewLogHandler(cel, LogService, ErrorLogService)
 
-	RevisionTipImplementationService := services.NewRevisionTipImplementationServiceImpl(cel, models.RevisionTipImplementation)
+	RevisionTipImplementationService := services.NewRevisionTipImplementationServiceImpl(cel, models.RevisionTipImplementation, models.RevisionTip)
 	RevisionTipImplementationHandler := handlers.NewRevisionTipImplementationHandler(cel, RevisionTipImplementationService, ErrorLogService)
 
 	myHandlers := &handlers.Handlers{

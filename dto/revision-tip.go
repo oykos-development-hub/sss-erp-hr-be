@@ -22,7 +22,7 @@ type RevisionTipDTO struct {
 	DateOfReject      *time.Time `json:"date_of_reject"`
 	DateOfExecution   *time.Time `json:"date_of_execution"`
 	Recommendation    string     `json:"recommendation" validate:"required"`
-	Status            *string    `json:"status"`
+	Status            string     `json:"status"`
 	ResponsiblePerson *string    `json:"responsible_person"`
 	FileIDs           []int64    `json:"file_ids"`
 }
@@ -38,7 +38,7 @@ type RevisionTipResponseDTO struct {
 	DateOfReject      *time.Time `json:"date_of_reject"`
 	DateOfExecution   *time.Time `json:"date_of_execution"`
 	Recommendation    string     `json:"recommendation" validate:"required"`
-	Status            *string    `json:"status"`
+	Status            string     `json:"status"`
 	ResponsiblePerson *string    `json:"responsible_person"`
 	FileIDs           []int64    `json:"file_ids"`
 	CreatedAt         time.Time  `json:"created_at"`
@@ -46,6 +46,10 @@ type RevisionTipResponseDTO struct {
 }
 
 func (dto RevisionTipDTO) ToRevisionTip() *data.RevisionTip {
+	if dto.Status == "" {
+		dto.Status = data.StatusTipImplNotFinished
+	}
+
 	return &data.RevisionTip{
 		UserProfileID:     dto.UserProfileID,
 		RevisionID:        dto.RevisionID,

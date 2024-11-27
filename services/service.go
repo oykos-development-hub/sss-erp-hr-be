@@ -262,9 +262,9 @@ type ErrorLogService interface {
 }
 
 type RevisionTipImplementationService interface {
-	CreateRevisionTipImplementation(input dto.RevisionTipImplementationDTO) (*dto.RevisionTipImplementationResponseDTO, error)
-	UpdateRevisionTipImplementation(id int, input dto.RevisionTipImplementationDTO) (*dto.RevisionTipImplementationResponseDTO, error)
-	DeleteRevisionTipImplementation(id int) error
+	CreateRevisionTipImplementation(ctx context.Context, input dto.RevisionTipImplementationDTO) (*dto.RevisionTipImplementationResponseDTO, error)
+	UpdateRevisionTipImplementation(ctx context.Context, id int, input dto.RevisionTipImplementationDTO) (*dto.RevisionTipImplementationResponseDTO, error)
+	DeleteRevisionTipImplementation(ctx context.Context, id int) error
 	GetRevisionTipImplementation(id int) (*dto.RevisionTipImplementationResponseDTO, error)
 	GetRevisionTipImplementationList(input dto.RevisionTipImplementationsFilter) ([]dto.RevisionTipImplementationResponseDTO, error)
 }

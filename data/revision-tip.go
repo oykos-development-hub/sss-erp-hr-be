@@ -24,7 +24,7 @@ type RevisionTip struct {
 	EndDate           *time.Time    `db:"end_date"`
 	DateOfExecution   *time.Time    `db:"date_of_execution"`
 	Recommendation    string        `db:"recommendation"`
-	Status            *string       `db:"status"`
+	Status            string        `db:"status"`
 	FileIDs           pq.Int64Array `db:"file_ids"`
 	ResponsiblePerson *string       `db:"responsible_person"`
 	CreatedAt         time.Time     `db:"created_at,omitempty"`
